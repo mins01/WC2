@@ -216,7 +216,6 @@ function WebCanvasGroup(width,height,colorset){
 				this.error="지원되지 않는 mime-type("+type+")입니다. (2)";return false;
 			}
 			return str;
-			
 		}
 	}
 })();

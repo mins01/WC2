@@ -80,4 +80,14 @@ var WC2 = {
 		}
 		return ret; 		
 	}
+	//--- target에 대한 마우스 클릭 위치
+	,"getMousePos":function(target, evt) {
+        var rect = target.getBoundingClientRect();
+		var scrollTop= Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+		var scrollLeft= Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+        return {
+          "x": evt.clientX - rect.left + scrollTop,
+          "y": evt.clientY - rect.top + scrollLeft
+        };
+      }
 }

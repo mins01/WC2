@@ -150,7 +150,10 @@
 		var t= actWC.measureText("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세");
 		actWC.text("width="+t.width+",maxWidth="+t.maxWidth+",minWidth="+t.minWidth,200,80);
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",200,100);
-		
+		//--- 이미지 넣기
+		actWC.drawImage(img,0,0);
+		actWC.drawImage(img,200,0,200,200);
+		actWC.drawImage(img,0,200,200,200,20,20,50,50);
 
 		
 	}

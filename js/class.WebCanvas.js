@@ -198,5 +198,22 @@ function WebCanvas(width,height,colorset){
 			
 			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth};
 		}
+		//--- 이미지 넣기
+		//x0,y0,w0,h0 넣을 때 이미지, 
+		// x1,y1,w1,h1 넣는 이미지에 대한 crop및 resize
+		//풀 아규멘트일 경우 x0과 x1의 위치가 바뀌지만 헷갈리므로 여거서 처리
+		,"drawImage":function(img,x0,y0,w0,h0,x1,y1,w1,h1){
+			if(isNaN(w0)){
+				this.context2d.drawImage(img,x0,y0);
+			}else if(isNaN(x1)){
+				this.context2d.drawImage(img,x0,y0,w0,h0);
+			}else if(!isNaN(h1)){
+				this.context2d.drawImage(img,x1,y1,w1,h1,x0,y0,w0,h0);
+			}else{
+				this.error = "WebCanvas.drawImage() : check for arguments"
+				return false;
+			}
+			return true;
+		}
 	}
 })();
