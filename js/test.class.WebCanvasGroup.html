@@ -132,8 +132,24 @@
 		if(r === false){
 			console.log(wcg0.error)
 		}
-
-		
+		//--- 텍스트
+		wcg0.resize(500,500);
+		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,1]),"fillStyle":WC2.colorset2String([255,255,255,1])
+		,"font":"20px sans-serif"
+		,"textBaseline":"top"};
+		actWC.configContext2d(context2dCfg);	
+		actWC.text("테스트AaBbC#韓",0,0);
+		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",0,20);
+		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+		,"font":"normal normal bold 12px sans-serif "
+		,"textAlign":"center"
+		,"textBaseline":"top"
+		,"lineHeight":1.2
+		};
+		actWC.configContext2d(context2dCfg);
+		var t= actWC.measureText("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세");
+		actWC.text("width="+t.width+",maxWidth="+t.maxWidth+",minWidth="+t.minWidth,200,80);
+		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",200,100);
 		
 
 		

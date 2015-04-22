@@ -30,6 +30,8 @@ function WebCanvas(width,height,colorset){
 		c.height = height;
 		c.context2d = c.getContext('2d');
 		//c.context2d.imageSmoothingEnabled = false;//
+		//-- 추가 설정
+		c.context2d.lineHeight = 1.5;
 		for(var x in c.context2d){
 			if(x == 'canvas'){continue;}
 			if(typeof c.context2d[x] != "function" ){
@@ -170,5 +172,31 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- toDataURL
 		//,"toDataURL":function(type,encoderOptions)// 캔버스에서 기본으로 지원됨
+		//--- 텍스트, 문자열 들
+		,"text":function(text,x0,y0){
+			text = new String(text);
+			var fontSize = (this.context2d.font.match(/\d+/))[0];
+			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
+			var texts = text.split(/[\f\n\r\t\v]/);
+			for(var i=0,m=texts.length;i<m;i++){
+				this.context2d.fillText(texts[i], x0, y0+(fontSize*lineHeight*i));
+				this.context2d.strokeText(texts[i], x0, y0+(fontSize*lineHeight*i));
+			}
+		}
+		//--- 문자열 길이 알아내기 (다중 문장 처리가능)
+		,"measureText":function(text){
+			var texts = text.split(/[\f\n\r\t\v]/);
+			var maxWidth = -1;
+			
+			for(var i=0,m=texts.length;i<m;i++){
+				maxWidth = Math.max(maxWidth,this.context2d.measureText(texts[i]).width);
+			}
+			var maxMin = maxWidth;
+			for(var i=0,m=texts.length;i<m;i++){
+				minWidth = Math.min(maxWidth,this.context2d.measureText(texts[i]).width);
+			}
+			
+			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth};
+		}
 	}
 })();
