@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>test.class.webCanvas.js</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="class.WC2.js"></script>
+	<script src="class.WebCanvas.js"></script>
+	<script>
+	window.onload=function(){
+		var coloset= [0xaa,0xbb,0xcc,1];
+		//var wc0 = WC2.createWebCanvas(100,100,coloset);
+		var wc0 = WebCanvas(100,100,coloset);
+		document.body.appendChild(wc0);
+		var colorset1 = wc0.pickupColor(0,0);
+		//test1
+		if(coloset.toString() != colorset1){
+			console.log("배경색 다름!");
+		}
+		wc0.clear();
+		var colorset2 = wc0.pickupColor(0,0);
+		if([0,0,0,0].toString() != colorset2){
+			console.log("초기화 후 배경색 다름!");
+		}
+		var opacity1 = wc0.opacity();
+		if(opacity1 != 1){
+			console.log("초기 불투명도 다름");
+		}
+		var opacity2 = wc0.opacity(0.5);
+		if(opacity2 != 0.5){
+			console.log("초기 불투명도 다름");
+		}
+		
+	}
+	</script>
+</head>
+<body>
+</body>
+</html>
+	

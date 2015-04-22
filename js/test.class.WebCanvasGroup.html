@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>test.class.webCanvas.js</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="class.WC2.js"></script>
+	<script src="class.WebCanvas.js"></script>
+	<script src="class.WebCanvasGroup.js"></script>
+	<script src="../../../js/_M/_M.js"></script>
+	<script src="class.WC2Tool.js"></script>
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="../css/WebCanvasGroup.css" charset="utf-8" />
+	<script>
+	var wcg0 = null;
+	var actWC = null
+	window.onload=function(){
+		var coloset0= [0xaa,0xbb,0xcc,1];		
+		wcg0 = new WebCanvasGroup(100,100,coloset0);
+		document.getElementById('div').appendChild(wcg0.node);
+		wcg0.resize(200,200);
+		if(wcg0.webCanvases[0].width!=200){
+			console.log("wcg0.resize 동작 에러");
+		}
+		var coloset1= [0x33,0x66,0x99,1];
+		wcg0.addWebCanvas(coloset1);
+		var canvases = wcg0.node.querySelectorAll("canvas.WC");
+		if(canvases.length!=3){
+			console.log("wcg0.addWebCanvas 동작 에러");
+		}
+		var r = wcg0.upOrder(1,true);
+		var colorset2 = wcg0.webCanvases[0].pickupColor(0,0);
+		if(!r ||colorset2.toString() != coloset1){
+		console.log("wcg0.upOrder 동작 에러");
+		}
+		
+		var r = wcg0.upOrder(0,false);
+		var colorset3 = wcg0.webCanvases[0].pickupColor(0,0);
+		if(!r || colorset3.toString() != coloset0){
+			console.log("wcg0.upOrder 동작 에러");
+		}
+		var r = wcg0.upOrder(1,false);
+		if(!r){
+			console.log("wcg0.upOrder 동작 에러(일부러 에러냄)"+wcg0.error);
+		}
+		actWC = wcg0.activeWebCanvasByNum(-1); //맨 위 웹캔버스를 동작중인 웹캔버스로 선택
+		var context2dCfg = {"lineWidth":4,"strokeStyle":WC2.colorset2String([255,255,255,1]),"fillStyle":WC2.colorset2String([0,0,0,1])};
+		actWC.configContext2d(context2dCfg);	
+		var r = actWC.line(10,10,50,50);
+		var colorset4 = actWC.pickupColor(10,10);
+		if(WC2.colorset2String(colorset4) != context2dCfg.strokeStyle){
+			console.log("actWC.line(10,10,50,50); 동작 에러");
+			console.log(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+		}
+		//--- 커브그리기
+		actWC.configContext2d(context2dCfg);	
+		var r = actWC.curve(50,50,50,100,100,100,100,50);
+		var colorset5 = actWC.pickupColor(100,50);
+		if(WC2.colorset2String(colorset5) != context2dCfg.strokeStyle){
+			console.log(" actWC.curve(50,50,50,100,100,100,100,50); 동작 에러");
+			console.log(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+		}
+		//--- 크롭
+		wcg0.configContext2d(context2dCfg);	
+		var r = wcg0.crop(20,10,150,100);
+		if(actWC.width == 150 && actWC.height != 100){
+			console.log(" wcg0.configContext2d(context2dCfg);	 동작 에러");
+		}
+		//--- 사각형
+		wcg0.configContext2d(context2dCfg);	
+		var r = actWC.rect(10,10,40,40);
+		var colorset6 = actWC.pickupColor(30,30);
+		if(WC2.colorset2String(colorset6) != context2dCfg.fillStyle){
+			console.log("  actWC.rect(10,10,40,40);	 동작 에러");
+			console.log(WC2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
+		}
+		//---
+		wcg0.resize(500,500);
+		//--- 원
+		wcg0.configContext2d(context2dCfg);	
+		var r = actWC.circle(300,100,50);
+		var colorset7 = actWC.pickupColor(300,100);
+		if(WC2.colorset2String(colorset7) != context2dCfg.fillStyle){
+			console.log("  actWC.circle(300,100,50);	 동작 에러");
+			console.log(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
+		}
+		//--- 타원
+		wcg0.configContext2d(context2dCfg);	
+		var r = actWC.circle(200,200,50,50,300,200);
+		var colorset7 = actWC.pickupColor(250,200);
+		if(WC2.colorset2String(colorset7) != context2dCfg.fillStyle){
+			console.log("  actWC.circle(300,100,50);	 동작 에러");
+			console.log(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
+		}
+		var r = actWC.circle(200,200,10);
+		var r = actWC.circle(300,200,10);
+		//--- 이동
+		wcg0.configContext2d(context2dCfg);	
+		var r = actWC.move(200,200);
+		var colorset7 = actWC.pickupColor(201,201);
+		if(WC2.colorset2String(colorset7) != WC2.colorset2String(coloset1)){
+			console.log("  actWC.move(200,200);	 동작 에러");
+			console.log(WC2.colorset2String(colorset7)+" != "+WC2.colorset2String(coloset1));
+		}
+		//--- 색상 알아오기
+		wcg0.configContext2d(context2dCfg);	
+		//console.log(actWC.context2d);
+		var r = actWC.circle(300,200,10);
+		var colorset8 = wcg0.pickupColor(300,200);
+		if(WC2.colorset2String(colorset8) != context2dCfg.fillStyle){
+			console.log("  actWC.move(200,200);	 동작 에러");
+			console.log(WC2.colorset2String(colorset8)+" != "+context2dCfg.fillStyle);
+		}
+		//--- 이미지 복제
+		wcg0.resize(100,100);
+		var r = wcg0.toDataURL();
+		if(r === false){
+			console.log(wcg0.error)
+		}
+		var img = new Image();
+		img.src = r;
+		document.getElementById('div_image').appendChild(img);		
+		wcg0.toDataURL('image/jpeg');
+		if(r === false){
+			console.log(wcg0.error)
+		}
+		var img = new Image();
+		img.src = r;
+		document.getElementById('div_image').appendChild(img);		
+		var r = wcg0.toDataURL('image/gif');
+		if(r === false){
+			console.log(wcg0.error)
+		}
+
+		
+		
+
+		
+	}
+	</script>
+</head>
+<body>
+<div style="float:left;border:4px solid red;" id="div"></div>
+<div style="float:left;border:4px solid red;" id="div_image"></div>
+</body>
+</html>
+	
