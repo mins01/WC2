@@ -20,12 +20,21 @@
 		
 		<!-- 드롭다운 메뉴 확장용 CSS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/css/dropdowns-enhancement.css -->
 		<link rel="stylesheet" href="./bootstrap/css/dropdowns-enhancement.css">		
+		
+		<!-- jquery-ui -->
+		  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+		
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasGroup.css" charset="utf-8" />
 		<style>
 			body { padding-top: 50px; }
 			.navbar{padding-bottom:0px;}
 			.navbar-brand img{width:50px;height:20px;}
 		</style>
-
+<style>
+  #draggable, #draggable2 { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
+  #draggable p { cursor: move; }
+  </style>
 
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -35,7 +44,7 @@
 		<![endif]-->
 	</head>
 	<body>
-	<div id="container">
+	<div id="container" style="position:absolute; left:0;right:0;top:55px;bottom:0">
 		<header>
 			<nav class="navbar navbar-default navbar-fixed-top">
 			  <div class="container-fluid">
@@ -132,7 +141,21 @@
 			  </div><!-- /.container-fluid -->
 			</nav>
 		</header>
-		<h1>Hello, world!</h1>
+		<article id="contentArea">
+			<div id="draggable" class="ui-widget-content">
+			<p class="ui-widget-header">I can be dragged only by this handle</p>
+			</div>
+			<div id="draggable2" class="ui-widget-content">
+			<p>You can drag me around&hellip;</p>
+			<p class="ui-widget-header">&hellip;but you can't drag me by this handle.</p>
+			</div>
+			
+			<div id="dialog" title="그림판">
+			<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+			</div>
+		</article>
+		
+		
 	</div> <!-- <div id="container"> -->
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -140,5 +163,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<!-- 드롭다운 메뉴 확장용 JS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/js/dropdowns-enhancement.js -->
 	<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
+	<!-- jquery-ui -->
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script>
+	  $(function() {	
+		$( "#dialog" ).dialog({"draggable":false,"beforeClose": function( event, ui ) {alert(ui);return false;}}).parent().draggable({ handle: "span.ui-dialog-title" ,"containment":"#container"});
+	  });
+  </script>
   </body>
 </html>

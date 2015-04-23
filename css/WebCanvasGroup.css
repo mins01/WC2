@@ -1,4 +1,6 @@
 @charset "utf-8";
+html{margin:0;padding:0;height:100%;}
+body{margin:0;padding:0;height:100%;}
 
 .WCG{position:relative; z-index:1;}
 .WCG .WC{
