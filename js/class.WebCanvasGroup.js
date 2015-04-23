@@ -32,6 +32,7 @@ function WebCanvasGroup(width,height,colorset){
 			this.node.className = "WCG";
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
 			this.shadowWebCanvas.className = "WC WC-shadow";
+			this.shadowWebCanvas.alt="쉐도우레이어";
 			this.addWebCanvas(colorset);
 			//this.initEvent();
 			this.setToolName("line");
@@ -88,9 +89,10 @@ function WebCanvasGroup(width,height,colorset){
 				this.webCanvases[i].style.zIndex = i*10;
 				this.webCanvases[i]._sortNum = i;
 			}
-				this.shadowWebCanvas.style.zIndex = this.activeWebCanvas._sortNum*10+5;
-				this.node.appendChild(this.shadowWebCanvas);
-			
+			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas._sortNum*10+5;
+			this.node.appendChild(this.shadowWebCanvas);
+			this.node.style.width=this.width+"px";
+			this.node.style.height=this.height+"px";
 			return true;
 		}
 		,"addWebCanvas":function(colorset){
@@ -114,16 +116,38 @@ function WebCanvasGroup(width,height,colorset){
 			return this.activeWebCanvas;
 		}
 		,"resize":function(width,height){
-			this.width = width;
-			this.height = height;
-			this.node.style.width=this.width+"px";
-			this.node.style.height=this.height+"px";
-			return this.execAllWebCanvas("resize",arguments);
+			if(this.execAllWebCanvas("resize",arguments)){
+				this.width = width;
+				this.height = height;
+				this._syncNode();
+			}
+			return false;
 		}
 		,"crop":function(x0,y0,width,height){
-			this.width = width;
-			this.height = height;
-			return this.execAllWebCanvas("crop",arguments);
+			if(this.execAllWebCanvas("crop",arguments)){
+				this.width = width;
+				this.height = height;
+				this._syncNode();
+				return true;
+			}
+			return true;
+		}
+		,"rotate90To":function(deg){
+			if(deg % 90 !== 0){
+				this.error =this.constructor+".rotate90To() : not support degrees : "+deg;
+				return false;
+			}
+			if(this.execAllWebCanvas("rotate90To",arguments)){
+				var n = deg/90;
+				if(n%2 == 0){
+				}else{ //너비 높이 바꾸기
+					var t = this.width;
+					this.width = this.height;
+					this.height = t;
+					this._syncNode();
+				}
+			}
+			return true;
 		}
 		/**
 		* 웹캔버스에 일괄 메소드 적용 시
@@ -132,8 +156,9 @@ function WebCanvasGroup(width,height,colorset){
 			if(this.webCanvases[0][method]==undefined){this.error="해당 메소드는 지원되지 않습니다.";return false;}
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				var r = this.webCanvases[i][method].apply(this.webCanvases[i],args);
-				if(r === false){ this.error = "WC["+i+"]"+this.webCanvases[i].error; return false;}
+				if(r === false){ this.error = "webCanvases["+i+"]"+this.webCanvases[i].error; return false;}
 			}
+			return true;
 		}
 		/**
 		* 웹캔버스에 일괄 메소드 적용 시 (쉐도우 캔버스 포함)
@@ -142,6 +167,7 @@ function WebCanvasGroup(width,height,colorset){
 			this.execWebCanvases(method,args);
 			if(this.shadowWebCanvas[method]==undefined){this.error="해당 메소드는 지원되지 않습니다.";return false;}
 			this.shadowWebCanvas[method].apply(this.shadowWebCanvas,args);
+			return true;
 		}
 		/**
 		* 활성화된 웹캔버스에 환경설정을 한다.

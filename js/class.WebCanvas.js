@@ -33,10 +33,12 @@ function WebCanvas(width,height,colorset){
 		//-- 추가 설정
 		c.context2d.lineHeight = 1.5;
 		for(var x in c.context2d){
-			if(x == 'canvas'){continue;}
-			if(typeof c.context2d[x] != "function" ){
-			c.initContext2dCfg[x] = c.context2d[x];
+			if(x == 'canvas'){
+				continue;
+			}else if(typeof c.context2d[x] == "function" || typeof c.context2d[x] == "object"){
+				continue;
 			}
+				c.initContext2dCfg[x] = c.context2d[x];
 		}
 		
 		if(colorset){
@@ -70,11 +72,15 @@ function WebCanvas(width,height,colorset){
 			return true;
 		}
 		,"configContext2d":function(cfg){
-			for(var x in cfg){
-				if(this.context2d[x] === undefined){
-					continue;
+			if(cfg != undefined){
+				for(var x in cfg){
+					if(this.context2d[x] === undefined){
+						continue;
+					}else if(typeof this.context2d[x] == "function" || typeof this.context2d[x] == "object"){
+						continue;
+					}
+					this.context2d[x] = cfg[x];
 				}
-				this.context2d[x] = cfg[x];
 			}
 			return this.context2d;
 		}
@@ -214,6 +220,48 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 			return true;
+		}
+		//--- WebCanvas를 복제한다. 그림 내용이 같다.
+		,"clone":function(){
+			var c = WebCanvas(this.width,this.height);
+			c.context2d.putImageData(this.context2d.getImageData(0, 0, this.width,this.height),0,0);
+			return c;
+		}
+		//--- 90도 회전
+		,"rotate90To":function(deg){
+			var c = this.clone();
+			if(deg % 90 == 0){
+				this.clear();
+				switch(deg){
+					case 0 :
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, 0, 0);
+						break;
+					case 90 :
+						this.width = c.height;
+						this.height = c.width;
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, 0, -1*c.height);
+						break;
+					case 180 :
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, -1*c.width, -1*c.height);
+						break;
+					case 270 :
+					case -90 :
+						this.width = c.height;
+						this.height = c.width;
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, -1*c.width, 0);
+						break;		
+				}
+				//반향 되돌리기
+				this.context2d.rotate(-1*deg * Math.PI / 180 );
+				return true;
+			}			
+			this.error = "WebCanvas.rotate90To() : not support degrees : "+deg;
+			return false;
+			
 		}
 	}
 })();
