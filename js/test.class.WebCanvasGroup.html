@@ -16,130 +16,127 @@
 	var wcg0 = null;
 	var actWC = null
 	window.onload=function(){
-		var coloset0= [0xaa,0xbb,0xcc,1];		
-		wcg0 = new WebCanvasGroup(100,100,coloset0);
+		//--- 시작
+		var colorset0= [0xaa,0xbb,0xcc,1];		
+		wcg0 = new WebCanvasGroup(200,200,colorset0);
 		document.getElementById('div').appendChild(wcg0.node);
-		wcg0.resize(200,200);
-		if(wcg0.webCanvases[0].width!=200){
-			console.log("wcg0.resize 동작 에러");
+		layerNumbering();
+		//--- 레이어 추가.
+		var colorset1 = [0x33,0x66,0x99,1]
+		wcg0.addWebCanvas(colorset1);
+		var colorsetR = wcg0.pickupColor(0,0);
+		if(WC2.colorset2String(colorset1) != WC2.colorset2String(colorsetR)){
+			console.error("wcg0.addWebCanvas();");
 		}
-		var coloset1= [0x33,0x66,0x99,1];
-		wcg0.addWebCanvas(coloset1);
-		var canvases = wcg0.node.querySelectorAll("canvas.WC");
-		if(canvases.length!=3){
-			console.log("wcg0.addWebCanvas 동작 에러");
-		}
+		//--- 레이어 순서 바꾸기, 아래로.
 		var r = wcg0.upOrder(1,true);
-		var colorset2 = wcg0.webCanvases[0].pickupColor(0,0);
-		if(!r ||colorset2.toString() != coloset1){
-		console.log("wcg0.upOrder 동작 에러");
+		var colorsetR = wcg0.pickupColor(0,0);
+		if(WC2.colorset2String(colorset0) != WC2.colorset2String(colorsetR)){
+			console.error("var r = wcg0.upOrder(1,true);");
+		}
+		//--- 레이어 순서 바꾸기, 위로.
+		var r = wcg0.upOrder(0,false);
+		var colorsetR = wcg0.pickupColor(0,0);
+		if(WC2.colorset2String(colorset1) != WC2.colorset2String(colorsetR)){
+			console.error("var r = wcg0.upOrder(0,false);");
 		}
 		
-		var r = wcg0.upOrder(0,false);
-		var colorset3 = wcg0.webCanvases[0].pickupColor(0,0);
-		if(!r || colorset3.toString() != coloset0){
-			console.log("wcg0.upOrder 동작 에러");
-		}
-		var r = wcg0.upOrder(1,false);
-		if(!r){
-			console.log("wcg0.upOrder 동작 에러(일부러 에러냄)"+wcg0.error);
-		}
-		actWC = wcg0.activeWebCanvasByNum(-1); //맨 위 웹캔버스를 동작중인 웹캔버스로 선택
+		//--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
+		actWC = wcg0.activeWebCanvasByNum(-1); 
+		//--- 그리기 설정
 		var context2dCfg = {"lineWidth":4,"strokeStyle":WC2.colorset2String([255,255,255,1]),"fillStyle":WC2.colorset2String([0,0,0,1])};
 		actWC.configContext2d(context2dCfg);	
+		//--- 선그리기
 		var r = actWC.line(10,10,50,50);
 		var colorset4 = actWC.pickupColor(10,10);
 		if(WC2.colorset2String(colorset4) != context2dCfg.strokeStyle){
-			console.log("actWC.line(10,10,50,50); 동작 에러");
-			console.log(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+			console.error("actWC.line(10,10,50,50); 동작 에러");
+			console.error(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
 		}
+
 		//--- 커브그리기
-		actWC.configContext2d(context2dCfg);	
 		var r = actWC.curve(50,50,50,100,100,100,100,50);
 		var colorset5 = actWC.pickupColor(100,50);
 		if(WC2.colorset2String(colorset5) != context2dCfg.strokeStyle){
-			console.log(" actWC.curve(50,50,50,100,100,100,100,50); 동작 에러");
-			console.log(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
-		}
-		//--- 크롭
-		wcg0.configContext2d(context2dCfg);	
-		var r = wcg0.crop(20,10,150,100);
-		if(actWC.width == 150 && actWC.height != 100){
-			console.log(" wcg0.configContext2d(context2dCfg);	 동작 에러");
-		}
+			console.error(" actWC.curve(50,50,50,100,100,100,100,50); 동작 에러");
+			console.error(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+		}		
+
 		//--- 사각형
-		wcg0.configContext2d(context2dCfg);	
 		var r = actWC.rect(10,10,40,40);
 		var colorset6 = actWC.pickupColor(30,30);
 		if(WC2.colorset2String(colorset6) != context2dCfg.fillStyle){
-			console.log("  actWC.rect(10,10,40,40);	 동작 에러");
-			console.log(WC2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
+			console.error("  actWC.rect(10,10,40,40);	 동작 에러");
+			console.error(WC2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
 		}
-		//---
-		wcg0.resize(500,500);
+		
 		//--- 원
-		wcg0.configContext2d(context2dCfg);	
-		var r = actWC.circle(300,100,50);
-		var colorset7 = actWC.pickupColor(300,100);
+		var r = actWC.circle(70,30,20);
+		var colorset7 = actWC.pickupColor(70,30);
 		if(WC2.colorset2String(colorset7) != context2dCfg.fillStyle){
-			console.log("  actWC.circle(300,100,50);	 동작 에러");
-			console.log(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
+			console.error("  	var r = actWC.circle(70,30,20);");
+			console.error(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
 		}
+		
 		//--- 타원
 		wcg0.configContext2d(context2dCfg);	
-		var r = actWC.circle(200,200,50,50,300,200);
-		var colorset7 = actWC.pickupColor(250,200);
-		if(WC2.colorset2String(colorset7) != context2dCfg.fillStyle){
-			console.log("  actWC.circle(300,100,50);	 동작 에러");
-			console.log(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
+		var r = actWC.circle(100,100,20,20,120,40);
+		var colorsetR = actWC.pickupColor(120,70);
+		if(WC2.colorset2String(colorsetR) != context2dCfg.fillStyle){
+			console.error("  actWC.circle(300,100,50);	 동작 에러");
+			console.error(WC2.colorset2String(colorsetR)+" != "+context2dCfg.fillStyle);
 		}
-		var r = actWC.circle(200,200,10);
-		var r = actWC.circle(300,200,10);
+		//--- 크롭
+		wcg0.configContext2d(context2dCfg);	
+		var r = wcg0.crop(10,10,100,100);
+		if(actWC.width == 100 && actWC.height != 100){
+			console.error(" var r = wcg0.crop(10,10,100,100);");
+		}
+		var colorsetR = wcg0.pickupColor(0,0);
+		if(WC2.colorset2String(colorsetR) != context2dCfg.strokeStyle){
+			console.error("  actWC.circle(300,100,50);	 동작 에러");
+			console.error(WC2.colorset2String(colorsetR)+" != "+context2dCfg.strokeStyle);
+		}
+
 		//--- 이동
 		wcg0.configContext2d(context2dCfg);	
-		var r = actWC.move(200,200);
-		var colorset7 = actWC.pickupColor(201,201);
-		if(WC2.colorset2String(colorset7) != WC2.colorset2String(coloset1)){
-			console.log("  actWC.move(200,200);	 동작 에러");
-			console.log(WC2.colorset2String(colorset7)+" != "+WC2.colorset2String(coloset1));
-		}
-		//--- 색상 알아오기
-		wcg0.configContext2d(context2dCfg);	
-		//console.log(actWC.context2d);
-		var r = actWC.circle(300,200,10);
-		var colorset8 = wcg0.pickupColor(300,200);
-		if(WC2.colorset2String(colorset8) != context2dCfg.fillStyle){
-			console.log("  actWC.move(200,200);	 동작 에러");
-			console.log(WC2.colorset2String(colorset8)+" != "+context2dCfg.fillStyle);
+		var r = actWC.move(10,10);
+		var colorset7 = wcg0.pickupColor(0,0);
+		if(WC2.colorset2String(colorset7) != WC2.colorset2String([0xaa,0xbb,0xcc,1])){
+			console.error("  actWC.move(10,10);");
+			console.error(WC2.colorset2String(colorset7)+" != "+WC2.colorset2String([0xaa,0xbb,0xcc,1]));
 		}
 		//--- 이미지 복제
 		wcg0.resize(100,100);
 		var r = wcg0.toDataURL();
 		if(r === false){
-			console.log(wcg0.error)
+			console.error(wcg0.error)
 		}
 		var img = new Image();
 		img.src = r;
 		document.getElementById('div_image').appendChild(img);		
 		wcg0.toDataURL('image/jpeg');
 		if(r === false){
-			console.log(wcg0.error)
+			console.error(wcg0.error)
 		}
 		var img = new Image();
 		img.src = r;
 		document.getElementById('div_image').appendChild(img);		
 		var r = wcg0.toDataURL('image/gif');
 		if(r === false){
-			console.log(wcg0.error)
+			console.error(wcg0.error+"일부러 에러냄")
 		}
-		//--- 텍스트
-		wcg0.resize(500,500);
+		
+		//--- 텍스트 //초기화
+		wcg0.clear();
+		wcg0.resize(300,300);
 		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,1]),"fillStyle":WC2.colorset2String([255,255,255,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
 		actWC.configContext2d(context2dCfg);	
 		actWC.text("테스트AaBbC#韓",0,0);
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",0,20);
+
 		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
 		,"font":"normal normal bold 12px sans-serif "
 		,"textAlign":"center"
@@ -148,19 +145,102 @@
 		};
 		actWC.configContext2d(context2dCfg);
 		var t= actWC.measureText("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세");
-		actWC.text("width="+t.width+",maxWidth="+t.maxWidth+",minWidth="+t.minWidth,200,80);
-		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",200,100);
+		actWC.text("width="+t.width+",maxWidth="+t.maxWidth+",minWidth="+t.minWidth,150,80);
+		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",150,100);
+		//return false;
 		//--- 이미지 넣기
 		actWC.drawImage(img,0,0);
 		actWC.drawImage(img,200,0,200,200);
 		actWC.drawImage(img,0,200,200,200,20,20,50,50);
-
+		//return false;
+		/* //버튼으로 테스트하라. 소스로는 체크하기 너무 힘들다.
+		//--- 로테이션 테스트
+		var context2dCfg = {"lineWidth":0,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+		,"font":"normal normal bold 20px sans-serif "
+		,"textAlign":"center"
+		,"textBaseline":"top"
+		,"lineHeight":1.2
+		};
+		actWC.configContext2d(context2dCfg);
+		wcg0.clear();
+		wcg0.resize(200,300);
+		actWC.text("테스트1",100,100);
+		wcg0.rotate90To(0);
+		if(actWC.width != 200){
+			console.error(" wcg0.rotate90To(0);	 동작 에러");
+		}
+		//return
+		wcg0.clear();
+		wcg0.resize(200,300);
+		actWC.text("테스트2",100,100);
+		wcg0.rotate90To(90);
+		if(actWC.width != 300){
+			console.error(" wcg0.rotate90To(90);	 동작 에러");
+		}
 		
+		
+		wcg0.clear();
+		wcg0.resize(200,300);
+		actWC.text("테스트3",100,100);
+		wcg0.rotate90To(180);
+		if(actWC.width != 200){
+			console.error(" wcg0.rotate90To(190);	 동작 에러");
+		}
+		return;
+		wcg0.clear();
+		wcg0.resize(200,300);
+		actWC.text("테스트4",100,100);
+		wcg0.rotate90To(270);
+		if(actWC.width != 500){
+			console.error(" wcg0.rotate90To(270);	 동작 에러");
+		}
+		*/
+		
+	}
+	function layerNumbering(){
+		for(var i=0,m=wcg0.webCanvases.length;i<m;i++){
+			var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+			,"font":"normal normal bold 20px sans-serif "
+			,"textAlign":"left"
+			,"textBaseline":"top"
+			,"lineHeight":1.2
+			};
+			wcg0.webCanvases[i].configContext2d(context2dCfg);
+			wcg0.webCanvases[i].text((i+1)+"레이어",20,i*20);
+		}
 	}
 	</script>
 </head>
 <body>
-<div style="float:left;border:4px solid red;" id="div"></div>
+<fieldset>
+	<legend>WebCanvasGroup</legend>
+	<div style="float:left;border:4px solid red;" id="div"></div>
+	<div style="clear:both"></div>
+	<fieldset>
+		<legend>test button</legend>
+		<div>
+			<input type="button" value="addWebCanvas()"  onclick="layerNumbering()">
+			<input type="button" value="addWebCanvas([0x33,0x66,0x99,1])"  onclick="wcg0.addWebCanvas([0x33,0x66,0x99,1]);layerNumbering()">
+			
+			<input type="button" value="clear()"  onclick="wcg0.clear();">
+			<input type="button" value="resize(200,200)"  onclick="wcg0.resize(200,200);">
+			<input type="button" value="resize(100,200)"  onclick="wcg0.resize(100,200);">
+			<input type="button" value="resize(100,100)"  onclick="wcg0.resize(100,100);">
+			<input type="button" value="upOrder(0,false),최하 레이어 위로"  onclick="wcg0.upOrder(0,false)">
+			<input type="button" value="upOrder(1,true),최하 바로 위 레이어 아래로"  onclick="wcg0.upOrder(1,true)">
+			<hr>버튼을 눌러 체크 : 회전
+			<input type="button" value="wcg0.rotate90To(0);"  onclick="wcg0.rotate90To(0);">
+			<input type="button" value="wcg0.rotate90To(90);"  onclick="wcg0.rotate90To(90);">
+			<input type="button" value="wcg0.rotate90To(180);"  onclick="wcg0.rotate90To(180);">
+			<input type="button" value="wcg0.rotate90To(270);"  onclick="wcg0.rotate90To(270);">
+			<input type="button" value="wcg0.rotate90To(-90);"  onclick="wcg0.rotate90To(-90);">
+			<hr>버튼을 눌러 체크 : 반전
+			<input type="button" value="wcg0.flip(true,false);"  onclick="wcg0.flip(true,false);">
+			<input type="button" value="wcg0.flip(false,true);"  onclick="wcg0.flip(false,true);">
+			<input type="button" value="wcg0.flip(true,true);"  onclick="wcg0.flip(true,true);">
+		</div>
+	</fieldset>
+</fieldset>
 <div style="float:left;border:4px solid red;" id="div_image"></div>
 </body>
 </html>
