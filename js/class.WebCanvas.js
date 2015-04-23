@@ -242,8 +242,8 @@ function WebCanvas(width,height,colorset){
 		//--- 90도 회전
 		,"rotate90To":function(deg){
 			var c = this.clone();
-			this.context2d.save(); 
 			if(deg % 90 == 0){
+				this.context2d.save(); 
 				switch(deg){
 					case 0 :
 						this.clear();
