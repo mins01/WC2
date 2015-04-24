@@ -3,4 +3,4 @@ Multi Layer Image Editor for Canvas(HTML5)
 
 # WC : http://www.mins01.com/web_work/web/WC/WC.html
 
-#ÁÖÀÇ : °ø´ë¿©ÀÚ´Â ÀÌ»Ú´Ù¸¦ ³ªÅ¸³»¾ß »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.
+#ì£¼ì˜ : ê³µëŒ€ì—¬ìëŠ” ì´ì˜ë‹¤ë¥¼ ë‚˜íƒ€ë‚´ì•¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
