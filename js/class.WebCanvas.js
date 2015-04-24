@@ -32,6 +32,14 @@ function WebCanvas(width,height,colorset){
 		//c.context2d.imageSmoothingEnabled = false;//
 		//-- 추가 설정
 		c.context2d.lineHeight = 1.5;
+		for(var x in c.context2d){
+			if(x == 'canvas'){
+				continue;
+			}else if(typeof c.context2d[x] == "function" || typeof c.context2d[x] == "object"){
+				continue;
+			}
+				c.initContext2dCfg[x] = c.context2d[x];
+		}
 		
 		if(colorset){
 			c.configContext2d({"fillStyle":WC2.colorset2String(colorset)});
@@ -52,33 +60,16 @@ function WebCanvas(width,height,colorset){
 		//== 추가 메소드
 		//-- 리사이즈 (내용유지)
 		,"resize":function(width,height){
-			var twc = this.clone();
-			this.clear();
-			var context2dCfg = this.getConfigContext2d()
-			this.context2d.save();
-			this.width = width; 
+			var twc = WebCanvas(this.width, this.height)
+			twc.context2d.putImageData(this.context2d.getImageData(0, 0, this.width, this.height),0,0);
+			this.width = width;
 			this.height = height;
 			this.context2d.drawImage(twc, 0, 0, width, height);
-			this.context2d.restore();
-			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			return true;
 		}
 		,"clear":function(){
-			//this.width = this.width; //이걸 사요하면 context2d의 설정이 초기화된다.
-			this.context2d.clearRect(0,0,this.width,this.height);
+			this.width = this.width;
 			return true;
-		}
-		,"getConfigContext2d":function(){
-			var cfg = {};
-			for(var x in this.context2d){
-				if(this.context2d[x] === undefined){
-					continue;
-				}else if(typeof this.context2d[x] == "function" || typeof this.context2d[x] == "object"){
-					continue;
-				}
-				cfg[x] = this.context2d[x];
-			}
-			return cfg;
 		}
 		,"configContext2d":function(cfg){
 			if(cfg != undefined){
@@ -94,7 +85,7 @@ function WebCanvas(width,height,colorset){
 			return this.context2d;
 		}
 		,"resetContext2d":function(){
-			return this.width = this.width;
+			return this.configContext2d(this.initContext2dCfg);
 		}
 		,"pickupColor":function(x,y){
 			x = Math.round(x);
@@ -119,13 +110,12 @@ function WebCanvas(width,height,colorset){
 		,"merge":function(webCanvas){
 			var globalAlpha = webCanvas.opacity();
 			var context2d = this.context2d;
-			this.context2d.save();
 			if(globalAlpha!=null){
-				this.context2d.globalAlpha = globalAlpha;
+				context2d.globalAlpha = globalAlpha;
 			}
-			this.context2d.drawImage(webCanvas, 0, 0);
-			this.context2d.globalAlpha = 1;
-			this.context2d.restore();
+			context2d.drawImage(webCanvas, 0, 0);
+			context2d.globalAlpha = 1;
+			//toLayer.restore();
 			return this;
 		}
 		//--- 선그리기
@@ -158,11 +148,9 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 사각형그리기
 		,"rect":function(x0,y0,width,height){
-			this.context2d.beginPath();
 			this.context2d.rect(x0,y0,width,height);
 			this.context2d.fill();
 			this.context2d.stroke();
-			this.context2d.closePath();
 		}
 		//--- 원 그리기
 		,"circle":function(x0,y0,xr,yr,x1,y1){
@@ -243,55 +231,41 @@ function WebCanvas(width,height,colorset){
 		,"rotate90To":function(deg){
 			var c = this.clone();
 			if(deg % 90 == 0){
+<<<<<<< HEAD
 				this.context2d.save(); 
+=======
+				this.clear();
+>>>>>>> parent of f1d8444... add WebCanvas.flip()
 				switch(deg){
 					case 0 :
-						this.clear();
 						this.context2d.rotate(deg * Math.PI / 180);
 						this.context2d.drawImage(c, 0, 0);
 						break;
 					case 90 :
-						this.resize(c.height,c.width);
-						this.clear();
+						this.width = c.height;
+						this.height = c.width;
 						this.context2d.rotate(deg * Math.PI / 180);
 						this.context2d.drawImage(c, 0, -1*c.height);
 						break;
 					case 180 :
-						this.clear();
 						this.context2d.rotate(deg * Math.PI / 180);
 						this.context2d.drawImage(c, -1*c.width, -1*c.height);
 						break;
 					case 270 :
 					case -90 :
-						this.resize(c.height,c.width);
-						this.clear();
+						this.width = c.height;
+						this.height = c.width;
 						this.context2d.rotate(deg * Math.PI / 180);
 						this.context2d.drawImage(c, -1*c.width, 0);
 						break;		
 				}
 				//반향 되돌리기
 				this.context2d.rotate(-1*deg * Math.PI / 180 );
-				this.context2d.restore(); 
 				return true;
 			}			
 			this.error = "WebCanvas.rotate90To() : not support degrees : "+deg;
 			return false;
 			
-		}
-		//--- 수직,수평 반전 (참고 소스 : http://jsfiddle.net/yong/ZJQX5/)
-		,"flip":function(flipH,flipV){
-			var c = this.clone();
-			var scaleH = flipH ? -1 : 1, // Set horizontal scale to -1 if flip horizontal
-			scaleV = flipV ? -1 : 1, // Set verical scale to -1 if flip vertical
-			posX = flipH ? this.width * -1 : 0, // Set x position to -100% if flip horizontal 
-			posY = flipV ? this.height * -1 : 0; // Set y position to -100% if flip vertical
-
-			this.context2d.save(); // Save the current state
-			this.clear();
-			this.context2d.scale(scaleH, scaleV); // Set scale to flip the image
-			this.context2d.drawImage(c, posX, posY, this.width, this.height); // draw the image
-			this.context2d.restore(); // Restore the last saved state
-
 		}
 	}
 })();

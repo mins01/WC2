@@ -88,9 +88,7 @@ function WebCanvasGroup(width,height,colorset){
 				this.node.appendChild(this.webCanvases[i]);
 				this.webCanvases[i].style.zIndex = i*10;
 				this.webCanvases[i]._sortNum = i;
-				this.webCanvases[i].dataset.active = 0;
 			}
-			this.activeWebCanvas.dataset.active = 1;
 			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas._sortNum*10+5;
 			this.node.appendChild(this.shadowWebCanvas);
 			this.node.style.width=this.width+"px";
@@ -105,7 +103,7 @@ function WebCanvasGroup(width,height,colorset){
 			this.webCanvases.push(c);
 			this._syncNode();
 			//this.activeWebCanvasByNum(c._sortNum);
-			return c;
+			return true;
 		}
 		,"activeWebCanvasByNum":function(n){
 			if(n==-1){
@@ -122,7 +120,6 @@ function WebCanvasGroup(width,height,colorset){
 				this.width = width;
 				this.height = height;
 				this._syncNode();
-				return true;
 			}
 			return false;
 		}
@@ -149,9 +146,8 @@ function WebCanvasGroup(width,height,colorset){
 					this.height = t;
 					this._syncNode();
 				}
-				return true;
 			}
-			return false;
+			return true;
 		}
 		/**
 		* 웹캔버스에 일괄 메소드 적용 시
@@ -168,11 +164,10 @@ function WebCanvasGroup(width,height,colorset){
 		* 웹캔버스에 일괄 메소드 적용 시 (쉐도우 캔버스 포함)
 		*/
 		,"execAllWebCanvas":function(method,args){
-			if(!this.execWebCanvases(method,args)){
-				return false;
-			}
+			this.execWebCanvases(method,args);
 			if(this.shadowWebCanvas[method]==undefined){this.error="해당 메소드는 지원되지 않습니다.";return false;}
-			return this.shadowWebCanvas[method].apply(this.shadowWebCanvas,args);
+			this.shadowWebCanvas[method].apply(this.shadowWebCanvas,args);
+			return true;
 		}
 		/**
 		* 활성화된 웹캔버스에 환경설정을 한다.
@@ -247,12 +242,6 @@ function WebCanvasGroup(width,height,colorset){
 				this.error="지원되지 않는 mime-type("+type+")입니다. (2)";return false;
 			}
 			return str;
-		}
-		,"clear":function(){
-			return this.execAllWebCanvas("clear",arguments)
-		}
-		,"flip":function(){
-			return this.execAllWebCanvas("flip",arguments)
 		}
 	}
 })();
