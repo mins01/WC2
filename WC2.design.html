@@ -32,9 +32,17 @@
 			.navbar-brand img{width:50px;height:20px;}
 			.nav .glyphicon::before {margin-right:0.5em}
 			.glyphicon{ font-family: 'dotum',arial,sans-serif,'Glyphicons Halflings';} /* 폰트 재정의 */
+			/* 부트스트랩과 충돌 회피 */
+			.ui-dialog{box-sizing:content-box;}
+			.ui-dialog *{box-sizing:content-box;}
+			/* wcg */
+			.ui-dialog .ui-dialog-content{overflow:scroll; padding:1px; background-color:#ccc;}
+			.ui-dialog .wcg-frame{padding:40px;}
+			.wcg-frame .wcg{ margin:0 auto;}
+			.ui-dialog .wcg-bottom{position:absolute;bottom:0px;height:29px;left:0;right:0;padding:1px;}
 		</style>
 		<style>
-		#leftMenu{width:0; width:100px;}
+		#leftMenu{width:0; width:100px;margin-left:5px;top:0;left:0;right:0;bottom:0;min-width:100px;min-height:100px;}
 		</style>
 <style>
   #draggable, #draggable2 { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
@@ -161,19 +169,33 @@
 		</aside>
 
 
-		<article id="contentArea">
-			<div id="draggable" class="ui-widget-content">
-			<p class="ui-widget-header">I can be dragged only by this handle</p>
-			</div>
-			<div id="draggable2" class="ui-widget-content">
-			<p>You can drag me around&hellip;</p>
-			<p class="ui-widget-header">&hellip;but you can't drag me by this handle.</p>
-			</div>
-			
+		<article id="contentArea" >
 			<div id="dialog" title="그림판">
-			<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+				<div class="wcg-frame"  style="background-color:#ccc;">
+					<div class="wcg" style="width:300px;height:300px; background-color:#fff"></div>
+
+					<div class="wcg-bottom btn-group" style="background-color:#fff">
+						<div class="btn-group dropup">
+							<button type="button" class="btn btn-xs btn-default">100%</button>
+							<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-left" role="menu">
+								<li><a href="#">50%</a></li>
+								<li><a href="#">70%</a></li>
+								<li><a href="#">100%</a></li>
+								<li><a href="#">120%</a></li>
+								<li><a href="#">150%</a></li>
+								<li><a href="#">200%</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</article>
+
+
 		
 		
 	</div> <!-- <div id="container"> -->
@@ -187,7 +209,10 @@
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script>
 	  $(function() {	
-		$( "#dialog" ).dialog({"draggable":false,"beforeClose": function( event, ui ) {alert(ui);return false;}}).parent().draggable({ handle: "span.ui-dialog-title" ,"containment":"#container"});
+		var p = $( "#dialog" ).dialog({"resizable":true,"draggable":false,
+		"minWidth":200,"minHeight":200,"width":400,"height":450,
+		"beforeClose": function( event, ui ) {alert(ui);return false;}}).parent();
+		p.draggable({ handle: "span.ui-dialog-title" ,"containment":"#container"});
 	  });
   </script>
   </body>
