@@ -45,6 +45,14 @@
 			.wcg-frame .wcg{ margin:0 auto;}
 			.ui-dialog .wcg-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 			
+			.ui-widget-header {
+				background: #ccc;
+			}
+			.wcw-active .ui-widget-header {
+				background: #abc;
+			}
+			
+			
 			/* http://codepen.io/rvinay88/pen/Hweau */
 			hr.soften {
 			margin-top: 5px;
@@ -318,7 +326,6 @@
 		p.draggable({ "handle": "span.ui-dialog-title",
 			"containment": "#contentArea",
 			"stop": function( event, ui ) {
-			console.log(ui);
 				if(ui.position.top<55){
 				$(this).css("top","60px")
 				
@@ -326,6 +333,7 @@
 			}
 		});
 		p.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
+		p.addClass("wcw-active");
 		
 		$("#strokeColor").spectrum({
 			color: "#000",
