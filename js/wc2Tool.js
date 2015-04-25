@@ -48,11 +48,11 @@ var wc2Tool = function(){
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"init":function(wcb){
 				this.wcb = wcb;
-				console.log("init");
+				//console.log("init");
 				return true;
 			}
 			,"end":function(){
-				console.log("end");
+				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
 				this.wcb = null;
 				return true;
@@ -64,7 +64,7 @@ var wc2Tool = function(){
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
-				console.log("down");
+				//console.log("down");
 				return true;
 			}
 			,"move":function(event){
@@ -72,7 +72,7 @@ var wc2Tool = function(){
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
-				console.log("move");
+				//console.log("move");
 				return true;
 			}
 			,"up":function(event){
@@ -80,7 +80,7 @@ var wc2Tool = function(){
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-				console.log("up");
+				//console.log("up");
 				this.end();
 				return true;
 			}

@@ -112,7 +112,6 @@ function WebCanvas(width,height,colorset){
 					}else{
 						this.context2d[x] = cfg[x];
 					}
-					console.log(this.context2d[x]+":xx");
 				}
 			}
 			if(cfg["patternImage"]){

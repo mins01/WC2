@@ -25,7 +25,8 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 		<!-- spectrum.css on jquery -->
-		<link rel="stylesheet" href="jquery/spectrum.css">
+		<!--<link rel="stylesheet" href="jquery/spectrum.css">-->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.1/spectrum.min.css">
 		
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
@@ -269,36 +270,17 @@
 								</tr>
 								<tr>
 									<td>
-										<input type="color" name="strokeColor" id="strokeColor">
+										<input type="hidden" name="strokeStyle" id="strokeStyle" value="#000000">
 									</td>
-									<td><input type="color" name="fillColor" id="fillColor">
+									<td><input type="hidden" name="fillStyle" id="fillStyle" value="#ffffff">
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
 				</form>
-				<form name="formColor" action="javascript:void(0)" class="wc-tool-line2" onsubmit="return false">
-					<div class="panel panel-default">
-						<div  class="panel-heading">Color</div>
-						<div  class="panel-body">
-							<table class="" style="width:100%">
-								<col width="50%">
-								<col width="50%">
-								<tr>
-									<td>Stroke</td>
-									<td>Fill</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="color" name="strokeColor" id="strokeColor">
-									</td>
-									<td><input type="color" name="fillColor" id="fillColor">
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
+				<form name="formColor2" action="javascript:void(0)" class="wc-tool-line2" onsubmit="return false">
+					테스트용 폼. 보이면 안된다.
 				</form>
 			</div>
 		</aside>
@@ -361,7 +343,9 @@
 
 	
 	<!-- spectrum on jquery -->
-	<script src="jquery/spectrum.js"></script>
+	<!-- <script src="jquery/spectrum.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script>
+
 	<!-- https://github.com/phstc/jquery-dateFormat -->
 	<script src="jquery/jquery-dateFormat.min.js"></script>
 	<!--  jquery-helper on jquery-->
@@ -394,34 +378,34 @@
 		p.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
 		p.addClass("wcw-active");
 		*/
-		$("#strokeColor").spectrum({
+		var t = $("#strokeStyle").spectrum({
 			color: "#000",
 				showAlpha: true,
 				showInput: true,
-				className: "fillColor",
+				className: "strokeStyle",
 				showInitial: true,
 				showPalette: true,
 				showSelectionPalette: true,
-				maxPaletteSize: 10,
-				preferredFormat: "hex",
-				localStorageKey: "spectrum.demo",
+				maxPaletteSize: 20,
+				preferredFormat: "rgb",
+				localStorageKey: "wc2.strokeStyle",
 			change: function(color) {
-			$("#basic-log").text("change called: " + color.toHexString());
+				this.value = color.toRgbString();
 			}
 		});
-		$("#fillColor").spectrum({
+		$("#fillStyle").spectrum({
 				color: "#fff",
 				showAlpha: true,
 				showInput: true,
-				className: "fillColor",
+				className: "fillStyle",
 				showInitial: true,
 				showPalette: true,
 				showSelectionPalette: true,
-				maxPaletteSize: 10,
+				maxPaletteSize: 20,
 				preferredFormat: "hex",
-				localStorageKey: "spectrum.demo",
+				localStorageKey: "wc2.fillStyle",
 			change: function(color) {
-			$("#basic-log").text("change called: " + color.toHexString());
+				this.value = color.toRgbString();
 			}
 			
 			
