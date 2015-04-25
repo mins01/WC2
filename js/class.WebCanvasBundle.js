@@ -1,6 +1,6 @@
 // JavaScript Document
 /**
-* class.WebCanvasBuldle.js
+* class.WebCanvasBundle.js
 * mins01.com
 * 2015-04-22 : create file
 */
@@ -14,14 +14,14 @@ globalAlpha는 그려지는것의 알파값
 opacity는 레이어의 알파값(나중에 합쳐질 때 계산되어 합쳐진다)
 */
 
-function WebCanvasBuldle(width,height,colorset){
+function WebCanvasBundle(width,height,colorset){
 	this.init(width,height,colorset);
 }
 (function(){
 	/**
 	* canvas에 추가 멤버변수와 메소드를 설정한다. (프로토타입에 넣는건 아니다.)
 	*/
-	WebCanvasBuldle.prototype = {
+	WebCanvasBundle.prototype = {
 		"node":null
 		,"width":100
 		,"height":100
