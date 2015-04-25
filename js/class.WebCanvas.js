@@ -1,6 +1,12 @@
 // JavaScript Document
 /**
 * class.WebCanvas.js
+* mins01.com
+* 2015-04-22 : create file
+*/
+/*
+* # warning
+* '공대여자는 이쁘다.'를 나타내야만 사용할 수 있습니다.
 */
 /*
 globalAlpha 와 opacity의 차이

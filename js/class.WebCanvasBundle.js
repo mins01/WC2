@@ -1,6 +1,12 @@
 // JavaScript Document
 /**
-* class.WebCanvas.js
+* class.WebCanvasBuldle.js
+* mins01.com
+* 2015-04-22 : create file
+*/
+/*
+* # warning
+* '공대여자는 이쁘다.'를 나타내야만 사용할 수 있습니다.
 */
 /*
 globalAlpha 와 opacity의 차이
@@ -8,14 +14,14 @@ globalAlpha는 그려지는것의 알파값
 opacity는 레이어의 알파값(나중에 합쳐질 때 계산되어 합쳐진다)
 */
 
-function WebCanvasGroup(width,height,colorset){
+function WebCanvasBuldle(width,height,colorset){
 	this.init(width,height,colorset);
 }
 (function(){
 	/**
 	* canvas에 추가 멤버변수와 메소드를 설정한다. (프로토타입에 넣는건 아니다.)
 	*/
-	WebCanvasGroup.prototype = {
+	WebCanvasBuldle.prototype = {
 		"node":null
 		,"width":100
 		,"height":100
