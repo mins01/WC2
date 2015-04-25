@@ -28,7 +28,7 @@
 		<link rel="stylesheet" href="jquery/spectrum.css">
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasGroup.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
 		<style>
 		html{overflow:hidden;}
 			body { padding-top: 50px;  font-family: 'dotum',arial,sans-serif;}
@@ -39,11 +39,11 @@
 			/* 부트스트랩과 충돌 회피 */
 			.ui-dialog{box-sizing:content-box;}
 			.ui-dialog *{box-sizing:content-box;}
-			/* wcg */
+			/* wcf */
 			.ui-dialog .ui-dialog-content{overflow:scroll; padding:1px; background-color:#ccc;}
-			.ui-dialog .wcg-frame{padding:40px 20px 20px 20px;}
-			.wcg-frame .wcg{ margin:0 auto;}
-			.ui-dialog .wcg-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
+			.ui-dialog .wcf{padding:40px 20px 20px 20px;}
+			.wcf .WCB{ margin:0 auto;}
+			.ui-dialog .wcf-bottom{z-index:2;position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 			
 			.ui-widget-header {
 				background: #ccc;
@@ -82,6 +82,7 @@
 		</style>
 		<style>
 		#contentArea{ position:fixed;top:50px;left:0;right:0;bottom:0;z-index:1;}
+		#hiddenArea{display:none;}
 		</style>
 <style>
   #draggable, #draggable2 { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
@@ -121,7 +122,7 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#" class="glyphicon glyphicon-file">New</a></li>
+							<li><a href="#" class="glyphicon glyphicon-file" onclick="wc2.addWebCanvasWindow()">New</a></li>
 							<li><a href="#" class="glyphicon glyphicon-folder-open">Open</a></li>
 							<li><a href="#" class="glyphicon glyphicon-save-file">Save</a></li>
 							<li><a href="#" class="glyphicon glyphicon-save-file">SaveAs</a></li>
@@ -278,30 +279,44 @@
 		
 
 		<article id="contentArea" >
-			<div id="dialog" title="그림판">
-				<div class="wcg-frame"  style="background-color:#ccc;">
-					<div class="wcg" style="width:300px;height:300px; background-color:#fff"></div>
-				</div>
-				<div class="wcg-bottom btn-group  btn-group-xs">
-						<div class="btn-group dropup  btn-group-xs">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">100%
-							<span class="caret"></span>
-							<span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-left" role="menu">
-								<li><a href="#">50%</a></li>
-								<li><a href="#">70%</a></li>
-								<li><a href="#">100%</a></li>
-								<li><a href="#">120%</a></li>
-								<li><a href="#">150%</a></li>
-								<li><a href="#">200%</a></li>
-							</ul>
-						</div>
-						<input type="button" class="btn btn-default " disabled value="300x600" title="Canvas Size" style="min-width:7em;">
-						<input type="button" class="btn btn-default " disabled value="300,600" title="Mouse Position" style="min-width:7em;">
+
+		</article>
+		<!-- 이 속의 내용은 안보여준다. 노드를 복사해서 사용할려고 만든것이다.-->
+		<article id="hiddenArea" >
+			<div id="defaultWCF" title="wcf" class="wcf">
+				<div>
+					<div class="wcf-body"  style="background-color:#ccc;">
+						<div class="WCB" style="width:300px;height:300px; background-color:#fff"></div>
 					</div>
+					<div class="wcf-bottom btn-group  btn-group-xs">
+							<select class="btn btn-default wcw-resize" >
+								<option value="1">Default</option>
+								<option value="0.1">10%</option>
+								<option value="0.2">20%</option>
+								<option value="0.3">30%</option>
+								<option value="0.4">40%</option>
+								<option value="0.5">50%</option>
+								<option value="0.6">60%</option>
+								<option value="0.7">70%</option>
+								<option value="0.8">80%</option>
+								<option value="0.9">90%</option>
+								<option value="1">100%</option>
+								<option value="1.1">110%</option>
+								<option value="1.2">120%</option>
+								<option value="1.5">150%</option>
+								<option value="2">200%</option>
+								<option value="2.5">250%</option>
+								<option value="3">300%</option>
+								<option value="4">400%</option>
+								<option value="5">400%</option>
+							</select>
+							<input type="button" class="btn btn-default wcw-size-info" disabled value="300x600" title="Canvas Size" style="min-width:7em;">
+							<input type="button" class="btn btn-default wcw-poiner-zy" disabled value="300,600" title="Mouse Position" style="min-width:7em;">
+						</div>
+				</div>
 			</div>
 		</article>
+		<!-- //이 속의 내용은 안보여준다.-->
 
 
 		
@@ -319,14 +334,16 @@
 	<script src="jquery/spectrum.js"></script>
 	<!-- WC2 -->
 	<script src="js/class.WebCanvas.js"></script>
-	<script src="js/class.WebCanvasGroup.js"></script>
-	<script src="js/class.WC2.js"></script>
+	<script src="js/class.WebCanvasBundle.js"></script>
+	<script src="js/wc2.js"></script>
 	
 	
 	
 		<script>
 	  $(function() {	
-		var p = $( "#dialog" ).dialog({"resizable":true,"draggable":false,
+	  wc2.init(); //초기화
+	  /*
+		var p = $( "#defaultWCF" ).dialog({"resizable":true,"draggable":false,
 		"minWidth":200,"minHeight":200,"width":400,"height":450,
 		"position": { my: "center top" , at: "center top", of: "#contentArea" },
 		"beforeClose": function( event, ui ) {alert(ui);return false;}}).parent();
@@ -341,7 +358,7 @@
 		});
 		p.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
 		p.addClass("wcw-active");
-		
+		*/
 		$("#strokeColor").spectrum({
 			color: "#000",
 				showAlpha: true,

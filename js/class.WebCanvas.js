@@ -40,7 +40,7 @@ function WebCanvas(width,height,colorset){
 		c.context2d.lineHeight = 1.5;
 		
 		if(colorset){
-			c.configContext2d({"fillStyle":WC2.colorset2String(colorset)});
+			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
 			c.context2d.fillRect(0,0,c.width,c.height);
 		}
 		c.opacity(1);
@@ -56,6 +56,14 @@ function WebCanvas(width,height,colorset){
 		,"context2d":null//"getContext('2d');
 		,"initContext2dCfg":{}
 		//== 추가 메소드
+		//--- 색상 변환용
+		,"colorset2String":function(colorset){
+			switch(colorset.length){
+				case 3:return "rgb("+colorset.join(',')+")";break;
+				case 4:return "rgba("+colorset.join(',')+")";break;
+			}
+			return false;
+		}
 		//-- 리사이즈 (내용유지)
 		,"resize":function(width,height){
 			var twc = this.clone();

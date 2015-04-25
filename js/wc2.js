@@ -3,7 +3,7 @@
 * wc2.js
 * mins01.com
 * 2015-04-25 : create file
-* require : jquery,jquery-ui,bootstrap,spectrum(color picker on jquery), class.Webcanvas.js , class.WebCanvasPackage.js
+* require : jquery,jquery-ui,bootstrap,spectrum(color picker on jquery), class.Webcanvas.js , class.WebCanvasBundle.js
 * HTML에서 이곳의 함수를 호출해서 사용하도록 한다.
 */
 /*
@@ -16,17 +16,67 @@ globalAlpha는 그려지는것의 알파값
 opacity는 레이어의 알파값(나중에 합쳐질 때 계산되어 합쳐진다)
 */
 
-var WC2 = (function(){
+var wc2 = (function(){
 	return {
 		 "error":""
+		 ,"wcws":[] //WebCanvasWindow
+		 //--- 초기화
 		,"init":function(){
+			this.addWebCanvasWindow(300,300);
 		}
-		,"colorset2String":function(colorset){
-			switch(colorset.length){
-				case 3:return "rgb("+colorset.join(',')+")";break;
-				case 4:return "rgba("+colorset.join(',')+")";break;
+		//--- 이벤트 초기화
+		,"initEvent":function(){
+			
+		}
+		//--- 
+		,"addWebCanvasWindow":function(width,height){
+			var width = 300;
+			var height =  300;
+			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
+			
+			var wcf = $("#defaultWCF").clone().prop("id","").appendTo("#contentArea");
+			
+			wcf.find(".wcf-body").html("").append(wcb.node);
+			
+			var wcw = $( wcf ).dialog({"resizable":true,"draggable":false,
+				"minWidth":200,"minHeight":200,"width":400,"height":450,
+				"position": { my: "center top" , at: "center top", of: "#contentArea" },
+				"beforeClose": function( event, ui ) {
+					return confirm("close?")}
+				}
+			).parent();
+			wcw.draggable({ "handle": wcw.find("span.ui-dialog-title"),
+				"containment": "#contentArea",
+				"stop": function( event, ui ) {
+					if(ui.position.top<55){
+					$(this).css("top","60px")
+					
+					}
+				}
+			});
+			wcw.wcb = wcb;
+			wcw[0].wcb = wcb;
+			wcw.bind("mousedown",function(){
+				wc2.activeWebCanvasWindow($(this));
+				
+			});
+			wcw.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
+			//wcw.addClass("wcw-active");
+			this.wcws.push(wcw);
+			this.activeWebCanvasWindow(wcw);
+		}
+		,"activeWebCanvasWindow":function(wcw){
+			if(wcw.hasClass("wcw-active")){
+				return true;
 			}
-			return false;
+			for(var i=0,m=this.wcws.length;i<m;i++){
+				if(this.wcws[i][0] == wcw[0]){
+					this.wcws[i].addClass("wcw-active");
+				}else{
+					this.wcws[i].removeClass("wcw-active");
+				}
+			}
+			return true;
 		}
 		,"getXYSet":function(evt,target,zoom){
 			evt = _M.EVENT.getEvent(evt);

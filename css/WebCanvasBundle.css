@@ -11,7 +11,7 @@
 html{margin:0;padding:0;height:100%;}
 body{margin:0;padding:0;height:100%;}
 
-.WCG{position:relative; z-index:1;}
-.WCG .WC{
+.WCB{position:relative; z-index:1;}
+.WCB .WC{
 	position:absolute; top:0;left:0;bottom:0;right:0;
 }

@@ -3,6 +3,7 @@
 * class.WebCanvasBundle.js
 * mins01.com
 * 2015-04-22 : create file
+* require : class.WebCanvas.js
 */
 /*
 * # warning
@@ -22,49 +23,52 @@ function WebCanvasBundle(width,height,colorset){
 	* canvas에 추가 멤버변수와 메소드를 설정한다. (프로토타입에 넣는건 아니다.)
 	*/
 	WebCanvasBundle.prototype = {
-		"node":null
-		,"width":100
-		,"height":100
-		,"webCanvases":[]
-		,"shadowWebCanvas":null
-		,"error":""
-		,"zoom":1
-		,"toolName":""
-		,"context2dCfg":{}
-		,"init":function(width,height,colorset){
+		"init":function(width,height,colorset){
+			//-- 멤버변수 초기화
+			this.node = null;
+			this.width = 100
+			this.height = 100
+			this.webCanvases = []
+			this.shadowWebCanvas = null
+			this.error = ""
+			this.zoom = 1
+			this.toolName = ""
+			this.context2dCfg = {}
+			
+			//-- 설정 초기화
 			this.width = width;
 			this.height = height;
 			this.node = document.createElement('div');
-			this.node.className = "WCG";
+			this.node.className = "WCB";
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
 			this.shadowWebCanvas.className = "WC WC-shadow";
 			this.shadowWebCanvas.alt="쉐도우레이어";
 			this.addWebCanvas(colorset);
 			//this.initEvent();
-			this.setToolName("line");
+			//this.setToolName("line");
 			this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );;
 			
 		}
 		// 외부에서 사용하도록 하자.
 		,"initEvent":function(){
-			var onmousedown = function(wcg){
+			var onmousedown = function(wcb){
 				return function(event){
-					if(wcg.toolName.length==0){return false;}
-					WC2Tool[wcg.toolName].init(wcg);
-					WC2Tool[wcg.toolName].down(event);
+					if(wcb.toolName.length==0){return false;}
+					WC2Tool[wcb.toolName].init(wcb);
+					WC2Tool[wcb.toolName].down(event);
 				}
 			}(this)
-			var onmousemove = function(wcg){
+			var onmousemove = function(wcb){
 				return function(event){
 					event.preventDefault();
-					if(wcg.toolName.length==0){return false;}
-					WC2Tool[wcg.toolName].move(event);
+					if(wcb.toolName.length==0){return false;}
+					WC2Tool[wcb.toolName].move(event);
 				}
 			}(this)
-			var onmouseup = function(wcg){
+			var onmouseup = function(wcb){
 				return function(event){
-					if(wcg.toolName.length==0){return false;}
-					WC2Tool[wcg.toolName].up(event);
+					if(wcb.toolName.length==0){return false;}
+					WC2Tool[wcb.toolName].up(event);
 				}
 			}(this)
 			
