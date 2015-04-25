@@ -41,7 +41,8 @@
 			.ui-dialog *{box-sizing:content-box;}
 			/* wcf */
 			.ui-dialog .ui-dialog-content{overflow:scroll; padding:1px; background-color:#ccc;}
-			.ui-dialog .wcf{padding:40px 20px 20px 20px;}
+			.ui-dialog .wcf{}
+			.ui-dialog .wcf-body{padding:40px 20px 20px 20px;position:absolute;top:0;left:0;right:0;bottom:0}
 			.wcf .WCB{ margin:0 auto;}
 			.ui-dialog .wcf-bottom{z-index:2;position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 			
@@ -234,45 +235,71 @@
 		<aside id="propPanel"  class="wc2-panel panel panel-default">
 			<div class="panel-heading">Property</div>
 			<div class="panel-body">
-				<div class="panel panel-default">
-					<div  class="panel-heading">Line Stroke</div>
-					<div  class="panel-body">
-						<table class="">
-							<col width="80">
-							<tr>
-								<td>lineWidth</td>
-								<td><input type="range" min="1" max="100" value="1" name="lineWidth">
-								</td>
-							</tr>
-							<tr>
-								<td>globalAlpha</td>
-								<td><input type="range" min="0" max="1" value="1" step="0.1" name="lineWidth">
-								</td>
-							</tr>
-						</table>
+				<form name="formLineStroke" action="javascript:void(0)" class="wc-tool-line" onsubmit="return false">
+					<div class="panel panel-default">
+						<div  class="panel-heading">Line Stroke</div>
+						<div  class="panel-body">
+							<table class="">
+								<col width="80">
+								<tr>
+									<td>lineWidth</td>
+									<td><input type="range" min="1" max="100" value="1" size="3" name="lineWidth" style="width:90%">
+									</td>
+								</tr>
+								<tr>
+									<td>globalAlpha</td>
+									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  style="width:90%">
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
-				</div>
+				</form>
 				<hr class="soften">
-				<div class="panel panel-default">
-					<div  class="panel-heading">Color</div>
-					<div  class="panel-body">
-						<table class="" style="width:100%">
-							<col width="50%">
-							<col width="50%">
-							<tr>
-								<td>Stroke</td>
-								<td>Fill</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="color" name="strokeColor" id="strokeColor">
-								</td>
-								<td><input type="color" name="fillColor" id="fillColor">
-								</td>
-							</tr>
-						</table>
+				<form name="formColor" action="javascript:void(0)" class="wc-tool-line" onsubmit="return false">
+					<div class="panel panel-default">
+						<div  class="panel-heading">Color</div>
+						<div  class="panel-body">
+							<table class="" style="width:100%">
+								<col width="50%">
+								<col width="50%">
+								<tr>
+									<td>Stroke</td>
+									<td>Fill</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="color" name="strokeColor" id="strokeColor">
+									</td>
+									<td><input type="color" name="fillColor" id="fillColor">
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
-				</div>
+				</form>
+				<form name="formColor" action="javascript:void(0)" class="wc-tool-line2" onsubmit="return false">
+					<div class="panel panel-default">
+						<div  class="panel-heading">Color</div>
+						<div  class="panel-body">
+							<table class="" style="width:100%">
+								<col width="50%">
+								<col width="50%">
+								<tr>
+									<td>Stroke</td>
+									<td>Fill</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="color" name="strokeColor" id="strokeColor">
+									</td>
+									<td><input type="color" name="fillColor" id="fillColor">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
 			</div>
 		</aside>
 		
@@ -323,19 +350,27 @@
 		
 	</div> <!-- <div id="container"> -->
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<!-- 드롭다운 메뉴 확장용 JS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/js/dropdowns-enhancement.js -->
 	<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 	<!-- jquery-ui -->
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	
 	<!-- spectrum on jquery -->
 	<script src="jquery/spectrum.js"></script>
+	<!-- https://github.com/phstc/jquery-dateFormat -->
+	<script src="jquery/jquery-dateFormat.min.js"></script>
+	<!--  jquery-helper on jquery-->
+	<script src="jquery/jquery-helper.js"></script>
 	<!-- WC2 -->
 	<script src="js/class.WebCanvas.js"></script>
 	<script src="js/class.WebCanvasBundle.js"></script>
 	<script src="js/wc2.js"></script>
+	<script src="js/wc2Tool.js"></script>
 	
 	
 	

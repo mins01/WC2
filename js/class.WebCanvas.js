@@ -1,3 +1,4 @@
+"use strict"
 // JavaScript Document
 /**
 * class.WebCanvas.js
@@ -24,11 +25,11 @@ function WebCanvas(width,height,colorset){
 		c.class = "WC";
 		if(c.tagName != 'CANVAS'){
 			c = null;
-			delete c;
+			//delete c;
 			this.error = "<canvas>를 사용할 수 없는 환경입니다";
 			return false;
 		}
-		for(x in this._prototype){
+		for(var x in this._prototype){
 			c[x] = this._prototype[x];
 		}
 		c.error = ""; //최후 에러 메세지
@@ -105,7 +106,13 @@ function WebCanvas(width,height,colorset){
 					}else if(typeof this.context2d[x] == "function" || typeof this.context2d[x] == "object"){
 						continue;
 					}
-					this.context2d[x] = cfg[x];
+					
+					if(typeof this.context2d[x] == "number"){
+						this.context2d[x] = parseFloat(cfg[x]);
+					}else{
+						this.context2d[x] = cfg[x];
+					}
+					console.log(this.context2d[x]+":xx");
 				}
 			}
 			if(cfg["patternImage"]){
@@ -117,9 +124,11 @@ function WebCanvas(width,height,colorset){
 			}
 			return this.context2d;
 		}
+		/*
 		,"resetContext2d":function(){
 			return this.width = this.width;
 		}
+		*/
 		,"pickupColor":function(x,y){
 			x = Math.round(x);
 			y = Math.round(y);
@@ -233,7 +242,7 @@ function WebCanvas(width,height,colorset){
 			for(var i=0,m=texts.length;i<m;i++){
 				maxWidth = Math.max(maxWidth,this.context2d.measureText(texts[i]).width);
 			}
-			var maxMin = maxWidth;
+			var minWidth = maxWidth;
 			for(var i=0,m=texts.length;i<m;i++){
 				minWidth = Math.min(maxWidth,this.context2d.measureText(texts[i]).width);
 			}

@@ -1,3 +1,4 @@
+"use strict"
 // JavaScript Document
 /**
 * class.WebCanvasBundle.js
@@ -34,63 +35,27 @@ function WebCanvasBundle(width,height,colorset){
 			this.zoom = 1
 			this.toolName = ""
 			this.context2dCfg = {}
-			
+			this.name = "";
 			//-- 설정 초기화
 			this.width = width;
 			this.height = height;
 			this.node = document.createElement('div');
 			this.node.className = "WCB";
+			this.node.wcb = this;
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
 			this.shadowWebCanvas.className = "WC WC-shadow";
 			this.shadowWebCanvas.alt="쉐도우레이어";
 			this.addWebCanvas(colorset);
 			//this.initEvent();
 			//this.setToolName("line");
-			this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );;
+			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
+			this.setName("WCB")
 			
 		}
-		// 외부에서 사용하도록 하자.
-		,"initEvent":function(){
-			var onmousedown = function(wcb){
-				return function(event){
-					if(wcb.toolName.length==0){return false;}
-					WC2Tool[wcb.toolName].init(wcb);
-					WC2Tool[wcb.toolName].down(event);
-				}
-			}(this)
-			var onmousemove = function(wcb){
-				return function(event){
-					event.preventDefault();
-					if(wcb.toolName.length==0){return false;}
-					WC2Tool[wcb.toolName].move(event);
-				}
-			}(this)
-			var onmouseup = function(wcb){
-				return function(event){
-					if(wcb.toolName.length==0){return false;}
-					WC2Tool[wcb.toolName].up(event);
-				}
-			}(this)
-			
-			_M.EVENT.add(this.node,'onmousedown',onmousedown);
-			_M.EVENT.add(document.body,'onmousemove',onmousemove);
-			_M.EVENT.add(document,'onmouseup',onmouseup);
-			
-			//드래그 방지용
-			document.onmousedown = function(evt){
-				var target = _M.EVENT.target(evt);
-				if(target.tagName && 
-					(target.tagName =='INPUT'||target.tagName =='SELECT'||target.tagName =='OPTION'||target.tagName =='TEXTAREA')){
-				}else{
-					return false;
-				}
-			}
-
-		}
-		,"setToolName":function(toolName){
-			if(!WC2Tool[toolName]){alert(toolName+"는 지원되지 않는 툴입니다."); return false;}
-			this.toolName = toolName;
-			return this.toolName;
+		,"setName":function(name){
+			this.name = name;
+			this.node.alt = this.name;
+			return this.name;
 		}
 		,"_syncNode":function(){
 			this.node.innerHTML = "";//내용 초기화
@@ -111,21 +76,27 @@ function WebCanvasBundle(width,height,colorset){
 			var c = WebCanvas(this.width,this.height,colorset);
 			c.className = "WC";
 			c.alt = "레이어";
-			this.activeWebCanvas = c;
 			this.webCanvases.push(c);
+			this.setActiveWebCanvas(c);
 			this._syncNode();
 			//this.activeWebCanvasByNum(c._sortNum);
 			return c;
 		}
-		,"activeWebCanvasByNum":function(n){
+		,"setActiveWebCanvas":function(c){
+			this.activeWebCanvas = c;
+			this._syncContext2d();
+			return this.activeWebCanvas;
+		}
+		,"setActiveWebCanvasByNum":function(n){
 			if(n==-1){
 				n = this.addWebCanvas.length-1;
 			}
 			if(!n || this.addWebCanvas[n] === undefined){
 			}else{
 				this.activeWebCanvas = this.addWebCanvas[n];
+				return this.setActiveWebCanvas(this.addWebCanvas[n]);
 			}
-			return this.activeWebCanvas;
+			return false;
 		}
 		,"resize":function(width,height){
 			if(this.execAllWebCanvas("resize",arguments)){
@@ -188,7 +159,12 @@ function WebCanvasBundle(width,height,colorset){
 		* 활성화된 웹캔버스에 환경설정을 한다.
 		*/
 		,"configContext2d":function(context2dCfg){
-			this.activeWebCanvas.configContext2d(context2dCfg);
+			this.context2dCfg = context2dCfg;
+			this._syncContext2d();
+		}
+		,"_syncContext2d":function(){
+			this.activeWebCanvas.configContext2d(this.context2dCfg);
+			this.shadowWebCanvas.configContext2d(this.context2dCfg);
 		}
 		/**
 		* 웹캔버스 순서 관련

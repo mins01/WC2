@@ -7,7 +7,7 @@
 	<script src="class.WebCanvas.js"></script>
 	<script src="class.WebCanvasBundle.js"></script>
 	<script src="../../../js/_M/_M.js"></script>
-	<script src="class.WC2Tool.js"></script>
+	<script src="class.wc2Tool.js"></script>
 	
 	
 	
@@ -21,71 +21,74 @@
 		var colorset0= [0xaa,0xbb,0xcc,1];		
 		wcb0 = new WebCanvasBundle(200,200,colorset0);
 		document.getElementById('div').appendChild(wcb0.node);
+//--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
+		actWC = wcb0.setActiveWebCanvasByNum(-1); 
+
+		return;
 		layerNumbering();
 		//--- 레이어 추가.
 		var colorset1 = [0x33,0x66,0x99,1]
 		wcb0.addWebCanvas(colorset1);
 		var colorsetR = wcb0.pickupColor(0,0);
-		if(WC2.colorset2String(colorset1) != WC2.colorset2String(colorsetR)){
+		if(wc2.colorset2String(colorset1) != wc2.colorset2String(colorsetR)){
 			console.error("wcb0.addWebCanvas();");
 		}
 		//--- 레이어 순서 바꾸기, 아래로.
 		var r = wcb0.upOrder(1,true);
 		var colorsetR = wcb0.pickupColor(0,0);
-		if(WC2.colorset2String(colorset0) != WC2.colorset2String(colorsetR)){
+		if(wc2.colorset2String(colorset0) != wc2.colorset2String(colorsetR)){
 			console.error("var r = wcb0.upOrder(1,true);");
 		}
 		//--- 레이어 순서 바꾸기, 위로.
 		var r = wcb0.upOrder(0,false);
 		var colorsetR = wcb0.pickupColor(0,0);
-		if(WC2.colorset2String(colorset1) != WC2.colorset2String(colorsetR)){
+		if(wc2.colorset2String(colorset1) != wc2.colorset2String(colorsetR)){
 			console.error("var r = wcb0.upOrder(0,false);");
 		}
 		
-		//--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
-		actWC = wcb0.activeWebCanvasByNum(-1); 
+		
 		//--- 그리기 설정
-		var context2dCfg = {"lineWidth":4,"strokeStyle":WC2.colorset2String([255,255,255,1]),"fillStyle":WC2.colorset2String([0,0,0,1])};
+		var context2dCfg = {"lineWidth":4,"strokeStyle":wc2.colorset2String([255,255,255,1]),"fillStyle":wc2.colorset2String([0,0,0,1])};
 		actWC.configContext2d(context2dCfg);	
 		//--- 선그리기
 		var r = actWC.line(10,10,50,50);
 		var colorset4 = actWC.pickupColor(10,10);
-		if(WC2.colorset2String(colorset4) != context2dCfg.strokeStyle){
+		if(wc2.colorset2String(colorset4) != context2dCfg.strokeStyle){
 			console.error("actWC.line(10,10,50,50); 동작 에러");
-			console.error(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+			console.error(wc2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
 		}
 
 		//--- 커브그리기
 		var r = actWC.curve(50,50,50,100,100,100,100,50);
 		var colorset5 = actWC.pickupColor(100,50);
-		if(WC2.colorset2String(colorset5) != context2dCfg.strokeStyle){
+		if(wc2.colorset2String(colorset5) != context2dCfg.strokeStyle){
 			console.error(" actWC.curve(50,50,50,100,100,100,100,50); 동작 에러");
-			console.error(WC2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
+			console.error(wc2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
 		}		
 
 		//--- 사각형
 		var r = actWC.rect(10,10,40,40);
 		var colorset6 = actWC.pickupColor(30,30);
-		if(WC2.colorset2String(colorset6) != context2dCfg.fillStyle){
+		if(wc2.colorset2String(colorset6) != context2dCfg.fillStyle){
 			console.error("  actWC.rect(10,10,40,40);	 동작 에러");
-			console.error(WC2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
+			console.error(wc2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
 		}
 		
 		//--- 원
 		var r = actWC.circle(70,30,20);
 		var colorset7 = actWC.pickupColor(70,30);
-		if(WC2.colorset2String(colorset7) != context2dCfg.fillStyle){
+		if(wc2.colorset2String(colorset7) != context2dCfg.fillStyle){
 			console.error("  	var r = actWC.circle(70,30,20);");
-			console.error(WC2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
+			console.error(wc2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
 		}
 		
 		//--- 타원
 		wcb0.configContext2d(context2dCfg);	
 		var r = actWC.circle(100,100,20,20,120,40);
 		var colorsetR = actWC.pickupColor(120,70);
-		if(WC2.colorset2String(colorsetR) != context2dCfg.fillStyle){
+		if(wc2.colorset2String(colorsetR) != context2dCfg.fillStyle){
 			console.error("  actWC.circle(300,100,50);	 동작 에러");
-			console.error(WC2.colorset2String(colorsetR)+" != "+context2dCfg.fillStyle);
+			console.error(wc2.colorset2String(colorsetR)+" != "+context2dCfg.fillStyle);
 		}
 		//--- 크롭
 		wcb0.configContext2d(context2dCfg);	
@@ -94,24 +97,24 @@
 			console.error(" var r = wcb0.crop(10,10,100,100);");
 		}
 		var colorsetR = wcb0.pickupColor(0,0);
-		if(WC2.colorset2String(colorsetR) != context2dCfg.strokeStyle){
+		if(wc2.colorset2String(colorsetR) != context2dCfg.strokeStyle){
 			console.error("  actWC.circle(300,100,50);	 동작 에러");
-			console.error(WC2.colorset2String(colorsetR)+" != "+context2dCfg.strokeStyle);
+			console.error(wc2.colorset2String(colorsetR)+" != "+context2dCfg.strokeStyle);
 		}
 
 		//--- 이동
 		wcb0.configContext2d(context2dCfg);	
 		var r = actWC.move(10,10);
 		var colorset7 = wcb0.pickupColor(0,0);
-		if(WC2.colorset2String(colorset7) != WC2.colorset2String([0xaa,0xbb,0xcc,1])){
+		if(wc2.colorset2String(colorset7) != wc2.colorset2String([0xaa,0xbb,0xcc,1])){
 			console.error("  actWC.move(10,10);");
-			console.error(WC2.colorset2String(colorset7)+" != "+WC2.colorset2String([0xaa,0xbb,0xcc,1]));
+			console.error(wc2.colorset2String(colorset7)+" != "+wc2.colorset2String([0xaa,0xbb,0xcc,1]));
 		}
 		//--- 이미지 복제
 		wcb0.resize(100,100);
 		
 		wcb0.clear();
-		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,1]),"fillStyle":WC2.colorset2String([0xaa,0xbb,0xcc,1])
+		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([0xaa,0xbb,0xcc,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
 		actWC.configContext2d(context2dCfg);	
@@ -140,14 +143,14 @@
 		//--- 텍스트 //초기화
 		wcb0.clear();
 		wcb0.resize(300,300);
-		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,1]),"fillStyle":WC2.colorset2String([255,255,255,1])
+		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([255,255,255,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
 		actWC.configContext2d(context2dCfg);	
 		actWC.text("테스트AaBbC#韓",0,0);
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",0,20);
 
-		var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,0]),"fillStyle":wc2.colorset2String([0,0,0,1])
 		,"font":"normal normal bold 12px sans-serif "
 		,"textAlign":"center"
 		,"textBaseline":"top"
@@ -167,7 +170,7 @@
 		//return false;
 		/* //버튼으로 테스트하라. 소스로는 체크하기 너무 힘들다.
 		//--- 로테이션 테스트
-		var context2dCfg = {"lineWidth":0,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+		var context2dCfg = {"lineWidth":0,"strokeStyle":wc2.colorset2String([0,0,0,0]),"fillStyle":wc2.colorset2String([0,0,0,1])
 		,"font":"normal normal bold 20px sans-serif "
 		,"textAlign":"center"
 		,"textBaseline":"top"
@@ -211,7 +214,7 @@
 	}
 	function layerNumbering(){
 		for(var i=0,m=wcb0.webCanvases.length;i<m;i++){
-			var context2dCfg = {"lineWidth":1,"strokeStyle":WC2.colorset2String([0,0,0,0]),"fillStyle":WC2.colorset2String([0,0,0,1])
+			var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,0]),"fillStyle":wc2.colorset2String([0,0,0,1])
 			,"font":"normal normal bold 20px sans-serif "
 			,"textAlign":"left"
 			,"textBaseline":"top"
