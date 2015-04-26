@@ -55,6 +55,11 @@ var wc2 = (function(){
 			this.addWebCanvasWindow(300,300);
 			this.setTool("line");
 		}
+		,"setError":function(error){
+			this.error = error;
+			console.log(this.error);
+			return this.error;
+		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
 			$(document).on( "mousedown", ".wcf-body", function(event) {
@@ -68,7 +73,7 @@ var wc2 = (function(){
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 				// todo : context2D 설정 부분
 				if(!wc2Tool.down(wc2.tool,event)){
-					this.error = wc2Tool.error;
+					this.setError( wc2Tool.error);
 					return false;
 				}
 				wc2.eventStep = 1;
@@ -81,7 +86,7 @@ var wc2 = (function(){
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				if(!wc2Tool.move(wc2.tool,event)){
-					this.error = wc2Tool.error;
+					this.setError( wc2Tool.error);
 					return false;
 				}
 				return true;
@@ -93,11 +98,11 @@ var wc2 = (function(){
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				if(!wc2Tool.up(wc2.tool,event)){
-					this.error = wc2Tool.error;
+					this.setError( wc2Tool.error);
 					return false;
 				}
 				wc2.eventStep = 0;
-				wc2.syncLayerList(); //수정된 내용 레이어 목록에 보여주기
+				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
 				return true;
 			});
 			// 드래그 방지용
@@ -106,6 +111,10 @@ var wc2 = (function(){
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){ 
 				wc2.setToolByBtn(this);
+			});
+			//-- 레이어 쪽
+			$("#propLayerList").on("click","li",function(event){
+				wc2.selectLayer(this.dataset.wcbIndex)
 			});
 		}
 		//--- 
@@ -199,13 +208,8 @@ var wc2 = (function(){
 			}
 			if(bcr1.top - bcr0.top < 0){
 				target.style.top = bcr0.top+"px";
-				console.log(target.style.top);
 			}else if(bcr1.top - (bcr0.top+bcr0.height) > 0){
-					console.log(bcr0);
 				target.style.top = Math.max(bcr0.top,bcr0.top+bcr0.height-20)+"px";
-				console.log(bcr0.top+bcr0.height);
-				console.log(bcr0);
-				//alert(target.style.top);
 			}
 			
 			return;
@@ -244,7 +248,7 @@ var wc2 = (function(){
 					this.wcws[i].wcwp.removeClass("wcw-active");
 				}
 			}
-			this.syncLayerList();
+			this._syncPropLayerList();
 			return true;
 		}
 		,"rename":function(name){
@@ -255,7 +259,7 @@ var wc2 = (function(){
 		}
 		,"setTool":function(tool){
 			if(!wc2Tool[tool]){
-				this.error = tool+"라는 툴이 지원되지 않습니다.";
+				this.setError( tool+"라는 툴이 지원되지 않습니다.");
 				return false;
 			}
 			//this.tool = wc2Tool[tool];
@@ -266,7 +270,7 @@ var wc2 = (function(){
 		,"setToolByBtn":function(btn){
 			
 			if(!btn.dataset || !btn.dataset.wcTool){
-				this.error = "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.";
+				this.setError( "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.");
 				return false;
 			}
 			var tool = btn.dataset.wcTool;
@@ -312,28 +316,51 @@ var wc2 = (function(){
 		}
 		//--- 레이어 관련
 		//-- 레이어 싱크
-		,"syncLayerList":function(){
+		,"_syncPropLayerList":function(){
 			if(!this.activeWcw){ 
-				$("#wcLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
+				$("#propLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
 			}else{
 				var wcb = this.activeWcw.wcb;
-				$("#wcLayerList").html("");
+				 $("#propLayerList").html("");
 				var limitHeight = 40;
 				var c = WebCanvas(Math.round(wcb.width*(limitHeight/wcb.height)),limitHeight);
 				for(var i=0,m=wcb.webCanvases.length;i<m;i++){
 					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
+					var oc = wcb.webCanvases[i];
 					var img = new Image();
 					img.src = c.toDataURL();
 					var li = document.createElement("li");
 					li.className="list-group-item";
+					li.dataset.wcbActive = oc.dataset.wcbActive;
+					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					$(li).append(img);
 					$(li).append(document.createTextNode(wcb.webCanvases[i].alt));
-					$("#wcLayerList").append(li)
+					$("#propLayerList").append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}
 			}
 			
 		}
+		,"addLayer":function(){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			this.activeWcw.wcb.addWebCanvas();
+			this._syncPropLayerList();
+		}
+		,"removeLayer":function(){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(this.activeWcw.wcb.removeWebCanvas()=== false){
+				this.setError( this.activeWcw.wcb.error);
+				return false;
+			}
+			this._syncPropLayerList();
+		}
+		,"selectLayer":function(index){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			this.activeWcw.wcb.setActiveWebCanvasByIndex(index);
+			this._syncPropLayerList();
+		}
+		
+		
 		//-- 유틸성
 		//--- 색상문자열 만들기
 		,"colorset2String":function(colorset){
@@ -346,7 +373,7 @@ var wc2 = (function(){
 		//--- 뷰 이미지 
 		,"viewImage":function(){
 			if(!wc2.activeWcw){
-				this.error = "wc2.viewImage() : 활성화된 윈도우가 없음";
+				this.setError( "wc2.viewImage() : 활성화된 윈도우가 없음");
 				return false;
 			}
 			var div = document.createElement('div');

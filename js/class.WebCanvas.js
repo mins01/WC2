@@ -26,15 +26,17 @@ function WebCanvas(width,height,colorset){
 		if(c.tagName != 'CANVAS'){
 			c = null;
 			//delete c;
-			this.error = "<canvas>를 사용할 수 없는 환경입니다";
+			this.setError( "<canvas>를 사용할 수 없는 환경입니다");
 			return false;
 		}
 		for(var x in this._prototype){
 			c[x] = this._prototype[x];
 		}
+		
 		c.error = ""; //최후 에러 메세지
 		c.width = width;
 		c.height = height;
+		c.opacity = 1;
 		c.context2d = c.getContext('2d');
 		//c.context2d.imageSmoothingEnabled = false;//
 		//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
@@ -47,7 +49,7 @@ function WebCanvas(width,height,colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
 			c.context2d.fillRect(0,0,c.width,c.height);
 		}
-		c.opacity(1);
+		c.setOpacity(1);
 		return c;
 	}
 	/**
@@ -71,6 +73,11 @@ function WebCanvas(width,height,colorset){
 		,"setAlt":function(alt){
 			this.alt=alt;
 			return this.alt;
+		}
+		,"setError":function(error){
+			this.error = error;
+			console.log(this.error);
+			return this.error;
 		}
 		//-- 리사이즈 (내용유지)
 		,"resize":function(width,height){
@@ -150,14 +157,18 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 		}
-		,"opacity":function(opacity){
+		,"setZoom":function(){
+		}
+		,"setOpacity":function(opacity){
 			if(!isNaN(opacity)){
-				this.style.opacity = opacity;
+				opacity = parseFloat(opacity);
+				this.opacity = opacity;
+				this.style.opacity = this.opacity;
 			}
-			return parseFloat(this.style.opacity);
+			return this.opacity;
 		}
 		,"merge":function(webCanvas,x0,y0,w0,h0){
-			var globalAlpha = webCanvas.opacity?webCanvas.opacity():1;
+			var globalAlpha = webCanvas.opacity?webCanvas.opacity:1;
 			var context2d = this.context2d;
 			this.context2d.save();
 			if(globalAlpha!=null){
@@ -187,11 +198,11 @@ function WebCanvas(width,height,colorset){
 		//-- pos  = [[x,y],[x,y]];
 		,"lines":function(pos){
 			if(!pos instanceof Array){
-				this.error = this.constructor+".lines() : 배열이 아닙니다."
+				this.setError( this.constructor+".lines() : 배열이 아닙니다.");
 				return false;
 			}
 			if(pos.length == 0 ){
-				this.error = this.constructor+".lines() : 배열 너무 짧습니다."
+				this.setError( this.constructor+".lines() : 배열 너무 짧습니다.");
 				return false;
 			}
 			this.context2d.beginPath();
@@ -236,20 +247,21 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 원 그리기
 		,"circle":function(x0,y0,xr,yr,x1,y1){
+			this.context2d.beginPath();
 			if(isNaN(yr)){ //일반적인 정원
-				this.context2d.beginPath();
 				this.context2d.arc(x0, y0, xr, 0, Math.PI*2,null);
-				this.context2d.fill();
-				this.context2d.stroke();
-				this.context2d.closePath();
 			}else{ //타원
 				this.context2d.moveTo(x0,y0);
 				this.context2d.bezierCurveTo(x0+xr, y0+yr, x1+xr, y1+yr, x1, y1);
 				this.context2d.bezierCurveTo(x1-xr, y1-yr, x0-xr, y0-yr,  x0, y0);
-				this.context2d.fill();
-				this.context2d.stroke();
-				this.context2d.closePath();
 			}
+			if(!this.context2d.disableFill){
+				this.context2d.fill();
+			}
+			if(!this.context2d.disableStroke){
+				this.context2d.stroke();
+			}
+			this.context2d.closePath();
 			return true;
 		}
 		//--- 그림 이동
@@ -298,7 +310,7 @@ function WebCanvas(width,height,colorset){
 			}else if(!(isNaN(h1))){
 				this.context2d.drawImage(img,x1,y1,w1,h1,x0,y0,w0,h0); //될 수 있으면 사용하지 말라, 어떻게 바뀔지 모르겠다.
 			}else{
-				this.error = "WebCanvas.drawImage() : check for arguments"
+				this.setError( "WebCanvas.drawImage() : check for arguments");
 				return false;
 			}
 			return true;
@@ -344,7 +356,7 @@ function WebCanvas(width,height,colorset){
 				this.context2d.restore(); 
 				return true;
 			}			
-			this.error = "WebCanvas.rotate90To() : not support degrees : "+deg;
+			this.setError( "WebCanvas.rotate90To() : not support degrees : "+deg);
 			return false;
 			
 		}

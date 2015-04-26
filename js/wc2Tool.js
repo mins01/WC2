@@ -244,6 +244,59 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.rect(this.x0,this.y0,this.x1-this.x0,this.y1-this.y0);
 			}
 		}
+		//-- 원
+		,"circle":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"init":function(wcb){
+				this.wcb = wcb;
+				//console.log("init");
+				return true;
+			}
+			,"end":function(){
+				//console.log("end");
+				this.wcb.shadowWebCanvas.clear();
+				this.wcb = null;
+				return true;
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = t.x;
+				this.y0 = t.y;
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("down");
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				this.wcb.shadowWebCanvas.clear();
+				//-- 정원 그리기
+				var xd = (this.x1 - this.x0)/2;
+				var yd = (this.y1 - this.y0)/2;
+				var r = Math.sqrt(xd*xd+yd*yd)*2;			
+				this.wcb.shadowWebCanvas.circle(this.x0,this.y0,r);
+			}
+		}
+		//--
 	}
 	return r;
 }();
