@@ -36,6 +36,7 @@ function WebCanvasBundle(width,height,colorset){
 			this.toolName = ""
 			this.context2dCfg = {}
 			this.name = "";
+			this.tempCounter = 0
 			//-- 설정 초기화
 			this.width = width;
 			this.height = height;
@@ -75,7 +76,8 @@ function WebCanvasBundle(width,height,colorset){
 		,"addWebCanvas":function(colorset){
 			var c = WebCanvas(this.width,this.height,colorset);
 			c.className = "WC";
-			c.alt = "레이어";
+			c.setAlt("레이어"+ (++this.tempCounter));
+			
 			this.webCanvases.push(c);
 			this.setActiveWebCanvas(c);
 			this._syncNode();

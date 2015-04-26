@@ -77,7 +77,19 @@
 		
 		#toolPanel{width:86px;min-width:42px;min-height:100px; position:fixed;top:55px;left:5px;}
 		#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:5px;}		
-		#propPanel>.panel-body{}		
+		#propPanel>.panel-body{}
+		
+		#propPanel .wc-layer li{text-align:left;}
+		.overflow-scrolly{overflow-y:scroll}
+		
+		#wcLayerList{}
+		#wcLayerList .list-group-item{padding-left:2px;}
+		#wcLayerList img{background-image:url("./img/bg.gif");
+			margin-top:-8px;
+			margin-bottom:-6px;
+			margin-left:2px;
+			margin-right:5px;
+			box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
 		</style>
 		<style>
 		
@@ -298,6 +310,16 @@
 				<form name="formColor2" action="javascript:void(0)" class="wc-tool-line2" onsubmit="return false">
 					테스트용 폼. 보이면 안된다.
 				</form>
+				<div class="wc-layer" style="min-height:50px" >
+					<div class="panel panel-default">
+						<div  class="panel-heading">Layer</div>
+						<div  class="panel-body overflow-scrolly">
+							<ul class="list-group" id="wcLayerList">
+								<li class="list-group-item">#EMPTY#</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</aside>
 		

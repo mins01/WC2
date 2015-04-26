@@ -66,6 +66,10 @@ function WebCanvas(width,height,colorset){
 			}
 			return false;
 		}
+		,"setAlt":function(alt){
+			this.alt=alt;
+			return this.alt;
+		}
 		//-- 리사이즈 (내용유지)
 		,"resize":function(width,height){
 			var twc = this.clone();
@@ -150,21 +154,23 @@ function WebCanvas(width,height,colorset){
 			}
 			return parseFloat(this.style.opacity);
 		}
-		,"merge":function(webCanvas){
+		,"merge":function(webCanvas,x0,y0,w0,h0){
 			var globalAlpha = webCanvas.opacity?webCanvas.opacity():1;
 			var context2d = this.context2d;
 			this.context2d.save();
 			if(globalAlpha!=null){
 				this.context2d.globalAlpha = globalAlpha;
 			}
-			this.context2d.drawImage(webCanvas, 0, 0);
+			if(isNaN(x0)){x0 = 0;}
+			if(isNaN(y0)){y0 = 0;}
+			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.context2d.globalAlpha = 1;
 			this.context2d.restore();
 			return this;
 		}
-		,"copy":function(webCanvas){
+		,"copy":function(webCanvas,x0,y0,w0,h0){
 			this.clear();
-			return this.merge(webCanvas);
+			return this.merge(webCanvas,x0,y0,w0,h0);
 		}
 		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){
@@ -283,7 +289,7 @@ function WebCanvas(width,height,colorset){
 				this.context2d.drawImage(img,x0,y0);
 			}else if(isNaN(x1)){
 				this.context2d.drawImage(img,x0,y0,w0,h0);
-			}else if(!isNaN(h1)){
+			}else if(!(isNaN(h1))){
 				this.context2d.drawImage(img,x1,y1,w1,h1,x0,y0,w0,h0); //될 수 있으면 사용하지 말라, 어떻게 바뀔지 모르겠다.
 			}else{
 				this.error = "WebCanvas.drawImage() : check for arguments"

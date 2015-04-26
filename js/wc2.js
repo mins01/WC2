@@ -92,6 +92,7 @@ var wc2 = (function(){
 					return false;
 				}
 				wc2.eventStep = 0;
+				wc2.syncLayerList(); //수정된 내용 레이어 목록에 보여주기
 				return true;
 			});
 			// 드래그 방지용
@@ -155,6 +156,7 @@ var wc2 = (function(){
 					this.wcws[i].wcwp.removeClass("wcw-active");
 				}
 			}
+			this.syncLayerList();
 			return true;
 		}
 		,"rename":function(name){
@@ -219,6 +221,30 @@ var wc2 = (function(){
 					wc2.activeWcw.wcb.configContext2d(cfg);
 				}
 			)
+		}
+		//--- 레이어 관련
+		//-- 레이어 싱크
+		,"syncLayerList":function(){
+			if(!this.activeWcw){ 
+				$("#wcLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
+			}else{
+				var wcb = this.activeWcw.wcb;
+				$("#wcLayerList").html("");
+				var limitHeight = 40;
+				var c = WebCanvas(Math.round(wcb.width*(limitHeight/wcb.height)),limitHeight);
+				for(var i=0,m=wcb.webCanvases.length;i<m;i++){
+					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
+					var img = new Image();
+					img.src = c.toDataURL();
+					var li = document.createElement("li");
+					li.className="list-group-item";
+					$(li).append(img);
+					$(li).append(document.createTextNode(wcb.webCanvases[i].alt));
+					$("#wcLayerList").append(li)
+					//console.log(wcb.webCanvases[i].alt);
+				}
+			}
+			
 		}
 		//-- 유틸성
 		//--- 색상문자열 만들기
