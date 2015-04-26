@@ -104,6 +104,7 @@ function WebCanvasBundle(width,height,colorset){
 				var idx2 = Math.max(idx-1,0);
 				this.setActiveWebCanvasByIndex(idx2);
 			}
+			this._syncNode();
 			return true;
 		}
 		,"addWebCanvas":function(colorset){
