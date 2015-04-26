@@ -174,6 +174,14 @@ var wc2 = (function(){
 			// wcf-bottom 다시 붙임
 			wcwp.find(".wcf-bottom").appendTo(wcwp);
 			
+			wcwp.on("change",".wcw-zoom",
+				function(wcb){
+					return function(event){
+						wcb.setZoom(this.value);
+					}
+				}(wcb)
+			);
+			
 			wc2.reposWebCavasWindow(wcwp[0]);
 			wcwp.css("height","60px");
 			
@@ -359,7 +367,11 @@ var wc2 = (function(){
 			this.activeWcw.wcb.setActiveWebCanvasByIndex(index);
 			this._syncPropLayerList();
 		}
-		
+		//--- 확대/축소
+		,"setZoom":function(zoom){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			this.activeWcw.wcb.setZoom(zoom);
+		}
 		
 		//-- 유틸성
 		//--- 색상문자열 만들기

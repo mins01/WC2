@@ -51,6 +51,7 @@ function WebCanvasBundle(width,height,colorset){
 			//this.setToolName("line");
 			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
 			this.setName("WCB")
+			this.setZoom(1);
 			
 		}
 		,"setError":function(error){
@@ -62,6 +63,11 @@ function WebCanvasBundle(width,height,colorset){
 			this.name = name;
 			this.node.alt = this.name;
 			return this.name;
+		}
+		,"setZoom":function(zoom){
+			this.zoom = zoom;
+			//this.node.style.transform="scale("+this.zoom+","+this.zoom+")";
+			this.node.style.width = (this.width*zoom)+'px';this.node.style.height = (this.height*zoom)+'px';
 		}
 		,"_syncNode":function(){
 			this.node.innerHTML = "";//내용 초기화
