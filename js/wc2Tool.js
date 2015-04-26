@@ -319,6 +319,7 @@ var wc2Tool = function(){
 					this.wcb = wcb;
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+					this.wcb.node.style.cursor = "move";
 				}
 				return true;
 			}
@@ -378,6 +379,7 @@ var wc2Tool = function(){
 			,"reset":function(){
 				//console.log("reset");
 				if(this.wcb){
+					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
