@@ -324,7 +324,7 @@ var wc2 = (function(){
 				 $("#propLayerList").html("");
 				var limitHeight = 40;
 				var c = WebCanvas(Math.round(wcb.width*(limitHeight/wcb.height)),limitHeight);
-				for(var i=0,m=wcb.webCanvases.length;i<m;i++){
+				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
 					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
 					var oc = wcb.webCanvases[i];
 					var img = new Image();

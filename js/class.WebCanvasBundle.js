@@ -67,13 +67,14 @@ function WebCanvasBundle(width,height,colorset){
 			this.node.innerHTML = "";//내용 초기화
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				this.node.appendChild(this.webCanvases[i]);
-				var zIndex = (m-i)*10
+				//var zIndex = (m-i)*10
+				var zIndex = i*10
 				this.webCanvases[i].style.zIndex = zIndex;
 				this.webCanvases[i].dataset.wcbIndex = i;
 				this.webCanvases[i].dataset.wcbActive = 0;
 			}
 			this.activeWebCanvas.dataset.wcbActive = 1;
-			this.shadowWebCanvas.style.zIndex = (m-this.activeWebCanvas.dataset.wcbIndex)*10+5;
+			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
 			this.node.appendChild(this.shadowWebCanvas);
 			this.node.style.width=this.width+"px";
 			this.node.style.height=this.height+"px";
@@ -95,7 +96,7 @@ function WebCanvasBundle(width,height,colorset){
 			c.className = "WC";
 			c.setAlt("레이어"+ (++this.tempCounter));
 			var idx = this.getIndexAcviceWebCanvas();
-			this.webCanvases.splice(idx,0,c);
+			this.webCanvases.splice(idx+1,0,c);
 			this.setActiveWebCanvas(c);
 			return c;
 		}
