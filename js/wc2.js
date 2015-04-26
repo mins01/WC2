@@ -241,8 +241,8 @@ var wc2 = (function(){
 		}
 		,"activeWebCanvasWindow":function(wcw){
 			if(wcw == undefined){
-				console.log("x");
 				this.activeWcw = null;
+				this._syncPropLayerList();
 				return;
 			}
 			if(wcw.hasClass("wcw-active")){
