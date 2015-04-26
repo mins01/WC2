@@ -31,8 +31,8 @@
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
 		<style>
-		html{overflow:hidden;}
-			body { padding-top: 50px;  font-family: 'dotum',arial,sans-serif;}
+			html{overflow:hidden;padding:0;margin:0;height:100%;}
+			body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
 			.navbar{padding-bottom:0px;}
 			.navbar-brand img{width:50px;height:20px;}
 			.nav .glyphicon::before {margin-right:0.5em}
@@ -41,11 +41,16 @@
 			.ui-dialog{box-sizing:content-box;}
 			.ui-dialog *{box-sizing:content-box;}
 			/* wcf */
-			.ui-dialog .ui-dialog-content{overflow:scroll; padding:1px; background-color:#ccc;}
+			.ui-dialog .ui-dialog-content{
+				overflow:scroll; padding:1px; background-color:#ccc;
+			}
 			.ui-dialog .wcf{}
 			.ui-dialog .wcf-body{padding:40px 20px 20px 20px;position:absolute;top:0;left:0;right:0;bottom:0}
 			.wcf .WCB{ margin:0 auto;}
-			.ui-dialog .wcf-bottom{z-index:2;position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
+			.ui-dialog .wcf-bottom{
+				z-index:2;position:relative;padding:2px 2px 0 2px; 
+				
+			}
 			
 			.ui-widget-header {
 				background: #ccc;
@@ -90,12 +95,15 @@
 			margin-left:2px;
 			margin-right:5px;
 			box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
+			
+		div.wc-viewImage{ display:table-cell !important; text-align:center; vertical-align:middle}
+		div.wc-viewImage img.wc-viewImage{ }
 		</style>
 		<style>
 		
 		</style>
 		<style>
-		#contentArea{ position:fixed;top:50px;left:0;right:0;bottom:0;z-index:1;}
+		#contentArea{ position:absolute;top:50px;left:0;right:0;bottom:0;z-index:1; overflow:overflow;}
 		#hiddenArea{display:none;}
 		</style>
 <style>
@@ -111,7 +119,7 @@
 		<![endif]-->
 	</head>
 	<body>
-	<div id="container" style="position:absolute; left:0;right:0;top:55px;bottom:0">
+	<div id="container">
 		<header>
 			<nav class="navbar navbar-default navbar-fixed-top">
 			  <div class="container-fluid">
@@ -139,9 +147,9 @@
 							<li><a href="#" class="glyphicon glyphicon-file" onclick="wc2.addWebCanvasWindow()">New</a></li>
 							<li><a href="#" class="glyphicon glyphicon-folder-open">Open</a></li>
 							<li><a href="#" class="glyphicon glyphicon-save-file">Save</a></li>
-							<li><a href="#" class="glyphicon glyphicon-save-file">SaveAs</a></li>
+							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
-							<li><a href="#" class="glyphicon glyphicon-remove-circle">Close</a></li>
+							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.closeWebCanvasWindow()">Close</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Hello!</a></li>
 						  </ul>
@@ -331,35 +339,35 @@
 		<!-- 이 속의 내용은 안보여준다. 노드를 복사해서 사용할려고 만든것이다.-->
 		<article id="hiddenArea" >
 			<div id="defaultWCF" title="wcf" class="wcf">
-				<div>
+				<div style="position:absolute;top:0;bottom:0;left:0;right:0">
 					<div class="wcf-body"  style="background-color:#ccc;">
 						<div class="WCB" style="width:300px;height:300px; background-color:#fff"></div>
 					</div>
 					<div class="wcf-bottom btn-group  btn-group-xs">
-							<select class="btn btn-default wcw-resize" >
-								<option value="1">Default</option>
-								<option value="0.1">10%</option>
-								<option value="0.2">20%</option>
-								<option value="0.3">30%</option>
-								<option value="0.4">40%</option>
-								<option value="0.5">50%</option>
-								<option value="0.6">60%</option>
-								<option value="0.7">70%</option>
-								<option value="0.8">80%</option>
-								<option value="0.9">90%</option>
-								<option value="1">100%</option>
-								<option value="1.1">110%</option>
-								<option value="1.2">120%</option>
-								<option value="1.5">150%</option>
-								<option value="2">200%</option>
-								<option value="2.5">250%</option>
-								<option value="3">300%</option>
-								<option value="4">400%</option>
-								<option value="5">400%</option>
-							</select>
-							<input type="button" class="btn btn-default wcw-size-info" disabled value="300x600" title="Canvas Size" style="min-width:7em;">
-							<input type="button" class="btn btn-default wcw-poiner-zy" disabled value="300,600" title="Mouse Position" style="min-width:7em;">
-						</div>
+						<select class="btn btn-default wcw-resize" >
+							<option value="1">Default</option>
+							<option value="0.1">10%</option>
+							<option value="0.2">20%</option>
+							<option value="0.3">30%</option>
+							<option value="0.4">40%</option>
+							<option value="0.5">50%</option>
+							<option value="0.6">60%</option>
+							<option value="0.7">70%</option>
+							<option value="0.8">80%</option>
+							<option value="0.9">90%</option>
+							<option value="1">100%</option>
+							<option value="1.1">110%</option>
+							<option value="1.2">120%</option>
+							<option value="1.5">150%</option>
+							<option value="2">200%</option>
+							<option value="2.5">250%</option>
+							<option value="3">300%</option>
+							<option value="4">400%</option>
+							<option value="5">400%</option>
+						</select>
+						<input type="button" class="btn btn-default wcw-size-info" disabled value="300x600" title="Canvas Size" style="min-width:7em;">
+						<input type="button" class="btn btn-default wcw-poiner-zy" disabled value="300,600" title="Mouse Position" style="min-width:7em;">
+					</div>
 				</div>
 			</div>
 		</article>

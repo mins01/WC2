@@ -114,46 +114,127 @@ var wc2 = (function(){
 			wcf.find(".wcf-body").html("").append(wcb.node);
 			
 			var wcw = $( wcf ).dialog({"resizable":true,"draggable":false,
-				"minWidth":200,"minHeight":200,"width":400,"height":450,
-				"position": { my: "center top" , at: "center top", of: "#contentArea" },
-				"beforeClose": function( event, ui ) {
-					return confirm("close?")}
-				}
-			)
-			var wcwp = wcw.parent();
-			wcw.wcwp = wcwp;
-			wcwp.draggable({ "handle": wcwp.find("span.ui-dialog-title"),
-				"containment": "#contentArea",
-				"stop": function( event, ui ) {
-					if(ui.position.top<55){
-					$(this).css("top","60px")
+					"minWidth":200,"minHeight":200,"width":400,"height":450,
+					//"position": { my: "center top" , at: "center top",on:"#contentArea"},
+					"show": { effect: "blind", duration: 300 },
+					"hide": { effect: "blind", duration: 300 },
 					
+					"dragStop": function( event, ui ) {
+						wc2.reposWebCavasWindow(this.parentNode);
+					},
+					
+					"resizeStop": function( event, ui ) {
+						wc2.reposWebCavasWindow(this.parentNode);
+					},
+					"create": function( event, ui ) {
+						wc2.reposWebCavasWindow(this.parentNode);
+					},
+					"open": function( event, ui ) {
+						wc2.reposWebCavasWindow(this.parentNode); 
+					},
+					"beforeClose": function( event, ui ) {
+						return confirm("close?");
+					},
+					"close": function( event, ui ) {
+						wc2.removeWebCanvasWindow(this);
+						//$(this).dialog('destroy').remove();
 					}
 				}
+			)
+			
+			
+			
+			var wcwp = wcw.parent();
+			wcw.wcwp = wcwp;
+			
+			//*
+			wcwp.draggable({ "handle": wcwp.find("span.ui-dialog-title"),
+				"containment": "#contentArea",
+				"scroll": false,
+				"stop": function( event, ui ) {
+					wc2.reposWebCavasWindow(this);
+				}
 			});
+			//*/
+			
+			// wcf-bottom 다시 붙임
+			wcwp.find(".wcf-bottom").appendTo(wcwp);
+			
+			wc2.reposWebCavasWindow(wcwp[0]);
+			wcwp.css("height","60px");
+			
 			wcw.wcb = wcb;
 			wcw[0].wcb = wcb;
+			wcw.wcb.wcwp = wcwp;
 			wcwp.bind("mousedown",function(wcw){
-				return function(){
+				return function(event){
 					wc2.activeWebCanvasWindow(wcw);
 				}
 			}(wcw));
-			wcwp.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
+			wcwp.bind("mouseup",function(wcw){
+				return function(event){
+					wc2.reposWebCavasWindow(this);
+				}
+			}(wcw));
+			
 			//wcw.addClass("wcw-active");
 			this.wcws.push(wcw);
 			this.activeWebCanvasWindow(wcw);
 			this.rename($.format.date(new Date(),'yyyyMMddHHmmss'));
 			
 		}
+		,"reposWebCavasWindow":function(target){
+			var bcr0 = $("#contentArea")[0].getBoundingClientRect();
+			var bcr1 = target.getBoundingClientRect();
+
+			if(bcr1.left+bcr1.width - bcr0.left < 0){
+				target.style.left = bcr0.left+"px";
+			}else if(bcr1.left - (bcr0.left+bcr0.width) > 0){
+				target.style.left = (bcr0.left+bcr0.width)+"px";
+			}
+			if(bcr1.top - bcr0.top < 0){
+				target.style.top = bcr0.top+"px";
+				console.log(target.style.top);
+			}else if(bcr1.top - (bcr0.top+bcr0.height) > 0){
+					console.log(bcr0);
+				target.style.top = Math.max(bcr0.top,bcr0.top+bcr0.height-20)+"px";
+				console.log(bcr0.top+bcr0.height);
+				console.log(bcr0);
+				//alert(target.style.top);
+			}
+			
+			return;
+			//wcw.wcb.wcp.
+		}
+		,"closeWebCanvasWindow":function(){
+			$( this.activeWcw ).dialog( "close" );
+		}
+		,"removeWebCanvasWindow":function(wcw){
+			if(wcw == undefined){
+				wcw = this.activeWcw;
+			}
+			for(var i=0,m=this.wcws.length;i<m;i++){
+				if(this.wcws[i].wcb == wcw.wcb){
+					this.wcws.splice(i,1);break;
+				}
+			}
+			$(wcw).dialog('destroy');
+			$(wcw).remove();
+			this.activeWebCanvasWindow(this.wcws[0]);
+		}
 		,"activeWebCanvasWindow":function(wcw){
+			if(wcw == undefined){
+				console.log("x");
+				this.activeWcw = null;
+				return;
+			}
 			if(wcw.hasClass("wcw-active")){
 				return true;
 			}
 			this.activeWcw = wcw;
 			for(var i=0,m=this.wcws.length;i<m;i++){
-				if(this.wcws[i][0] == wcw[0]){
+				if(this.wcws[i].wcb == wcw.wcb){
 					this.wcws[i].wcwp.addClass("wcw-active");
-					//this.activeWcb = this.wcws.wcb;
 				}else{
 					this.wcws[i].wcwp.removeClass("wcw-active");
 				}
@@ -256,6 +337,30 @@ var wc2 = (function(){
 				case 4:return "rgba("+colorset.join(',')+")";break;
 			}
 			return false;
+		}
+		//--- 뷰 이미지 
+		,"viewImage":function(){
+			if(!wc2.activeWcw){
+				this.error = "wc2.viewImage() : 활성화된 윈도우가 없음";
+				return false;
+			}
+			var div = document.createElement('div');
+			div.className = "wc-viewImage";
+			var img = new Image();
+			img.title = wc2.activeWcw.wcb.name;
+			img.className ="wc-viewImage";
+			$(div).append(img);
+			$(img).bind("load",function(event){
+				$( this ).parent().dialog({"resizable":true,"draggable":true,
+					"position": { my: "center top" , at: "center top", of: "#contentArea" },
+					"modal":true,
+					"title":wc2.activeWcw.wcb.name+" (view)",
+					"close": function( event, ui ) {
+						$(this).dialog('destroy').remove();
+					},
+				});
+			})
+			img.src = wc2.activeWcw.wcb.toDataURL();
 		}
 	};
 })();
