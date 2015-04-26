@@ -258,14 +258,15 @@
 				</form>
 				<form name="formEraser" action="javascript:void(0)" class="wc-tool-eraser" onsubmit="return false">
 					<div class="panel panel-default">
-						<div  class="panel-heading">Line Stroke</div>
+						<div  class="panel-heading">Eraser</div>
 						<div  class="panel-body">
 							<table class="">
 								<col width="80">
 								<tr>
-									<td>globalCompositeOperation</td>
-									<td><!-- <input type="text" min="1" max="100" size="3" name="globalCompositeOperation" value="destination-out" style="width:90%"> -->
-									</td>
+									<td>eraserMode</td>
+									<td><select name="eraserMode">
+										<option value="pen">pen</option>
+									</select> </td>
 								</tr>
 							</table>
 						</div>

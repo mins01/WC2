@@ -137,9 +137,12 @@ var wc2Tool = function(){
 		,"eraser":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"eraserMode":"pen"
 			,"init":function(wcb){
 				this.wcb = wcb;
 				//console.log("init");				
+				this.eraserMode = this.wcb.shadowWebCanvas.getConfigContext2d("eraserMode");
+				
 				return true;
 			}
 			,"end":function(){
@@ -188,7 +191,9 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
-				this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
+				if(this.eraserMode=="pen"){
+					this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
+				}
 			}
 		}
 	}

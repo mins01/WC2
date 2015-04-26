@@ -37,8 +37,9 @@ function WebCanvas(width,height,colorset){
 		c.height = height;
 		c.context2d = c.getContext('2d');
 		//c.context2d.imageSmoothingEnabled = false;//
-		//-- 추가 설정
+		//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
 		c.context2d.lineHeight = 1.5;
+		c.context2d.eraserMode = "pen";
 		
 		if(colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
@@ -83,7 +84,8 @@ function WebCanvas(width,height,colorset){
 			this.context2d.clearRect(0,0,this.width,this.height);
 			return true;
 		}
-		,"getConfigContext2d":function(){
+		,"getConfigContext2d":function(name){
+			if(name){ return this.context2d[name]}
 			var cfg = {};
 			for(var x in this.context2d){
 				if(this.context2d[x] === undefined){
