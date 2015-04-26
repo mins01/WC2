@@ -65,7 +65,9 @@ function WebCanvasBundle(width,height,colorset){
 			return this.name;
 		}
 		,"setZoom":function(zoom){
-			this.zoom = zoom;
+			if(!isNaN(zoom)){
+				this.zoom = zoom;
+			}
 			//this.node.style.transform="scale("+this.zoom+","+this.zoom+")";
 			this.node.style.width = (this.width*zoom)+'px';this.node.style.height = (this.height*zoom)+'px';
 		}
@@ -82,8 +84,7 @@ function WebCanvasBundle(width,height,colorset){
 			this.activeWebCanvas.dataset.wcbActive = 1;
 			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
 			this.node.appendChild(this.shadowWebCanvas);
-			this.node.style.width=this.width+"px";
-			this.node.style.height=this.height+"px";
+			this.setZoom();
 			return true;
 		}
 		,"removeWebCanvas":function(){
