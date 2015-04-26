@@ -89,12 +89,13 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"setActiveWebCanvasByNum":function(n){
 			if(n==-1){
-				n = this.addWebCanvas.length-1;
+				n = this.webCanvases.length-1;
 			}
-			if(!n || this.addWebCanvas[n] === undefined){
+			if(typeof n != "number" || this.webCanvases[n] === undefined){
+				this.error = this.constructor+".setActiveWebCanvasByNum() : 숫자만 입력되야합니다.";
 			}else{
-				this.activeWebCanvas = this.addWebCanvas[n];
-				return this.setActiveWebCanvas(this.addWebCanvas[n]);
+				this.activeWebCanvas = this.webCanvases[n];
+				return this.setActiveWebCanvas(this.webCanvases[n]);
 			}
 			return false;
 		}

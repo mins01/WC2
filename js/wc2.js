@@ -97,7 +97,10 @@ var wc2 = (function(){
 			// 드래그 방지용
 			$('body').on("selectstart", function(event){ return false; });
 			$('#contentArea').on("dragstart", function(event){ return false; });
-			
+			// 툴 panel
+			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){ 
+				wc2.setToolByBtn(this);
+			});
 		}
 		//--- 
 		,"addWebCanvasWindow":function(width,height){
@@ -169,6 +172,21 @@ var wc2 = (function(){
 			this.tool = tool;
 			this.showPropPanel();
 			return this.tool;
+		}
+		,"setToolByBtn":function(btn){
+			
+			if(!btn.dataset || !btn.dataset.wcTool){
+				this.error = "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.";
+				return false;
+			}
+			var tool = btn.dataset.wcTool;
+			$(btn).parent().parent().find(".btn").each(
+				function(){
+					$(this).removeClass("active")
+				}
+			)
+			$(btn).addClass("active");
+			return this.setTool(tool);
 		}
 		//--- target에 대한 마우스 클릭 위치
 		,"getMousePos":function(evt,target ) {

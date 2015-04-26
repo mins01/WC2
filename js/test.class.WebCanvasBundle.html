@@ -7,7 +7,6 @@
 	<script src="class.WebCanvas.js"></script>
 	<script src="class.WebCanvasBundle.js"></script>
 	<script src="../../../js/_M/_M.js"></script>
-	<script src="class.wc2Tool.js"></script>
 	
 	
 	
@@ -22,9 +21,9 @@
 		wcb0 = new WebCanvasBundle(200,200,colorset0);
 		document.getElementById('div').appendChild(wcb0.node);
 //--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
-		actWC = wcb0.setActiveWebCanvasByNum(-1); 
+		
 
-		return;
+		//return;
 		layerNumbering();
 		//--- 레이어 추가.
 		var colorset1 = [0x33,0x66,0x99,1]
@@ -46,7 +45,7 @@
 			console.error("var r = wcb0.upOrder(0,false);");
 		}
 		
-		
+		actWC = wcb0.setActiveWebCanvasByNum(-1); 
 		//--- 그리기 설정
 		var context2dCfg = {"lineWidth":4,"strokeStyle":wc2.colorset2String([255,255,255,1]),"fillStyle":wc2.colorset2String([0,0,0,1])};
 		actWC.configContext2d(context2dCfg);	
@@ -225,9 +224,22 @@
 		}
 	}
 	function setPatternStyle(img,type){
-	var context2dCfg = {"patternImage":img,"patternType":type};
-	wcb0.configContext2d(context2dCfg);	
+		var context2dCfg = {"patternImage":img,"patternType":type};
+		wcb0.configContext2d(context2dCfg);	
 	}
+	function lines(){
+		var context2dCfg = {"lineWidth":2,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([0xaa,0xbb,0xcc,1])
+		,"font":"20px sans-serif"
+		,"textBaseline":"top"};
+		actWC.configContext2d(context2dCfg);	
+		actWC.lines([
+			[0,0],[100,100],[200,0],[300,100]
+		])
+	}
+	function copy(){
+		actWC.copy(img0);
+	}
+	
 	</script>
 </head>
 <body>
@@ -264,6 +276,9 @@
 			<input type="button" value="setPatternStyle(img0,'repeat-y');"  onclick="setPatternStyle(img0,'repeat-y')">
 			<input type="button" value="setPatternStyle(img0,'no-repeat');"  onclick="setPatternStyle(img0,'no-repeat')">
 			<input type="button" value="actWC.rect(0,0,400,400); //사각형 그리기"  onclick="actWC.rect(0,0,250,250);">
+			<hr>연속된 선 그리기
+			<input type="button" value="lines();"  onclick="lines()">
+			<input type="button" value="copy();"  onclick="copy()">
 		</div>
 	</fieldset>
 </fieldset>

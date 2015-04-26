@@ -16,7 +16,7 @@ var wc2Tool = function(){
 		console.error("wc2가 없습니다.");
 		return null;
 	}
-	return {
+	var r = {
 		"error":""
 		//-- 제어용 함수. init -> down -> move -> up -> end
 		,"init":function(toolName,wcb){
@@ -79,6 +79,7 @@ var wc2Tool = function(){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x1 = t.x;
 				this.y1 = t.y;
+				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
@@ -89,5 +90,107 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
 			}
 		}
+		//-- 펜
+		,"pen":{
+			"wcb":null
+			,"pos":[]
+			,"init":function(wcb){
+				this.wcb = wcb;
+				//console.log("init");
+				return true;
+			}
+			,"end":function(){
+				//console.log("end");
+				this.wcb.shadowWebCanvas.clear();
+				this.wcb = null;
+				this.pos = [];
+				return true;
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.pos.push([t.x,t.y])
+				this.predraw();
+				//console.log("down");
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.pos.push([t.x,t.y])
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.pos.push([t.x,t.y])
+				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				this.wcb.shadowWebCanvas.clear();
+				this.wcb.shadowWebCanvas.lines(this.pos);
+			}
+		}
+		//-- 지우개
+		,"eraser":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"init":function(wcb){
+				this.wcb = wcb;
+				//console.log("init");				
+				return true;
+			}
+			,"end":function(){
+				//console.log("end");
+				this.wcb.shadowWebCanvas.clear();
+				$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
+				this.wcb = null;
+				return true;
+			}
+			,"down":function(event){
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"destination-out"});
+				
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = t.x;
+				this.y0 = t.y;
+				this.x1 = t.x;
+				this.y1 = t.y;
+				
+				this.predraw();
+				//console.log("down");
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = this.x1;
+				this.y0 = this.y1;
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = this.x1;
+				this.y0 = this.y1;
+				this.x1 = t.x;
+				this.y2 = t.y;
+				this.predraw();
+				
+				this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
+			}
+		}
 	}
+	return r;
 }();

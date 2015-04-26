@@ -149,7 +149,7 @@ function WebCanvas(width,height,colorset){
 			return parseFloat(this.style.opacity);
 		}
 		,"merge":function(webCanvas){
-			var globalAlpha = webCanvas.opacity();
+			var globalAlpha = webCanvas.opacity?webCanvas.opacity():1;
 			var context2d = this.context2d;
 			this.context2d.save();
 			if(globalAlpha!=null){
@@ -159,6 +159,10 @@ function WebCanvas(width,height,colorset){
 			this.context2d.globalAlpha = 1;
 			this.context2d.restore();
 			return this;
+		}
+		,"copy":function(webCanvas){
+			this.clear();
+			return this.merge(webCanvas);
 		}
 		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){

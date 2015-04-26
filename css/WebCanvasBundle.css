@@ -11,7 +11,11 @@
 html{margin:0;padding:0;height:100%;}
 body{margin:0;padding:0;height:100%;}
 
-.WCB{position:relative; z-index:1;}
+.WCB{position:relative; z-index:1; background-image:url("../img/bg.gif");}
 .WCB .WC{
 	position:absolute; top:0;left:0;bottom:0;right:0;
+}
+
+.WC-hidden{
+	visibility:hidden;
 }
