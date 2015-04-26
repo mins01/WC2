@@ -160,11 +160,31 @@ function WebCanvas(width,height,colorset){
 			this.context2d.restore();
 			return this;
 		}
-		//--- 선그리기
+		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){
 			this.context2d.beginPath();
 			this.context2d.moveTo(x0,y0);
 			this.context2d.lineTo(x1,y1);
+			this.context2d.stroke();
+			this.context2d.closePath();
+			return true;
+		}
+		//--- 연결된 다중 선 그리기
+		//-- pos  = [[x,y],[x,y]];
+		,"lines":function(pos){
+			if(!pos instanceof Array){
+				this.error = this.constructor+".lines() : 배열이 아닙니다."
+				return false;
+			}
+			if(pos.length == 0 ){
+				this.error = this.constructor+".lines() : 배열 너무 짧습니다."
+				return false;
+			}
+			this.context2d.beginPath();
+			this.context2d.moveTo(pos[0][0],pos[0][1]);
+			for(var i = 0,m=pos.length;i<m;i++){
+				this.context2d.lineTo(pos[i][0],pos[i][1]);
+			}
 			this.context2d.stroke();
 			this.context2d.closePath();
 			return true;
