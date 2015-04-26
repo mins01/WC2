@@ -18,29 +18,42 @@ var wc2Tool = function(){
 	}
 	var r = {
 		"error":""
-		//-- 제어용 함수. init -> down -> move -> up -> end
+		,"lastToolName":""
+		//-- 제어용 함수. init -> step1(down) -> step2(move) -> step3(up) -> end
 		,"init":function(toolName,wcb){
 			if(!this[toolName]){
 				this.error = "wc2Tool.init : "+toolName+"라는 툴이 지원되지 않습니다.";
 				return false;
 			}
+			if(this.lastToolName != toolName && this[this.lastToolName] && this[this.lastToolName].reset){
+				this[this.lastToolName].reset(); //이전 동작에 대한 남겨진 내용을 초기화
+			}
+			this.lastToolName  = toolName;
 			return this[toolName].init(wcb);
 		}
-		,"down":function(toolName,event){
+		,"step1":function(toolName,event){
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].down(event);
 		}
-		,"move":function(toolName,event){
+		,"step2":function(toolName,event){
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].move(event);
 		}
-		,"up":function(toolName,event){
+		,"step3":function(toolName,event){
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].up(event);
 		}
 		,"end":function(toolName){
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].end();
+		}
+		,"confirm":function(toolName){ //특정 툴에서만 있다. 확인을 받아야만 적용되는 경우. reset과 짝을 이루어 있어야한다.
+			if(!this[toolName].confirm){ return false;}
+			return this[toolName].confirm();
+		}
+		,"reset":function(toolName){ //특정 툴에서만 있다. 확인을 받아야만 적용되는 경우. confirm과 짝을 이루어 있어야한다.
+			if(!this[toolName].reset){ return false;}
+			return this[toolName].reset();
 		}
 		//-- 라인
 		,"line":{
@@ -294,6 +307,83 @@ var wc2Tool = function(){
 				var yd = (this.y1 - this.y0)/2;
 				var r = Math.sqrt(xd*xd+yd*yd)*2;			
 				this.wcb.shadowWebCanvas.circle(this.x0,this.y0,r);
+			}
+		}
+		//-- 이동
+		,"move":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"ing":0
+			,"init":function(wcb){
+				if(this.ing ==0){
+					this.wcb = wcb;
+					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+					this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+				}
+				return true;
+			}
+			,"end":function(){
+
+				return true;
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				if(this.ing ==0){
+					this.x0 = 0;
+					this.y0 = 0;
+					this.ing = 1;
+				}
+				this.x1 = t.x;
+				this.y1 = t.y;
+					
+				console.log(this);
+				this.predraw();
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 += t.x-this.x1;
+				this.y0 += t.y-this.y1;
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				//this.wcb.shadowWebCanvas.clear();
+				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,this.x0,this.y0);
+			}
+			,"confirm":function(){
+				if(this.ing == 1){
+					if(confirm("OK?")){
+						this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+					}
+					this.ing = 0;
+					return this.reset();
+				}
+				return true;
+				
+			}
+			,"reset":function(){
+				//console.log("reset");
+				if(this.wcb){
+					this.ing = 0;
+					this.wcb.shadowWebCanvas.clear();
+					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
+					this.wcb = null;
+				}
+				return true;
 			}
 		}
 		//--

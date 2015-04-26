@@ -72,7 +72,7 @@ var wc2 = (function(){
 				}
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 				// todo : context2D 설정 부분
-				if(!wc2Tool.down(wc2.tool,event)){
+				if(!wc2Tool.step1(wc2.tool,event)){
 					this.setError( wc2Tool.error);
 					return false;
 				}
@@ -85,7 +85,7 @@ var wc2 = (function(){
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
-				if(!wc2Tool.move(wc2.tool,event)){
+				if(!wc2Tool.step2(wc2.tool,event)){
 					this.setError( wc2Tool.error);
 					return false;
 				}
@@ -97,7 +97,7 @@ var wc2 = (function(){
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
-				if(!wc2Tool.up(wc2.tool,event)){
+				if(!wc2Tool.step3(wc2.tool,event)){
 					this.setError( wc2Tool.error);
 					return false;
 				}
@@ -111,6 +111,7 @@ var wc2 = (function(){
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){ 
 				wc2.setToolByBtn(this);
+				
 			});
 			//-- 레이어 쪽
 			$("#propLayerList").on("click","li",function(event){
@@ -273,6 +274,11 @@ var wc2 = (function(){
 			//this.tool = wc2Tool[tool];
 			this.tool = tool;
 			this.showPropPanel();
+			if(!wc2Tool.init(this.tool,this.activeWcw.wcb)){
+				alert(wc2Tool.error);
+				return false;
+			}
+			
 			return this.tool;
 		}
 		,"setToolByBtn":function(btn){
@@ -385,6 +391,14 @@ var wc2 = (function(){
 		,"setZoom":function(zoom){
 			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
 			this.activeWcw.wcb.setZoom(zoom);
+		}
+		
+		//--- tool confirm/reset
+		,"confirmTool":function(){
+			return wc2Tool.confirm(this.tool);
+		}
+		,"resetTool":function(){
+			return wc2Tool.reset(this.tool);
 		}
 		
 		//-- 유틸성
