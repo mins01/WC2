@@ -241,7 +241,7 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1-this.x0,this.y1-this.y0);
+				this.wcb.shadowWebCanvas.rect(this.x0,this.y0,this.x1-this.x0,this.y1-this.y0);
 			}
 		}
 	}

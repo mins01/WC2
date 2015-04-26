@@ -43,6 +43,11 @@ var wc2 = (function(){
 											"strokeStyle": "#000000",
 											"textAlign": "start", //start,end,left,right,center
 											"textBaseline": "top", //top,hanging,middle,alphabetic,ideographic,bottom : use only "top"
+											//--- 추가 설정
+											"context2d.lineHeight":1.5,//text line-height
+											"context2d.eraserMode": "pen", //지우개 모드 (todo)
+											"context2d.disableStroke": 0, //stroke 사용금지
+											"context2d.disableFill": 0, //fiil 사용금지
 											}
 		 //--- 초기화
 		,"init":function(){
@@ -288,8 +293,8 @@ var wc2 = (function(){
 			return { "x":xy.x/zoom,"y":xy.y/zoom};
 		}
 		,"showPropPanel":function(){
-			var className = "form.wc-tool-"+this.tool;
-			$("#propPanel form").hide();
+			var className = ".wc-tool-"+this.tool;
+			$("#propPanel .wc-tool").hide();
 			$("#propPanel "+className).show();
 		}
 		,"syncContext2dCfg":function(){

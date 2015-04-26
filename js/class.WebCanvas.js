@@ -40,6 +40,8 @@ function WebCanvas(width,height,colorset){
 		//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
 		c.context2d.lineHeight = 1.5;
 		c.context2d.eraserMode = "pen";
+		c.context2d.disableStroke = 0; //stroke 사용금지
+		c.context2d.disableFill = 0; //strokFiil 사용금지
 		
 		if(colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
@@ -224,8 +226,12 @@ function WebCanvas(width,height,colorset){
 		,"rect":function(x0,y0,width,height){
 			this.context2d.beginPath();
 			this.context2d.rect(x0,y0,width,height);
-			this.context2d.fill();
-			this.context2d.stroke();
+			if(!this.context2d.disableFill){
+				this.context2d.fill();
+			}
+			if(!this.context2d.disableStroke){
+				this.context2d.stroke();
+			}
 			this.context2d.closePath();
 		}
 		//--- 원 그리기
