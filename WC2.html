@@ -97,7 +97,7 @@
 			margin-left:2px;
 			margin-right:5px;
 			box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
-		#propLayerList li{ cursor:pointer;}
+		#propLayerList li{ cursor:pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 		#propLayerList li[data-wcb-active="1"]{ background-color:#abc; font-weight:bold;}
 			
 		div.wc-viewImage{ display:table-cell !important; text-align:center; vertical-align:middle}
@@ -197,10 +197,10 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Layer <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#" class="glyphicon glyphicon-plus-sign">Add</a></li>
-							<li><a href="#" class="glyphicon glyphicon-duplicate">Copy</a></li>
-							<li><a href="#" class="glyphicon glyphicon-arrow-down">MergeDown</a></li>
-							<li><a href="#" class="glyphicon glyphicon-minus-sign">Remove</a></li>
+							<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.addLayer()">Add</a></li>
+							<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="wc2.removeLayer()">Remove</a></li>
+							<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.duplicateLayer()">Duplicate</a></li>
+							<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="wc2.mergeDownLayer()">MergeDown</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-save-file">SaveAs</a></li>
 							<li class="divider"></li>

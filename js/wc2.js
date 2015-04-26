@@ -341,6 +341,9 @@ var wc2 = (function(){
 					li.className="list-group-item";
 					li.dataset.wcbActive = oc.dataset.wcbActive;
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
+					li.alt = oc.alt;
+					img.alt = oc.alt;
+					li.title = oc.alt;
 					$(li).append(img);
 					$(li).append(document.createTextNode(wcb.webCanvases[i].alt));
 					$("#propLayerList").append(li)
@@ -354,6 +357,17 @@ var wc2 = (function(){
 			this.activeWcw.wcb.addWebCanvas();
 			this._syncPropLayerList();
 		}
+		,"duplicateLayer":function(){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			this.activeWcw.wcb.addDuplicateWebCanvas();
+			this._syncPropLayerList();
+		}
+		,"mergeDownLayer":function(){
+			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			this.activeWcw.wcb.mergeDown();
+			this._syncPropLayerList();
+		}
+		
 		,"removeLayer":function(){
 			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
 			if(this.activeWcw.wcb.removeWebCanvas()=== false){

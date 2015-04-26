@@ -87,25 +87,51 @@ function WebCanvasBundle(width,height,colorset){
 			this.setZoom();
 			return true;
 		}
+		,"removeWebCanvasByIndex":function(idx){
+			return this._removeWebCanvas(idx);
+		}
 		,"removeWebCanvas":function(){
+			return this.removeWebCanvasByIndex(this.getIndexAcviceWebCanvas());
+		}
+		,"_removeWebCanvas":function(idx){	
 			if(this.webCanvases.length == 1){
 				this.setError( "WebCanvasBundle.removeWebCanvas(): 마지막 요소는 삭제할 수 없습니다.");
 				return false
 			}
-			var idx = this.getIndexAcviceWebCanvas();
+			var actIdx = this.getIndexAcviceWebCanvas();
 			this.webCanvases.splice(idx,1);
-			var idx2 = Math.max(idx-1,0);
-			this.setActiveWebCanvasByIndex(idx2);
+			if(idx == actIdx){
+				var idx2 = Math.max(idx-1,0);
+				this.setActiveWebCanvasByIndex(idx2);
+			}
 			return true;
 		}
 		,"addWebCanvas":function(colorset){
 			var c = WebCanvas(this.width,this.height,colorset);
 			c.className = "WC";
-			c.setAlt("레이어"+ (++this.tempCounter));
+			c.setAlt("Layer"+ (++this.tempCounter));
+			return this._addWebCanvas(c);
+		}
+		,"_addWebCanvas":function(c){
 			var idx = this.getIndexAcviceWebCanvas();
 			this.webCanvases.splice(idx+1,0,c);
 			this.setActiveWebCanvas(c);
 			return c;
+		}
+		,"addDuplicateWebCanvas":function(){
+			var c = this.activeWebCanvas.clone();
+			c.className = "WC";
+			c.setAlt(this.activeWebCanvas.alt+"-copy");
+			return this._addWebCanvas(c);
+		}
+		,"mergeDown":function(){
+			var idx = this.getIndexAcviceWebCanvas();
+			if(idx==0){
+				this.setError("WebCanvasBundle.mergeDown() : 최하단 요소는 mergeDown 할 수 없습니다.");
+				return false;
+			}
+			var r = this.activeWebCanvas.mergeTo(this.webCanvases[idx-1]);
+			this.removeWebCanvasByIndex(idx-1);
 		}
 		,"getIndexAcviceWebCanvas":function(){
 			if(!this.activeWebCanvas){

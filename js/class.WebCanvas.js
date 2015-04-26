@@ -167,9 +167,10 @@ function WebCanvas(width,height,colorset){
 			}
 			return this.opacity;
 		}
+		// 인자의 webCanvas가 위에 그려진다.
 		,"merge":function(webCanvas,x0,y0,w0,h0){
 			var globalAlpha = webCanvas.opacity?webCanvas.opacity:1;
-			var context2d = this.context2d;
+			
 			this.context2d.save();
 			if(globalAlpha!=null){
 				this.context2d.globalAlpha = globalAlpha;
@@ -179,6 +180,25 @@ function WebCanvas(width,height,colorset){
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.context2d.globalAlpha = 1;
 			this.context2d.restore();
+			return this;
+		}
+		// 인자의 webCanvas가 아래에 그려진다.
+		,"mergeTo":function(webCanvas,x0,y0,w0,h0){
+			var globalAlpha = webCanvas.opacity?webCanvas.opacity:1;
+			
+			var c = webCanvas.clone();
+			c.context2d.save();
+			if(globalAlpha!=null){
+				c.context2d.globalAlpha = globalAlpha;
+			}
+			if(isNaN(x0)){x0 = 0;}
+			if(isNaN(y0)){y0 = 0;}
+			
+			c.drawImage(this, x0, y0,w0,h0);
+			//this.drawImage(webCanvas, x0, y0,w0,h0);
+			this.copy(c);
+			c.context2d.globalAlpha = 1;
+			c.context2d.restore();
 			return this;
 		}
 		,"copy":function(webCanvas,x0,y0,w0,h0){
