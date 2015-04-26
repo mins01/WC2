@@ -133,9 +133,11 @@ var wc2 = (function(){
 			});
 			wcw.wcb = wcb;
 			wcw[0].wcb = wcb;
-			wcwp.bind("mousedown",function(){
-				wc2.activeWebCanvasWindow($(this));
-			});
+			wcwp.bind("mousedown",function(wcw){
+				return function(){
+					wc2.activeWebCanvasWindow(wcw);
+				}
+			}(wcw));
 			wcwp.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
 			//wcw.addClass("wcw-active");
 			this.wcws.push(wcw);
