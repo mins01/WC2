@@ -111,7 +111,7 @@ var wc2 = (function(){
 				return true;
 			});
 			
-			$(document).on('mousewheel', function(event) {
+			$(document).on('mousewheel', ".wcf-body", function(event) {
 				if(!wc2Tool.onMouseWheel(wc2.tool,event)){
 					//this.setError( wc2Tool.error);
 					return; //false라도 잘못된것이 아니므로 흘러내린다.

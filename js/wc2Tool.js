@@ -325,7 +325,7 @@ var wc2Tool = function(){
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"w0":-1,"h0":-1
 			,"dw":-1,"dh":-1,"sc":1 //확대관련
-			,"deg":0,"rx":-1,"ry":-1 //회전관련(각도,기준x,기준y
+			,"deg":0//회전관련(각도)
 			,"ing":0
 			,"init":function(wcb){
 				if(this.ing ==0){
@@ -358,25 +358,10 @@ var wc2Tool = function(){
 				if(this.ing == 0){ return false; }
 				console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-					//this.rx = t.x;
-					//this.ry = t.y;
-					this.rx = this.dw/2;
-					this.ry = this.dh/2;
-					
-					this.deg+=event.deltaY;
-					/*
-					this.wcb.shadowWebCanvas.configRotate(this.deg,t.x,t.y);
+					//var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+					var deg = -1*event.deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
+					this.deg += deg;
 					this.predraw();
-					this.wcb.shadowWebCanvas.resetRotate();
-					*/
-					console.log(this.deg,this.rx,this.ry);
-					
-					this.wcb.shadowWebCanvas.saveContext2d()
-					this.wcb.shadowWebCanvas.configContext2d({"fillStyle":"#000000","strokeStyle":"#000000"});
-					this.wcb.shadowWebCanvas.circle(this.rx,this.ry,5);
-					this.wcb.shadowWebCanvas.restoreContext2d()
-					
 				}else{ //scale
 					this.sc +=(event.deltaY/50);
 					this.sc = Math.min(100,Math.max(0.01,this.sc)); //0.1 ~ 10 배까지 가능하도록
@@ -425,7 +410,12 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,this.x0,this.y0,this.w0,this.h0);
+				var rotateCenterX = (this.w0)/2
+				var rotateCenterY = (this.h0)/2
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0,this.y0);
+				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,t.x,t.y,this.w0,this.h0);
+				this.wcb.shadowWebCanvas.resetRotate()
 			}
 			,"confirm":function(){
 				if(this.ing == 1){
@@ -455,8 +445,9 @@ var wc2Tool = function(){
 		,"image":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
-			,"w0":-1,"h0":-1,"sc":1
-			,"dw":-1,"dh":-1
+			,"w0":-1,"h0":-1
+			,"dw":-1,"dh":-1,"sc":1 //확대관련
+			,"deg":0//회전관련(각도)
 			,"ing":0
 			,"init":function(wcb){
 				this.img  = document.getElementById('imageNode');
@@ -522,9 +513,12 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				this.wcb.shadowWebCanvas.clear();
-				//this.wcb.shadowWebCanvas.save();
-				this.wcb.shadowWebCanvas.merge(this.img,this.x0,this.y0,this.w0,this.h0);
-				//this.wcb.shadowWebCanvas.restore();
+				var rotateCenterX = (this.w0)/2
+				var rotateCenterY = (this.h0)/2
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0,this.y0);
+				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y,this.w0,this.h0);
+				this.wcb.shadowWebCanvas.resetRotate()
 			}
 			,"confirm":function(){
 				if(this.ing == 1){

@@ -121,8 +121,10 @@ function WebCanvas(width,height,colorset){
 		}
 		,"saveContext2d":function(){
 			this.saveContext2dCfg.push(this.getConfigContext2d());
+			this.context2d.save();
 		}
 		,"restoreContext2d":function(){
+			this.context2d.restore();
 			var cfg = this.saveContext2dCfg.pop();
 			this.configContext2d(cfg);
 		}
@@ -362,17 +364,23 @@ function WebCanvas(width,height,colorset){
 			return c;
 		}
 		//--- 회전 설정
-		//deg:각도,translateX:기준x,translateY:기준y
-		,"configRotate":function(deg,translateX,translateY){
-			this._rotateAngle =deg;
-			this.context2d.translate(translateX,translateY);
-			this.context2d.rotate(deg * Math.PI / 180);
+		//deg:각도,centerX:기준x,centerY:기준y
+		,"setRotate":function(deg,centerX,centerY){
+			var ang = deg * Math.PI / 180
+			this.context2d.save();
+			this.context2d.translate(centerX,centerY);
+			this.context2d.rotate(ang);
+			this.context2d.translate(-1*centerX,-1*centerY);
 			return;
 		}
-		,"resetRotate":function(deg){
-			this.context2d.rotate(0 * Math.PI / 180);
-			this._rotateAngle = 0;
+		,"resetRotate":function(){
+			this.context2d.restore();
 			return;
+		}
+		// 각도 변경에 따른 x,y값 알아오기, 회전할 때 x,y의 위치가 바뀌어야한다.
+		,"getRotateXY":function(deg,x,y){
+			var ang = deg * Math.PI / 180
+			return {"x":x*Math.cos(-ang) - y*Math.sin(-ang),"y":y*Math.cos(-ang) + x*Math.sin(-ang)};
 		}
 		//--- 90도 회전
 		,"rotate90To":function(deg){
