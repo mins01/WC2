@@ -356,7 +356,7 @@ var wc2Tool = function(){
 			}
 			,"mousewheel":function(event){
 				if(this.ing == 0){ return false; }
-				console.log(event.deltaX, event.deltaY, event.deltaFactor);
+				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
 					//var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 					var deg = -1*event.deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함

@@ -338,7 +338,7 @@
 						<div  class="panel-heading">Image</div>
 						<div  class="panel-body">
 							<table class="" style="width:100%">
-								<col width="40">
+								<col width="60">
 								<col width="">
 								<tr>
 									<th colspan="2" >
@@ -351,8 +351,12 @@
 									</td>
 								</tr>
 								<tr>
-									<th>PC</th>
+									<th>in PC</th>
 									<td><input type="file" name="inputImageFile" style="width:90%" accept="image/*" onchange="wc2Helper.selectFileAndView(event,document.getElementById('imageNode'))"></td>
+								</tr>
+								<tr>
+									<th>URL</th>
+									<td><input type="text" name="inputImageFile" style="width:90%" onchange="document.getElementById('imageNode').src=this.value"></td>
 								</tr>
 							</table>
 						</div>
@@ -375,7 +379,7 @@
 								</tr>
 								<tr>
 									<th>alt+wheel</th>
-									<td>fast scale up &amp; down</td>
+									<td>rotate</td>
 								</tr>
 							</table>
 						</div>

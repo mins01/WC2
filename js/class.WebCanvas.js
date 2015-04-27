@@ -345,6 +345,19 @@ function WebCanvas(width,height,colorset){
 		// x1,y1,w1,h1 넣는 이미지에 대한 crop및 resize
 		//풀 아규멘트일 경우 x0과 x1의 위치가 바뀌지만 헷갈리므로 여거서 처리
 		,"drawImage":function(img,x0,y0,w0,h0,x1,y1,w1,h1){
+			if(img){
+				if(img.nodeName == "IMG" && img.naturalWidth > 0){
+					
+				}else if(img.nodeName == "CANVAS" && img.width > 0){
+					
+				}else{
+					this.setError("이미지 로드에 문제가 있습니다.");
+					return false;
+				}
+			}else{
+				this.setError("이미지 객체가 없습니다.");
+				return false;
+			}
 			if(isNaN(w0)){
 				this.context2d.drawImage(img,x0,y0);
 			}else if(isNaN(x1)){
