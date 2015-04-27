@@ -33,6 +33,7 @@
 		<style>
 			html{overflow:hidden;padding:0;margin:0;height:100%;}
 			body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
+			input,textarea,select,button{padding:0;}
 			.navbar{padding-bottom:0px;}
 			.navbar-brand img{width:50px;height:20px;}
 			.nav .glyphicon::before {margin-right:0.5em}
@@ -86,6 +87,8 @@
 		
 		#propPanel .wc-layer li{text-align:left;}
 		.overflow-scrolly{overflow-y:scroll}
+		#propPanel table{border-width:0;padding:0;margin:0;width:100%; border-collapse: separate;}
+		#propPanel th,#propPanel td {padding:2px;}
 		#propPanel th{text-align:center;}
 		#propPanel td{text-align:left;}
 		
@@ -260,20 +263,21 @@
 		<aside id="propPanel"  class="wc2-panel panel panel-default">
 			<div class="panel-heading">Property</div>
 			<div class="panel-body">
-				<form name="formLineStroke" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-eraser wc-tool-rect wc-tool-circle" onsubmit="return false">
+				<form name="formLineStroke" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect wc-tool-circle" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Line</div>
 						<div  class="panel-body">
 							<table class="">
-								<col width="80">
+								<col width="50%">
+								<col width="50%">
 								<tr>
 									<th>line</th>
-									<td><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" style="width:90%">
+									<td><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" >
 									</td>
 								</tr>
 								<tr>
 									<th>alpha</th>
-									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  style="width:90%">
+									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  >
 									</td>
 								</tr>
 								<tbody class="wc-tool wc-tool-rect  wc-tool-circle">
@@ -300,7 +304,18 @@
 						<div  class="panel-heading">Eraser</div>
 						<div  class="panel-body">
 							<table class="">
-								<col width="80">
+								<col width="50%">
+								<col width="50%">
+								<tr>
+									<th>line</th>
+									<td><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" >
+									</td>
+								</tr>
+								<tr>
+									<th>alpha</th>
+									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  >
+									</td>
+								</tr>
 								<tr>
 									<th>eraserMode</th>
 									<td><select name="eraserMode">
