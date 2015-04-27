@@ -44,6 +44,11 @@ function WebCanvas(width,height,colorset){
 		c.context2d.eraserMode = "pen";
 		c.context2d.disableStroke = 0; //stroke 사용금지
 		c.context2d.disableFill = 0; //strokFiil 사용금지
+		/*
+		c.context2d.globalRotateAngle = 0; //회전각도
+		c.context2d.globalTranslateX = 0; //회전축 x
+		c.context2d.globalTranslateY = 0; //회전축 y
+		*/
 		
 		if(colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
@@ -61,6 +66,7 @@ function WebCanvas(width,height,colorset){
 		,"height":100
 		,"context2d":null//"getContext('2d');
 		,"initContext2dCfg":{}
+		,"saveContext2dCfg":[]
 		//== 추가 메소드
 		//--- 색상 변환용
 		,"colorset2String":function(colorset){
@@ -113,6 +119,13 @@ function WebCanvas(width,height,colorset){
 		,"setContext2d":function(cfg){
 			return this.configContext2d(cfg);
 		}
+		,"saveContext2d":function(){
+			this.saveContext2dCfg.push(this.getConfigContext2d());
+		}
+		,"restoreContext2d":function(){
+			var cfg = this.saveContext2dCfg.pop();
+			this.configContext2d(cfg);
+		}
 		,"configContext2d":function(cfg){
 			if(cfg != undefined){
 				for(var x in cfg){
@@ -136,6 +149,18 @@ function WebCanvas(width,height,colorset){
 				
 				this.context2d.fillStyle = this.context2d.createPattern(cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
 			}
+			/*
+			//-- 회전설정
+			if(!isNaN(cfg["globalRotateAngle"])){
+				this.context2d.rotate(cfg["globalRotateAngle"] * Math.PI / 180 );
+			}
+			//-- 회전축,변형축
+			if(!isNaN(cfg["globalTranslateX"]) && !isNaN(cfg["globalTranslateY"])){
+				this.context2d.translate(cfg["globalTranslateX"],cfg["globalTranslateY"]);
+			}
+			*/
+			
+			
 			return this.context2d;
 		}
 		/*
@@ -335,6 +360,19 @@ function WebCanvas(width,height,colorset){
 			var c = WebCanvas(this.width,this.height);
 			c.context2d.putImageData(this.context2d.getImageData(0, 0, this.width,this.height),0,0);
 			return c;
+		}
+		//--- 회전 설정
+		//deg:각도,translateX:기준x,translateY:기준y
+		,"configRotate":function(deg,translateX,translateY){
+			this._rotateAngle =deg;
+			this.context2d.translate(translateX,translateY);
+			this.context2d.rotate(deg * Math.PI / 180);
+			return;
+		}
+		,"resetRotate":function(deg){
+			this.context2d.rotate(0 * Math.PI / 180);
+			this._rotateAngle = 0;
+			return;
 		}
 		//--- 90도 회전
 		,"rotate90To":function(deg){

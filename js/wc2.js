@@ -48,6 +48,11 @@ var wc2 = (function(){
 											"context2d.eraserMode": "pen", //지우개 모드 (todo)
 											"context2d.disableStroke": 0, //stroke 사용금지
 											"context2d.disableFill": 0, //fiil 사용금지
+											/*
+											"globalRotateAngle":0, //회전각도
+											"globalTranslateX":0, //회전축 x
+											"globalTranslateY":0, //회전축 y
+											*/
 											}
 		 //--- 초기화
 		,"init":function(){
@@ -379,13 +384,13 @@ var wc2 = (function(){
 				case "moveUp":r = this.activeWcw.wcb.moveUpWebCanvasByIndex();break;
 				case "moveDown":r = this.activeWcw.wcb.moveDownWebCanvasByIndex();break;
 			}
-			this.resetTool();
+			this.cmdTool("reset");
 			this._syncPropLayerList();
 		}
 		,"selectLayer":function(index){
 			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
 			this.activeWcw.wcb.setActiveWebCanvasByIndex(index);
-			this.resetTool();
+			this.cmdTool("reset");
 			this._syncPropLayerList();
 		}
 		//--- 확대/축소
