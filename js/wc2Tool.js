@@ -48,11 +48,11 @@ var wc2Tool = function(){
 			return this[toolName].end();
 		}
 		,"confirm":function(toolName){ //특정 툴에서만 있다. 확인을 받아야만 적용되는 경우. reset과 짝을 이루어 있어야한다.
-			if(!this[toolName].confirm){ return false;}
+			if(!toolName || !this[toolName].confirm){ return false;}
 			return this[toolName].confirm();
 		}
 		,"reset":function(toolName){ //특정 툴에서만 있다. 확인을 받아야만 적용되는 경우. confirm과 짝을 이루어 있어야한다.
-			if(!this[toolName].reset){ return false;}
+			if(!toolName || !this[toolName].reset){ return false;}
 			return this[toolName].reset();
 		}
 		//-- 라인

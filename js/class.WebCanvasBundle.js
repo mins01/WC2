@@ -158,7 +158,7 @@ function WebCanvasBundle(width,height,colorset){
 				n = this.webCanvases.length-1;
 			}
 			if(typeof n != "number" || this.webCanvases[n] === undefined){
-				this.setError( this.constructor+".setActiveWebCanvasByIndex() : 숫자만 입력되야합니다.");
+				this.setError( "WebCanvasBundle.setActiveWebCanvasByIndex() : 숫자만 입력되야합니다.");
 			}else{
 				this.activeWebCanvas = this.webCanvases[n];
 				return this.setActiveWebCanvas(this.webCanvases[n]);
@@ -185,7 +185,7 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"rotate90To":function(deg){
 			if(deg % 90 !== 0){
-				this.setError(this.constructor+".rotate90To() : not support degrees : "+deg);
+				this.setError("WebCanvasBundle.rotate90To() : not support degrees : "+deg);
 				return false;
 			}
 			if(this.execAllWebCanvas("rotate90To",arguments)){
@@ -236,25 +236,30 @@ function WebCanvasBundle(width,height,colorset){
 		/**
 		* 웹캔버스 순서 관련
 		*/
-		,"upOrder":function(n,isDown){
+		,"moveUpWebCanvasByIndex":function(idx,isDown){
+			if(isNaN(idx)) idx = this.getIndexAcviceWebCanvas();
 			if(!isDown){
-				if(n+1 > (this.webCanvases.length-1)){
-					this.setError( "upOrder() : 최상단 입니다.");
+				if(idx+1 > (this.webCanvases.length-1)){
+					this.setError( "WebCanvasBundle.moveUpWebCanvasByIndex() : 최상단 입니다.");
 					return false;
 				}
-				return this.changeOrder(n,n+1)
+				return this.changeOrder(idx,idx+1)
 			}else{
-				if(n-1 < 0){
-					this.setError( "upOrder() : 최하단 입니다.");
+				if(idx-1 < 0){
+					this.setError( "WebCanvasBundle.moveUpWebCanvasByIndex() : 최하단 입니다.");
 					return false;
 				}
-				return this.changeOrder(n,n-1)
+				return this.changeOrder(idx,idx-1)
 			}
 		}
-		,"changeOrder":function(n,m){
-			var t = this.webCanvases[m];
-			this.webCanvases[m] = this.webCanvases[n];
-			this.webCanvases[n] = t;
+		,"moveDownWebCanvasByIndex":function(idx){
+			if(isNaN(idx)) idx = this.getIndexAcviceWebCanvas();
+			return this.moveUpWebCanvasByIndex(idx,true);
+		}
+		,"changeOrder":function(idx0,idx1){
+			var t = this.webCanvases[idx1];
+			this.webCanvases[idx1] = this.webCanvases[idx0];
+			this.webCanvases[idx0] = t;
 			this._syncNode();
 			return true;
 		}

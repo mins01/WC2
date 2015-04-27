@@ -358,33 +358,24 @@ var wc2 = (function(){
 			}
 			
 		}
-		,"addLayer":function(){
-			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
-			this.activeWcw.wcb.addWebCanvas();
-			this._syncPropLayerList();
-		}
-		,"duplicateLayer":function(){
-			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
-			this.activeWcw.wcb.addDuplicateWebCanvas();
-			this._syncPropLayerList();
-		}
-		,"mergeDownLayer":function(){
-			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
-			this.activeWcw.wcb.mergeDown();
-			this._syncPropLayerList();
-		}
-		
-		,"removeLayer":function(){
-			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
-			if(this.activeWcw.wcb.removeWebCanvas()=== false){
-				this.setError( this.activeWcw.wcb.error);
-				return false;
+		,"cmdLayer":function(cmd){
+			if(!this.activeWcw){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			var r = "";
+			switch(cmd){
+				case "add":r = this.activeWcw.wcb.addWebCanvas();break;
+				case "duplicate":r = this.activeWcw.wcb.addDuplicateWebCanvas();break;
+				case "mergeDown":r = this.activeWcw.wcb.mergeDown();break;
+				case "remove":r = this.activeWcw.wcb.removeWebCanvas();break;
+				case "moveUp":r = this.activeWcw.wcb.moveUpWebCanvasByIndex();break;
+				case "moveDown":r = this.activeWcw.wcb.moveDownWebCanvasByIndex();break;
 			}
+			this.resetTool();
 			this._syncPropLayerList();
 		}
 		,"selectLayer":function(index){
 			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
 			this.activeWcw.wcb.setActiveWebCanvasByIndex(index);
+			this.resetTool();
 			this._syncPropLayerList();
 		}
 		//--- 확대/축소
