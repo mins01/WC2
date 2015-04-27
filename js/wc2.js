@@ -105,6 +105,16 @@ var wc2 = (function(){
 				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
 				return true;
 			});
+			
+			$(document).on('mousewheel', function(event) {
+				if(!wc2Tool.onMouseWheel(wc2.tool,event)){
+					//this.setError( wc2Tool.error);
+					return; //false라도 잘못된것이 아니므로 흘러내린다.
+				}
+				wc2.eventStep = 0;
+				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
+			});
+			
 			// 드래그 방지용
 			$('body').on("selectstart", function(event){ return false; });
 			$('#contentArea').on("dragstart", function(event){ return false; });

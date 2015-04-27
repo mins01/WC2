@@ -60,10 +60,10 @@ var wc2Tool = function(){
 			if(!toolName || !this[toolName].reset){ return false;}
 			return this[toolName].reset();
 		}
-		,"onScroll":function(toolName,event){
+		,"onMouseWheel":function(toolName,event){ //여기만 mouse를 나타내는 이유는 다른것들은 터치 이벤트와 공통으로 사용하기 때문.
 			//에러는 init에서 이미 체크했다.
-			if(!toolName || !this[toolName].scroll){ return false;}
-			return this[toolName].scroll(event);
+			if(!toolName || !this[toolName].mousewheel){ return false;}
+			return this[toolName].mousewheel(event);
 		}
 		//-- 라인
 		,"line":{
@@ -323,6 +323,8 @@ var wc2Tool = function(){
 		,"move":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"w0":-1,"h0":-1,"sc":1
+			,"dw":-1,"dh":-1
 			,"ing":0
 			,"init":function(wcb){
 				if(this.ing ==0){
@@ -330,20 +332,47 @@ var wc2Tool = function(){
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
+					this.ing = 1;
+					this._initXYWH();
+					
+					this.sc = 1;
 				}
 				return true;
+			}
+			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
+				this.dw = this.wcb.width; //기준 너비
+				this.dh =  this.wcb.height; //기준 높이
+				this.w0 = this.dw;
+				this.h0 = this.h0;
+				this.x0 = (this.wcb.width-this.w0)/2;
+				this.y0 = (this.wcb.height-this.h0)/2;
+				this.sc = 1;
 			}
 			,"end":function(){
 
 				return true;
 			}
+			,"mousewheel":function(event){
+				if(this.ing == 0){ return false; }
+				console.log(event.deltaX, event.deltaY, event.deltaFactor);
+				var mul = event.altKey?3:1
+				this.sc +=(event.deltaY/50)*mul;
+				this.sc = Math.min(10,Math.max(0.01,this.sc)); //0.1 ~ 10 배까지 가능하도록
+				var w = this.dw * this.sc;
+				var h = this.dh * this.sc;
+				this.x0 += (this.w0-w)/2;
+				this.y0 += (this.h0-h)/2;
+				
+				this.w0  = w;
+				this.h0  = h;
+				
+				this.predraw();
+				console.log(this.sc);
+				return true;
+			}
 			,"down":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				if(this.ing ==0){
-					this.x0 = 0;
-					this.y0 = 0;
-					this.ing = 1;
-				}
+
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
@@ -371,7 +400,7 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				//this.wcb.shadowWebCanvas.clear();
-				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,this.x0,this.y0);
+				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,this.x0,this.y0,this.w0,this.h0);
 			}
 			,"confirm":function(){
 				if(this.ing == 1){
@@ -401,7 +430,8 @@ var wc2Tool = function(){
 		,"image":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
-			,"w0":-1,"h0":-1
+			,"w0":-1,"h0":-1,"sc":1
+			,"dw":-1,"dh":-1
 			,"ing":0
 			,"init":function(wcb){
 				this.img  = document.getElementById('imageNode');
@@ -417,27 +447,29 @@ var wc2Tool = function(){
 					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
+					this.ing = 1;
 					this._initXYWH();
 					this.predraw();
 				}
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
-				this.w0 = this.img.naturalWidth;
-				this.h0 = this.img.naturalHeight;
+				this.dw = this.img.naturalWidth; //기준 너비
+				this.dh = this.img.naturalHeight; //기준 높이
+				this.w0 = this.dw;
+				this.h0 = this.dh;
 				this.x0 = (this.wcb.width-this.w0)/2;
 				this.y0 = (this.wcb.height-this.h0)/2;
+				this.sc = 1;
 			}
 			,"end":function(){
 				return true;
 			}
-			,"scroll":function(event){
+			,"mousewheel":function(event){
+				wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
 			}
 			,"down":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				if(this.ing ==0){
-					this.ing = 1;
-				}
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
@@ -466,7 +498,7 @@ var wc2Tool = function(){
 			,"predraw":function(){
 				this.wcb.shadowWebCanvas.clear();
 				//this.wcb.shadowWebCanvas.save();
-				this.wcb.shadowWebCanvas.merge(this.img,this.x0,this.y0);
+				this.wcb.shadowWebCanvas.merge(this.img,this.x0,this.y0,this.w0,this.h0);
 				//this.wcb.shadowWebCanvas.restore();
 			}
 			,"confirm":function(){

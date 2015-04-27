@@ -89,7 +89,9 @@
 		#propPanel .wc-layer li{text-align:left;}
 		.overflow-scrolly{overflow-y:scroll}
 		#propPanel table{border-width:0;padding:0;margin:0;width:100%; border-collapse: separate;}
-		#propPanel th,#propPanel td {padding:2px;}
+		#propPanel th,#propPanel td {padding:2px; border-bottom:1px dashed #ccc; }
+		#propPanel tr:last-child th,
+		#propPanel tr:last-child td{border-bottom-width:0;}
 		#propPanel th{text-align:center;}
 		#propPanel td{text-align:left;}
 		
@@ -108,7 +110,7 @@
 		div.wc-viewImage img.wc-viewImage{ }
 		
 		/* 이미지 툴용 prop */
-		#imageNode{width:100%;}
+		#imageNode{max-width:100%;}
 		</style>
 		<style>
 		
@@ -340,7 +342,7 @@
 								<col width="">
 								<tr>
 									<th colspan="2" >
-										<div class="overflow-scrolly" style="width:100%; margin:5px auto; height:100px; background-color:#666;padding:1px;"><img src="./img/bg.gif" class="bg-grid" id="imageNode" /></div>
+										<div class="overflow-scrolly" style="width:100%; margin:5px auto; height:60px; background-color:#eee;padding:1px;"><img src="./img/bg.gif" class="bg-grid" id="imageNode" /></div>
 									</th>
 								</tr>
 								<tr>
@@ -356,7 +358,29 @@
 						</div>
 					</div>
 				</form>
-				
+				<form name="formMoveImageTip" action="javascript:void(0)" class="wc-tool wc-tool-move wc-tool-image" onsubmit="return false">
+					<div class="panel panel-default">
+						<div  class="panel-heading">Tip</div>
+						<div  class="panel-body">
+							<table class="" style="width:100%">
+								<col width="80">
+								<col width="">
+								<tr>
+									<th>mouse</th>
+									<td>move</td>
+								</tr>
+								<tr>
+									<th>wheel</th>
+									<td>scale up &amp; down</td>
+								</tr>
+								<tr>
+									<th>alt+wheel</th>
+									<td>fast scale up &amp; down</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
 				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-move  wc-tool-image" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Confirm/Reset</div>
@@ -482,8 +506,12 @@
 
 	<!-- https://github.com/phstc/jquery-dateFormat -->
 	<script src="jquery/jquery-dateFormat.min.js"></script>
-	<script src="jquery/jquery-helper.js"></script>
+	
+	<!-- https://github.com/jquery/jquery-mousewheel -->
 	<script src="jquery/jquery.mousewheel.js"></script>
+	
+	<script src="jquery/jquery-helper.js"></script>
+	
 	<!-- WC2 -->
 	<script src="js/class.WebCanvas.js"></script>
 	<script src="js/class.WebCanvasBundle.js"></script>
