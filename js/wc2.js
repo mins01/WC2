@@ -246,7 +246,7 @@ var wc2 = (function(){
 				this._syncPropLayerList();
 				return;
 			}
-			if(wcw.hasClass("wcw-active")){
+			if(wcw.wcwp.hasClass("wcw-active")){
 				return true;
 			}
 			this.activeWcw = wcw;
