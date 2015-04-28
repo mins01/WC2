@@ -542,7 +542,110 @@ var wc2Tool = function(){
 				}
 				return true;
 			}
-		}
+		} //-- end fn
+		//--- 이미지
+		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
+		,"text":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"w0":-1,"h0":-1
+			,"dw":-1,"dh":-1,"sc":1 //확대관련
+			,"deg":0//회전관련(각도)
+			,"ing":0
+			,"init":function(wcb){
+				this.img  = document.getElementById('imageNode');
+				this.img.onload = function(toolImage){
+					return function(){
+						toolImage._initXYWH();
+						toolImage.predraw()
+					}
+				}(this);
+				
+				if(this.ing ==0){
+					this.wcb = wcb;
+					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+					this.wcb.node.style.cursor = "move";
+					this.ing = 1;
+					this._initXYWH();
+					this.predraw();
+				}
+				return true;
+			}
+			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
+				this.dw = this.img.naturalWidth; //기준 너비
+				this.dh = this.img.naturalHeight; //기준 높이
+				this.w0 = this.dw;
+				this.h0 = this.dh;
+				this.x0 = (this.wcb.width-this.w0)/2;
+				this.y0 = (this.wcb.height-this.h0)/2;
+				this.sc = 1;
+				this.deg = 0;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"mousewheel":function(event){
+				return wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 += t.x-this.x1;
+				this.y0 += t.y-this.y1;
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				this.wcb.shadowWebCanvas.clear();
+				var rotateCenterX = (this.w0)/2
+				var rotateCenterY = (this.h0)/2
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0,this.y0);
+				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y,this.w0,this.h0);
+				this.wcb.shadowWebCanvas.resetRotate()
+			}
+			,"confirm":function(){
+				if(this.ing == 1){
+					if(confirm("OK?")){
+						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+					}
+					this.ing = 0;
+					return this.reset();
+				}
+				return true;
+				
+			}
+			,"reset":function(type){
+				//console.log("reset");
+				if(this.wcb){
+					this.wcb.node.style.cursor = "";
+					this.ing = 0;
+					this.wcb.shadowWebCanvas.clear();
+					this.wcb = null;
+				}
+				return true;
+			}
+		} //-- end fn
 	}
 	return r;
 }();
