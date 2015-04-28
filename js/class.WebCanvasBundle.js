@@ -229,8 +229,11 @@ function WebCanvasBundle(width,height,colorset){
 			this.context2dCfg = context2dCfg;
 			this._syncContext2d();
 		}
-		,"_syncContext2d":function(){
-			this.activeWebCanvas.configContext2d(this.context2dCfg);
+		,"_syncContext2d":function(withActiveWebCanvas){
+			//기본적으로 shadowWebCanvas 만 설정한다.
+			if(withActiveWebCanvas){
+				this.activeWebCanvas.configContext2d(this.context2dCfg);
+			}
 			this.shadowWebCanvas.configContext2d(this.context2dCfg);
 		}
 		/**

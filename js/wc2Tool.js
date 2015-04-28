@@ -477,12 +477,13 @@ var wc2Tool = function(){
 				this.x0 = (this.wcb.width-this.w0)/2;
 				this.y0 = (this.wcb.height-this.h0)/2;
 				this.sc = 1;
+				this.deg = 0;
 			}
 			,"end":function(){
 				return true;
 			}
 			,"mousewheel":function(event){
-				wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
+				return wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
 			}
 			,"down":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
