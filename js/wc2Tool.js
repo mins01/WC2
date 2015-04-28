@@ -19,6 +19,7 @@ var wc2Tool = function(){
 	var r = {
 		"error":""
 		,"lastToolName":""
+		,"isDown":0 //down이벤트가 발생되었는지 체크용.
 		//-- 제어용 함수 흐름 :  init -> onDown -> onMove -> onUp -> end
 		//-- ETC : predraw,onScroll
 		,"init":function(toolName,wcb){
@@ -33,14 +34,18 @@ var wc2Tool = function(){
 			return this[toolName].init(wcb);
 		}
 		,"onDown":function(toolName,event){
+			this.isDown=1;
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].down(event);
 		}
 		,"onMove":function(toolName,event){
+			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return true;}
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].move(event);
 		}
 		,"onUp":function(toolName,event){
+			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return true;}
+			this.isDown = 0;
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].up(event);
 		}
@@ -566,7 +571,6 @@ var wc2Tool = function(){
 			}
 		} //-- end fn
 		//--- 텍스트
-		
 		,"text":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
@@ -673,6 +677,52 @@ var wc2Tool = function(){
 					this.wcb.shadowWebCanvas.clear();
 					this.wcb = null;
 				}
+				return true;
+			}
+		} //-- end fn
+		//--- 텍스트
+		,"spuit":{
+			"wcb":null
+			,"x0":-1,"y0":-1
+			,"colorStyle":"rgba(0,0,0,1)"
+			,"ignoreIsDown":1 //isDown 체크하지 않는다.
+			,"init":function(wcb){
+				this.wcb = wcb;
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				this.move(event);
+				$("#divSelectedColorSpuit").css("backgroundColor",this.colorStyle);
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = t.x;
+				this.y0 = t.y;
+				this.predraw();
+				return true;
+				
+			}
+			,"up":function(event){
+				this.move(event);
+				
+				this.end();
+				
+				return true;
+			}
+			,"predraw":function(){
+				 var colorset = this.wcb.pickupColor(this.x0,this.y0);
+				this.colorStyle = this.wcb.shadowWebCanvas.colorset2String(colorset);
+				if(this.colorStyle=== false){return true;}
+				//console.log(colorset,this.colorStyle);
+				$("#divPreviewColorSpuit").css("backgroundColor",this.colorStyle);
+				return true;
+			}
+			,"reset":function(){ 
+				this.wcb = null;
 				return true;
 			}
 		} //-- end fn

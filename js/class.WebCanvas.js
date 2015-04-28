@@ -266,7 +266,7 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 			if(pos.length == 0 ){
-				this.setError( this.constructor+".lines() : 배열 너무 짧습니다.");
+				//this.setError( this.constructor+".lines() : 배열 너무 짧습니다.");
 				return false;
 			}
 			this.context2d.beginPath();
