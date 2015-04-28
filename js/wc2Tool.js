@@ -39,12 +39,12 @@ var wc2Tool = function(){
 			return this[toolName].down(event);
 		}
 		,"onMove":function(toolName,event){
-			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return true;}
+			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].move(event);
 		}
 		,"onUp":function(toolName,event){
-			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return true;}
+			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			this.isDown = 0;
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].up(event);

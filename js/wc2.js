@@ -82,24 +82,23 @@ var wc2 = (function(){
 					return false;
 				}
 				
-				// todo : context2D 설정 부분
 				if(!wc2Tool.onDown(wc2.tool,event)){
 					wc2.setError( wc2Tool.error);
 					return false;
 				}
 				wc2.eventStep = 1;
-				return true;
+				return false;
 			});
 			$(document).on( "mousemove", function(event) {
 				if(!wc2Tool.onMove(wc2.tool,event)){
 					wc2.setError( wc2Tool.error);
-					return false;
+					return ; //이벤트를 계속 시킨다.
 				}
 				event.bubble = false;
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
-				return true;
+				return false;
 			});
 			$(document).on( "mouseup",  function(event) {
 				if(wc2.eventStep==0){ return ;} //down이벤트 후에만
@@ -109,11 +108,11 @@ var wc2 = (function(){
 				// todo : context2D 설정 부분
 				if(!wc2Tool.onUp(wc2.tool,event)){
 					wc2.setError( wc2Tool.error,false);
-					return false;
+					return true;
 				}
 				wc2.eventStep = 0;
 				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
-				return true;
+				return false;
 			});
 			
 			$(document).on('mousewheel', ".wcf-body", function(event) {
