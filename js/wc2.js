@@ -25,6 +25,7 @@ var wc2 = (function(){
 		 ,"tool":null
 		 ,"eventStep":0
 		 ,"isDown":false //마우스 등이 눌려져있는가?
+		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 											"fillStyle":  "rgba(0, 0, 0, 0)",
 											"font": "10px sans-serif",
@@ -62,7 +63,7 @@ var wc2 = (function(){
 			this.initEvent();
 			this.initColorPalette();
 			this.addWebCanvasWindow(300,300);
-			this.setTool("text");
+			this.setTool("pen");
 		}
 		,"setError":function(error,disableShow){
 			this.error = error;
@@ -71,11 +72,19 @@ var wc2 = (function(){
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
-			$(document).on( "mousedown", ".wcf-body", function(event) {
+			
+			var onDown = function(event) {
+				//console.log(event.type);
+				if(event.type=="touchstart"){
+					this.isTouch = true;
+				}else if(this.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
+					return true;
+				}
+
 				event.bubble = false;
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
-				
+
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 				if(!wc2Tool.init(wc2.tool,wc2.activeWcw.wcb)){
 					alert(wc2Tool.error);
@@ -88,10 +97,11 @@ var wc2 = (function(){
 				}
 				wc2.eventStep = 1;
 				return false;
-			});
-			$(document).on( "mousemove", function(event) {
+			}
+			var onMove = function(event) {
+				//console.log(event.type);
 				if(!wc2Tool.onMove(wc2.tool,event)){
-					wc2.setError( wc2Tool.error);
+					//wc2.setError( wc2Tool.error);
 					return ; //이벤트를 계속 시킨다.
 				}
 				event.bubble = false;
@@ -99,8 +109,9 @@ var wc2 = (function(){
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				return false;
-			});
-			$(document).on( "mouseup",  function(event) {
+			}
+			var onUp =  function(event) {
+				//console.log(event.type);
 				if(wc2.eventStep==0){ return ;} //down이벤트 후에만
 				event.bubble = false;
 				event.stopPropagation();
@@ -111,10 +122,22 @@ var wc2 = (function(){
 					return true;
 				}
 				wc2.eventStep = 0;
+				wc2.isTouch = false;
 				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
 				return false;
-			});
+			}
 			
+			//if(document.hasOwnProperty('ontouchstart')){
+				console.log("support touch device");
+				$(document).on( "touchstart", ".wcf-body",onDown );
+				$(document).on( "touchmove", onMove );
+				$(document).on( "touchend", onUp );
+			//}
+			$(document).on( "mousedown", ".wcf-body",onDown );
+			$(document).on( "mousemove", onMove);
+			$(document).on( "mouseup", onUp);
+			
+			//--- 휠 동작
 			$(document).on('mousewheel', ".wcf-body", function(event) {
 				if(!wc2Tool.onMouseWheel(wc2.tool,event)){
 					//this.setError( wc2Tool.error);
@@ -321,9 +344,22 @@ var wc2 = (function(){
 			var rect = target.getBoundingClientRect();
 			var scrollTop= Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 			var scrollLeft= Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+			
+			var x = evt.clientX;
+			var y = evt.clientY;
+			if(evt.touches && evt.touches[0]){
+				var touch = evt.touches[0];
+				var x = touch.X;
+				var y = touch.Y;
+			}else if(evt.originalEvent.touches && evt.originalEvent.touches[0]){
+				var touch = evt.originalEvent.touches[0];
+				var x = touch.clientX;
+				var y = touch.clientY;
+			}
+			
 			return {
-			  "x": evt.clientX - rect.left + scrollTop,
-			  "y": evt.clientY - rect.top + scrollLeft
+			  "x": x - rect.left + scrollTop,
+			  "y": y - rect.top + scrollLeft
 			};
 		}
 		,"getOffsetXY":function(evt,target,zoom){ //지금인 이 메소드 쓰지 않는다 추후 생각해보자.
