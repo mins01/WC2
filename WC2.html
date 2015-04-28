@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- 
 2015-04-23 : 제작시작
 임의사용 금지.
@@ -289,15 +289,18 @@
 								<tbody class="wc-tool wc-tool-rect  wc-tool-circle">
 									<tr>
 										<th>use-line</th>
-										<td><label><input type="radio" value="1" name="disableStroke">no</label>
-										<label><input type="radio" value="0" checked name="disableStroke">yes</label>
+										<td>
+										<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"><span></label>
+										<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+										
 										</td>
 									</tr>
 									<tr>
 										<th>use-fill</th>
 										<td>
-										<label><input type="radio" value="1" name="disableFill">no</label>
-										<label><input type="radio" value="0" checked name="disableFill">yes</label>
+										<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"><span></label>
+										<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+										
 										</td>
 									</tr>
 								</tbody>
@@ -362,7 +365,7 @@
 						</div>
 					</div>
 				</form>
-				<form name="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text" onsubmit="return false" >
+				<form name="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
 					<div class="panel panel-default">
 						<div  class="panel-heading">text</div>
 						<div  class="panel-body">
@@ -371,21 +374,31 @@
 								<col width="">
 								<tr>
 									<th colspan="2" >
-										<textarea name="textareaText" cols="10" rows="4" wrap="hard" id="textareaText" style="width:95%"></textarea>
+										<textarea name="textareaText" cols="10" rows="4" wrap="hard" id="textareaText" style="width:95%">안녕하세요.
+HELLO!
+你好
+おはようございます
+สวัสดีครับ
+Selamat pagi!
+Xin Chao
+Guten Morgen
+Bonjour
+Ciao
+</textarea>
 									</th>
 								</tr>
 								<tr>
 									<th>alpha</th>
-									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  >
+									<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" >
 									</td>
 								</tr>
 								<tr>
-									<th>fontSize</th>
-									<td><input type="range" name="fontSize" style="width:90%" min="1" max="100"></td>
+									<th>size</th>
+									<td><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></td>
 								</tr>
 								<tr>
-									<th>fontFamily</th>
-									<td><select style="width:100%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" onchange="this.form.textareaText.style.fontFamily=this.value" >
+									<th>font</th>
+									<td><select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" onchange="this.form.textareaText.style.fontFamily=this.value" >
 											<option value="default">시스템글꼴</option>
 											<optgroup label="한글">
 												<option value="'돋움',dotum,Helvetica,AppleGothic,sans-serif" selected="selected">'돋움',dotum,Helvetica,AppleGothic,sans-serif</option>
@@ -404,13 +417,82 @@
 											</select></td>
 								</tr>
 								<tr>
-									<th>textAlign</th>
-									<td>asd</td>
+									<th colspan="2">
+										<div class="btn-group  btn-group-xs" onclick="wc2.cmdTool('predraw')">
+											<button class="btn btn-default glyphicon active" value="start" title="start : Align to the start edge of the text (left side in left-to-right text, right side in right-to-left text)." onclick="clickBtnTextAlign(this)">S</button>
+											<button class="btn btn-default glyphicon glyphicon-align-left" value="left"  onclick="clickBtnTextAlign(this)"></button>
+											<button class="btn btn-default glyphicon glyphicon-align-center" value="center"  onclick="clickBtnTextAlign(this)"></button>
+											<button class="btn btn-default glyphicon glyphicon-align-right" value="right"  onclick="clickBtnTextAlign(this)"></button>
+											<button class="btn btn-default glyphicon " value="end" title="end : Align to the end edge of the text (right side in left-to-right text, left side in right-to-left text)."  onclick="clickBtnTextAlign(this)">E</button>
+										</div>
+										<input type="hidden" name="textAlign">
+											<script>
+												function clickBtnTextAlign(btn){
+													btn.form.textAlign.value = btn.value;
+													$(btn.parentNode).find("button.btn").each(
+														function(idx,el){
+															$(this).removeClass("active");
+														}
+													);
+													$(btn).addClass("active");
+													if(btn.onchange) btn.onchange();
+													btn.blur();
+												}
+											</script>
+									</th>
 								</tr>
 								<tr>
-									<th>URL</th>
-									<td><input type="text" name="inputImageFile" style="width:90%" onchange="document.getElementById('imageNode').src=this.value"></td>
+									<th>baseline</th>
+									<td>
+								<select name="textBaseline" style="width:90%">
+											<option  value="top" selected="selected">top</option>
+											<option value="hanging">hanging</option>
+											<option value="middle">middle</option>
+											<option value="alphabetic">alphabetic</option>
+											<option value="ideographic">ideographic</option>
+											<option value="bottom">bottom</option>
+											</select>
+									</td>
 								</tr>
+								<tr>
+									<th>lineHeight</th>
+									<td>
+										<select name="lineHeight"  style="width:90%;">
+											<option value="0.5">50%</option>
+											<option value="0.7">70%</option>
+											<option value="1" selected>100%</option>
+											<option value="1.2">120%</option>
+											<option value="1.5">150%</option>
+											<option value="1.7">170%</option>
+											<option value="2">200%</option>
+											<option value="2.5">250%</option>
+											<option value="3">300%</option>
+											<option value="3.5">350%</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th>line</th>
+									<td><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" >
+									</td>
+								</tr>
+								<tr>
+									<th>use-line</th>
+									<td>
+									<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"><span></label>
+									<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+									</td>
+								</tr>
+								<tr>
+									<th>use-fill</th>
+									<td>
+									<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"><span></label>
+									<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+									
+									</td>
+								</tr>
+								
+							</table>
 							</table>
 						</div>
 					</div>
@@ -438,7 +520,7 @@
 						</div>
 					</div>
 				</form>
-				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-move  wc-tool-image" onsubmit="return false">
+				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-move wc-tool-image wc-tool-text" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Confirm/Reset</div>
 						<div  class="panel-body">
@@ -455,20 +537,23 @@
 				</form>
 				
 				
-				<form name="formColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle " onsubmit="return false">
+				<form name="formColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text " onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
 					<div class="panel panel-default">
 						<div  class="panel-heading">Color</div>
 						<div  class="panel-body">
 							<table class="" style="width:100%">
-								<col width="50%">
-								<col width="50%">
+								<col width="40%">
+								<col width="20%">
+								<col width="40%">
 								<tr>
 									<th>Stroke</th>
+									<th></th>
 									<th>Fill</th>
 								</tr>
 								<tr>
 									<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="#000000">
 									</th>
+									<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal"></button></th>
 									<th><input type="hidden" name="fillStyle" id="fillStyle" value="#ffffff"></th>
 								</tr>
 							</table>
@@ -610,8 +695,9 @@
 				maxPaletteSize: 20,
 				preferredFormat: "rgb",
 				localStorageKey: "wc2.strokeStyle",
-			change: function(color) {
+				change: function(color) {
 				this.value = color.toRgbString();
+				wc2.cmdTool('predraw')
 			}
 		});
 		$("#fillStyle").spectrum({
@@ -625,8 +711,9 @@
 				maxPaletteSize: 20,
 				preferredFormat: "hex",
 				localStorageKey: "wc2.fillStyle",
-			change: function(color) {
+				change: function(color) {
 				this.value = color.toRgbString();
+				wc2.cmdTool('predraw')
 			}
 		});
 		//-- 파레트 더블 클릭으로 색상 선택되도록

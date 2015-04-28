@@ -24,6 +24,7 @@ var wc2 = (function(){
 		 ,"activeWcw":null
 		 ,"tool":null
 		 ,"eventStep":0
+		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 											"fillStyle":  "rgba(0, 0, 0, 0)",
 											"font": "10px sans-serif",
@@ -44,21 +45,23 @@ var wc2 = (function(){
 											"textAlign": "start", //start,end,left,right,center
 											"textBaseline": "top", //top,hanging,middle,alphabetic,ideographic,bottom : use only "top"
 											//--- 추가 설정
-											"context2d.lineHeight":1.5,//text line-height
-											"context2d.eraserMode": "pen", //지우개 모드 (todo)
-											"context2d.disableStroke": 0, //stroke 사용금지
-											"context2d.disableFill": 0, //fiil 사용금지
-											/*
-											"globalRotateAngle":0, //회전각도
-											"globalTranslateX":0, //회전축 x
-											"globalTranslateY":0, //회전축 y
-											*/
+											"eraserMode": "pen", //지우개 모드 (todo)
+											"disableStroke": 0, //stroke 사용금지
+											"disableFill": 0, //fiil 사용금지
+											//--- config font
+											"fontSize": 10, //px
+											"lineHeight": 1.2, //float number
+											"fontStyle": "normal", //normal,italic,oblique
+											"fontVariant": "normal", //normal,small-caps
+											"fontWeight": "normal", //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
+											"fontStyleVariantWeight": "", //fontStyle + fontVariant + fontWeight
+											"fontFamily": "sans-serif", // font-name
 											}
 		 //--- 초기화
 		,"init":function(){
 			this.initEvent();
 			this.addWebCanvasWindow(300,300);
-			this.setTool("line");
+			this.setTool("text");
 		}
 		,"setError":function(error){
 			this.error = error;
@@ -71,11 +74,13 @@ var wc2 = (function(){
 				event.bubble = false;
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
+				
+				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 				if(!wc2Tool.init(wc2.tool,wc2.activeWcw.wcb)){
 					alert(wc2Tool.error);
 					return false;
 				}
-				wc2.syncContext2dCfg(); //설정을 적용시킨다.
+				
 				// todo : context2D 설정 부분
 				if(!wc2Tool.onDown(wc2.tool,event)){
 					this.setError( wc2Tool.error);
@@ -94,6 +99,7 @@ var wc2 = (function(){
 					this.setError( wc2Tool.error);
 					return false;
 				}
+				
 				return true;
 			});
 			$(document).on( "mouseup",  function(event) {
@@ -289,6 +295,7 @@ var wc2 = (function(){
 			//this.tool = wc2Tool[tool];
 			this.tool = tool;
 			this.showPropPanel();
+			wc2.syncContext2dCfg(); //설정을 적용시킨다.
 			if(!wc2Tool.init(this.tool,this.activeWcw.wcb)){
 				alert(wc2Tool.error);
 				return false;
@@ -356,8 +363,16 @@ var wc2 = (function(){
 				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
 					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
 					var oc = wcb.webCanvases[i];
-					var img = new Image();
-					img.src = c.toDataURL();
+					try{
+						var img = new Image();
+						img.src = c.toDataURL();
+					}catch(e){
+						this.setError(e.toString());
+						var img = document.createElement('span');
+						img.className="glyphicon glyphicon-sunglasses";
+						img.title="not support Preview"
+						
+					}
 					var li = document.createElement("li");
 					li.className="list-group-item";
 					li.dataset.wcbActive = oc.dataset.wcbActive;
@@ -441,5 +456,6 @@ var wc2 = (function(){
 			})
 			img.src = wc2.activeWcw.wcb.toDataURL();
 		}
+
 	};
 })();

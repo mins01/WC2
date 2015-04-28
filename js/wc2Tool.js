@@ -354,29 +354,29 @@ var wc2Tool = function(){
 
 				return true;
 			}
+			,"_scale":function(deltaY){
+				this.sc +=(deltaY/50);
+				this.sc = Math.min(100,Math.max(0.01,this.sc)); //0.1 ~ 10 배까지 가능하도록
+				var w = this.dw * this.sc;
+				var h = this.dh * this.sc;
+				this.x0 += (this.w0-w)/2;
+				this.y0 += (this.h0-h)/2;
+				this.w0  = w;
+				this.h0  = h;
+			}
+			,"_rotate":function(deltaY){
+				var deg = -1*deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
+				this.deg += deg;
+			}
 			,"mousewheel":function(event){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					//var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-					var deg = -1*event.deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
-					this.deg += deg;
-					this.predraw();
+					wc2Tool.move._rotate.call(this,event.deltaY);
 				}else{ //scale
-					this.sc +=(event.deltaY/50);
-					this.sc = Math.min(100,Math.max(0.01,this.sc)); //0.1 ~ 10 배까지 가능하도록
-					var w = this.dw * this.sc;
-					var h = this.dh * this.sc;
-					this.x0 += (this.w0-w)/2;
-					this.y0 += (this.h0-h)/2;
-					this.w0  = w;
-					this.h0  = h;
-					this.predraw();
+					wc2Tool.move._scale.call(this,event.deltaY);
 				}
-				
-				
-				
-				
+				this.predraw();
 				//console.log(this.sc);
 				return true;
 			}
@@ -409,6 +409,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
+				/* scale을 사용안할 경우
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.w0)/2
 				var rotateCenterY = (this.h0)/2
@@ -416,6 +417,16 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
 				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,t.x,t.y,this.w0,this.h0);
 				this.wcb.shadowWebCanvas.resetRotate()
+				*/
+				this.wcb.shadowWebCanvas.clear();
+				var rotateCenterX = (this.dw)/2
+				var rotateCenterY = (this.dh)/2
+				this.wcb.shadowWebCanvas.setScale(this.sc,this.sc);
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
+				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,t.x,t.y);
+				this.wcb.shadowWebCanvas.resetRotate()
+				this.wcb.shadowWebCanvas.resetScale();
 			}
 			,"confirm":function(){
 				if(this.ing == 1){
@@ -513,6 +524,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
+				/*
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.w0)/2
 				var rotateCenterY = (this.h0)/2
@@ -520,6 +532,16 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
 				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y,this.w0,this.h0);
 				this.wcb.shadowWebCanvas.resetRotate()
+				*/
+				this.wcb.shadowWebCanvas.clear();
+				var rotateCenterX = (this.dw)/2
+				var rotateCenterY = (this.dh)/2
+				this.wcb.shadowWebCanvas.setScale(this.sc,this.sc);
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
+				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y);
+				this.wcb.shadowWebCanvas.resetRotate()
+				this.wcb.shadowWebCanvas.resetScale();
 			}
 			,"confirm":function(){
 				if(this.ing == 1){
@@ -543,8 +565,8 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
-		//--- 이미지
-		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
+		//--- 텍스트
+		
 		,"text":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
@@ -552,14 +574,9 @@ var wc2Tool = function(){
 			,"dw":-1,"dh":-1,"sc":1 //확대관련
 			,"deg":0//회전관련(각도)
 			,"ing":0
+			,"textNode":null
 			,"init":function(wcb){
-				this.img  = document.getElementById('imageNode');
-				this.img.onload = function(toolImage){
-					return function(){
-						toolImage._initXYWH();
-						toolImage.predraw()
-					}
-				}(this);
+				this.textNode  = document.getElementById('textareaText');
 				
 				if(this.ing ==0){
 					this.wcb = wcb;
@@ -573,8 +590,9 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
-				this.dw = this.img.naturalWidth; //기준 너비
-				this.dh = this.img.naturalHeight; //기준 높이
+				var t = this.wcb.shadowWebCanvas.measureText(this.textNode.value)
+				this.dw = t.width; //기준 너비
+				this.dh = t.height; //기준 높이
 				this.w0 = this.dw;
 				this.h0 = this.dh;
 				this.x0 = (this.wcb.width-this.w0)/2;
@@ -586,7 +604,16 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"mousewheel":function(event){
-				return wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
+				if(this.ing == 0){ return false; }
+				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
+				if(event.altKey){ //rotate
+					wc2Tool.move._rotate.call(this,event.deltaY);
+				}else{ //scale
+					wc2Tool.move._scale.call(this,event.deltaY);
+				}
+				this.predraw();
+				//console.log(this.sc);
+				return true;
 			}
 			,"down":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
@@ -617,20 +644,23 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				this.wcb.shadowWebCanvas.clear();
-				var rotateCenterX = (this.w0)/2
-				var rotateCenterY = (this.h0)/2
-				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0,this.y0);
+				var rotateCenterX = (this.dw)/2
+				var rotateCenterY = (this.dh)/2
+				this.wcb.shadowWebCanvas.setScale(this.sc,this.sc);
+				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
 				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
-				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y,this.w0,this.h0);
+				this.wcb.shadowWebCanvas.text(this.textNode.value,t.x,t.y)
+				
 				this.wcb.shadowWebCanvas.resetRotate()
+				this.wcb.shadowWebCanvas.resetScale();
 			}
 			,"confirm":function(){
 				if(this.ing == 1){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+						this.ing = 0;
+						return this.reset();
 					}
-					this.ing = 0;
-					return this.reset();
 				}
 				return true;
 				

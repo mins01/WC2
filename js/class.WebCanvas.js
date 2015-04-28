@@ -44,11 +44,20 @@ function WebCanvas(width,height,colorset){
 		c.context2d.eraserMode = "pen";
 		c.context2d.disableStroke = 0; //stroke 사용금지
 		c.context2d.disableFill = 0; //strokFiil 사용금지
-		/*
-		c.context2d.globalRotateAngle = 0; //회전각도
-		c.context2d.globalTranslateX = 0; //회전축 x
-		c.context2d.globalTranslateY = 0; //회전축 y
-		*/
+		
+		//-- config font
+		//c.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
+		c.context2d.fontStyle = "normal"; //normal,italic,oblique
+		c.context2d.fontVariant = "normal"; //normal,small-caps
+		c.context2d.fontWeight = "normal"; //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
+		c.context2d.fontStyleVariantWeight  = ""; //fontStyle + fontVariant+fontWeight "italic small-caps" 처럼 사용. length>0일 경우 이 값을 우선시함.
+		c.context2d.fontSize = 10; //px
+		c.context2d.lineheight = 1.2; // float number
+		c.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
+		
+		
+		
+		//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
 		
 		if(colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
@@ -151,18 +160,31 @@ function WebCanvas(width,height,colorset){
 				
 				this.context2d.fillStyle = this.context2d.createPattern(cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
 			}
-			/*
-			//-- 회전설정
-			if(!isNaN(cfg["globalRotateAngle"])){
-				this.context2d.rotate(cfg["globalRotateAngle"] * Math.PI / 180 );
-			}
-			//-- 회전축,변형축
-			if(!isNaN(cfg["globalTranslateX"]) && !isNaN(cfg["globalTranslateY"])){
-				this.context2d.translate(cfg["globalTranslateX"],cfg["globalTranslateY"]);
-			}
-			*/
 			
+
 			
+			if(
+			  cfg["fontStyleVariantWeight"] != undefined 
+			|| cfg["fontStyle"] != undefined 
+			|| cfg["fontVariant"] != undefined 
+			|| cfg["fontWeight"] != undefined 
+			|| cfg["fontSize"] != undefined 
+			|| cfg["lineheight"] != undefined 
+			|| cfg["fontFamily"] != undefined 
+			){
+				var t = [];
+				if(cfg["fontStyleVariantWeight"] && cfg["fontStyleVariantWeight"].lenth>0){
+					t.push(this.context2d["fontStyleVariantWeight"]);
+				}else{
+					t.push(this.context2d["fontStyle"]);
+					t.push(this.context2d["fontVariant"]);
+					t.push(this.context2d["fontWeight"]);
+					
+				}
+				t.push(this.context2d["fontSize"]+"px/"+this.context2d["lineheight"]);
+				t.push(this.context2d["fontFamily"]);
+				this.context2d.font = t.join(" ");
+			}
 			return this.context2d;
 		}
 		/*
@@ -317,18 +339,27 @@ function WebCanvas(width,height,colorset){
 		//--- 텍스트, 문자열 들
 		,"text":function(text,x0,y0){
 			text = new String(text);
-			var fontSize = (this.context2d.font.match(/\d+/))[0];
+			var fontSize = parseFloat((this.context2d.font.match(/\d+px/))[0]);
 			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
-			var texts = text.split(/[\f\n\r\t\v]/);
+			var texts = text.split(/\n/);
 			for(var i=0,m=texts.length;i<m;i++){
-				this.context2d.fillText(texts[i], x0, y0+(fontSize*lineHeight*i));
-				this.context2d.strokeText(texts[i], x0, y0+(fontSize*lineHeight*i));
+				if(!this.context2d.disableFill){
+					this.context2d.fillText(texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+				}
+				if(!this.context2d.disableStroke){
+					this.context2d.strokeText(texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+				}
 			}
 		}
 		//--- 문자열 길이 알아내기 (다중 문장 처리가능)
 		,"measureText":function(text){
-			var texts = text.split(/[\f\n\r\t\v]/);
 			var maxWidth = -1;
+			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
+			var fontSize = this.context2d.fontSize;
+			
+			var texts = text.split(/\n/);
+			
+			var maxHeight = parseFloat(fontSize)*parseFloat(lineHeight)*texts.length;
 			
 			for(var i=0,m=texts.length;i<m;i++){
 				maxWidth = Math.max(maxWidth,this.context2d.measureText(texts[i]).width);
@@ -338,7 +369,7 @@ function WebCanvas(width,height,colorset){
 				minWidth = Math.min(maxWidth,this.context2d.measureText(texts[i]).width);
 			}
 			
-			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth};
+			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth,"height":maxHeight,"maxHeight":maxHeight};
 		}
 		//--- 이미지 넣기
 		//x0,y0,w0,h0 넣을 때 이미지, 
@@ -376,18 +407,28 @@ function WebCanvas(width,height,colorset){
 			c.context2d.putImageData(this.context2d.getImageData(0, 0, this.width,this.height),0,0);
 			return c;
 		}
+		//--- 확대 설정
+		,"setScale":function(sx,sy){
+			this.saveContext2d();
+			this.context2d.scale(sx,sy);
+			return;
+		}
+		,"resetScale":function(){
+			this.restoreContext2d();
+			return;
+		}
 		//--- 회전 설정
 		//deg:각도,centerX:기준x,centerY:기준y
 		,"setRotate":function(deg,centerX,centerY){
 			var ang = deg * Math.PI / 180
-			this.context2d.save();
+			this.saveContext2d();
 			this.context2d.translate(centerX,centerY);
 			this.context2d.rotate(ang);
 			this.context2d.translate(-1*centerX,-1*centerY);
 			return;
 		}
 		,"resetRotate":function(){
-			this.context2d.restore();
+			this.restoreContext2d();
 			return;
 		}
 		// 각도 변경에 따른 x,y값 알아오기, 회전할 때 x,y의 위치가 바뀌어야한다.
