@@ -34,7 +34,6 @@ var wc2 = (function(){
 											"imageSmoothingEnabled": true, //이미지 리사이즈시 더 부드럽도록 보여준다.
 											"lineCap": "round", // butt, round, square :  : use only "round"
 											"lineDashOffset": 0,
-											"lineHeight": 1.5,
 											"lineJoin": "round", //bevel , round , miter :  : use only "round"
 											"lineWidth": 1,
 											"miterLimit": 10,
