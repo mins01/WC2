@@ -64,9 +64,9 @@ var wc2 = (function(){
 			this.addWebCanvasWindow(300,300);
 			this.setTool("text");
 		}
-		,"setError":function(error){
+		,"setError":function(error,disableShow){
 			this.error = error;
-			console.log(this.error);
+			if(!disableShow) console.log(this.error);
 			return this.error;
 		}
 		//--- 이벤트 초기화
@@ -84,23 +84,21 @@ var wc2 = (function(){
 				
 				// todo : context2D 설정 부분
 				if(!wc2Tool.onDown(wc2.tool,event)){
-					this.setError( wc2Tool.error);
+					wc2.setError( wc2Tool.error);
 					return false;
 				}
 				wc2.eventStep = 1;
 				return true;
 			});
 			$(document).on( "mousemove", function(event) {
-				if(wc2.eventStep==0){ return ;} //down이벤트 후에만
+				if(!wc2Tool.onMove(wc2.tool,event)){
+					wc2.setError( wc2Tool.error);
+					return false;
+				}
 				event.bubble = false;
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
-				if(!wc2Tool.onMove(wc2.tool,event)){
-					this.setError( wc2Tool.error);
-					return false;
-				}
-				
 				return true;
 			});
 			$(document).on( "mouseup",  function(event) {
@@ -110,7 +108,7 @@ var wc2 = (function(){
 				event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				if(!wc2Tool.onUp(wc2.tool,event)){
-					this.setError( wc2Tool.error);
+					wc2.setError( wc2Tool.error,false);
 					return false;
 				}
 				wc2.eventStep = 0;
@@ -405,8 +403,9 @@ var wc2 = (function(){
 		}
 		,"selectLayer":function(index){
 			if(!this.activeWcw){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			wc2Tool.reset(this.tool);
 			this.activeWcw.wcb.setActiveWebCanvasByIndex(index);
-			this.cmdTool("reset");
+			wc2Tool.init(this.tool,this.activeWcw.wcb);
 			this._syncPropLayerList();
 		}
 		//--- 확대/축소
@@ -468,13 +467,14 @@ var wc2 = (function(){
 					showInitial: true,
 					showPalette: true,
 					showSelectionPalette: true,
+					containerClassName: 'colorPalette',
 					maxPaletteSize: 20,
 					preferredFormat: "rgb",
 					localStorageKey: "wc2.strokeStyle",
 					change: function(color) {
-					this.value = color.toRgbString();
-					wc2.cmdTool('predraw')
-				}
+						this.value = color.toRgbString();
+						wc2.cmdTool('predraw')
+					}
 			});
 			this.fillStyle = document.getElementById('fillStyle');
 			$(this.fillStyle).spectrum({
@@ -485,26 +485,46 @@ var wc2 = (function(){
 					showInitial: true,
 					showPalette: true,
 					showSelectionPalette: true,
+					containerClassName: 'colorPalette',
 					maxPaletteSize: 20,
 					preferredFormat: "hex",
 					localStorageKey: "wc2.fillStyle",
 					change: function(color) {
-					this.value = color.toRgbString();
-					wc2.cmdTool('predraw')
-				}
+						this.value = color.toRgbString();
+						wc2.cmdTool('predraw')
+					}
 			});
 			//-- 파레트 더블 클릭으로 색상 선택되도록
-			$(".sp-container").on("dblclick",".sp-sat", function (e) {
-			e.stopPropagation();
-			e.preventDefault();
-			$(this).parents(".sp-container").find(".sp-choose").click();
+			$(".colorPalette").on("dblclick",".sp-sat", function (e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).parents(".sp-container").find(".sp-choose").click();
 			});
+			return true;
 		}
 		,"excangeColor":function(){
 			var c0 = this.strokeStyle.value;
 			var c1 = this.fillStyle.value;
-			$( this.strokeStyle).spectrum("set", c1);
-			$( this.fillStyle).spectrum("set", c0);
+			this.setStrokeColor(c1);
+			this.setFillColor(c0);
+			return true;
+		}
+		,"setStrokeColor":function(val){
+			$( this.strokeStyle).spectrum("set", val);
+			return true;
+		}
+		,"setFillColor":function(val){
+			$( this.fillStyle).spectrum("set", val);
+			return true;
+		}
+		,"setSpuitColorTo":function(ta){
+			var c = $("#divSelectedColorSpuit").css("backgroundColor");
+			if(ta == "stroke"){
+				this.setStrokeColor(c)
+			}else{
+				this.setFillColor(c)
+			}
+			return true;
 		}
 	};
 })();
