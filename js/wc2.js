@@ -60,6 +60,7 @@ var wc2 = (function(){
 		 //--- 초기화
 		,"init":function(){
 			this.initEvent();
+			this.initColorPalette();
 			this.addWebCanvasWindow(300,300);
 			this.setTool("text");
 		}
@@ -456,6 +457,54 @@ var wc2 = (function(){
 			})
 			img.src = wc2.activeWcw.wcb.toDataURL();
 		}
-
+		//--- 색상관련
+		,"initColorPalette":function(){
+			this.strokeStyle = document.getElementById('strokeStyle');
+			$(this.strokeStyle).spectrum({
+					//color: "#000",
+					//showAlpha: true,
+					showInput: true,
+					className: "strokeStyle",
+					showInitial: true,
+					showPalette: true,
+					showSelectionPalette: true,
+					maxPaletteSize: 20,
+					preferredFormat: "rgb",
+					localStorageKey: "wc2.strokeStyle",
+					change: function(color) {
+					this.value = color.toRgbString();
+					wc2.cmdTool('predraw')
+				}
+			});
+			this.fillStyle = document.getElementById('fillStyle');
+			$(this.fillStyle).spectrum({
+					//color: "#fff",
+					//showAlpha: true,
+					showInput: true,
+					className: "fillStyle",
+					showInitial: true,
+					showPalette: true,
+					showSelectionPalette: true,
+					maxPaletteSize: 20,
+					preferredFormat: "hex",
+					localStorageKey: "wc2.fillStyle",
+					change: function(color) {
+					this.value = color.toRgbString();
+					wc2.cmdTool('predraw')
+				}
+			});
+			//-- 파레트 더블 클릭으로 색상 선택되도록
+			$(".sp-container").on("dblclick",".sp-sat", function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).parents(".sp-container").find(".sp-choose").click();
+			});
+		}
+		,"excangeColor":function(){
+			var c0 = this.strokeStyle.value;
+			var c1 = this.fillStyle.value;
+			$( this.strokeStyle).spectrum("set", c1);
+			$( this.fillStyle).spectrum("set", c0);
+		}
 	};
 })();

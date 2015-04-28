@@ -553,7 +553,7 @@ Ciao
 								<tr>
 									<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="#000000">
 									</th>
-									<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal"></button></th>
+									<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.cmdTool('predraw')"></button></th>
 									<th><input type="hidden" name="fillStyle" id="fillStyle" value="#ffffff"></th>
 								</tr>
 							</table>
@@ -642,7 +642,7 @@ Ciao
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 	
-	<!-- spectrum on jquery -->
+	<!-- spectrum on jquery https://bgrins.github.io/spectrum/ -->
 	<script src="jquery/spectrum.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script> -->
 
@@ -684,44 +684,7 @@ Ciao
 		p.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
 		p.addClass("wcw-active");
 		*/
-		var t = $("#strokeStyle").spectrum({
-				//color: "#000",
-				//showAlpha: true,
-				showInput: true,
-				className: "strokeStyle",
-				showInitial: true,
-				showPalette: true,
-				showSelectionPalette: true,
-				maxPaletteSize: 20,
-				preferredFormat: "rgb",
-				localStorageKey: "wc2.strokeStyle",
-				change: function(color) {
-				this.value = color.toRgbString();
-				wc2.cmdTool('predraw')
-			}
-		});
-		$("#fillStyle").spectrum({
-				//color: "#fff",
-				//showAlpha: true,
-				showInput: true,
-				className: "fillStyle",
-				showInitial: true,
-				showPalette: true,
-				showSelectionPalette: true,
-				maxPaletteSize: 20,
-				preferredFormat: "hex",
-				localStorageKey: "wc2.fillStyle",
-				change: function(color) {
-				this.value = color.toRgbString();
-				wc2.cmdTool('predraw')
-			}
-		});
-		//-- 파레트 더블 클릭으로 색상 선택되도록
-		$(".sp-container").on("dblclick",".sp-sat", function (e) {
-			e.stopPropagation();
-			e.preventDefault();
-			$(this).parents(".sp-container").find(".sp-choose").click();
-		});
+	
 		
 	  });
   </script>
