@@ -178,6 +178,13 @@ var wc2 = (function(){
 			});
 		}
 		//--- 
+		,"cmdWcb":function(cmd){
+			if(!this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
+			switch(cmd){
+				case "clear":this.activeWcb.clear();break;
+			}
+			this._syncPropLayerList();
+		}
 		,"addWcb":function(width,height){
 			var width = 300;
 			var height =  300;
@@ -401,8 +408,9 @@ var wc2 = (function(){
 		}
 		,"cmdLayer":function(cmd){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
-			var r = "";
+			var r = null;
 			switch(cmd){
+				case "clear":r = this.activeWcb.activeWebCanvas.clear();break;
 				case "add":r = this.activeWcb.addWebCanvas();break;
 				case "duplicate":r = this.activeWcb.addDuplicateWebCanvas();break;
 				case "mergeDown":r = this.activeWcb.mergeDown();break;

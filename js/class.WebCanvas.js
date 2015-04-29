@@ -107,9 +107,15 @@ function WebCanvas(width,height,colorset){
 			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			return true;
 		}
-		,"clear":function(){
+		,"clear":function(withFillStyle){
 			//this.width = this.width; //이걸 사요하면 context2d의 설정이 초기화된다.
-			this.context2d.clearRect(0,0,this.width,this.height);
+			if(withFillStyle){
+				console.log("fill");
+				this.context2d.fillRect(0,0,this.width,this.height);
+			}else{
+				
+				this.context2d.clearRect(0,0,this.width,this.height);
+			}
 			return true;
 		}
 		,"getConfigContext2d":function(name){
@@ -488,7 +494,8 @@ function WebCanvas(width,height,colorset){
 			this.context2d.scale(scaleH, scaleV); // Set scale to flip the image
 			this.context2d.drawImage(c, posX, posY, this.width, this.height); // draw the image
 			this.context2d.restore(); // Restore the last saved state
-
 		}
+
+
 	} // end : WebCanvas._prototype
 })();

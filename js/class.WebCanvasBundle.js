@@ -309,7 +309,9 @@ function WebCanvasBundle(width,height,colorset){
 			return str;
 		}
 		,"clear":function(){
-			return this.execAllWebCanvas("clear",arguments)
+			var r = this.execWebCanvases("clear",{})
+			this.webCanvases[0].clear(1); //마지막 레이어만 색을 칠함
+			 return r;
 		}
 		,"flip":function(){
 			return this.execAllWebCanvas("flip",arguments)
