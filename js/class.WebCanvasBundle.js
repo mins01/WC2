@@ -61,7 +61,6 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"setName":function(name){
 			this.name = name;
-			this.node.alt = this.name;
 			return this.name;
 		}
 		,"setZoom":function(zoom){
