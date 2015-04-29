@@ -22,7 +22,7 @@ var wc2Tool = function(){
 		,"isDown":0 //down이벤트가 발생되었는지 체크용.
 		//-- 제어용 함수 흐름 :  init -> onDown -> onMove -> onUp -> end
 		//-- ETC : predraw,onScroll
-		,"init":function(toolName,wcb){
+		,"init":function(toolName){
 			if(!this[toolName]){
 				this.error = "wc2Tool.init : "+toolName+"라는 툴이 지원되지 않습니다.";
 				return false;
@@ -31,7 +31,15 @@ var wc2Tool = function(){
 				this[this.lastToolName].reset(); //이전 동작에 대한 남겨진 내용을 초기화
 			}
 			this.lastToolName  = toolName;
-			return this[toolName].init(wcb);
+			//this[toolName].wcb = wc2.this.activeWcb
+			if(wc2.activeWcw){
+				this[toolName].wcb = wc2.activeWcw.wcb
+			}else if(wc2.activeWcb){
+				this[toolName].wcb = wc2.activeWcb
+			}else{
+				return false;
+			}
+			return this[toolName].init();
 		}
 		,"onDown":function(toolName,event){
 			this.isDown=1;
@@ -75,7 +83,7 @@ var wc2Tool = function(){
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				//console.log("init");
 				return true;
 			}
@@ -123,7 +131,7 @@ var wc2Tool = function(){
 			"wcb":null
 			,"pos":[]
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				//console.log("init");
 				return true;
 			}
@@ -167,7 +175,7 @@ var wc2Tool = function(){
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"eraserMode":"pen"
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				//console.log("init");				
 				this.eraserMode = this.wcb.shadowWebCanvas.getConfigContext2d("eraserMode");
 				
@@ -229,7 +237,7 @@ var wc2Tool = function(){
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				//console.log("init");
 				return true;
 			}
@@ -277,7 +285,7 @@ var wc2Tool = function(){
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				//console.log("init");
 				return true;
 			}
@@ -334,7 +342,7 @@ var wc2Tool = function(){
 			,"ing":0
 			,"init":function(wcb){
 				if(this.ing ==0){
-					this.wcb = wcb;
+					//this.wcb = wcb;
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
@@ -475,7 +483,7 @@ var wc2Tool = function(){
 				}(this);
 				
 				if(this.ing ==0){
-					this.wcb = wcb;
+					//this.wcb = wcb;
 					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
@@ -583,7 +591,7 @@ var wc2Tool = function(){
 				this.textNode  = document.getElementById('textareaText');
 				
 				if(this.ing ==0){
-					this.wcb = wcb;
+					//this.wcb = wcb;
 					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
@@ -687,7 +695,7 @@ var wc2Tool = function(){
 			,"colorStyle":"rgba(0,0,0,1)"
 			,"ignoreIsDown":1 //isDown 체크하지 않는다.
 			,"init":function(wcb){
-				this.wcb = wcb;
+				//this.wcb = wcb;
 				return true;
 			}
 			,"end":function(){
