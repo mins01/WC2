@@ -750,7 +750,7 @@ Ciao
 	
 	<script src="jquery/jquery-helper.js"></script>
 	<!-- http://touchpunch.furf.com/ -->
-	<script src="jquery/jquery.ui.touch-punch.min.js"></script>
+	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
 	
 	
 	
@@ -766,37 +766,7 @@ Ciao
 	
 		<script>
 	$(function() {	
-	wc2.init(); //초기화
-	  /*
-	var tabs = $( "#tabs" ).tabs();
-	tabs.delegate( "span.ui-icon-close", "click", function() {
-		if(confirm("close?")){
-			var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
-			$( "#" + panelId ).remove();
-			tabs.tabs( "refresh" );
-		}
-	});
-	*/
-	  
-	  /*
-		var p = $( "#defaultWCF" ).dialog({"resizable":true,"draggable":false,
-		"minWidth":200,"minHeight":200,"width":400,"height":450,
-		"position": { my: "center top" , at: "center top", of: "#contentArea" },
-		"beforeClose": function( event, ui ) {alert(ui);return false;}}).parent();
-		p.draggable({ "handle": "span.ui-dialog-title",
-			"containment": "#contentArea",
-			"stop": function( event, ui ) {
-				if(ui.position.top<55){
-				$(this).css("top","60px")
-				
-				}
-			}
-		});
-		p.css("top","60px"); //다이알로그창의 제어에 문제가 있어서 강제로 top을 설정.
-		p.addClass("wcw-active");
-		*/
-	
-
+		wc2.init(); //초기화
 	});
   </script>
   </body>

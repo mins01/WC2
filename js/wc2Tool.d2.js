@@ -112,9 +112,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -157,8 +154,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.pos.push([t.x,t.y])
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
@@ -214,13 +209,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 = this.x1;
-				this.y0 = this.y1;
-				this.x1 = t.x;
-				this.y2 = t.y;
 				this.predraw();
-				
 				this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
@@ -266,9 +255,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -314,9 +300,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -412,9 +395,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -527,9 +507,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -645,9 +622,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -710,15 +684,13 @@ var wc2Tool = function(){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = t.x;
 				this.y0 = t.y;
-				this.predraw();
+				
 				return true;
 				
 			}
 			,"up":function(event){
-				this.move(event);
-				
+				this.predraw();
 				this.end();
-				
 				return true;
 			}
 			,"predraw":function(){
