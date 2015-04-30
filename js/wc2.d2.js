@@ -88,7 +88,7 @@ var wc2 = (function(){
 		,"initEvent":function(){
 			
 			var onDown = function(event) {
-				console.log(event.type);
+				//console.log(event.type);
 				if(event.type=="touchstart"){
 					this.isTouch = true;
 				}else if(this.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
@@ -184,6 +184,8 @@ var wc2 = (function(){
 			$(document).on('keydown', null, 'shift+ctrl+z', function(event){
 				wc2.cmdWcb("redo");
 			});
+			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
+			Mousetrap.bind(['ctrl+shift+z','ctrl+y'], function(event) { wc2.cmdWcb("redo"); });
 
 			
 		}
@@ -195,8 +197,8 @@ var wc2 = (function(){
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
 			if(cmd != "new" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
 			switch(cmd){
-				case "clear":this.activeWcb.clear();this.saveHistory(cmd);break;
-				case "new":(this.addWcb(arg1,arg2)).saveHistory(cmd);break;
+				case "clear":this.activeWcb.clear();this.saveHistory("Image."+cmd);break;
+				case "new":(this.addWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
 
 				//-- 단순호출처리
 				case "undo":
