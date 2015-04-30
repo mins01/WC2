@@ -318,8 +318,8 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.circle(this.x0,this.y0,r);
 			}
 		}
-		//-- 이동
-		,"move":{
+		//-- 변형
+		,"transform":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"w0":-1,"h0":-1
@@ -668,7 +668,7 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
-		//--- 텍스트
+		//--- 스포이드
 		,"spuit":{
 			"wcb":null
 			,"x0":-1,"y0":-1
@@ -706,6 +706,56 @@ var wc2Tool = function(){
 				//console.log(colorset,this.colorStyle);
 				$("#divPreviewColorSpuit").css("backgroundColor",this.colorStyle);
 				return true;
+			}
+			,"reset":function(){ 
+			
+				return true;
+			}
+		} //-- end fn
+		//--- 이동
+		,"move":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"left":-1,"top":-1
+			,"init":function(wcb){
+				//this.wcb = wcb;
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,document.body,1);
+				this.x0 = t.x;
+				this.y0 = t.y;
+				this.left = parseFloat(this.wcb.wcbMove.style.left);
+				this.top = parseFloat(this.wcb.wcbMove.style.top);
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,document.body,1);
+
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				//this.predraw();
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				var t = $(this.wcb.wcbMove);
+				var l0 = this.left + (this.x1-this.x0)
+				var h0 = this.top + (this.y1-this.y0)
+				t.css("left",l0+"px").css("top",h0+"px");
+				console.log((this.x1-this.x0),(this.y1-this.y0),this.left,this.top,l0,h0);
+				return true;
+			}
+			,"confirm":function(){
+				var t = $(this.wcb.wcbMove).css("left","0px").css("top","0px");
 			}
 			,"reset":function(){ 
 			

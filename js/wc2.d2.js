@@ -88,7 +88,9 @@ var wc2 = (function(){
 		,"initEvent":function(){
 			
 			var onDown = function(event) {
-				//console.log(event.type);
+				if(event.target.tagname=="select"){
+					return true;
+				}
 				if(event.type=="touchstart"){
 					this.isTouch = true;
 				}else if(this.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
@@ -217,12 +219,18 @@ var wc2 = (function(){
 			/*
 			wcb.tabFrame = document.createElement('div');
 			*/
-			wcb.tabFrame  = $(".defaultTabContent").clone()[0];
+			wcb.tabFrame  = $("#defaultTabContent").clone()[0];
+			//$(wcb.tabFrame).css("marginLeft","0px").css("marginTop","0px")
+			//$(wcb.tabFrame).css("left","0px").css("top","0px")
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
 
 			//wcb.wcbFrame = document.createElement('div');
 			wcb.wcbFrame = $(wcb.tabFrame).find('.wcb-frame')[0];
+			//$(wcb.wcbFrame).css("left","0px").css("top","0px")
+			wcb.wcbMove = $(wcb.tabFrame).find('.wcb-move')[0];
+			$(wcb.wcbMove).css("left","0px").css("top","0px")
+			
 			//wcb.wcbFrame.className = "wcb-frame";
 			wcb.tabTitleLi = document.createElement('li');
 			wcb.tabTitleLi.className = "wcb-title-li"; 
@@ -233,7 +241,8 @@ var wc2 = (function(){
 			$(wcb.tabTitleA).text("TITLE");
 			//$("#tabsTitle").append(wcb.tabTitleLi);
 			$(wcb.tabFrame).append(wcb.wcbFrame);
-			$(wcb.wcbFrame).append(wcb.node);
+			$(wcb.wcbFrame).append(wcb.wcbMove);
+			$(wcb.wcbMove).append(wcb.node);
 			
 			
 			$(wcb.tabFrame).on("change",".wcb-zoom",
