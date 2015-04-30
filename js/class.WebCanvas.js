@@ -425,7 +425,7 @@ function WebCanvas(width,height,colorset){
 		,"getDataForHistory":function(){
 			return {"width":this.width,"height":this.height,"label":this.label,"imageData":this.getImageData()};
 		}
-		,"setDataForHistory":function(data){
+		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
 			this.setLabel(data.label);
 			this.putImageData(data.imageData);
@@ -441,10 +441,17 @@ function WebCanvas(width,height,colorset){
 			if(isNaN(h0)){h0 = this.height}
 			return this.context2d.getImageData(x0,y0,w0,h0);
 		}
-		,"putImageData":function(imageData,x,y,dirtyX,dirtyY,dirtyWidth,dirtyHeight){
-			if(isNaN(x0)){x0 = 0}
-			if(isNaN(y0)){y0 = 0}
-			return this.context2d.putImageData(x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
+		,"putImageData":function(imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight){
+			if(isNaN(dirtyHeight)){
+				if(isNaN(dirtyY)){
+					if(isNaN(x0)) x0 = 0;
+					if(isNaN(y0)) y0 = 0;
+					return this.context2d.putImageData(imageData,x0,y0);
+				}
+				return this.context2d.putImageData(imageData,x0,y0,dirtyX,dirtyY);
+			}
+			return this.context2d.putImageData(imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
+			
 		}
 		//--- 확대 설정
 		,"setScale":function(sx,sy){

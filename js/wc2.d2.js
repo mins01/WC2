@@ -94,10 +94,12 @@ var wc2 = (function(){
 				}else if(this.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
 					return true;
 				}
-
+				document.activeElement.blur(); //텍스트박스등의 포커스를 없앤다.
 				event.bubble = false;
 				event.stopPropagation();
 				event.preventDefault(); //이벤트 취소시킨다.
+
+
 
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 				if(!wc2Tool.init(wc2.tool)){
@@ -141,12 +143,9 @@ var wc2 = (function(){
 				return false;
 			}
 			
-			//if(document.hasOwnProperty('ontouchstart')){
-				console.log("support touch device");
-				$(document).on( "touchstart", ".wcb-frame",onDown );
-				$(document).on( "touchmove", onMove );
-				$(document).on( "touchend", onUp );
-			//}
+			$(document).on( "touchstart", ".wcb-frame",onDown );
+			$(document).on( "touchmove", onMove );
+			$(document).on( "touchend", onUp );
 			$(document).on( "mousedown", ".wcb-frame",onDown );
 			$(document).on( "mousemove", onMove);
 			$(document).on( "mouseup", onUp);
@@ -177,6 +176,14 @@ var wc2 = (function(){
 			$("#propLayerList").on("click","li",function(event){
 				wc2.selectLayer(this.dataset.wcbIndex)
 			});
+			//-- 단축키
+
+			$(document).on('keydown', null, 'ctrl+z', function(event){
+				this.cmdWcb("undo");
+			}); 
+			$(document).on('keydown', null, 'shift+ctrl+z', function(event){
+				this.cmdWcb("redo");
+			}); 			
 		}
 		//--- 히스토리
 		,"saveHistory":function(action){
@@ -188,6 +195,14 @@ var wc2 = (function(){
 			switch(cmd){
 				case "clear":this.activeWcb.clear();this.saveHistory(cmd);break;
 				case "new":(this.addWcb(arg1,arg2)).saveHistory(cmd);break;
+
+				//-- 단순호출처리
+				case "undo":
+				case "redo":
+					if(this.activeWcb[cmd]){
+						this.activeWcb[cmd]();
+					}
+				break;
 			}
 			this._syncPropList();
 		}
@@ -422,8 +437,8 @@ var wc2 = (function(){
 						li.className += " active";
 					}
 					li.title = wcb.historyLog[i].action;
-
-					$(li).append(document.createTextNode(li.title+" ["+((wcb.historyLog[i].time-tTime)/1000).toFixed(2)+" sec]"));
+					var tm = $.format.date(new Date(wcb.historyLog[i].time),'mm:ss');
+					$(li).append(document.createTextNode("["+tm+"] "+li.title));
 					propHistoryList.append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}

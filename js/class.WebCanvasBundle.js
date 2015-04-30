@@ -107,11 +107,12 @@ function WebCanvasBundle(width,height,colorset){
 			return this.historyLog.length;
 		}
 		,"undo":function(){
-			if(this.historyIdx<0){this.setError("더 이상의 히스토리가 없습니다");return;}
-			this.putDataForHistory(this.historyLog[this.historyIdx--]);
+			if(this.historyIdx<=0){this.setError("더 이상의 히스토리가 없습니다");return;}
+			this.putDataForHistory(this.historyLog[--this.historyIdx]);
 		}
 		,"redo":function(){
-			
+			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("더 이상의 히스토리가 없습니다");return;}
+			this.putDataForHistory(this.historyLog[++this.historyIdx]);
 			
 		}
 		,"getDataForHistory":function(action){
@@ -127,7 +128,7 @@ function WebCanvasBundle(width,height,colorset){
 				if(!this.webCanvases[i]){ //없으면 레이어 하나를 붇인다.
 					this.addWebCanvas();
 				}
-				this.webCanvases[i].putImageData(historyData.data[i]);
+				this.webCanvases[i].putDataForHistory(historyData.data[i]);
 			}
 		}
 		//--

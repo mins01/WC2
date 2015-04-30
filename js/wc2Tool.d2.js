@@ -93,7 +93,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				//this.wcb = null;
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -138,7 +138,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				//this.wcb = null;
+				wc2Tool.saveHistory();
 				this.pos = [];
 
 				wc2Tool.saveHistory();
@@ -185,7 +185,7 @@ var wc2Tool = function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
 				$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-			//this.wcb = null;
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -238,7 +238,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-			//this.wcb = null;
+			wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -283,7 +283,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-			//this.wcb = null;
+			wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -430,6 +430,7 @@ var wc2Tool = function(){
 				if(this.ing == 1){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
 					return this.reset();
@@ -444,7 +445,7 @@ var wc2Tool = function(){
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-				//this.wcb = null;
+				
 				}
 				return true;
 			}
@@ -542,6 +543,7 @@ var wc2Tool = function(){
 				if(this.ing == 1){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
 					return this.reset();
@@ -555,7 +557,7 @@ var wc2Tool = function(){
 					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
-				//this.wcb = null;
+				
 				}
 				return true;
 			}
@@ -650,6 +652,7 @@ var wc2Tool = function(){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 						this.ing = 0;
+						wc2Tool.saveHistory();
 						return this.reset();
 					}
 				}
@@ -662,7 +665,7 @@ var wc2Tool = function(){
 					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
-				//this.wcb = null;
+				
 				}
 				return true;
 			}
@@ -707,7 +710,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"reset":function(){ 
-			//this.wcb = null;
+			
 				return true;
 			}
 		} //-- end fn
