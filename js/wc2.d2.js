@@ -179,13 +179,6 @@ var wc2 = (function(){
 				wc2.selectLayer(this.dataset.wcbIndex)
 			});
 			//-- 단축키
-
-			$(document).on('keydown', null, 'ctrl+z', function(event){
-				wc2.cmdWcb("undo");
-			}); 
-			$(document).on('keydown', null, 'shift+ctrl+z', function(event){
-				wc2.cmdWcb("redo");
-			});
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
 			Mousetrap.bind(['ctrl+shift+z','ctrl+y'], function(event) { wc2.cmdWcb("redo"); });
 

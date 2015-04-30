@@ -371,9 +371,9 @@ var wc2Tool = function(){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					wc2Tool.move._rotate.call(this,event.deltaY);
+					wc2Tool.transform._rotate.call(this,event.deltaY);
 				}else{ //scale
-					wc2Tool.move._scale.call(this,event.deltaY);
+					wc2Tool.transform._scale.call(this,event.deltaY);
 				}
 				this.predraw();
 				//console.log(this.sc);
@@ -601,9 +601,9 @@ var wc2Tool = function(){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					wc2Tool.move._rotate.call(this,event.deltaY);
+					wc2Tool.transform._rotate.call(this,event.deltaY);
 				}else{ //scale
-					wc2Tool.move._scale.call(this,event.deltaY);
+					wc2Tool.transform._scale.call(this,event.deltaY);
 				}
 				this.predraw();
 				//console.log(this.sc);

@@ -320,10 +320,10 @@
 				</div>
 				<div class="btn-group" role="group">
 				  <button class="btn btn-default glyphicon glyphicon-pencil active" data-wc-tool="pen"  type="button" title="Pen"></button>
-				  <button class="btn btn-default glyphicon glyphicon-erase"data-wc-tool="eraser" type="button"   title="Eraser"></button>
+				  <button class="btn btn-default glyphicon glyphicon-erase" data-wc-tool="eraser" type="button"   title="Eraser"></button>
 				</div>
 				<div class="btn-group" role="group">
-				  <button class="btn btn-default glyphicon glyphicon-pencil disabled" disabled type="button" title="Pencil"></button>
+				  <button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
 				  <button class="btn btn-default glyphicon glyphicon-scissors"type="button" title="Crop"></button>
 				</div>
 				<div class="btn-group" role="group">
@@ -576,7 +576,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMoveImageTip" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false">
+				<form name="formMoveImageTip" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Tip</div>
 						<div  class="panel-body">
@@ -625,7 +625,7 @@ Ciao
 					</div>
 				</form>
 				
-				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text" onsubmit="return false">
+				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Confirm/Reset</div>
 						<div  class="panel-body">
@@ -641,7 +641,7 @@ Ciao
 					</div>
 				</form>
 				
-				<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-move" onsubmit="return false">
+				<form name="formMove" action="javascript:void(0)" class="wc-tool wc-tool-move" onsubmit="return false">
 					<div class="panel panel-default">
 						<div  class="panel-heading">Move</div>
 						<div  class="panel-body">
