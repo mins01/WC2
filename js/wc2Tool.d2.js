@@ -690,7 +690,7 @@ var wc2Tool = function(){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = t.x;
 				this.y0 = t.y;
-				
+				this.predraw();
 				return true;
 				
 			}
