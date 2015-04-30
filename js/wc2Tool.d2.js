@@ -138,9 +138,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				wc2Tool.saveHistory();
 				this.pos = [];
-
 				wc2Tool.saveHistory();
 				return true;
 			}

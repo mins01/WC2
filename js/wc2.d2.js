@@ -179,11 +179,13 @@ var wc2 = (function(){
 			//-- 단축키
 
 			$(document).on('keydown', null, 'ctrl+z', function(event){
-				this.cmdWcb("undo");
+				wc2.cmdWcb("undo");
 			}); 
 			$(document).on('keydown', null, 'shift+ctrl+z', function(event){
-				this.cmdWcb("redo");
-			}); 			
+				wc2.cmdWcb("redo");
+			});
+
+			
 		}
 		//--- 히스토리
 		,"saveHistory":function(action){
@@ -210,31 +212,42 @@ var wc2 = (function(){
 			var width = 300;
 			var height =  300;
 			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
+			/*
 			wcb.tabFrame = document.createElement('div');
+			*/
+			wcb.tabFrame  = $(".defaultTabContent").clone()[0];
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
-			wcb.wcbFrame = document.createElement('div');
-			wcb.wcbFrame.className = "wcb-frame";
+
+			//wcb.wcbFrame = document.createElement('div');
+			wcb.wcbFrame = $(wcb.tabFrame).find('.wcb-frame')[0];
+			//wcb.wcbFrame.className = "wcb-frame";
 			wcb.tabTitleLi = document.createElement('li');
 			wcb.tabTitleLi.className = "wcb-title-li"; 
 			wcb.tabTitleA = document.createElement('a');
 			wcb.tabTitleA.href="#"+wcb.tabFrame.id;
 			
 			$(wcb.tabTitleLi).append(wcb.tabTitleA);
-			$(wcb.tabTitleA).text("xxxxxx");
+			$(wcb.tabTitleA).text("TITLE");
 			//$("#tabsTitle").append(wcb.tabTitleLi);
 			$(wcb.tabFrame).append(wcb.wcbFrame);
 			$(wcb.wcbFrame).append(wcb.node);
 			
 			
-			
+			$(wcb.tabFrame).on("change",".wcb-zoom",
+				function(wcb){
+					return function(event){
+						wcb.setZoom(this.value);
+					}
+				}(wcb)
+			);
+
 			
 			this.wcbs.push(wcb);
 			this.setActiveWcb(wcb);
 			this.renameWcb($.format.date(new Date(),'yyyyMMddHHmmss'));
 			
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
-			//this.tabs.append(wcb.wcbFrame);
 			$( "#tabsContent" ).append(wcb.tabFrame);
 			this.tabs.tabs("refresh");
 			this.tabs.tabs({"active":-1});

@@ -100,7 +100,7 @@
 			#propPanel{display:block;visibility: visible;}
 		}
 		
-		div.wc-viewImage{ display:table-cell !important; text-align:center; vertical-align:middle}
+		div.wc-viewImage{}
 		div.wc-viewImage img.wc-viewImage{ }
 		
 		/* 이미지 툴용 prop */
@@ -129,13 +129,6 @@
 		#tabs{position:absolute;left;top:0;left:0;right:0;bottom:0;}
 		#tabsContent{position:relative;}
 		#tabsContent .ui-tabs-panel{
-			position: absolute;
-			top: 0;
-			right: 0;
-			left: 0;
-			bottom: 0;
-			display: table-cell;
-			vertical-align: middle;
 			width: 100%;
 			height: 100%;
 			box-sizing: border-box;
@@ -162,12 +155,23 @@
 		.wcb-frame .WCB{ margin:0 auto;}
 		.ui-dialog .wcb-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 		
+
+		.wcb-zoom{
+			z-index: 2;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+		}
+
 		.ui-widget-header {
 			background: #ccc;
 		}
 		.wcw-active .ui-widget-header {
 			background: #abc;
 		}
+
+
 			
 	
 	</style>
@@ -708,37 +712,29 @@ Ciao
 		
 		<!-- 이 속의 내용은 안보여준다. 노드를 복사해서 사용할려고 만든것이다.-->
 		<article id="hiddenArea" >
-			<div id="defaultWCF" title="wcf" class="wcf">
-				<div style="position:absolute;top:0;bottom:0;left:0;right:0">
-					<div class="wcf-body"  style="background-color:#ccc;">
-						<div class="WCB" style="width:300px;height:300px; background-color:#fff"></div>
-					</div>
-					<div class="wcf-bottom btn-group  btn-group-xs">
-						<select class="btn btn-default wcw-zoom" >
-							<option value="1">Default</option>
-							<option value="0.1">10%</option>
-							<option value="0.2">20%</option>
-							<option value="0.3">30%</option>
-							<option value="0.4">40%</option>
-							<option value="0.5">50%</option>
-							<option value="0.6">60%</option>
-							<option value="0.7">70%</option>
-							<option value="0.8">80%</option>
-							<option value="0.9">90%</option>
-							<option value="1">100%</option>
-							<option value="1.1">110%</option>
-							<option value="1.2">120%</option>
-							<option value="1.5">150%</option>
-							<option value="2">200%</option>
-							<option value="2.5">250%</option>
-							<option value="3">300%</option>
-							<option value="4">400%</option>
-							<option value="5">400%</option>
-						</select>
-						<input type="button" class="btn btn-default wcw-size-info" disabled value="300x600" title="Canvas Size" style="min-width:7em;">
-						<input type="button" class="btn btn-default wcw-poiner-zy" disabled value="300,600" title="Mouse Position" style="min-width:7em;">
-					</div>
-				</div>
+			<div class="defaultTabContent">
+				<div class="wcb-frame"></div>
+				<select class="btn btn-default wcb-zoom">
+					<option value="1">Default</option>
+					<option value="0.1">10%</option>
+					<option value="0.2">20%</option>
+					<option value="0.3">30%</option>
+					<option value="0.4">40%</option>
+					<option value="0.5">50%</option>
+					<option value="0.6">60%</option>
+					<option value="0.7">70%</option>
+					<option value="0.8">80%</option>
+					<option value="0.9">90%</option>
+					<option value="1">100%</option>
+					<option value="1.1">110%</option>
+					<option value="1.2">120%</option>
+					<option value="1.5">150%</option>
+					<option value="2">200%</option>
+					<option value="2.5">250%</option>
+					<option value="3">300%</option>
+					<option value="4">400%</option>
+					<option value="5">400%</option>
+				</select>
 			</div>
 		</article>
 		<!-- //이 속의 내용은 안보여준다.-->
