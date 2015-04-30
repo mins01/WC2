@@ -29,36 +29,36 @@ var wc2 = (function(){
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
-											"fillStyle":  "rgba(0, 0, 0, 0)",
-											"font": "10px sans-serif",
-											"globalAlpha": 1, // 0~1
-											"globalCompositeOperation": "source-over", //source-atop,source-in,source-out,source-over (default),destination-atop,destination-in,destination-out,destination-over,lighter,copy,xor , vendorName-operationName(etc)
-											"imageSmoothingEnabled": true, //이미지 리사이즈시 더 부드럽도록 보여준다.
-											"lineCap": "round", // butt, round, square :  : use only "round"
-											"lineDashOffset": 0,
-											"lineJoin": "round", //bevel , round , miter :  : use only "round"
-											"lineWidth": 1,
-											"miterLimit": 10,
-											"shadowBlur": 0,
-											"shadowColor": "rgba(0, 0, 0, 0)",
-											"shadowOffsetX": 0,
-											"shadowOffsetY": 0,
-											"strokeStyle": "#000000",
-											"textAlign": "start", //start,end,left,right,center
-											"textBaseline": "top", //top,hanging,middle,alphabetic,ideographic,bottom : use only "top"
-											//--- 추가 설정
-											"eraserMode": "pen", //지우개 모드 (todo)
-											"disableStroke": 0, //stroke 사용금지
-											"disableFill": 0, //fiil 사용금지
-											//--- config font
-											"fontSize": 10, //px
-											"lineHeight": 1.2, //float number
-											"fontStyle": "normal", //normal,italic,oblique
-											"fontVariant": "normal", //normal,small-caps
-											"fontWeight": "normal", //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
-											"fontStyleVariantWeight": "", //fontStyle + fontVariant + fontWeight
-											"fontFamily": "sans-serif", // font-name
-											}
+								"fillStyle":  "rgba(0, 0, 0, 0)",
+								"font": "10px sans-serif",
+								"globalAlpha": 1, // 0~1
+								"globalCompositeOperation": "source-over", //source-atop,source-in,source-out,source-over (default),destination-atop,destination-in,destination-out,destination-over,lighter,copy,xor , vendorName-operationName(etc)
+								"imageSmoothingEnabled": true, //이미지 리사이즈시 더 부드럽도록 보여준다.
+								"lineCap": "round", // butt, round, square :  : use only "round"
+								"lineDashOffset": 0,
+								"lineJoin": "round", //bevel , round , miter :  : use only "round"
+								"lineWidth": 1,
+								"miterLimit": 10,
+								"shadowBlur": 0,
+								"shadowColor": "rgba(0, 0, 0, 0)",
+								"shadowOffsetX": 0,
+								"shadowOffsetY": 0,
+								"strokeStyle": "#000000",
+								"textAlign": "start", //start,end,left,right,center
+								"textBaseline": "top", //top,hanging,middle,alphabetic,ideographic,bottom : use only "top"
+								//--- 추가 설정
+								"eraserMode": "pen", //지우개 모드 (todo)
+								"disableStroke": 0, //stroke 사용금지
+								"disableFill": 0, //fiil 사용금지
+								//--- config font
+								"fontSize": 10, //px
+								"lineHeight": 1.2, //float number
+								"fontStyle": "normal", //normal,italic,oblique
+								"fontVariant": "normal", //normal,small-caps
+								"fontWeight": "normal", //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
+								"fontStyleVariantWeight": "", //fontStyle + fontVariant + fontWeight
+								"fontFamily": "sans-serif", // font-name
+								}
 		 //--- 초기화
 		,"init":function(){
 			this.initUI();
@@ -463,6 +463,7 @@ var wc2 = (function(){
 			var r = null;
 			switch(cmd){
 				case "clear":r = this.activeWcb.activeWebCanvas.clear();break;
+				case "new":
 				case "add":r = this.activeWcb.addWebCanvas();break;
 				case "duplicate":r = this.activeWcb.addDuplicateWebCanvas();break;
 				case "mergeDown":r = this.activeWcb.mergeDown();break;
@@ -470,6 +471,7 @@ var wc2 = (function(){
 				case "moveUp":r = this.activeWcb.moveUpWebCanvasByIndex();break;
 				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
 			}
+			this.saveHistory("Layer."+cmd);
 			this.cmdTool("reset");
 			this._syncPropList();
 		}

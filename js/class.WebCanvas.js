@@ -232,13 +232,14 @@ function WebCanvas(width,height,colorset){
 		// 인자의 webCanvas가 위에 그려진다.
 		,"merge":function(webCanvas,x0,y0,w0,h0){
 			var opacity = webCanvas.opacity?webCanvas.opacity:1;
-			this.context2d.save();
-			this.context2d.globalAlpha *= opacity;
+
+			this.saveContext2d();
+			this.configContext2d({"globalAlpha":this.context2d.globalAlpha *= opacity , "globalCompositeOperation":"source-over"});
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			//this.context2d.globalAlpha = 1;
-			this.context2d.restore();
+			this.restoreContext2d();
 			return this;
 		}
 		// 인자의 webCanvas가 아래에 그려진다.
@@ -247,7 +248,9 @@ function WebCanvas(width,height,colorset){
 			
 			var c = webCanvas.clone();
 			c.context2d.save();
-			c.context2d.globalAlpha *= opacity;
+
+			c.configContext2d({"globalAlpha":c.context2d.globalAlpha *= opacity , "globalCompositeOperation":"source-over"});
+
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
 			
@@ -260,7 +263,11 @@ function WebCanvas(width,height,colorset){
 		}
 		,"copy":function(webCanvas,x0,y0,w0,h0){
 			this.clear();
-			return this.merge(webCanvas,x0,y0,w0,h0);
+			this.saveContext2d();
+			this.configContext2d({"globalAlpha":1}); //강제로 1로 설정.
+			var r = this.merge(webCanvas,x0,y0,w0,h0);
+			this.restoreContext2d();
+			return r;
 		}
 		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){

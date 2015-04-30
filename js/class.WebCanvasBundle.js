@@ -130,6 +130,9 @@ function WebCanvasBundle(width,height,colorset){
 				}
 				this.webCanvases[i].putDataForHistory(historyData.data[i]);
 			}
+			for(var m=this.webCanvases.length;i<m;i++){
+				this.removeWebCanvasByIndex(i);
+			}
 		}
 		//--
 		,"removeWebCanvasByIndex":function(idx){
