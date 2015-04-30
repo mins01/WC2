@@ -70,7 +70,7 @@
 		#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:5px;}		
 		#propPanel>.panel-body{}
 		
-		#propPanel .wc-layer li{text-align:left;}
+		#propPanel .wc2-prop-list li{text-align:left;}
 		.overflow-scrolly{overflow-y:scroll}
 		#propPanel table{border-width:0;padding:0;margin:0;width:100%; border-collapse: separate;}
 		#propPanel th,#propPanel td {padding:2px; border-bottom:1px dashed #ccc; }
@@ -89,6 +89,8 @@
 			box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
 		#propLayerList li{ cursor:pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 		#propLayerList li[data-wcb-active="1"]{ background-color:#abc; font-weight:bold;}
+
+		#propHistoryList{height:200px;margin-bottom: 5px;}
 
 		@media (min-width: 768px) {
 			#toolPanel{display:block;visibility: visible;}
@@ -644,18 +646,31 @@ Ciao
 					테스트용 폼. 보이면 안된다.
 				</form>
 				<hr class="soften">
-				<div class="wc-layer" style="min-height:50px" >
+				<div style="min-height:50px" >
 					<div class="panel panel-default">
 						<div  class="panel-heading">Layer</div>
 						<div  class="panel-body">
 							<div class="panel-body btn-group  btn-group-sm" role="group">
-									<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('add')"></button>
+									<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
 									<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
 									<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
 									<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
 							</div>
-							<div class="">
+							<div class="wc2-prop-list ">
 								<ul class="list-group overflow-scrolly" id="propLayerList">
+									<li class="list-group-item">#EMPTY#</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr class="soften">
+				<div style="min-height:50px" >
+					<div class="panel panel-default">
+						<div  class="panel-heading">History</div>
+						<div  class="panel-body">
+							<div class="wc2-prop-list ">
+								<ul class="list-group overflow-scrolly" id="propHistoryList">
 									<li class="list-group-item">#EMPTY#</li>
 								</ul>
 							</div>
@@ -673,7 +688,7 @@ Ciao
 				<tr>
 				<td height="10">
 					<ul id="tabsTitle">
-					<li style="float:right"><a href="#tabs-1" onclick="wc2.addWcb();return false" title="new">+</a></li>
+					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('add');return false" title="new">+</a></li>
 					</ul>
 				</td>
 				</tr>

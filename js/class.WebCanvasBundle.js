@@ -24,7 +24,10 @@ function WebCanvasBundle(width,height,colorset){
 	* canvas에 추가 멤버변수와 메소드를 설정한다. (프로토타입에 넣는건 아니다.)
 	*/
 	WebCanvasBundle.prototype = {
-		"init":function(width,height,colorset){
+		"commonConfig":{ //WebCanvasBundle 에서 공용으로 사용가능.
+			"limitHistoryLog":20 //언두 로그 제한수
+		}
+		,"init":function(width,height,colorset){
 			//-- 멤버변수 초기화
 			this.node = null;
 			this.width = 100
@@ -53,7 +56,8 @@ function WebCanvasBundle(width,height,colorset){
 			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
 			this.setName("WCB")
 			this.setZoom(1);
-			
+			this.historyLog = [];
+			this.historyIdx = -1; //-1로 초기화
 		}
 		,"setError":function(error){
 			this.error = error;
@@ -91,6 +95,42 @@ function WebCanvasBundle(width,height,colorset){
 			this.setZoom();
 			return true;
 		}
+		//-- undo
+		,"saveHistory":function(action){
+			//this.historyIdx = (this.historyIdx+1)%this.commonConfig.limitHistoryLog;
+			this.historyIdx++;
+			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"data":this.getDataForHistory(),"time":(new Date()).getTime()});
+			if(this.historyLog.length > this.commonConfig.limitHistoryLog){
+				this.historyLog.splice(0,1);
+				this.historyIdx--;
+			}
+			return this.historyLog.length;
+		}
+		,"undo":function(){
+			if(this.historyIdx<0){this.setError("더 이상의 히스토리가 없습니다");return;}
+			this.putDataForHistory(this.historyLog[this.historyIdx--]);
+		}
+		,"redo":function(){
+			
+			
+		}
+		,"getDataForHistory":function(action){
+			var data = [];
+			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
+			for(var i=0,m=this.webCanvases.length;i<m;i++){
+				data.push(this.webCanvases[i].getDataForHistory());
+			}
+			return data;
+		}
+		,"putDataForHistory":function(historyData){
+			for(var i=0,m=historyData.data.length;i<m;i++){
+				if(!this.webCanvases[i]){ //없으면 레이어 하나를 붇인다.
+					this.addWebCanvas();
+				}
+				this.webCanvases[i].putImageData(historyData.data[i]);
+			}
+		}
+		//--
 		,"removeWebCanvasByIndex":function(idx){
 			return this._removeWebCanvas(idx);
 		}

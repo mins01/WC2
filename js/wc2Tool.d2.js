@@ -78,6 +78,9 @@ var wc2Tool = function(){
 			if(!toolName || !this[toolName].mousewheel){ return false;}
 			return this[toolName].mousewheel(event);
 		}
+		,"saveHistory":function(){
+			wc2.saveHistory(this.lastToolName);
+		}
 		//-- 라인
 		,"line":{
 			"wcb":null
@@ -90,7 +93,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-			//this.wcb = null;
+				//this.wcb = null;
 				return true;
 			}
 			,"down":function(event){
@@ -137,6 +140,8 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.clear();
 				//this.wcb = null;
 				this.pos = [];
+
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){

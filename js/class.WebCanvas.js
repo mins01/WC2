@@ -22,7 +22,8 @@ function WebCanvas(width,height,colorset){
 	WebCanvas.create = function(width,height,colorset){
 		var c  = document.createElement('canvas');
 		c.alt = "";
-		c.class = "WC";
+		c.label = "";
+		c.className = "WC";
 		if(c.tagName != 'CANVAS'){
 			c = null;
 			//delete c;
@@ -416,8 +417,34 @@ function WebCanvas(width,height,colorset){
 		//--- WebCanvas를 복제한다. 그림 내용이 같다.
 		,"clone":function(){
 			var c = WebCanvas(this.width,this.height);
-			c.context2d.putImageData(this.context2d.getImageData(0, 0, this.width,this.height),0,0);
+			c.setLabel(this.label);
+			c.context2d.putImageData(this.getImageData(),0,0);
 			return c;
+		}
+		//--- 히스토리,undo용 데이터
+		,"getDataForHistory":function(){
+			return {"width":this.width,"height":this.height,"label":this.label,"imageData":this.getImageData()};
+		}
+		,"setDataForHistory":function(data){
+			this.resize(data.width,data.height);
+			this.setLabel(data.label);
+			this.putImageData(data.imageData);
+		}
+		//--- 파일용 데이터
+		,"getDataforFile":function(){
+			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL()};
+		}
+		,"getImageData":function(x0,y0,w0,h0){
+			if(isNaN(x0)){x0 = 0}
+			if(isNaN(y0)){y0 = 0}
+			if(isNaN(w0)){w0 = this.width}
+			if(isNaN(h0)){h0 = this.height}
+			return this.context2d.getImageData(x0,y0,w0,h0);
+		}
+		,"putImageData":function(imageData,x,y,dirtyX,dirtyY,dirtyWidth,dirtyHeight){
+			if(isNaN(x0)){x0 = 0}
+			if(isNaN(y0)){y0 = 0}
+			return this.context2d.putImageData(x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
 		}
 		//--- 확대 설정
 		,"setScale":function(sx,sy){

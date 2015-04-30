@@ -65,8 +65,9 @@ var wc2 = (function(){
 			this.initEvent();
 			this.initColorPalette();
 			//this.addWebCanvasWindow(300,300);
-			this.addWcb(300,300);
-			this.addWcb(300,300);
+			//this.addWcb(300,300);
+			this.cmdWcb("new",300,300);
+			//this.addWcb(300,300);
 			this.setTool("pen");
 		}
 		,"setError":function(error,disableShow){
@@ -136,7 +137,7 @@ var wc2 = (function(){
 				}
 				wc2.eventStep = 0;
 				wc2.isTouch = false;
-				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
+				wc2._syncPropList(); //수정된 내용 레이어 목록에 보여주기
 				return false;
 			}
 			
@@ -157,7 +158,7 @@ var wc2 = (function(){
 					return; //false라도 잘못된것이 아니므로 흘러내린다.
 				}
 				wc2.eventStep = 0;
-				wc2._syncPropLayerList(); //수정된 내용 레이어 목록에 보여주기
+				wc2._syncPropList(); //수정된 내용 레이어 목록에 보여주기
 			});
 			
 			// 드래그 방지용
@@ -177,13 +178,18 @@ var wc2 = (function(){
 				wc2.selectLayer(this.dataset.wcbIndex)
 			});
 		}
+		//--- 히스토리
+		,"saveHistory":function(action){
+			this.activeWcb.saveHistory(action);
+		}
 		//--- 
-		,"cmdWcb":function(cmd){
-			if(!this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
+		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
+			if(cmd != "new" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
 			switch(cmd){
-				case "clear":this.activeWcb.clear();break;
+				case "clear":this.activeWcb.clear();this.saveHistory(cmd);break;
+				case "new":(this.addWcb(arg1,arg2)).saveHistory(cmd);break;
 			}
-			this._syncPropLayerList();
+			this._syncPropList();
 		}
 		,"addWcb":function(width,height){
 			var width = 300;
@@ -217,12 +223,12 @@ var wc2 = (function(){
 			$( "#tabsContent" ).append(wcb.tabFrame);
 			this.tabs.tabs("refresh");
 			this.tabs.tabs({"active":-1});
-			this._syncPropLayerList();
-			
+			this._syncPropList();
+			return wcb;
 		}
 		,"setActiveWcb":function(wcb){
 			this.activeWcb = wcb;
-			this._syncPropLayerList();
+			this._syncPropList();
 			wc2Tool.init(this.tool);
 			return this.activeWcb;
 		}
@@ -246,7 +252,7 @@ var wc2 = (function(){
 			}
 			this.setActiveWcb(this.wcbs[0]);
 			this.tabs.tabs("refresh");
-			this._syncPropLayerList();
+			this._syncPropList();
 		}
 		,"closeWebCanvasWindow":function(){
 			$( this.activeWcw ).dialog( "close" );
@@ -268,7 +274,7 @@ var wc2 = (function(){
 		,"activeWebCanvasWindow":function(wcw){
 			if(wcw == undefined){
 				this.activeWcw = null;
-				this._syncPropLayerList();
+				this._syncPropList();
 				return;
 			}
 			if(wcw.wcwp.hasClass("wcw-active")){
@@ -282,7 +288,7 @@ var wc2 = (function(){
 					this.wcws[i].wcwp.removeClass("wcw-active");
 				}
 			}
-			this._syncPropLayerList();
+			this._syncPropList();
 			return true;
 		}
 		,"rename":function(name){
@@ -370,12 +376,14 @@ var wc2 = (function(){
 		}
 		//--- 레이어 관련
 		//-- 레이어 싱크
-		,"_syncPropLayerList":function(){
+		,"_syncPropList":function(){
 			if(!this.activeWcb){ 
 				$("#propLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
+				$("#propHistoryList").html("").append('<li class="list-group-item">#EMPTY#<li>')
 			}else{
 				var wcb = this.activeWcb;
-				 $("#propLayerList").html("");
+				//--- 레이어 싱크
+				var propLayerList = $("#propLayerList").html("");
 				var limitHeight = 40;
 				var c = WebCanvas(Math.round(wcb.width*(limitHeight/wcb.height)),limitHeight);
 				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
@@ -397,10 +405,26 @@ var wc2 = (function(){
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					li.title = oc.label;
 					img.alt = oc.label;
-					li.title = oc.label;
+					img.title = oc.label;
 					$(li).append(img);
 					$(li).append(document.createTextNode(wcb.webCanvases[i].label));
-					$("#propLayerList").append(li)
+					propLayerList.append(li)
+					//console.log(wcb.webCanvases[i].alt);
+				}
+				//--- 히스토리 싱크
+				var propHistoryList = $("#propHistoryList").html("");
+				var limitHeight = 40;
+				var tTime = (new Date()).getTime();
+				for(var i=wcb.historyLog.length-1,m=0;i>=m;i--){
+					var li = document.createElement("li");
+					li.className="list-group-item";
+					if(wcb.historyIdx==i){
+						li.className += " active";
+					}
+					li.title = wcb.historyLog[i].action;
+
+					$(li).append(document.createTextNode(li.title+" ["+((wcb.historyLog[i].time-tTime)/1000).toFixed(2)+" sec]"));
+					propHistoryList.append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}
 			}
@@ -419,14 +443,14 @@ var wc2 = (function(){
 				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
 			}
 			this.cmdTool("reset");
-			this._syncPropLayerList();
+			this._syncPropList();
 		}
 		,"selectLayer":function(index){
 			if(!this.activeWcb){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);
 			this.activeWcb.setActiveWebCanvasByIndex(index);
 			wc2Tool.init(this.tool);
-			this._syncPropLayerList();
+			this._syncPropList();
 		}
 		//--- 확대/축소
 		,"setZoom":function(zoom){
@@ -437,7 +461,7 @@ var wc2 = (function(){
 		//--- tool confirm/reset
 		,"cmdTool":function(cmd){
 			switch(cmd){
-				case "confirm":wc2Tool.confirm(this.tool);wc2._syncPropLayerList();break;
+				case "confirm":wc2Tool.confirm(this.tool);wc2._syncPropList();break;
 				case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
 				case "predraw":wc2.syncContext2dCfg();wc2Tool.predraw(this.tool,this.activeWcb);break;
 			}
