@@ -30,6 +30,7 @@ function WebCanvasBundle(width,height,colorset){
 			this.width = 100
 			this.height = 100
 			this.webCanvases = []
+			this.activeWebCanvas = null
 			this.shadowWebCanvas = null
 			this.error = "";
 			this.zoom = 1
@@ -61,7 +62,11 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"setName":function(name){
 			this.name = name;
+			this.node.dataset.wcbName = name;
 			return this.name;
+		}
+		,"setLabel":function(label){
+			return this.activeWebCanvas(label);
 		}
 		,"setZoom":function(zoom){
 			if(!isNaN(zoom)){
@@ -109,7 +114,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"addWebCanvas":function(colorset){
 			var c = WebCanvas(this.width,this.height,colorset);
 			c.className = "WC";
-			c.setAlt("Layer"+ (++this.tempCounter));
+			c.setLabel("Layer"+ (++this.tempCounter));
 			return this._addWebCanvas(c);
 		}
 		,"_addWebCanvas":function(c){
@@ -121,7 +126,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"addDuplicateWebCanvas":function(){
 			var c = this.activeWebCanvas.clone();
 			c.className = "WC";
-			c.setAlt(this.activeWebCanvas.alt+"-copy");
+			c.setLabel(this.activeWebCanvas.alt+"-copy");
 			return this._addWebCanvas(c);
 		}
 		,"mergeDown":function(){

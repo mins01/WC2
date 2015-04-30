@@ -85,9 +85,15 @@ function WebCanvas(width,height,colorset){
 			}
 			return false;
 		}
-		,"setAlt":function(alt){
-			this.alt=alt;
-			return this.alt;
+		//-- deprecated, use setLabel();
+		,"setName":function(alt){ 
+			return this.setLabel(alt);
+		}
+		,"setLabel":function(label){
+			this.alt = label; //deprecated
+			this.label = label;
+			this.dataset.wcLabel = label;
+			return this.label;
 		}
 		,"setError":function(error){
 			this.error = error;

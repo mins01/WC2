@@ -395,11 +395,11 @@ var wc2 = (function(){
 					li.className="list-group-item";
 					li.dataset.wcbActive = oc.dataset.wcbActive;
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
-					li.alt = oc.alt;
-					img.alt = oc.alt;
-					li.title = oc.alt;
+					li.title = oc.label;
+					img.alt = oc.label;
+					li.title = oc.label;
 					$(li).append(img);
-					$(li).append(document.createTextNode(wcb.webCanvases[i].alt));
+					$(li).append(document.createTextNode(wcb.webCanvases[i].label));
 					$("#propLayerList").append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}
