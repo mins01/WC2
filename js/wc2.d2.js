@@ -641,5 +641,15 @@ var wc2 = (function(){
 		,"btnShowMenuDetail":function(menuBtn){
 			return this.showMenuDetail(menuBtn.dataset.wcMenu)
 		}
+		//--
+		,"btnFileOpenPreviewImage":function(el){
+			var preview = document.getElementById('formMenuDetailFileOpenPreView');
+			if(el.type=="text" && el.value.length > 0){
+				preview.src = el.value;
+			}else if(el.type=="file"  && el.value.length > 0){
+				wc2Helper.loadFileAndView(el , preview);
+			}
+			return false;
+		}
 	};
 })();

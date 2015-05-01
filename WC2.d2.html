@@ -831,18 +831,18 @@ Ciao
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">URL</span>
-											<input type="text" class="form-control" name="url"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0" >
+											<input type="text" class="form-control" name="url"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  onchange="wc2.btnFileOpenPreviewImage(this)"  >
 											<span class="input-group-btn">
-											<button class="btn btn-default" type="button">Load</button>
+											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.url);">Load</button>
 											</span>
 										</div>
 									</li>
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">in PC</span>
-											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2Helper.loadFileAndView(this,document.getElementById('formMenuDetailFileOpenPreView'))" >
+											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
 											<span class="input-group-btn">
-											<button class="btn btn-default" type="button" onclick="wc2Helper.loadFileAndView(this.form.fileInPC,document.getElementById('formMenuDetailFileOpenPreView'))">Load</button>
+											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
 											</span>
 										</div>
 									</li>
