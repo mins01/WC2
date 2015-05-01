@@ -27,15 +27,16 @@
 		<!-- spectrum.css on jquery -->
 		<link rel="stylesheet" href="jquery/spectrum.css">
 		<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.1/spectrum.min.css"> -->
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.d2.css" charset="utf-8" />
-		
+
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
 		<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.d2.css" charset="utf-8" />
 	</head>
 	<body>
 	<div id="container">
@@ -71,8 +72,8 @@
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" onclick="wc2.btnShowMenuDetail(this);return false;">New</a></li>
-							<li><a href="#" class="glyphicon glyphicon-folder-open"  data-wc-menu="file-open" onclick="wc2.btnShowMenuDetail(this);return false;">Open</a></li>
-							<li><a href="#" class="glyphicon glyphicon-save-file">Save</a></li>
+							<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open" onclick="wc2.btnShowMenuDetail(this);return false;">Open</a></li>
+							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save" onclick="wc2.btnShowMenuDetail(this);return false;">Save</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.closeWcb()">Close</a></li>
@@ -611,18 +612,18 @@ Ciao
 						<div  class="panel-body">
 							
 								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
-									<li class="list-group-item disabled">favorite</li>
+									<li class="list-group-item list-group-item-success">favorite</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
 									<li class="list-group-item"><a href="#" onclick="return false;">close</a></li>
-									<li class="list-group-item disabled">3:4</li>
+									<li class="list-group-item list-group-item-success">3:4</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,480);return false;">640x480 (VGA)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,600);return false;">800x600 (SVGA)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1024,768);return false;">1024x768 (XGA)</a></li>
-									<li class="list-group-item disabled">16:9</li>
+									<li class="list-group-item list-group-item-success">16:9</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1360,768);return false;">1360x768 (HD)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1600,900);return false;">1600x900 (HD+)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1920,1080);return false;">1920x1080 (FHD)</a></li>
-									<li class="list-group-item disabled">Smart Phone</li>
+									<li class="list-group-item list-group-item-success">Smart Phone</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',320,480);return false;">320x480 (iphone3)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',480,800);return false;">480x800 (galaxyS1)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,960);return false;">640x960 (iphone4)</a></li>
@@ -641,7 +642,7 @@ Ciao
 						<div  class="panel-heading">File Open</div>
 						<div  class="panel-body">
 								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
-									<li class="list-group-item disabled">Select File</li>
+									<li class="list-group-item list-group-item-success">Select File</li>
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">URL</span>
@@ -664,13 +665,52 @@ Ciao
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset" onclick="wc2.cmdWcb('open',document.getElementById('formMenuDetailFileOpenPreView'));"> Open</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset"> Cancel</button>
 									</li>
-									<li class="list-group-item  disabled">PreView</li>
+									<li class="list-group-item list-group-item-success">PreView</li>
 									<li class="list-group-item">
 										<img id="formMenuDetailFileOpenPreView" src="img/bg.gif" class="bg-grid" />
 									</li>
-									
 								</ul>
-							
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailFileSave" class="wc-mdetail wc-mdetail-file-save">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">File Save</div>
+						<div  class="panel-body">
+								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
+									<li class="list-group-item list-group-item-success">Setting File</li>
+									<li class="list-group-item">
+										<div class="input-group">
+											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  id="formMenuDetailFileSave-saveFileName" >
+											 <span class="input-group-addon">
+												<select name="saveFileType" style="width:5em" onchange="
+												this.form.saveFileQuality.disabled = (this.value == 'png');
+												this.form.saveFileQuality.disabled = (this.value == 'png')
+												">
+													<option value="png">.png</option>
+													<option value="jpg">.jpg (if supported)</option>
+													<option value="webp">.webp (if supported)</option>
+												</select>
+												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality">
+													<option value="1">100%</option>
+													<option value="0.9">90%</option>
+													<option value="0.8">80%</option>
+													<option value="0.7">70%</option>
+													<option value="0.6">60%</option>
+													<option value="0.5">50%</option>
+													<option value="0.4">40%</option>
+													<option value="0.3">30%</option>
+													<option value="0.2">20%</option>
+													<option value="0.1">10%</option>
+												</select>
+											</span>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+								</ul>
 						</div>
 					</div>
 				</form>
@@ -703,8 +743,12 @@ Ciao
 	<script src="jquery/jquery.mousewheel.js"></script>
 	<!-- https://github.com/jeresig/jquery.hotkeys -->
 	<!-- <script src="jquery/jquery.hotkeys.js"></script> 3개 키 조합이 안됨.-->
+	
 	<!-- https://github.com/ccampbell/mousetrap -->
-	<script src="jquery/mousetrap.min.js"></script>
+	<script src="etcmodule/mousetrap.min.js"></script>
+	<!-- https://github.com/eligrey/FileSaver.js -->
+	<script src="etcmodule/FileSaver.min.js"></script>
+	
 	
 	
 	<script src="jquery/jquery-helper.js"></script>
@@ -726,7 +770,7 @@ Ciao
 		<script>
 	$(function() {	
 		wc2.init(); //초기화
-		wc2.showMenuDetail('file-open');
+		wc2.showMenuDetail('file-save');
 	});
   </script>
   </body>

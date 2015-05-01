@@ -371,6 +371,12 @@ function WebCanvasBundle(width,height,colorset){
 					useEncoderOptions = true;
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
+				case 'webp':
+				case 'image/webp':
+					type = "image/webp";
+					useEncoderOptions = true;
+					if(isNaN(encoderOptions)){encoderOptions=1;}
+				break;
 				default:
 					this.setError("지원되지 않는 mime-type("+type+")입니다.");return false;
 				break;

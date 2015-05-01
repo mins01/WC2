@@ -24,6 +24,10 @@ input,textarea,select,button{padding:0;}
 
 .navbar-fixed-bottom, .navbar-fixed-top{z-index:90}
 
+.list-group-item.active{background-color:#000}
+
+select[disabled]{ background-color:#ccc; opacity:0.3}
+
 /* http://codepen.io/rvinay88/pen/Hweau */
 hr.soften {
 margin-top: 5px;

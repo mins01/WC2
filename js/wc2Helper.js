@@ -17,11 +17,14 @@ var wc2Helper = function(){
 		* 비동기 동작
 		*/
 		"selectFileAndView":function(event,img){
-			return wc2Helper.loadFileAndView(event.target,img);
+			return wc2Helper.loadInputFileAndView(event.target,img);
 		},
-		"loadFileAndView":function(file,img){
+		"loadInputFileAndView":function(inputFile,img){
 			// event.target = input file
-			var ta = file;
+			var ta = inputFile;
+			if(ta.files == undefined){ //input file 엘레멘트가 아닌것 같음. 또는 브라우저에서 지원이 안됨.
+				return false;
+			}
 			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
@@ -39,6 +42,42 @@ var wc2Helper = function(){
 					})(ta.files[i],img)
 				}
 			}
+		},
+		//-- 로컬 파일 처리용, 이후 사용 예정. 수정해야서 써야한다.
+		"loadInputFile":function(file,fn){
+			// event.target = input file
+			var ta = file;
+			if(ta.files == undefined){ //input file 엘레멘트가 아닌것 같음. 또는 브라우저에서 지원이 안됨.
+				return false;
+			}
+			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
+				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
+					var file = ta.files[i];
+					
+					(function(file,fn){
+						var fileReader = new FileReader();
+						fileReader.onload = function (event) {
+							fn(event.target.result);
+						};
+						fileReader.readAsDataURL(file);
+					})(ta.files[i],fn)
+				}
+			}
+		},
+		//-- toBlob가 지원되지 않으므로
+		//-- 참고 : https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
+		"dataURL2Blob":function(dataURL, type) {
+			var bin = atob( dataURL.split(',')[1] ),
+				len = bin.length,
+				arr = new Uint8Array(len);
+			for (var i=0; i<len; i++ ) {
+				arr[i] = bin.charCodeAt(i);
+			}
+			return new Blob( [arr], {"type": type || 'image/png'}  );
+		},
+		//-- blob 저장하기 (Dependencies FileSaver )
+		"saveAs":function(blob,filename){
+			saveAs(blob, filename);
 		},
 	}
 }();

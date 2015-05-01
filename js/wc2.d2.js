@@ -208,8 +208,14 @@ var wc2 = (function(){
 						this.activeWcb[cmd]();
 					}
 				break;
+				case "save":
+					this.saveWcb(arg1,arg2,arg3);
+				break;
 			}
 			this._syncPropList();
+		}
+		,"saveWcb":function(filename,type,quality){
+			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(this.activeWcb.toDataURL(type,quality)),filename);
 		}
 		,"addWcb":function(width,height){
 			var width = 300;
@@ -635,7 +641,13 @@ var wc2 = (function(){
 					$(this).hide();
 				}
 			)
-			$("#menuDetailArea").find(".wc-mdetail-"+menu).show();
+			var t = $("#menuDetailArea").find(".wc-mdetail-"+menu)
+			t.show();
+			if(menu =='file-save'){
+				if(this.activeWcb){
+				t[0].saveFileName.value = this.activeWcb.name;
+				}
+			}
 		}
 		//-- UI 메뉴용
 		,"btnShowMenuDetail":function(menuBtn){
@@ -647,9 +659,18 @@ var wc2 = (function(){
 			if(el.type=="text" && el.value.length > 0){
 				preview.src = el.value;
 			}else if(el.type=="file"  && el.value.length > 0){
-				wc2Helper.loadFileAndView(el , preview);
+				wc2Helper.loadInputFileAndView(el , preview);
 			}
 			return false;
+		}
+		,"btnFileSave":function(form){
+			var saveFileName = form.saveFileName.value
+			var saveFileType = form.saveFileType.value
+			if(saveFileType.length > 0){
+				saveFileName+="."+saveFileType;
+			}
+			var saveFileQuality = form.saveFileQuality.value
+			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
 		}
 	};
 })();
