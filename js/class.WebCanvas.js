@@ -127,6 +127,7 @@ function WebCanvas(width,height,colorset){
 			if(name){ return this.context2d[name]}
 			var cfg = {};
 			for(var x in this.context2d){
+				if(x.indexOf("webkit")===0){ continue; }
 				if(this.context2d[x] === undefined){
 					continue;
 				}else if(typeof this.context2d[x] == "function" || typeof this.context2d[x] == "object"){
