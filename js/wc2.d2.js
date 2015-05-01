@@ -205,7 +205,7 @@ var wc2 = (function(){
 								function(cmd){
 									return function(wcb){
 										wcb.saveHistory("Image."+cmd);
-										console.log("end");
+										//console.log("end");
 									}
 								}(cmd)
 							);
