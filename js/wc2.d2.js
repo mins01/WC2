@@ -215,7 +215,12 @@ var wc2 = (function(){
 			this._syncPropList();
 		}
 		,"saveWcb":function(filename,type,quality){
-			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(this.activeWcb.toDataURL(type,quality)),filename);
+			var dataURL = this.activeWcb.toDataURL(type,quality);
+			if(dataURL === false){
+				alert(this.activeWcb.error);
+				return false;
+			}
+			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
 		}
 		,"addWcb":function(width,height){
 			var width = 300;
@@ -258,7 +263,9 @@ var wc2 = (function(){
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
 			$( "#tabsContent" ).append(wcb.tabFrame);
 			this.tabs.tabs("refresh");
-			this.tabs.tabs({"active":-1});
+			
+			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
+			
 			this._syncPropList();
 			return wcb;
 		}

@@ -385,7 +385,7 @@ function WebCanvasBundle(width,height,colorset){
 			var str = c.toDataURL(type,encoderOptions);
 			if(str.indexOf(type)== -1 || str.indexOf(type)>10){ //
 				//console.log(str);
-				this.setError("지원되지 않는 mime-type("+type+")입니다. (2)");return false;
+				this.setError("브라우저에서 지원되지 않는 mime-type("+type+")입니다.");return false;
 			}
 			return str;
 		}

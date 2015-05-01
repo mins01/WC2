@@ -559,7 +559,7 @@ Ciao
 				</td>
 				</tr>
 				<tr>
-				<td height="*">
+				<td height="*" style="height:100%">
 					<div id="tabsContent">
 					<!-- 이곳에 WebCanvasBundle 기반의 tabFrame이 추가된다. -->
 					<div id="tabs-1" style="text-align:center; padding:10px;">New or Open</div>
@@ -683,10 +683,7 @@ Ciao
 										<div class="input-group">
 											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
-												<select name="saveFileType" style="width:5em" onchange="
-												this.form.saveFileQuality.disabled = (this.value == 'png');
-												this.form.saveFileQuality.disabled = (this.value == 'png')
-												">
+												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png');">
 													<option value="png">.png</option>
 													<option value="jpg">.jpg (if supported)</option>
 													<option value="webp">.webp (if supported)</option>
@@ -705,6 +702,13 @@ Ciao
 												</select>
 											</span>
 										</div>
+										
+									</li>
+									<li class="list-group-item text-danger">
+										webp is supported by only Chrome.<br>
+										jpg is not supported by old browser.<br>
+										<hr class="soften">
+										png : Chrome 4, FireFox 3.6, IE 9, Safari 3.1<br>
 									</li>
 									<li class="list-group-item">
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save</button>
