@@ -97,7 +97,7 @@
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Image Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Canvas Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-picture">Insert Image</a></li>
-								<li><a href="#" class="glyphicon glyphicon-scissors disabled" >Crop</a></li>
+								<li><a href="#" class="glyphicon glyphicon-scissors" >Crop</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-submenu">
 									<a href="#" tabindex="-1" data-toggle="dropdown">Rotate</a>
@@ -156,7 +156,7 @@
 				<button class="btn btn-default glyphicon glyphicon-pencil active" data-wc-tool="pen"  type="button" title="Pen"></button>
 				<button class="btn btn-default glyphicon glyphicon-erase" data-wc-tool="eraser" type="button"   title="Eraser"></button>
 				<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
-				<button class="btn btn-default glyphicon glyphicon-scissors"type="button" title="Crop"></button>
+				<button class="btn btn-default glyphicon glyphicon-scissors  disabled" type="button" title="Crop"></button>
 				<button class="btn btn-default glyphicon no-glyphicon " data-wc-tool="line" type="button" title="Line">⁄</button>
 				<button class="btn btn-default glyphicon no-glyphicon" type="button" title="Curve">∼</button>
 				<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
@@ -614,6 +614,9 @@ Ciao
 								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
 									<li class="list-group-item list-group-item-success">favorite</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
+									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',400,400);false;">400x400</a></li>
+									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',500,500);false;">500x600</a></li>
+									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',600,600);false;">600x600</a></li>
 									<li class="list-group-item"><a href="#" onclick="return false;">close</a></li>
 									<li class="list-group-item list-group-item-success">3:4</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,480);return false;">640x480 (VGA)</a></li>
@@ -687,6 +690,7 @@ Ciao
 													<option value="png">.png</option>
 													<option value="jpg">.jpg (if supported)</option>
 													<option value="webp">.webp (if supported)</option>
+													<option value="wcb.json">.wcb.json</option>
 												</select>
 												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality">
 													<option value="1">100%</option>
@@ -707,6 +711,7 @@ Ciao
 									<li class="list-group-item text-danger">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
+										<strong>wcb.json</strong> support multi-Layer.(json file) <br>
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">

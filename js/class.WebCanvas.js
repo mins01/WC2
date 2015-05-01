@@ -437,8 +437,27 @@ function WebCanvas(width,height,colorset){
 			this.putImageData(data.imageData);
 		}
 		//--- 파일용 데이터
-		,"getDataforFile":function(){
+		,"toWcDataObject":function(){
 			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL()};
+		}
+		,"putWcDataObject":function(wcdo){
+			this.setLabel(wcdo.label);
+			this.resize(wcdo.width,wcdo.height);
+			this.loadToDataURL(wcdo.dataURL)
+		}
+		,"loadToDataURL":function(toDataUrl){
+			var img = new Image();
+			img.onload = function(wc){
+				return function(){
+					wc.copyfunction(this);
+				}
+			}(this);
+			img.onload = function(wc){
+				return function(){
+					wc.setError("잘못된 toDataURL  입니다.");
+				}
+			}(this);
+			img.src = toDataUrl;
 		}
 		,"getImageData":function(x0,y0,w0,h0){
 			if(isNaN(x0)){x0 = 0}

@@ -132,6 +132,10 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			return this.historyLog.length;
 		}
+		,"resetHistory":function(){
+			this.historyLog.splice(0,this.historyLog.length);
+			this.historyIdx = -1;
+		}
 		,"undo":function(){
 			if(this.historyIdx<=0){this.setError("더 이상의 히스토리가 없습니다");return;}
 			this.putDataForHistory(this.historyLog[--this.historyIdx]);
@@ -160,7 +164,7 @@ function WebCanvasBundle(width,height,colorset){
 				this.removeWebCanvasByIndex(i);
 			}
 		}
-		//--
+		//--- 웹캔버스 제어부분
 		,"removeWebCanvasByIndex":function(idx){
 			return this._removeWebCanvas(idx);
 		}
@@ -357,37 +361,60 @@ function WebCanvasBundle(width,height,colorset){
 			if(type && type.toLowerCase){
 				type = type.toLowerCase()
 			}
+			var mimeType = "";
 			switch(type){
 				case null:
 				case undefined:
 				case 'png':
 				case 'image/png':
-					type = "image/png";
+					mimeType = "image/png";
 				break;
 				case 'jpg':
 				case 'jpeg':
 				case 'image/jpeg':
-					type = "image/jpeg";
+					mimeType = "image/jpeg";
 					useEncoderOptions = true;
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
 				case 'webp':
 				case 'image/webp':
-					type = "image/webp";
+					mimeType = "image/webp";
 					useEncoderOptions = true;
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
+				case "wcb.json":
+					mimeType = "application/json";
+				break;
 				default:
-					this.setError("지원되지 않는 mime-type("+type+")입니다.");return false;
+					this.setError("지원되지 않는 mime-type("+mimeType+")입니다.");return false;
 				break;
 			}
-			var c = this.mergeAll()
-			var str = c.toDataURL(type,encoderOptions);
-			if(str.indexOf(type)== -1 || str.indexOf(type)>10){ //
+			if(mimeType == "application/json"){
+				var str = this.toWcbDataURL();
+			}else{
+				var c = this.mergeAll()
+				var str = c.toDataURL(mimeType,encoderOptions);
+			}
+			if(str.indexOf(mimeType)== -1 || str.indexOf(mimeType)>10){ //
 				//console.log(str);
-				this.setError("브라우저에서 지원되지 않는 mime-type("+type+")입니다.");return false;
+				this.setError("브라우저에서 지원되지 않는 mime-type("+mimeType+")입니다.");return false;
 			}
 			return str;
+		}
+		//-- wcb.json 형식으로 저장하기 위한 것.
+		,"toWcbDataURL":function(){
+			return "data:application/json;base64,"+window.btoa(this.toWcbDataJson());
+		}
+		,"toWcbDataJson":function(){
+			return JSON.stringify(this.toWcbDataObject());
+		}
+		,"toWcbDataObject":function(){
+			var data = [];
+			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
+			for(var i=0,m=this.webCanvases.length;i<m;i++){
+				data.push(this.webCanvases[i].toWcDataObject());
+			}
+			return {"name":this.name,"width":this.width,"height":this.height,"data":data};
 		}
 		,"clear":function(){
 			var r = this.execWebCanvases("clear",{})
