@@ -67,11 +67,11 @@
 		.panel-body .panel{  margin-bottom:2px;}
 		
 		#toolPanel{width:92px;min-width:42px;min-height:100px; position:fixed;top:55px;left:1px;}
-		#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:5px; bottom: 5px; overflow-y: scroll;}
+		#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:5px; bottom: 5px; overflow-y: auto;}
 		#propPanel>.panel-body{}
 		
 		#propPanel .wc2-prop-list li{text-align:left;}
-		.overflow-scrolly{overflow-y:scroll}
+		.overflow-scrolly{overflow-y:auto; overflow-x:hidden}
 		#propPanel table{border-width:0;padding:0;margin:0;width:100%; border-collapse: separate;}
 		#propPanel th,#propPanel td {padding:2px; border-bottom:1px dashed #ccc; }
 		#propPanel tr:last-child th,
@@ -204,8 +204,14 @@
 		.wcw-active .ui-widget-header {
 			background: #abc;
 		}
-
-
+		
+		/* 메뉴 상세 부분 */
+		#menuDetailArea{
+			position:fixed;top:52px;left:0;right:0;bottom:0;z-index:3;
+			background-color:rgba(0,0,0,0.2);
+		}
+		#menuDetailArea .wc2-panel{margin:0 auto;min-width:200px; max-width:600px;}
+		#menuDetailArea .wc-menudetail{}
 			
 	
 	</style>
@@ -249,7 +255,7 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#" class="glyphicon glyphicon-file" onclick="wc2.addWcb();return false;">New</a></li>
+							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" onclick="wc2.btnShowMenuDetail(this);return false;">New</a></li>
 							<li><a href="#" class="glyphicon glyphicon-folder-open">Open</a></li>
 							<li><a href="#" class="glyphicon glyphicon-save-file">Save</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
@@ -732,7 +738,7 @@ Ciao
 				<tr>
 				<td height="10">
 					<ul id="tabsTitle">
-					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new');return false" title="new">+</a></li>
+					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file">+</a></li>
 					</ul>
 				</td>
 				</tr>
@@ -781,6 +787,41 @@ Ciao
 			</div>
 		</article>
 		<!-- //이 속의 내용은 안보여준다.-->
+		
+		<!-- 메뉴 상세 부분 -->
+		<article id="menuDetailArea" class="overflow-scrolly" >
+			
+				<div class="panel panel-default wc2-panel" >
+					<div  class="panel-heading">New File</div>
+					<div  class="panel-body">
+						<form name="formMenuFileNew" class="wc-mdetail wc-mdetail-file-new">
+							<ul class="list-group " onclick="return wc2.hideMenuDetail(event,'a'); ">
+								<li class="list-group-item disabled">favorite</li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
+								<li class="list-group-item"><a href="#" onclick="return false;">close</a></li>
+								<li class="list-group-item disabled">3:4</li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,480);return false;">640x480 (VGA)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,600);return false;">800x600 (SVGA)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1024,768);return false;">1024x768 (XGA)</a></li>
+								<li class="list-group-item disabled">16:9</li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1360,768);return false;">1360x768 (HD)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1600,900);return false;">1600x900 (HD+)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1920,1080);return false;">1920x1080 (FHD)</a></li>
+								<li class="list-group-item disabled">Smart Phone</li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',320,480);return false;">320x480 (iphone3)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',480,800);return false;">480x800 (galaxyS1)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,960);return false;">640x960 (iphone4)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,1136);return false;">640x1136 (iphone5)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',720,1280);return false;">720x1280 (galaxyS3)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,1280);return false;">800x1280 (galaxynote1)</a></li>
+								<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1080,1920);return false;">1080x1920 (galaxynote3)</a></li>
+								<li class="list-group-item"><a href="#" onclick="return false;">close</a></li>
+							</ul>
+						</form>
+					</div>
+				</div>
+		<article>
+		<!-- //메뉴 상세 부분 -->
 
 
 		

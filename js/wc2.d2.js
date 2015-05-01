@@ -66,8 +66,8 @@ var wc2 = (function(){
 			this.initColorPalette();
 			//this.addWebCanvasWindow(300,300);
 			//this.addWcb(300,300);
-			this.cmdWcb("new",300,300);
-			//this.addWcb(300,300);
+			//this.cmdWcb("new",300,300);
+			
 			this.setTool("pen");
 		}
 		,"setError":function(error,disableShow){
@@ -193,7 +193,7 @@ var wc2 = (function(){
 			if(cmd != "new" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
 			switch(cmd){
 				case "clear":this.activeWcb.clear();this.saveHistory("Image."+cmd);break;
-				case "new":(this.addWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
+				case "new":(this.newWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
 
 				//-- 단순호출처리
 				case "undo":
@@ -208,7 +208,15 @@ var wc2 = (function(){
 		,"addWcb":function(width,height){
 			var width = 300;
 			var height =  300;
+			return this.newWcb(width,height);
+		}
+		,"newWcb":function(width,height){
+			if(isNaN(width) || isNaN(height)){
+				this.setError("width , height 가 잘못 설정되었습니다.");
+				return false;
+			}
 			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
+			wcb.addWebCanvas(); //빈 레이어 하나 추가
 			/*
 			wcb.tabFrame = document.createElement('div');
 			*/
@@ -480,7 +488,7 @@ var wc2 = (function(){
 			this._syncPropList();
 		}
 		,"selectLayer":function(index){
-			if(!this.activeWcb){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb){ this.setError( "wc2.selectLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);
 			this.activeWcb.setActiveWebCanvasByIndex(index);
 			wc2Tool.init(this.tool);
@@ -488,7 +496,7 @@ var wc2 = (function(){
 		}
 		//--- 확대/축소
 		,"setZoom":function(zoom){
-			if(!this.activeWcb){ this.setError( "wc2.addLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb){ this.setError( "wc2.setZoom() 활성화된 윈도우가 없습니다."); return; }
 			this.activeWcb.setZoom(zoom);
 		}
 		
@@ -603,6 +611,26 @@ var wc2 = (function(){
 				this.setFillColor(c)
 			}
 			return true;
+		}
+		//--- 메뉴 상세 설정 화면용
+		,"hideMenuDetail":function(event,tagName){
+			if(event.target.tagName == tagName.toUpperCase()){
+				$("#menuDetailArea").hide()
+				return false;
+			}
+			return;
+		}
+		,"showMenuDetail":function(menu){
+			$("#menuDetailArea").show().find(".wc-mdetail").each(
+				function(){
+					$(this).hide();
+				}
+			)
+			$("#menuDetailArea").find(".wc-mdetail-"+menu).show();
+		}
+		//-- UI 메뉴용
+		,"btnShowMenuDetail":function(menuBtn){
+			return this.showMenuDetail(menuBtn.dataset.wcMenu)
 		}
 	};
 })();
