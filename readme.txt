@@ -15,6 +15,7 @@ Multi Layer Image Editor for Canvas(HTML5)
 
 # 사용된 모듈 : 관련 라이센스
 bootstrap : MIT
+jquery : MIT
 jquery-ui : MIT
 https://github.com/behigh/bootstrap_dropdowns_enhancement : MIT
 https://bgrins.github.io/spectrum/ : ???
