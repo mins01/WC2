@@ -197,3 +197,5 @@ background-color:rgba(0,0,0,0.2);
 /* file-open 이미지 미리보기 */
 #formMenuDetailFileOpenPreView{max-width:90%;}
 
+#btnQuickNewFile{cursor:pointer;}
+

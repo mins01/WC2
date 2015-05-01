@@ -97,7 +97,7 @@
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Image Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Canvas Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-picture">Insert Image</a></li>
-								<li><a href="#" class="glyphicon glyphicon-scissors">Crop</a></li>
+								<li><a href="#" class="glyphicon glyphicon-scissors disabled" >Crop</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-submenu">
 									<a href="#" tabindex="-1" data-toggle="dropdown">Rotate</a>
@@ -137,7 +137,7 @@
 					<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" class="glyphicon glyphicon-question-sign">Help</a></li>
+						<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help" onclick="wc2.btnShowMenuDetail(this);return false;">Help</a></li>
 						<li><a href="http://mins01.com" target="_blank" class="glyphicon glyphicon-user">공대여자HOME</a></li>
 					</ul>
 					</li>
@@ -554,7 +554,7 @@ Ciao
 				<tr>
 				<td height="10">
 					<ul id="tabsTitle">
-					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file">+</a></li>
+					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file" id="btnQuickNewFile">+</a></li>
 					</ul>
 				</td>
 				</tr>
@@ -677,7 +677,7 @@ Ciao
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">File Save</div>
 						<div  class="panel-body">
-								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
+								<ul class="list-group">
 									<li class="list-group-item list-group-item-success">Setting File</li>
 									<li class="list-group-item">
 										<div class="input-group">
@@ -705,14 +705,47 @@ Ciao
 										
 									</li>
 									<li class="list-group-item text-danger">
-										webp is supported by only Chrome.<br>
-										jpg is not supported by old browser.<br>
-										<hr class="soften">
-										png : Chrome 4, FireFox 3.6, IE 9, Safari 3.1<br>
+										<strong>webp</strong> is supported by only Chrome.<br>
+										<strong>jpg</strong> is not supported by old browser.<br>
+										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailHelpHelp" class="wc-mdetail wc-mdetail-help-help">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Help</div>
+						<div  class="panel-body">
+								<ul class="list-group ">
+									<li class="list-group-item list-group-item-success">Hello!</li>
+									<li class="list-group-item" style="text-align:left">
+										<h3>Tested Browser</h3>
+										<ul>
+											<li>Chrome :42.0.2311.135</li>
+											<li>FireFox : 33.0</li>
+											<li>IE : 11.0.9600.17728 (11.0.18)</li>
+										</ul>
+									</li>
+									<li class="list-group-item"  style="text-align:left">
+										<h3>Info</h3>
+										<ul>
+											<li>공대여자 : <a href="http://www.mins01.com/" target="_blank">Homepage</a></li>
+											<li>URL : <a href="http://www.mins01.com/web_work/web/WC2/WC2.d2.html" target="_blank">http://www.mins01.com/web_work/web/WC2/WC2.d2.html</a></li>
+											<li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
+										</ul>
+									</li>
+									<li class="list-group-item text-danger">
+										<strong>webp</strong> is supported by only Chrome.<br>
+										<strong>jpg</strong> is not supported by old browser.<br>
+										Recommend using the latest version browser.
+									</li>
+									<li class="list-group-item">
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 									</li>
 								</ul>
 						</div>
@@ -774,7 +807,9 @@ Ciao
 		<script>
 	$(function() {	
 		wc2.init(); //초기화
-		wc2.showMenuDetail('file-save');
+		//wc2.showMenuDetail('file-save');
+		wc2.showMenuDetail('file-new');
+		//wc2.showMenuDetail('help-help');
 	});
   </script>
   </body>
