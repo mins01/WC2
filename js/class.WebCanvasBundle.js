@@ -17,7 +17,9 @@ opacity는 레이어의 알파값(나중에 합쳐질 때 계산되어 합쳐진
 */
 
 function WebCanvasBundle(width,height,colorset){
-	this.init(width,height,colorset);
+	//초기형태
+	this.init();
+	this.create(width,height,colorset);
 }
 (function(){
 	/**
@@ -27,7 +29,7 @@ function WebCanvasBundle(width,height,colorset){
 		"commonConfig":{ //WebCanvasBundle 에서 공용으로 사용가능.
 			"limitHistoryLog":20 //언두 로그 제한수
 		}
-		,"init":function(width,height,colorset){
+		,"init":function(){
 			//-- 멤버변수 초기화
 			this.node = null;
 			this.width = 100
@@ -41,6 +43,21 @@ function WebCanvasBundle(width,height,colorset){
 			this.context2dCfg = {}
 			this.name = "";
 			this.tempCounter = 0
+			this.historyLog = [];
+			this.historyIdx = -1; //-1로 초기화
+		}
+		,"setError":function(error){
+			this.error = error;
+			console.log(this.error);
+			return this.error;
+		}
+		,"setName":function(name){
+			this.name = name;
+			this.node.dataset.wcbName = name;
+			return this.name;
+		}
+		// 너비 높이로 만들기
+		,"create":function(width,height,colorset){
 			//-- 설정 초기화
 			this.width = width;
 			this.height = height;
@@ -56,18 +73,25 @@ function WebCanvasBundle(width,height,colorset){
 			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
 			this.setName("WCB")
 			this.setZoom(1);
-			this.historyLog = [];
-			this.historyIdx = -1; //-1로 초기화
+
 		}
-		,"setError":function(error){
-			this.error = error;
-			console.log(this.error);
-			return this.error;
-		}
-		,"setName":function(name){
-			this.name = name;
-			this.node.dataset.wcbName = name;
-			return this.name;
+		//-- 이미지 객체에서 읽어온다.
+		,"openByImage":function(image){
+			//이미지 점검
+			var w = 0,h=0;
+			w = image.naturalWidth!=undefined?image.naturalWidth:(image.width?image.width:0);
+			h = image.naturalHeight!=undefined?image.naturalHeight:(image.height?image.height:0);
+			if(w==0 || h==0){
+				this.setError("대상이 이미지가 아닙니다.");
+				return false;
+			}
+			while(this.webCanvases.length>1){
+				this.removeWebCanvasByIndex(1);
+			}
+			this.resize(w,h);
+			console.log(image,w,h);
+			this.webCanvases[0].copy(image);
+			return this;
 		}
 		,"setLabel":function(label){
 			return this.activeWebCanvas(label);
@@ -81,6 +105,8 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"_syncNode":function(){
 			this.node.innerHTML = "";//내용 초기화
+			this.node.style.width = this.width+"px";
+			this.node.style.height = this.height+"px";
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				this.node.appendChild(this.webCanvases[i]);
 				//var zIndex = (m-i)*10

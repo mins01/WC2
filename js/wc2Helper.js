@@ -17,13 +17,17 @@ var wc2Helper = function(){
 		* 비동기 동작
 		*/
 		"selectFileAndView":function(event,img){
+			return wc2Helper.loadFileAndView(event.target,img);
+		},
+		"loadFileAndView":function(file,img){
 			// event.target = input file
-			if(event.target.files.length > 0){ //파일 업로드가 있을 경우만
-				for(var i=0,m=event.target.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
-					var file = event.target.files[i];
+			var ta = file;
+			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
+				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
+					var file = ta.files[i];
 					if(file.type.indexOf('image')===-1){ 
 						alert("이미지가 아닌 파일이 포함되어있습니다. 다시 선택해주시기 바랍니다.");
-						event.target.value="";
+						ta.value="";
 						return false;
 					}
 					(function(file,img){
@@ -32,7 +36,7 @@ var wc2Helper = function(){
 							img.src = event.target.result;
 						};
 						fileReader.readAsDataURL(file);
-					})(event.target.files[i],img)
+					})(ta.files[i],img)
 				}
 			}
 		},
