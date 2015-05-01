@@ -56,8 +56,6 @@ function WebCanvas(width,height,colorset){
 		c.context2d.lineheight = 1.2; // float number
 		c.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
 		
-		
-		
 		//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
 		
 		if(colorset){

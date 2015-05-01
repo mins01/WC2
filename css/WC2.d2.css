@@ -20,7 +20,7 @@ input,textarea,select,button{padding:0;}
 .ui-dialog{box-sizing:content-box;}
 .ui-dialog *{box-sizing:content-box;}
 
-.bg-grid{ background-image:url("./img/bg.gif"); }
+.bg-grid{ background-image:url("../img/bg.gif"); }
 
 .navbar-fixed-bottom, .navbar-fixed-top{z-index:90}
 
@@ -59,7 +59,7 @@ margin-bottom: 5px;
 
 #propLayerList{height:200px;margin-bottom: 5px;}
 #propLayerList .list-group-item{padding-left:2px;}
-#propLayerList img{background-image:url("./img/bg.gif");
+#propLayerList img{background-image:url("../img/bg.gif");
 margin-top:-8px;
 margin-bottom:-6px;
 margin-left:2px;

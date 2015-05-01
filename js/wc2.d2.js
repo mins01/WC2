@@ -217,6 +217,7 @@ var wc2 = (function(){
 			return this.newWcb(width,height);
 		}
 		,"_addWcb":function(wcb){
+			wcb.addWebCanvas(); //빈 레이어 하나 추가
 			wcb.tabFrame  = $("#defaultTabContent").clone()[0];
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
@@ -261,7 +262,6 @@ var wc2 = (function(){
 				return false;
 			}
 			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
-			wcb.addWebCanvas(); //빈 레이어 하나 추가
 			return this._addWcb(wcb);
 		}
 		,"newWcbByImage":function(image){
