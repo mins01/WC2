@@ -141,7 +141,7 @@ var wc2 = (function(){
 				}
 				wc2.eventStep = 0;
 				wc2.isTouch = false;
-				wc2._syncPropList(); //수정된 내용 레이어 목록에 보여주기
+				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 				return false;
 			}
 			
@@ -159,7 +159,7 @@ var wc2 = (function(){
 					return; //false라도 잘못된것이 아니므로 흘러내린다.
 				}
 				wc2.eventStep = 0;
-				wc2._syncPropList(); //수정된 내용 레이어 목록에 보여주기
+				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 			});
 			
 			// 드래그 방지용
@@ -195,12 +195,20 @@ var wc2 = (function(){
 				case "clear":this.activeWcb.clear();this.saveHistory("Image."+cmd);break;
 				case "new":(this.newWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
 				case "open":
-					 var t = this.newWcbByImage(arg1);
+					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
+						var t = this.newWcbByWcbdo(arg1.wcbdo);
+					}else{
+						var t = this.newWcbByImage(arg1);
+					}
 					 if(t){
 						 t.saveHistory("Image."+cmd);
 					 }
 				break;
-
+				case "rename":
+					if(this.activeWcb.setName(arg1)){
+						$(this.activeWcb.tabTitleA).text(arg1);
+					}
+				break;
 				//-- 단순호출처리
 				case "undo":
 				case "redo":
@@ -212,7 +220,7 @@ var wc2 = (function(){
 					this.saveWcb(arg1,arg2,arg3);
 				break;
 			}
-			this._syncPropList();
+			this._syncWcbInfo();
 		}
 		,"saveWcb":function(filename,type,quality){
 			var dataURL = this.activeWcb.toDataURL(type,quality);
@@ -228,7 +236,7 @@ var wc2 = (function(){
 			return this.newWcb(width,height);
 		}
 		,"_addWcb":function(wcb){
-			wcb.addWebCanvas(); //빈 레이어 하나 추가
+			//wcb.addWebCanvas(); //빈 레이어 하나 추가
 			wcb.tabFrame  = $("#defaultTabContent").clone()[0];
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
@@ -258,7 +266,6 @@ var wc2 = (function(){
 			
 			this.wcbs.push(wcb);
 			this.setActiveWcb(wcb);
-			this.renameWcb($.format.date(new Date(),'yyyyMMddHHmmss'));
 			
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
 			$( "#tabsContent" ).append(wcb.tabFrame);
@@ -266,7 +273,7 @@ var wc2 = (function(){
 			
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
 			
-			this._syncPropList();
+			this._syncWcbInfo();
 			return wcb;
 		}
 		,"newWcb":function(width,height){
@@ -275,6 +282,8 @@ var wc2 = (function(){
 				return false;
 			}
 			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
+			wcb.addWebCanvas(); //빈 레이어 하나 추가
+			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss'));
 			return this._addWcb(wcb);
 		}
 		,"newWcbByImage":function(image){
@@ -283,19 +292,25 @@ var wc2 = (function(){
 				this.setError(wcb.error);
 				return false;
 			}
+			wcb.addWebCanvas(); //빈 레이어 하나 추가
+			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss'));
+			return this._addWcb(wcb);
+		}
+		,"newWcbByWcbdo":function(wcbdo){
+			var wcb = new WebCanvasBundle(100,100);
+			if(wcb.openByWcbDataObj(wcbdo)=== false){
+				this.setError(wcb.error);
+				return false;
+			}
+			//wcb.addWebCanvas(); //빈 레이어 하나 추가 이미 레이저가 지원되는 구조이기 때문에 추가 레이어를 생성하지 않는다.
+			//wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss')); 이미 이름이 있으므로 안 바꾼다.
 			return this._addWcb(wcb);
 		}
 		,"setActiveWcb":function(wcb){
 			this.activeWcb = wcb;
-			this._syncPropList();
+			this._syncWcbInfo();
 			wc2Tool.init(this.tool);
 			return this.activeWcb;
-		}
-		,"renameWcb":function(name){
-			if(!this.activeWcb){return false;}
-			if(this.activeWcb.setName(name)){
-				$(this.activeWcb.tabTitleA).text(name);
-			}
 		}
 		,"closeWcb":function(wcb){
 			if(wcb == undefined){
@@ -311,7 +326,7 @@ var wc2 = (function(){
 			}
 			this.setActiveWcb(this.wcbs[0]);
 			this.tabs.tabs("refresh");
-			this._syncPropList();
+			this._syncWcbInfo();
 		}
 		,"closeWebCanvasWindow":function(){
 			$( this.activeWcw ).dialog( "close" );
@@ -333,7 +348,7 @@ var wc2 = (function(){
 		,"activeWebCanvasWindow":function(wcw){
 			if(wcw == undefined){
 				this.activeWcw = null;
-				this._syncPropList();
+				this._syncWcbInfo();
 				return;
 			}
 			if(wcw.wcwp.hasClass("wcw-active")){
@@ -347,7 +362,7 @@ var wc2 = (function(){
 					this.wcws[i].wcwp.removeClass("wcw-active");
 				}
 			}
-			this._syncPropList();
+			this._syncWcbInfo();
 			return true;
 		}
 		,"rename":function(name){
@@ -435,7 +450,7 @@ var wc2 = (function(){
 		}
 		//--- 레이어 관련
 		//-- 레이어 싱크
-		,"_syncPropList":function(){
+		,"_syncWcbInfo":function(){
 			if(!this.activeWcb){ 
 				$("#propLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
 				$("#propHistoryList").html("").append('<li class="list-group-item">#EMPTY#<li>')
@@ -486,6 +501,9 @@ var wc2 = (function(){
 					propHistoryList.append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}
+				//--- wcb.name
+				console.log(wcb.name);
+				$(wcb.tabTitleA).text(wcb.name)
 			}
 			
 		}
@@ -504,14 +522,14 @@ var wc2 = (function(){
 			}
 			this.saveHistory("Layer."+cmd);
 			this.cmdTool("reset");
-			this._syncPropList();
+			this._syncWcbInfo();
 		}
 		,"selectLayer":function(index){
 			if(!this.activeWcb){ this.setError( "wc2.selectLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);
 			this.activeWcb.setActiveWebCanvasByIndex(index);
 			wc2Tool.init(this.tool);
-			this._syncPropList();
+			this._syncWcbInfo();
 		}
 		//--- 확대/축소
 		,"setZoom":function(zoom){
@@ -522,7 +540,7 @@ var wc2 = (function(){
 		//--- tool confirm/reset
 		,"cmdTool":function(cmd){
 			switch(cmd){
-				case "confirm":wc2Tool.confirm(this.tool);wc2._syncPropList();break;
+				case "confirm":wc2Tool.confirm(this.tool);wc2._syncWcbInfo();break;
 				case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
 				case "predraw":wc2.syncContext2dCfg();wc2Tool.predraw(this.tool,this.activeWcb);break;
 			}
@@ -662,11 +680,23 @@ var wc2 = (function(){
 		}
 		//--
 		,"btnFileOpenPreviewImage":function(el){
-			var preview = document.getElementById('formMenuDetailFileOpenPreView');
+			var preview = document.getElementById('formMenuDetailFileOpenPreview');
+			preview.wcbdo = null;
 			if(el.type=="text" && el.value.length > 0){
 				preview.src = el.value;
 			}else if(el.type=="file"  && el.value.length > 0){
-				wc2Helper.loadInputFileAndView(el , preview);
+				if(el.value.indexOf("wcb.json")!= -1){ //전용 파일
+					wc2Helper.loadInputFile(el , function(){
+						return function(result){
+							alert(result);
+							var wcbdo = JSON.parse(result);// wcbDataObject
+							preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
+							preview.src = wcbdo.preview.dataURL;
+						}
+					}(preview),"readAsText");
+				}else{
+					wc2Helper.loadInputFileAndView(el , preview);
+				}
 			}
 			return false;
 		}

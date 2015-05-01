@@ -658,19 +658,19 @@ Ciao
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">in PC</span>
-											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
+											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.json" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
 											<span class="input-group-btn">
 											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
 											</span>
 										</div>
 									</li>
 									<li class="list-group-item">
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset" onclick="wc2.cmdWcb('open',document.getElementById('formMenuDetailFileOpenPreView'));"> Open</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset" onclick="wc2.cmdWcb('open',document.getElementById('formMenuDetailFileOpenPreview'));"> Open</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset"> Cancel</button>
 									</li>
 									<li class="list-group-item list-group-item-success">PreView</li>
 									<li class="list-group-item">
-										<img id="formMenuDetailFileOpenPreView" src="img/bg.gif" class="bg-grid" />
+										<img id="formMenuDetailFileOpenPreview" src="img/bg.gif" class="bg-grid" />
 									</li>
 								</ul>
 						</div>

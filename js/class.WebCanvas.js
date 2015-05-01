@@ -437,8 +437,8 @@ function WebCanvas(width,height,colorset){
 			this.putImageData(data.imageData);
 		}
 		//--- 파일용 데이터
-		,"toWcDataObject":function(){
-			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL()};
+		,"toWcDataObject":function(type,quality){
+			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL(type,quality)};
 		}
 		,"putWcDataObject":function(wcdo){
 			this.setLabel(wcdo.label);
@@ -449,10 +449,10 @@ function WebCanvas(width,height,colorset){
 			var img = new Image();
 			img.onload = function(wc){
 				return function(){
-					wc.copyfunction(this);
+					wc.copy(this);
 				}
 			}(this);
-			img.onload = function(wc){
+			img.onerror = function(wc){
 				return function(){
 					wc.setError("잘못된 toDataURL  입니다.");
 				}

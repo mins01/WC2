@@ -89,8 +89,19 @@ function WebCanvasBundle(width,height,colorset){
 				this.removeWebCanvasByIndex(1);
 			}
 			this.resize(w,h);
-			console.log(image,w,h);
 			this.webCanvases[0].copy(image);
+			return this;
+		}
+		//-- wcbDataObject 에서 읽어온다.
+		,"openByWcbDataObj":function(wcbdo){
+			this.setName(wcbdo.name);
+			this.resize(wcbdo.width,wcbdo.height);
+			for(var i=0,m=wcbdo.data.length;i<m;i++){
+				if(!this.webCanvases[i]){
+					this.addWebCanvas();
+				}
+				this.webCanvases[i].putWcDataObject(wcbdo.data[i]);
+			}
 			return this;
 		}
 		,"setLabel":function(label){
@@ -410,11 +421,17 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"toWcbDataObject":function(){
 			var data = [];
+			//-- 미리보기용 데이터
+			var c = this.mergeAll();
+			c.resize(100,Math.round(this.height*100/this.width));
+			//var preview = c.toWcDataObject("image/jpeg",0.1); //미리보기는 jpg 로 한다.(용량 적어지겠다... 얼마 차이 안나네))
+			var preview = c.toWcDataObject(); //얼마 차이 안나네. 투명 부분도 있으니 png로 한다. (나중에 압축도 생각해보자.)
+			
 			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				data.push(this.webCanvases[i].toWcDataObject());
 			}
-			return {"name":this.name,"width":this.width,"height":this.height,"data":data};
+			return {"name":this.name,"width":this.width,"height":this.height,"preview":preview,"data":data};
 		}
 		,"clear":function(){
 			var r = this.execWebCanvases("clear",{})

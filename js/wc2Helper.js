@@ -44,7 +44,9 @@ var wc2Helper = function(){
 			}
 		},
 		//-- 로컬 파일 처리용, 이후 사용 예정. 수정해야서 써야한다.
-		"loadInputFile":function(file,fn){
+		//-- readType : readAsDataURL, readAsText , readAsBinaryString , readAsArrayBuffer
+		"loadInputFile":function(file,callback,readType){
+			if(!readType) readType = "readAsDataURL";
 			// event.target = input file
 			var ta = file;
 			if(ta.files == undefined){ //input file 엘레멘트가 아닌것 같음. 또는 브라우저에서 지원이 안됨.
@@ -54,13 +56,17 @@ var wc2Helper = function(){
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
 					
-					(function(file,fn){
+					(function(file,callback,readType){
 						var fileReader = new FileReader();
 						fileReader.onload = function (event) {
-							fn(event.target.result);
+							callback(event.target.result);
 						};
-						fileReader.readAsDataURL(file);
-					})(ta.files[i],fn)
+						if(fileReader[readType]){
+							fileReader[readType](file);
+						}else{
+							console.error("not support readType");
+						}
+					})(ta.files[i],callback,readType);
 				}
 			}
 		},
