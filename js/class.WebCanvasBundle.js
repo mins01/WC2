@@ -92,15 +92,30 @@ function WebCanvasBundle(width,height,colorset){
 			this.webCanvases[0].copy(image);
 			return this;
 		}
-		//-- wcbDataObject 에서 읽어온다.
-		,"openByWcbDataObj":function(wcbdo){
+		//-- wcbDataObject 에서 읽어온다.(비동기라서 callbakc을 위해서 함수(onload)를 받는다.
+		,"openByWcbDataObj":function(wcbdo,onload){
 			this.setName(wcbdo.name);
 			this.resize(wcbdo.width,wcbdo.height);
+			var callback = function(wcb,loopCnt,onload){
+				var success = 0;
+				var call = 0;
+				return function(img,n){
+					call++;
+					success+=n;
+					if(call == loopCnt){
+						if(success != loopCnt){
+							wcb.setError("WcbDataObj 처리에 문제가 있습니다.");
+							return false;
+						}
+						onload(wcb);
+					}
+				}
+			}(this,wcbdo.data.length,onload)
 			for(var i=0,m=wcbdo.data.length;i<m;i++){
 				if(!this.webCanvases[i]){
 					this.addWebCanvas();
 				}
-				this.webCanvases[i].putWcDataObject(wcbdo.data[i]);
+				this.webCanvases[i].putWcDataObject(wcbdo.data[i],callback);
 			}
 			return this;
 		}
@@ -394,6 +409,7 @@ function WebCanvasBundle(width,height,colorset){
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
 				case "wcb.json":
+				case "wcbjson":
 					mimeType = "application/json";
 				break;
 				default:
@@ -412,7 +428,7 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			return str;
 		}
-		//-- wcb.json 형식으로 저장하기 위한 것.
+		//-- wcbjson 형식으로 저장하기 위한 것.
 		,"toWcbDataURL":function(){
 			return "data:application/json;base64,"+window.btoa(this.toWcbDataJson());
 		}

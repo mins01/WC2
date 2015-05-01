@@ -181,7 +181,12 @@ var wc2 = (function(){
 			//-- 단축키
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
 			Mousetrap.bind(['ctrl+shift+z','ctrl+y'], function(event) { wc2.cmdWcb("redo"); });
-
+			//-- 메뉴 부분 이벤트 처리용
+			$("#topMenu").on("click","a[data-wc-menu]",function(event){
+				wc2.btnShowMenuDetail(event.target);
+				return;
+			});
+			
 			
 		}
 		//--- 히스토리
@@ -196,13 +201,20 @@ var wc2 = (function(){
 				case "new":(this.newWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
 				case "open":
 					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
-						var t = this.newWcbByWcbdo(arg1.wcbdo);
+						var t = this.newWcbByWcbdo(arg1.wcbdo,
+								function(cmd){
+									return function(wcb){
+										wcb.saveHistory("Image."+cmd);
+										console.log("end");
+									}
+								}(cmd)
+							);
 					}else{
 						var t = this.newWcbByImage(arg1);
+						if(t){
+							 t.saveHistory("Image."+cmd);
+						 }
 					}
-					 if(t){
-						 t.saveHistory("Image."+cmd);
-					 }
 				break;
 				case "rename":
 					if(this.activeWcb.setName(arg1)){
@@ -296,15 +308,21 @@ var wc2 = (function(){
 			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss'));
 			return this._addWcb(wcb);
 		}
-		,"newWcbByWcbdo":function(wcbdo){
+		,"newWcbByWcbdo":function(wcbdo,onload){
 			var wcb = new WebCanvasBundle(100,100);
-			if(wcb.openByWcbDataObj(wcbdo)=== false){
+			var callback = function(wcb,onload){
+				return function(){
+					onload(wcb);
+					wc2._addWcb(wcb);
+				}
+			}(wcb,onload)
+			if(wcb.openByWcbDataObj(wcbdo,callback)=== false){
 				this.setError(wcb.error);
 				return false;
 			}
 			//wcb.addWebCanvas(); //빈 레이어 하나 추가 이미 레이저가 지원되는 구조이기 때문에 추가 레이어를 생성하지 않는다.
 			//wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss')); 이미 이름이 있으므로 안 바꾼다.
-			return this._addWcb(wcb);
+			return wcb;
 		}
 		,"setActiveWcb":function(wcb){
 			this.activeWcb = wcb;
@@ -502,7 +520,6 @@ var wc2 = (function(){
 					//console.log(wcb.webCanvases[i].alt);
 				}
 				//--- wcb.name
-				console.log(wcb.name);
 				$(wcb.tabTitleA).text(wcb.name)
 			}
 			
@@ -668,9 +685,11 @@ var wc2 = (function(){
 			)
 			var t = $("#menuDetailArea").find(".wc-mdetail-"+menu)
 			t.show();
-			if(menu =='file-save'){
-				if(this.activeWcb){
-				t[0].saveFileName.value = this.activeWcb.name;
+			
+			if(this.activeWcb){
+				switch(menu){
+					case "file-save":t[0].saveFileName.value = this.activeWcb.name;break;
+					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
 				}
 			}
 		}
@@ -685,10 +704,9 @@ var wc2 = (function(){
 			if(el.type=="text" && el.value.length > 0){
 				preview.src = el.value;
 			}else if(el.type=="file"  && el.value.length > 0){
-				if(el.value.indexOf("wcb.json")!= -1){ //전용 파일
+				if(el.value.indexOf("wcbjson")!= -1){ //전용 파일
 					wc2Helper.loadInputFile(el , function(){
 						return function(result){
-							alert(result);
 							var wcbdo = JSON.parse(result);// wcbDataObject
 							preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
 							preview.src = wcbdo.preview.dataURL;

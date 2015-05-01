@@ -195,7 +195,7 @@ background-color:rgba(0,0,0,0.2);
 #menuDetailArea .wc2-panel{margin:0 auto;min-width:200px; max-width:600px;}
 #menuDetailArea .wc-menudetail{}
 /* file-open 이미지 미리보기 */
-#formMenuDetailFileOpenPreView{max-width:90%;}
+#formMenuDetailFileOpenPreview{max-width:90%;}
 
 #btnQuickNewFile{cursor:pointer;}
 

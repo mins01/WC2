@@ -440,23 +440,25 @@ function WebCanvas(width,height,colorset){
 		,"toWcDataObject":function(type,quality){
 			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL(type,quality)};
 		}
-		,"putWcDataObject":function(wcdo){
+		,"putWcDataObject":function(wcdo,onload){
 			this.setLabel(wcdo.label);
 			this.resize(wcdo.width,wcdo.height);
-			this.loadToDataURL(wcdo.dataURL)
+			this.loadToDataURL(wcdo.dataURL,onload)
 		}
-		,"loadToDataURL":function(toDataUrl){
+		,"loadToDataURL":function(toDataUrl,callback){
 			var img = new Image();
 			img.onload = function(wc){
 				return function(){
 					wc.copy(this);
+					if(callback) callback(this,1);
 				}
-			}(this);
+			}(this,callback);
 			img.onerror = function(wc){
 				return function(){
 					wc.setError("잘못된 toDataURL  입니다.");
+					if(callback) callback(this,-1);
 				}
-			}(this);
+			}(this,callback);
 			img.src = toDataUrl;
 		}
 		,"getImageData":function(x0,y0,w0,h0){

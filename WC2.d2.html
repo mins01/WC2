@@ -41,7 +41,7 @@
 	<body>
 	<div id="container">
 		<header>
-			<nav class="navbar navbar-default navbar-fixed-top">
+			<nav id="topMenu" class="navbar navbar-default navbar-fixed-top">
 			  <div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -71,9 +71,9 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" onclick="wc2.btnShowMenuDetail(this);return false;">New</a></li>
-							<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open" onclick="wc2.btnShowMenuDetail(this);return false;">Open</a></li>
-							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save" onclick="wc2.btnShowMenuDetail(this);return false;">Save</a></li>
+							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" >New</a></li>
+							<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open">Open</a></li>
+							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save">Save</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.closeWcb()">Close</a></li>
@@ -90,10 +90,10 @@
 						</li>
 						
 						<li class="dropdown">
-						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Canvas <span class="caret"></span></a>
+						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Image <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdWcb('clear');return false;">Clear</a></li>
-								<li><a href="#" class="glyphicon glyphicon-info-sign">Rename</a></li>
+								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="image-rename">Rename</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Image Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen">Canvas Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-picture">Insert Image</a></li>
@@ -137,7 +137,7 @@
 					<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help" onclick="wc2.btnShowMenuDetail(this);return false;">Help</a></li>
+						<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help">Help</a></li>
 						<li><a href="http://mins01.com" target="_blank" class="glyphicon glyphicon-user">공대여자HOME</a></li>
 					</ul>
 					</li>
@@ -658,7 +658,7 @@ Ciao
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">in PC</span>
-											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.json" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
+											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
 											<span class="input-group-btn">
 											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
 											</span>
@@ -686,11 +686,11 @@ Ciao
 										<div class="input-group">
 											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
-												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png');">
+												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson');">
 													<option value="png">.png</option>
 													<option value="jpg">.jpg (if supported)</option>
 													<option value="webp">.webp (if supported)</option>
-													<option value="wcb.json">.wcb.json</option>
+													<option value="wcbjson">.wcbjson</option>
 												</select>
 												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality">
 													<option value="1">100%</option>
@@ -711,7 +711,7 @@ Ciao
 									<li class="list-group-item text-danger">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
-										<strong>wcb.json</strong> support multi-Layer.(json file) <br>
+										<strong>wcbjson</strong> support multi-Layer.(json file) <br>
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
@@ -729,7 +729,7 @@ Ciao
 								<ul class="list-group ">
 									<li class="list-group-item list-group-item-success">Hello!</li>
 									<li class="list-group-item" style="text-align:left">
-										<h3>Tested Browser</h3>
+										<h3>Tested Browsers</h3>
 										<ul>
 											<li>Chrome :42.0.2311.135</li>
 											<li>FireFox : 33.0</li>
@@ -747,10 +747,31 @@ Ciao
 									<li class="list-group-item text-danger">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
+										<strong>jcb.json</strong> is multi-layer file. (Json)<br>
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailIamgeRename" class="wc-mdetail wc-mdetail-image-rename">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Rename</div>
+						<div  class="panel-body">
+								<ul class="list-group ">
+									<li class="list-group-item list-group-item-success">name</li>
+									<li class="list-group-item" style="text-align:left">
+										<div class="input-group">
+											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
+											<input type="text" class="form-control" name="renameName" placeholder="name..." >
+										</div>
+									</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.cmdWcb('rename',this.form.renameName.value);wc2.hideMenuDetail();"> Rename</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
 								</ul>
 						</div>
