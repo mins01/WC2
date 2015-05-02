@@ -78,6 +78,9 @@ var wc2Tool = function(){
 			if(!toolName || !this[toolName].mousewheel){ return false;}
 			return this[toolName].mousewheel(event);
 		}
+		,"saveHistory":function(){
+			wc2.saveHistory("Tool."+this.lastToolName);
+		}
 		//-- 라인
 		,"line":{
 			"wcb":null
@@ -90,7 +93,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb = null;
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -112,9 +115,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -138,8 +138,8 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb = null;
 				this.pos = [];
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -157,8 +157,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.pos.push([t.x,t.y])
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
@@ -185,7 +183,7 @@ var wc2Tool = function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
 				$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-				this.wcb = null;
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -214,13 +212,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 = this.x1;
-				this.y0 = this.y1;
-				this.x1 = t.x;
-				this.y2 = t.y;
 				this.predraw();
-				
 				this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
@@ -244,7 +236,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb = null;
+			wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -266,9 +258,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -292,7 +281,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-				this.wcb = null;
+			wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -314,9 +303,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -332,8 +318,8 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.circle(this.x0,this.y0,r);
 			}
 		}
-		//-- 이동
-		,"move":{
+		//-- 변형
+		,"transform":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"w0":-1,"h0":-1
@@ -385,9 +371,9 @@ var wc2Tool = function(){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					wc2Tool.move._rotate.call(this,event.deltaY);
+					wc2Tool.transform._rotate.call(this,event.deltaY);
 				}else{ //scale
-					wc2Tool.move._scale.call(this,event.deltaY);
+					wc2Tool.transform._scale.call(this,event.deltaY);
 				}
 				this.predraw();
 				//console.log(this.sc);
@@ -412,9 +398,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -445,6 +428,7 @@ var wc2Tool = function(){
 				if(this.ing == 1){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
 					return this.reset();
@@ -459,7 +443,7 @@ var wc2Tool = function(){
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-					this.wcb = null;
+				
 				}
 				return true;
 			}
@@ -527,9 +511,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -560,6 +541,7 @@ var wc2Tool = function(){
 				if(this.ing == 1){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
 					return this.reset();
@@ -573,7 +555,7 @@ var wc2Tool = function(){
 					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
-					this.wcb = null;
+				
 				}
 				return true;
 			}
@@ -619,9 +601,9 @@ var wc2Tool = function(){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					wc2Tool.move._rotate.call(this,event.deltaY);
+					wc2Tool.transform._rotate.call(this,event.deltaY);
 				}else{ //scale
-					wc2Tool.move._scale.call(this,event.deltaY);
+					wc2Tool.transform._scale.call(this,event.deltaY);
 				}
 				this.predraw();
 				//console.log(this.sc);
@@ -645,9 +627,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
 				this.predraw();
 				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
@@ -671,6 +650,7 @@ var wc2Tool = function(){
 					if(confirm("OK?")){
 						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 						this.ing = 0;
+						wc2Tool.saveHistory();
 						return this.reset();
 					}
 				}
@@ -683,12 +663,12 @@ var wc2Tool = function(){
 					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
-					this.wcb = null;
+				
 				}
 				return true;
 			}
 		} //-- end fn
-		//--- 텍스트
+		//--- 스포이드
 		,"spuit":{
 			"wcb":null
 			,"x0":-1,"y0":-1
@@ -715,10 +695,8 @@ var wc2Tool = function(){
 				
 			}
 			,"up":function(event){
-				this.move(event);
-				
+				this.predraw();
 				this.end();
-				
 				return true;
 			}
 			,"predraw":function(){
@@ -730,7 +708,72 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"reset":function(){ 
-				this.wcb = null;
+			
+				return true;
+			}
+		} //-- end fn
+		//--- 이동
+		,"move":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"left":-1,"top":-1
+			,"left1":-1,"top1":-1
+			,"init":function(wcb){
+				//this.wcb = wcb;
+				this.left = parseFloat(this.wcb.wcbMove.style.left);
+				this.top = parseFloat(this.wcb.wcbMove.style.top);
+				this.left1 = 0;
+				this.top1 = 0;
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"mousewheel":function(event){
+				var t= wc2.getOffsetXY(event,document.body,1);
+				this.left1 -= event.deltaX*10
+				this.top1 -= event.deltaY*10
+				this.predraw();
+				//console.log(this.sc);
+				return true;
+			}
+			,"down":function(event){
+				var t= wc2.getOffsetXY(event,document.body,1);
+				this.x0 = t.x;
+				this.y0 = t.y;
+				this.left = parseFloat(this.wcb.wcbMove.style.left);
+				this.top = parseFloat(this.wcb.wcbMove.style.top);
+				return true;
+			}
+			,"move":function(event){
+				var t= wc2.getOffsetXY(event,document.body,1);
+
+				this.x1 = t.x;
+				this.y1 = t.y;
+				this.left1 = (this.x1-this.x0);
+				this.top1 = (this.y1-this.y0);
+				this.predraw();
+				//console.log("move");
+				return true;
+			}
+			,"up":function(event){
+				//this.predraw();
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				var t = $(this.wcb.wcbMove);
+				var l0 = this.left + this.left1
+				var h0 = this.top + this.top1
+				t.css("left",l0+"px").css("top",h0+"px");
+				//console.log((this.x1-this.x0),(this.y1-this.y0),this.left,this.top,l0,h0);
+				return true;
+			}
+			,"confirm":function(){
+				var t = $(this.wcb.wcbMove).css("left","0px").css("top","0px");
+			}
+			,"reset":function(){ 
+			
 				return true;
 			}
 		} //-- end fn
