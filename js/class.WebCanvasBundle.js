@@ -66,7 +66,8 @@ function WebCanvasBundle(width,height,colorset){
 			this.node.wcb = this;
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
 			this.shadowWebCanvas.className = "WC WC-shadow";
-			this.shadowWebCanvas.alt="쉐도우레이어";
+			this.shadowWebCanvas.node.className = "WC-node WC-node-shadow";
+			this.shadowWebCanvas.setLabel("shadow");
 			this.addWebCanvas(colorset);
 			//this.initEvent();
 			//this.setToolName("line");
@@ -130,20 +131,25 @@ function WebCanvasBundle(width,height,colorset){
 			this.node.style.width = (this.width*this.zoom)+'px';this.node.style.height = (this.height*this.zoom)+'px';
 		}
 		,"_syncNode":function(){
-			this.node.innerHTML = "";//내용 초기화
+			//this.node.innerHTML = "";//내용 초기화
 			this.node.style.width = this.width+"px";
 			this.node.style.height = this.height+"px";
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
+				//this.webCanvases[i].node.appendChild(this.webCanvases[i]); //IE버그인듯.. 왜 사라지는지, 다시 붙여 넣게 바꾼다.
 				this.node.appendChild(this.webCanvases[i].node);
 				//var zIndex = (m-i)*10
 				var zIndex = i*10
 				this.webCanvases[i].node.style.zIndex = zIndex;
 				this.webCanvases[i].dataset.wcbIndex = i;
 				this.webCanvases[i].dataset.wcbActive = 0;
+				
 			}
 			this.activeWebCanvas.dataset.wcbActive = 1;
-			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
+			//this.shadowWebCanvas.node.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
+			//console.log(this.shadowWebCanvas.node.innerHTML);
 			this.activeWebCanvas.node.appendChild(this.shadowWebCanvas.node);
+			//this.activeWebCanvas.node.appendChild(this.shadowWebCanvas);
+			//console.log(this.shadowWebCanvas.node.innerHTML);
 			this.setZoom();
 			return true;
 		}
@@ -204,6 +210,9 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			var actIdx = this.getIndexAcviceWebCanvas();
 			this.webCanvases.splice(idx,1);
+			if(this.webCanvases.node.parentNode){
+				this.webCanvases.node.parentNode.removeChild(this.webCanvases.node); //IE때문에 삭제시 여기서 node에서도 빼버린다.
+			}
 			if(idx == actIdx){
 				var idx2 = Math.max(idx-1,0);
 				this.setActiveWebCanvasByIndex(idx2);

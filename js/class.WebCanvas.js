@@ -27,6 +27,7 @@ function WebCanvas(width,height,colorset){
 		c.node = document.createElement('div');
 		c.node.className = "WC-node";
 		c.node.appendChild(c);
+		c.node.wc = c;
 		if(c.tagName != 'CANVAS'){
 			c = null;
 			//delete c;

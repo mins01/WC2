@@ -126,13 +126,14 @@ div.wc-viewImage img.wc-viewImage{ }
 #tabs{position:absolute;left;top:0;left:0;right:0;bottom:0;}
 #tabsContent{ 
 overflow:hidden;
-border:5px solid #fff;
+border: 1px solid #ccc;
 background-color:#eee;
 position: relative;
 left:0; right:0;
-top:0;bottom:0;
+top:2px;bottom:0;
 box-sizing: border-box;
 height:100%;
+box-shadow: 0px 1px 3px rgba(0,0,0,0.2)  inset;
 }
 #tabsContent .ui-tabs-panel{
 width: 100%;
@@ -143,7 +144,7 @@ position: absolute;
 }
 
 /* wcb */
-	
+.WCB{box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
 .wcb-frame { 
 position: absolute;
 top: 0;
@@ -168,8 +169,9 @@ bottom: 0;
 width: 100%;
 height: 100%;
 box-sizing: border-box;
-border:0px solid #eee;
-border-top-width:30px;
+.border:0px solid #eee;
+.border-top-width:30px;
+padding-top: 30px;
 
 }		
 

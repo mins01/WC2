@@ -84,8 +84,8 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#" class="glyphicon glyphicon-chevron-left">Undo</a></li>
-							<li><a href="#" class="glyphicon glyphicon-chevron-right">Redo</a></li>
+							<li><a href="#" class="glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');">Undo</a></li>
+							<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 						  </ul>
 						</li>
 						
@@ -193,16 +193,16 @@
 										<tr>
 											<th>use-line</th>
 											<td>
-											<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"><span></label>
-											<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+											<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+											<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 											
 											</td>
 										</tr>
 										<tr>
 											<th>use-fill</th>
 											<td>
-											<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"><span></label>
-											<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+											<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+											<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 											
 											</td>
 										</tr>
@@ -382,20 +382,19 @@ Ciao
 									<tr>
 										<th>use-line</th>
 										<td>
-										<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"><span></label>
-										<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+										<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+										<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 										</td>
 									</tr>
 									<tr>
 										<th>use-fill</th>
 										<td>
-										<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"><span></label>
-										<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"><span></label>
+										<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+										<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 										
 										</td>
 									</tr>
 									
-								</table>
 								</table>
 							</div>
 						</div>
@@ -442,7 +441,6 @@ Ciao
 									<tr>
 										<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button></th>
 										<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button></th>
-										</td>
 									</tr>
 								</table>
 							</div>
@@ -540,7 +538,6 @@ Ciao
 												<option value="0.1">10%</option>
 												<option value="0.0">0%</option>
 											</select>
-										</span>
 									</div>
 									<div class="wc2-prop-list ">
 										<ul class="list-group overflow-scrolly" id="propLayerList">
@@ -574,19 +571,19 @@ Ciao
 			<div id="tabs">
 				<table style="width:100%;height:100%; table-layout:fixed">
 				<tr>
-				<td height="10">
-					<ul id="tabsTitle">
-					<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file" id="btnQuickNewFile">+</a></li>
-					</ul>
-				</td>
+					<td height="10">
+						<ul id="tabsTitle">
+						<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file" id="btnQuickNewFile">+</a></li>
+						</ul>
+					</td>
 				</tr>
 				<tr>
-				<td height="*" style="height:100%">
-					<div id="tabsContent">
-					<!-- 이곳에 WebCanvasBundle 기반의 tabFrame이 추가된다. -->
-					<div id="tabs-1" style="text-align:center; padding:10px;">New or Open</div>
-					<div>
-				</td>
+					<td height="*" style="height:100%">
+						<div id="tabsContent">
+						<!-- 이곳에 WebCanvasBundle 기반의 tabFrame이 추가된다. -->
+						<div id="tabs-1" style="text-align:center; padding:10px;">New or Open</div>
+						</div>
+					</td>
 				</tr>
 				</table>
 			</div>
@@ -801,7 +798,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-		<article>
+		</article>
 		<!-- //메뉴 상세 부분 -->
 
 
