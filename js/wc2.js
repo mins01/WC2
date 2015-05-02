@@ -306,7 +306,6 @@ var wc2 = (function(){
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
 			$( "#tabsContent" ).append(wcb.tabFrame);
 			this.tabs.tabs("refresh");
-			
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
 			
 			this._syncWcbInfo();
@@ -366,8 +365,10 @@ var wc2 = (function(){
 					break;
 				}
 			}
-			this.setActiveWcb(this.wcbs[0]);
+			
 			this.tabs.tabs("refresh");
+			this.setActiveWcb(this.wcbs[0]);
+			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
 			this._syncWcbInfo();
 			return true;
 		}

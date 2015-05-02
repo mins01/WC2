@@ -630,7 +630,7 @@ Ciao
 		
 		<!-- 메뉴 상세 부분 -->
 		<article id="menuDetailArea" class="overflow-scrolly" >
-				<form name="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new">
+				<form name="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new" onreset="wc2.hideMenuDetail();">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">New File</div>
 						<div  class="panel-body">
@@ -644,6 +644,14 @@ Ciao
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',500,500);false;">500x600</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',600,600);false;">600x600</a></li>
 									<li class="list-group-item"><a href="#" onclick="return false;">close</a></li>
+									<li class="list-group-item list-group-item-success">Manual</li>
+									<li class="list-group-item">
+										<div class="form-inline">
+											<input class="form-control" type="number" name="width" maxlength="6" min="1" max="99999" value="300" placeholder="width.."> X
+											<input class="form-control" type="number" name="height" maxlength="6" min="1" max="99999" value="300" placeholder="height..">
+											<button class="btn btn-default" type="reset" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);">Create!</button>
+										</div>
+									</li>
 									<li class="list-group-item list-group-item-success">3:4</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,480);return false;">640x480 (VGA)</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,600);return false;">800x600 (SVGA)</a></li>
@@ -995,7 +1003,8 @@ Ciao
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
 		wc2.cmdWcb("new",300,300);
-		wc2.showMenuDetail('image-adjustSize');
+		//wc2.showMenuDetail('image-adjustSize');
+		wc2.showMenuDetail('file-new');
 	});
 	</script>
 	</body>
