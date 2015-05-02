@@ -213,10 +213,12 @@ function WebCanvasBundle(width,height,colorset){
 				return false
 			}
 			var actIdx = this.getIndexAcviceWebCanvas();
-			this.webCanvases.splice(idx,1);
-			if(this.webCanvases.node.parentNode){
-				this.webCanvases.node.parentNode.removeChild(this.webCanvases.node); //IE때문에 삭제시 여기서 node에서도 빼버린다.
+			if(this.webCanvases[idx].node.parentNode){
+				this.webCanvases[idx].node.parentNode.removeChild(this.webCanvases[idx].node); //IE때문에 삭제시 여기서 node에서도 빼버린다.
 			}
+			
+			this.webCanvases.splice(idx,1);
+			
 			if(idx == actIdx){
 				var idx2 = Math.max(idx-1,0);
 				this.setActiveWebCanvasByIndex(idx2);
@@ -249,8 +251,8 @@ function WebCanvasBundle(width,height,colorset){
 				return false;
 			}
 			var c = WebCanvas(this.width,this.height);
+			c.copy(this.webCanvases[idx-1]);
 			c.merge(this.activeWebCanvas);
-			c.merge(this.webCanvases[idx-1]);
 			this.activeWebCanvas.copy(c);
 			this.activeWebCanvas.setOpacity(1); //강제로 1로 만듬
 			this.removeWebCanvasByIndex(idx-1);
