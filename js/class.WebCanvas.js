@@ -500,13 +500,13 @@ function WebCanvas(width,height,colorset){
 			img.onload = function(wc){
 				return function(){
 					wc.copy(this);
-					if(callback) callback(this,1);
+					if(callback) callback(this,true);
 				}
 			}(this,callback);
 			img.onerror = function(wc){
 				return function(){
 					wc.setError("잘못된 toDataURL  입니다.");
-					if(callback) callback(this,-1);
+					if(callback) callback(this,false);
 				}
 			}(this,callback);
 			img.src = toDataUrl;
