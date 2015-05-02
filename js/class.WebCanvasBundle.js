@@ -157,7 +157,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"saveHistory":function(action){
 			//this.historyIdx = (this.historyIdx+1)%this.commonConfig.limitHistoryLog;
 			this.historyIdx++;
-			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"data":this.getDataForHistory(),"time":(new Date()).getTime()});
+			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"width":this.width,"height":this.height,"data":this.getDataForHistory(),"time":(new Date()).getTime()});
 			if(this.historyLog.length > this.commonConfig.limitHistoryLog){
 				this.historyLog.splice(0,1);
 				this.historyIdx--;
@@ -170,11 +170,15 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"undo":function(){
 			if(this.historyIdx<=0){this.setError("더 이상의 히스토리가 없습니다");return;}
-			this.putDataForHistory(this.historyLog[--this.historyIdx]);
+			var historyData = this.historyLog[--this.historyIdx];
+			this.resize(historyData.width,historyData.height);
+			this.putDataForHistory(historyData);
 		}
 		,"redo":function(){
 			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("더 이상의 히스토리가 없습니다");return;}
-			this.putDataForHistory(this.historyLog[++this.historyIdx]);
+			var historyData = this.historyLog[++this.historyIdx];
+			this.resize(historyData.width,historyData.height);
+			this.putDataForHistory(historyData);
 			
 		}
 		,"getDataForHistory":function(action){

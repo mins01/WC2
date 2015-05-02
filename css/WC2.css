@@ -49,7 +49,9 @@ margin-bottom: 5px;
 .panel-body .panel{  margin-bottom:2px;}
 
 #toolPanel{width:92px;min-width:42px;min-height:100px; position:fixed;top:55px;left:1px;}
-#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:5px; bottom: 5px; overflow-y: auto;}
+#toolPanel > .panel{box-shadow: 0px 1px 3px rgba(0,0,0,0.9);}
+#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:2px; bottom: 5px; overflow-y: auto;}
+#propPanel > .panel{box-shadow: 0px 1px 3px rgba(0,0,0,0.9);}
 #propPanel>.panel-body{}
 
 #propPanel .wc2-prop-list li{text-align:left;}
@@ -78,22 +80,20 @@ box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
 
 
 @media (min-width: 768px) {
-#toolPanel{display:block;visibility: visible;}
-#propPanel{display:block;visibility: visible;}
-#toolPanel{display:block;visibility: visible;}
-
+	#toolPanel{display:block;visibility: visible;}
+	#propPanel{display:block;visibility: visible;}
 }
 @media (max-width: 768px) {
-/* 툴 버튼을 작은 버튼으로 변경 */
-#toolPanel{width:30px; min-width:26px}
-#toolPanel .btn{   
-		padding: 1px 5px;
-	  font-size: 12px;
-	  line-height: 1.5;
-	  border-radius: 3px;}
-	  #toolPanel button.no-glyphicon{
-width:24px;
-}
+	/* 툴 버튼을 작은 버튼으로 변경 */
+	#toolPanel{width:30px; min-width:26px}
+	#toolPanel .btn{   
+			padding: 1px 5px;
+		  font-size: 12px;
+		  line-height: 1.5;
+		  border-radius: 3px;}
+		  #toolPanel button.no-glyphicon{
+	width:24px;
+	}
 }
 
 

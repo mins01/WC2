@@ -226,8 +226,17 @@ var wc2 = (function(){
 				case "rename":
 					if(this.activeWcb.setName(arg1)){
 						$(this.activeWcb.tabTitleA).text(arg1);
+						this.saveHistory("Image."+cmd);
+					}
+					
+				break;
+				case "resize":
+					if(this.activeWcb.resize(arg1,arg2)){
+						this.saveHistory("Image."+cmd);
 					}
 				break;
+				
+				
 				//-- 단순호출처리
 				case "undo":
 				case "redo":
@@ -670,6 +679,9 @@ var wc2 = (function(){
 				switch(menu){
 					case "file-save":t[0].saveFileName.value = this.activeWcb.name;break;
 					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
+					case "image-resize":t[0].resizeWidth.defaultValue = t[0].resizeWidth.value = this.activeWcb.width;
+												t[0].resizeHeight.defaultValue = t[0].resizeHeight.value = this.activeWcb.height;
+					break;
 				}
 			}
 		}
