@@ -777,12 +777,13 @@ Ciao
 											<li>URL : <a href="http://www.mins01.com/web_work/web/WC2/WC2.html" target="_blank">http://www.mins01.com/web_work/web/WC2/WC2.html</a></li>
 											<li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
 											<li>"공대여자는 이쁘다."</li>
+											<li>계속 수정중.</li>
 										</ul>
 									</li>
 									<li class="list-group-item text-danger">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
-										<strong>jcb.json</strong> is multi-layer file. (Json)<br>
+										<strong>jcbjson</strong> is multi-layer file. (Json)<br>
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
@@ -792,7 +793,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailIamgeRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-rename">
+				<form name="formMenuDetailImageRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-rename">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Rename</div>
 						<div  class="panel-body">
@@ -812,9 +813,9 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailIamgeResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.width.value,this.height.value);wc2.hideMenuDetail();return false;">
+				<form name="formMenuDetailImageResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.width.value,this.height.value);wc2.hideMenuDetail();return false;">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">Resize (Scale Iamge)</div>
+						<div  class="panel-heading">Image Resize (Scale Image)</div>
 						<div  class="panel-body">
 								<ul class="list-group ">
 									<li class="list-group-item list-group-item-success">setting</li>
@@ -851,9 +852,9 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailIamgeAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailIamgeAdjustSizeButtons(this,0)";>
+				<form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)";>
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">Adjust Size</div>
+						<div  class="panel-heading">Canvas Resize (Adjust Size)</div>
 						<div  class="panel-body">
 								<ul class="list-group ">
 									<li class="list-group-item list-group-item-success">setting</li>
@@ -912,7 +913,7 @@ Ciao
 											</div>
 										<script>
 										
-										function formMenuDetailIamgeAdjustSizeButtons(f,n){
+										function formMenuDetailImageAdjustSizeButtons(f,n){
 											$(f).find("button[name='controlPointR']").each(
 												function(idx,el){
 													$(el).removeClass("active");
@@ -924,14 +925,14 @@ Ciao
 												}
 											)
 										}
-										$(document.formMenuDetailIamgeAdjustSize).on("click","button[name='controlPointR']",function(event){
+										$(document.formMenuDetailImageAdjustSize).on("click","button[name='controlPointR']",function(event){
 											var f = event.target.form;
 											f.controlPoint.value = event.target.value;
-											formMenuDetailIamgeAdjustSizeButtons(f,event.target.value);
+											formMenuDetailImageAdjustSizeButtons(f,event.target.value);
 										});
-										$(document.formMenuDetailIamgeAdjustSize.controlPoint).bind("click",function(event){
+										$(document.formMenuDetailImageAdjustSize.controlPoint).bind("click",function(event){
 											var f = event.target.form;
-											formMenuDetailIamgeAdjustSizeButtons(f,event.target.value);
+											formMenuDetailImageAdjustSizeButtons(f,event.target.value);
 											
 										});
 										</script>
