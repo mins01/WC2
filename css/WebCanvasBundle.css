@@ -12,8 +12,11 @@ html{margin:0;padding:0;height:100%;}
 body{margin:0;padding:0;height:100%;}
 
 .WCB{position:relative; z-index:1; background-image:url("../img/bg.gif"); cursor:crosshair;}
-.WCB .WC{
+.WCB .WC-node{
 	position:absolute; top:0;left:0;bottom:0;right:0;
+	width:100%;height:100%;
+}
+.WCB .WC{
 	width:100%;height:100%;
 }
 

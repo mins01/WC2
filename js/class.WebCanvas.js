@@ -24,6 +24,9 @@ function WebCanvas(width,height,colorset){
 		c.alt = "";
 		c.label = "";
 		c.className = "WC";
+		c.node = document.createElement('div');
+		c.node.className = "WC-node";
+		c.node.appendChild(c);
 		if(c.tagName != 'CANVAS'){
 			c = null;
 			//delete c;
@@ -45,6 +48,7 @@ function WebCanvas(width,height,colorset){
 		c.context2d.eraserMode = "pen";
 		c.context2d.disableStroke = 0; //stroke 사용금지
 		c.context2d.disableFill = 0; //strokFiil 사용금지
+		c.context2d.opacity = 1; //레이어 투명도
 		
 		//-- config font
 		//c.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
@@ -172,9 +176,7 @@ function WebCanvas(width,height,colorset){
 				
 				this.context2d.fillStyle = this.context2d.createPattern(cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
 			}
-			
-
-			
+			//--- 폰트 설정
 			if(
 			  cfg["fontStyleVariantWeight"] != undefined 
 			|| cfg["fontStyle"] != undefined 
@@ -197,6 +199,7 @@ function WebCanvas(width,height,colorset){
 				t.push(this.context2d["fontFamily"]);
 				this.context2d.font = t.join(" ");
 			}
+			
 			return this.context2d;
 		}
 		/*
@@ -224,7 +227,7 @@ function WebCanvas(width,height,colorset){
 			if(!isNaN(opacity)){
 				opacity = parseFloat(opacity);
 				this.opacity = opacity;
-				this.style.opacity = this.opacity;
+				this.node.style.opacity = this.opacity;
 			}
 			return this.opacity;
 		}
@@ -233,7 +236,8 @@ function WebCanvas(width,height,colorset){
 			var opacity = webCanvas.opacity?webCanvas.opacity:1;
 
 			this.saveContext2d();
-			this.configContext2d({"globalAlpha":this.context2d.globalAlpha *= opacity , "globalCompositeOperation":"source-over"});
+			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":"source-over"});
+			//this.configContext2d({"globalAlpha": 1 , "globalCompositeOperation":"source-over"});
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
 			this.drawImage(webCanvas, x0, y0,w0,h0);

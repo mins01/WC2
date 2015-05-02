@@ -731,8 +731,8 @@ var wc2Tool = function(){
 			}
 			,"mousewheel":function(event){
 				var t= wc2.getOffsetXY(event,document.body,1);
-				this.left1 -= event.deltaX*10
-				this.top1 -= event.deltaY*10
+				this.left1 += event.deltaX*10
+				this.top1 += event.deltaY*10
 				this.predraw();
 				//console.log(this.sc);
 				return true;

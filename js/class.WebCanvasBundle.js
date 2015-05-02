@@ -134,16 +134,16 @@ function WebCanvasBundle(width,height,colorset){
 			this.node.style.width = this.width+"px";
 			this.node.style.height = this.height+"px";
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
-				this.node.appendChild(this.webCanvases[i]);
+				this.node.appendChild(this.webCanvases[i].node);
 				//var zIndex = (m-i)*10
 				var zIndex = i*10
-				this.webCanvases[i].style.zIndex = zIndex;
+				this.webCanvases[i].node.style.zIndex = zIndex;
 				this.webCanvases[i].dataset.wcbIndex = i;
 				this.webCanvases[i].dataset.wcbActive = 0;
 			}
 			this.activeWebCanvas.dataset.wcbActive = 1;
 			this.shadowWebCanvas.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
-			this.node.appendChild(this.shadowWebCanvas);
+			this.activeWebCanvas.node.appendChild(this.shadowWebCanvas.node);
 			this.setZoom();
 			return true;
 		}
@@ -235,7 +235,11 @@ function WebCanvasBundle(width,height,colorset){
 				this.setError("WebCanvasBundle.mergeDown() : 최하단 요소는 mergeDown 할 수 없습니다.");
 				return false;
 			}
-			var r = this.activeWebCanvas.mergeTo(this.webCanvases[idx-1]);
+			var c = WebCanvas(this.width,this.height);
+			c.merge(this.activeWebCanvas);
+			c.merge(this.webCanvases[idx-1]);
+			this.activeWebCanvas.copy(c);
+			this.activeWebCanvas.setOpacity(1); //강제로 1로 만듬
 			this.removeWebCanvasByIndex(idx-1);
 			return true;
 		}
@@ -340,6 +344,10 @@ function WebCanvasBundle(width,height,colorset){
 				this.activeWebCanvas.configContext2d(this.context2dCfg);
 			}
 			this.shadowWebCanvas.configContext2d(this.context2dCfg);
+			//this.shadowWebCanvas.configContext2d({"globalAlpha":this.activeWebCanvas.opacity});
+			//this.shadowWebCanvas.setOpacity(this.activeWebCanvas.opacity);
+			//this.shadowWebCanvas.setOpacity(1);
+
 		}
 		/**
 		* 웹캔버스 순서 관련

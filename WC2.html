@@ -507,28 +507,50 @@ Ciao
 					
 
 					
-					<form name="formColor2" action="javascript:void(0)" class="wc-tool wc-tool-line2" onsubmit="return false">
+					<form name="formPropHidden" action="javascript:void(0)" class="wc-tool wc-tool-line2" onsubmit="return false">
 						테스트용 폼. 보이면 안된다.
 					</form>
 					<hr class="soften">
-					<div style="min-height:50px" >
-						<div class="panel panel-default">
-							<div  class="panel-heading">Layer</div>
-							<div  class="panel-body">
-								<div class="panel-body btn-group  btn-group-sm" role="group">
-										<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
-										<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
-										<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
-										<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
-								</div>
-								<div class="wc2-prop-list ">
-									<ul class="list-group overflow-scrolly" id="propLayerList">
-										<li class="list-group-item">#EMPTY#</li>
-									</ul>
+					<form name="formPropLayer" action="javascript:void(0)" onsubmit="return false">
+						<div style="min-height:50px" >
+							<div class="panel panel-default">
+								<div  class="panel-heading">Layer</div>
+								<div  class="panel-body">
+									<div class="panel-body btn-group  btn-group-sm" role="group">
+											<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
+											<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
+											<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
+											<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
+									</div>
+									<div style="margin-bottom:2px">
+										
+											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-plus-sign" ></button>
+											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-minus-sign"></button>
+										
+											<select name="layerOpacity"  class="btn btn-default btn-sm" style="width:6em" onchange="wc2.cmdLayer('opacity',this.value)">
+												<option value="1">100%</option>
+												<option value="0.9">90%</option>
+												<option value="0.8">80%</option>
+												<option value="0.7">70%</option>
+												<option value="0.6">60%</option>
+												<option value="0.5">50%</option>
+												<option value="0.4">40%</option>
+												<option value="0.3">30%</option>
+												<option value="0.2">20%</option>
+												<option value="0.1">10%</option>
+												<option value="0.0">0%</option>
+											</select>
+										</span>
+									</div>
+									<div class="wc2-prop-list ">
+										<ul class="list-group overflow-scrolly" id="propLayerList">
+											<li class="list-group-item">#EMPTY#</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 					<hr class="soften">
 					<div style="min-height:50px" >
 						<div class="panel panel-default">
@@ -580,7 +602,7 @@ Ciao
 					</div>
 				</div>
 				<select class="btn btn-default wcb-zoom">
-					<option value="1">Default</option>
+					<option value="1">Zoom</option>
 					<option value="0.1">10%</option>
 					<option value="0.2">20%</option>
 					<option value="0.3">30%</option>
@@ -590,7 +612,7 @@ Ciao
 					<option value="0.7">70%</option>
 					<option value="0.8">80%</option>
 					<option value="0.9">90%</option>
-					<option value="1">100%</option>
+					<option value="1" selected>100%</option>
 					<option value="1.1">110%</option>
 					<option value="1.2">120%</option>
 					<option value="1.5">150%</option>

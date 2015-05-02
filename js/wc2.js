@@ -522,9 +522,15 @@ var wc2 = (function(){
 				//--- wcb.name
 				$(wcb.tabTitleA).text(wcb.name)
 			}
-			
+			this._syncWcInfo();
 		}
-		,"cmdLayer":function(cmd){
+		//활성화된 레이어 정보 갱신
+		,"_syncWcInfo":function(){
+			if(this.activeWcb && this.activeWcb.activeWebCanvas){
+				document.formPropLayer.layerOpacity.value = this.activeWcb.activeWebCanvas.opacity;
+			}
+		}
+		,"cmdLayer":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
 			var r = null;
 			switch(cmd){
@@ -536,6 +542,7 @@ var wc2 = (function(){
 				case "remove":r = this.activeWcb.removeWebCanvas();break;
 				case "moveUp":r = this.activeWcb.moveUpWebCanvasByIndex();break;
 				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
+				case "opacity":r = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
 			}
 			if(r){
 				this.saveHistory("Layer."+cmd);
