@@ -76,7 +76,7 @@
 							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save">Save</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
-							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.closeWcb()">Close</a></li>
+							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.cmdWcb('close')">Close</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Hello!</a></li>
 						  </ul>
@@ -708,7 +708,7 @@ Ciao
 									<li class="list-group-item list-group-item-success">Setting File</li>
 									<li class="list-group-item">
 										<div class="input-group">
-											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  id="formMenuDetailFileSave-saveFileName" >
+											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0" maxlength="50"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
 												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson');">
 													<option value="png">.png</option>
@@ -790,7 +790,7 @@ Ciao
 									<li class="list-group-item" style="text-align:left">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
-											<input type="text" class="form-control" name="renameName" placeholder="name..." >
+											<input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
 										</div>
 									</li>
 									<li class="list-group-item" >

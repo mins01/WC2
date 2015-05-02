@@ -99,9 +99,9 @@ function WebCanvasBundle(width,height,colorset){
 			var callback = function(wcb,loopCnt,onload){
 				var success = 0;
 				var call = 0;
-				return function(img,n){
+				return function(img,isSuccess){
 					call++;
-					success+=n;
+					success+=isSuccess?1:-1;
 					if(call == loopCnt){
 						if(success != loopCnt){
 							wcb.setError("WcbDataObj 처리에 문제가 있습니다.");
