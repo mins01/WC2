@@ -635,6 +635,8 @@ Ciao
 							
 								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
 									<li class="list-group-item list-group-item-success">favorite</li>
+									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',100,100);false;">100x100</a></li>
+									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',200,200);false;">200x200</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',400,400);false;">400x400</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',500,500);false;">500x600</a></li>
@@ -854,8 +856,9 @@ Ciao
 	$(function() {	
 		wc2.init(); //초기화
 		//wc2.showMenuDetail('file-save');
-		wc2.showMenuDetail('file-new');
+		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
+		wc2.cmdWcb("new",100,100);
 	});
 	</script>
 	</body>

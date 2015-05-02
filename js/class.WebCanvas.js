@@ -433,20 +433,22 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 히스토리,undo용 데이터
 		,"getDataForHistory":function(){
-			return {"width":this.width,"height":this.height,"label":this.label,"imageData":this.getImageData()};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.getImageData()};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
 			this.setLabel(data.label);
+			this.setOpacity(data.opacity!=undefined?data.opacity:1);
 			this.putImageData(data.imageData);
 		}
 		//--- 파일용 데이터
 		,"toWcDataObject":function(type,quality){
-			return {"width":this.width,"height":this.height,"label":this.label,"dataURL":this.toDataURL(type,quality)};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"dataURL":this.toDataURL(type,quality)};
 		}
 		,"putWcDataObject":function(wcdo,onload){
 			this.setLabel(wcdo.label);
 			this.resize(wcdo.width,wcdo.height);
+			this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.loadToDataURL(wcdo.dataURL,onload)
 		}
 		,"loadToDataURL":function(toDataUrl,callback){
