@@ -237,6 +237,7 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			var r = this.activeWebCanvas.mergeTo(this.webCanvases[idx-1]);
 			this.removeWebCanvasByIndex(idx-1);
+			return true;
 		}
 		,"getIndexAcviceWebCanvas":function(){
 			if(!this.activeWebCanvas){

@@ -537,7 +537,9 @@ var wc2 = (function(){
 				case "moveUp":r = this.activeWcb.moveUpWebCanvasByIndex();break;
 				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
 			}
-			this.saveHistory("Layer."+cmd);
+			if(r){
+				this.saveHistory("Layer."+cmd);
+			}
 			this.cmdTool("reset");
 			this._syncWcbInfo();
 		}
