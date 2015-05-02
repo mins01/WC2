@@ -523,9 +523,9 @@ Ciao
 											<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
 									</div>
 									<div style="margin-bottom:2px">
-										
-											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-plus-sign" ></button>
-											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-minus-sign"></button>
+											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')" title="Duplicate"></button>
+											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')"  title="MergeDown"></button>
+											
 										
 											<select name="layerOpacity"  class="btn btn-default btn-sm" style="width:6em" onchange="wc2.cmdLayer('opacity',this.value)">
 												<option value="1">100%</option>
@@ -858,7 +858,7 @@ Ciao
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
-		wc2.cmdWcb("new",100,100);
+		wc2.cmdWcb("new",300,300);
 	});
 	</script>
 	</body>
