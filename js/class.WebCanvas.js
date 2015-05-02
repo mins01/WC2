@@ -104,7 +104,7 @@ function WebCanvas(width,height,colorset){
 			console.log(this.error);
 			return this.error;
 		}
-		//-- 리사이즈 (내용유지)
+		//-- 리사이즈 (내용유지) Scale image
 		,"resize":function(width,height){
 			var twc = this.clone();
 			this.clear();
@@ -113,6 +113,49 @@ function WebCanvas(width,height,colorset){
 			this.width = width; 
 			this.height = height;
 			this.context2d.drawImage(twc, 0, 0, width, height);
+			this.context2d.restore();
+			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			return true;
+		}
+		//-- 사이즈 조정 (내용이 잘릴 수 있음.)
+		/**
+		* controlPoint
+		* 0 1 2
+		* 3 4 5
+		* 7 8 9
+		*/
+		,"adjustSize":function(width,height,controlPoint){
+			var twc = this.clone();
+			this.clear();
+			var x = 0, y=0;
+			switch(controlPoint){
+				case 0:
+				case 3:
+				case 6: x = 0; break;
+				case 1:
+				case 4:
+				case 7: x = (width-this.width)/2; break;
+				case 2:
+				case 5:
+				case 9: x = (width-this.width); break;
+			}
+			switch(controlPoint){
+				case 0:
+				case 1:
+				case 2: y0 = 0; break;
+				case 3:
+				case 4:
+				case 5: y = (width-this.width)/2; break;
+				case 7:
+				case 8:
+				case 9: y = (width-this.width); break;
+			}			
+			
+			var context2dCfg = this.getConfigContext2d()
+			this.context2d.save();
+			this.width = width; 
+			this.height = height;
+			this.context2d.drawImage(twc, x, y);
 			this.context2d.restore();
 			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			return true;

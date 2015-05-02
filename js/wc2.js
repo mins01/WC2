@@ -230,12 +230,17 @@ var wc2 = (function(){
 					}
 					
 				break;
+				
 				case "resize":
 					if(this.activeWcb.resize(arg1,arg2)){
 						this.saveHistory("Image."+cmd);
 					}
 				break;
-				
+				case "adjustSize":
+					if(this.activeWcb.adjustSize(arg1,arg2,arg3)){
+						this.saveHistory("Image."+cmd);
+					}
+				break;
 				
 				//-- 단순호출처리
 				case "undo":
@@ -246,6 +251,9 @@ var wc2 = (function(){
 				break;
 				case "save":
 					this.saveWcb(arg1,arg2,arg3);
+				break;
+				default:
+				this.setError("지원되지 않는 메소드");
 				break;
 			}
 			this._syncWcbInfo();
@@ -679,8 +687,9 @@ var wc2 = (function(){
 				switch(menu){
 					case "file-save":t[0].saveFileName.value = this.activeWcb.name;break;
 					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
-					case "image-resize":t[0].resizeWidth.defaultValue = t[0].resizeWidth.value = this.activeWcb.width;
-												t[0].resizeHeight.defaultValue = t[0].resizeHeight.value = this.activeWcb.height;
+					case "image-adjustSize":
+					case "image-resize":t[0].width.defaultValue = t[0].width.value = this.activeWcb.width;
+												t[0].height.defaultValue = t[0].height.value = this.activeWcb.height;
 					break;
 				}
 			}

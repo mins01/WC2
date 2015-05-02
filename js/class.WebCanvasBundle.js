@@ -287,6 +287,15 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			return false;
 		}
+		,"adjustSize":function(width,height,controlPoint){
+			if(this.execAllWebCanvas("adjustSize",arguments)){
+				this.width = width;
+				this.height = height;
+				this._syncNode();
+				return true;
+			}
+			return false;
+		}
 		,"resize":function(width,height){
 			if(this.execAllWebCanvas("resize",arguments)){
 				this.width = width;

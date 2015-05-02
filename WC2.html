@@ -11,7 +11,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 		<title>WC2</title>
-
+		<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>		
+		
 		<!-- 합쳐지고 최소화된 최신 CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -95,7 +98,7 @@
 								<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdWcb('clear');return false;">Clear</a></li>
 								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="image-rename">Rename</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen" data-wc-menu="image-resize">Image Resize</a></li>
-								<li><a href="#" class="glyphicon glyphicon-fullscreen">Canvas Resize</a></li>
+								<li><a href="#" class="glyphicon glyphicon-fullscreen" data-wc-menu="image-adjustSize">Canvas Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-picture">Insert Image</a></li>
 								<li><a href="#" class="glyphicon glyphicon-scissors" >Crop</a></li>
 								<li class="divider"></li>
@@ -765,6 +768,7 @@ Ciao
 											<li>공대여자 : <a href="http://www.mins01.com/" target="_blank">Homepage</a></li>
 											<li>URL : <a href="http://www.mins01.com/web_work/web/WC2/WC2.html" target="_blank">http://www.mins01.com/web_work/web/WC2/WC2.html</a></li>
 											<li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
+											<li>"공대여자는 이쁘다."</li>
 										</ul>
 									</li>
 									<li class="list-group-item text-danger">
@@ -800,7 +804,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailIamgeResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.resizeWidth.value,this.resizeHeight.value);wc2.hideMenuDetail();return false;">
+				<form name="formMenuDetailIamgeResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.width.value,this.height.value);wc2.hideMenuDetail();return false;">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Resize (Scale Iamge)</div>
 						<div  class="panel-body">
@@ -811,23 +815,121 @@ Ciao
 											<div class="col-lg-6">
 												<div class="input-group">
 													<span class="input-group-addon">
-													width
+														<span class="glyphicon glyphicon-resize-horizontal"></span>
+														width
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="resizeWidth" placeholder="width..." class="form-control">
+													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control">
 												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="input-group">
 													<span class="input-group-addon">
-													height
+														<span class="glyphicon glyphicon-resize-vertical"></span>
+														height
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="resizeHeight" placeholder="height..." class="form-control">
+													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control">
 												</div>
 											</div>
 										</div>
 									</li>
 									<li class="list-group-item" >
-										<button class="btn btn-default" type="reset">reset</button>
+										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
+									</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailIamgeAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailIamgeAdjustSizeButtons(this,0)";>
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Adjust Size</div>
+						<div  class="panel-body">
+								<ul class="list-group ">
+									<li class="list-group-item list-group-item-success">setting</li>
+									<li class="list-group-item" style="text-align:left">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-resize-horizontal"></span>
+														width
+													</span>
+													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control">
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-resize-vertical"></span>
+														height
+													</span>
+													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item" >
+										<div style="margin-bottom:2px;">
+										<select name="controlPoint" class="btn btn-default " >
+											<option value="0" selected>↖: Left Top</option>
+											<option value="1">↑: Center Top</option>
+											<option value="2">↗: Right Top</option>
+											<option value="3">←: Left Middle</option>
+											<option value="4">◎: Center Middle</option>
+											<option value="5">→: Right Middle</option>
+											<option value="6">↙: Left Bottom</option>
+											<option value="7">↓: Center Bottom</option>
+											<option value="8">↘: Right Bottom</option>
+										</select>
+										</div>
+											<div>
+													<div>
+													<button type="button" class="btn btn-default no-glyphicon active"  name="controlPointR" value="0" checked>↖</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="1" >↑</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="2" >↗</button>
+													</div>
+													<div>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="3" >←</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="4" >◎</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="5" >→</button>
+													</div>
+													<div>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="6" >↙</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="7" >↓</button>
+													<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="8" >↘</button>
+													</div>
+											</div>
+										<script>
+										
+										function formMenuDetailIamgeAdjustSizeButtons(f,n){
+											$(f).find("button[name='controlPointR']").each(
+												function(idx,el){
+													$(el).removeClass("active");
+												}
+											)
+											$(f).find("button[name='controlPointR'][value="+n+"]").each(
+												function(idx,el){
+												$(el).addClass("active");
+												}
+											)
+										}
+										$(document.formMenuDetailIamgeAdjustSize).on("click","button[name='controlPointR']",function(event){
+											var f = event.target.form;
+											f.controlPoint.value = event.target.value;
+											formMenuDetailIamgeAdjustSizeButtons(f,event.target.value);
+										});
+										$(document.formMenuDetailIamgeAdjustSize.controlPoint).bind("click",function(event){
+											var f = event.target.form;
+											formMenuDetailIamgeAdjustSizeButtons(f,event.target.value);
+											
+										});
+										</script>
+									</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
 									</li>
 									<li class="list-group-item" >
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
@@ -844,9 +946,7 @@ Ciao
 		
 		
 	</div> <!-- <div id="container"> -->
-	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<!-- 드롭다운 메뉴 확장용 JS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/js/dropdowns-enhancement.js -->
@@ -895,7 +995,7 @@ Ciao
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
 		wc2.cmdWcb("new",300,300);
-		wc2.showMenuDetail('image-resize');
+		wc2.showMenuDetail('image-adjustSize');
 	});
 	</script>
 	</body>
