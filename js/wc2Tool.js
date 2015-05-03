@@ -156,6 +156,12 @@ var wc2Tool = function(){
 					this.y0 = t.y;
 					this.x1 = t.x;
 					this.y1 = t.y;
+				}else if(this.step==1){
+					this.x2 = t.x;
+					this.y2 = t.y;
+				}else if(this.step==2){
+					this.x3 = t.x;
+					this.y3 = t.y;
 				}
 				this.predraw();
 				//console.log("down");
