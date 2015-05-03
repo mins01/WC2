@@ -245,6 +245,7 @@ var wc2 = (function(){
 				//-- 단순호출처리
 				case "undo":
 				case "redo":
+					this.cmdTool("reset");
 					if(this.activeWcb[cmd]){
 						this.activeWcb[cmd]();
 					}
