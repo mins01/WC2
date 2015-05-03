@@ -457,17 +457,54 @@ var wc2 = (function(){
 			)
 		}
 		//--- 레이어 관련
-		//-- 레이어 싱크
+		//-- 레이어 싱크 (최적화 필요)
 		,"_syncWcbInfo":function(){
 			if(!this.activeWcb){ 
-				$("#propLayerList").html("").append('<li class="list-group-item">#EMPTY#<li>')
-				$("#propHistoryList").html("").append('<li class="list-group-item">#EMPTY#<li>')
+				$("#propLayerList .wc-prop-layer-empty").show();
+				$("#propHistoryList .wc-prop-history-empty").show();
+				$("#propLayerList .wc-prop-layer-info").hide();
 			}else{
+				$("#propLayerList .wc-prop-layer-empty").hide();
 				var wcb = this.activeWcb;
+				//-- 제목 싱크
+				$(wcb.tabTitleA).text(wcb.name);
 				//--- 레이어 싱크
-				var propLayerList = $("#propLayerList").html("");
-				var limitHeight = 40;
-				var c = WebCanvas(Math.round(wcb.width*(limitHeight/wcb.height)),limitHeight);
+				//var propLayerList = $("#propLayerList").html("");
+				var height = 40;
+				var width = Math.round(wcb.width*(height/wcb.height));
+				var lis = $("#propLayerList .wc-prop-layer-info");
+				var propLayerList = $("#propLayerList");
+				for(var i=0,m=wcb.webCanvases.length-lis.length ;i<m;i++){ //모자른 lis를 생성하지
+					var li = document.createElement("li");
+					li.className="list-group-item wc-prop-layer wc-prop-layer-info";
+					li.wc = WebCanvas(width,height);
+					li.appendChild(li.wc.node);
+					li.span =  document.createElement("span");
+					li.appendChild(li.span);
+					propLayerList.append(li);
+				}
+				var lis = $("#propLayerList .wc-prop-layer-info");
+				lis.hide(); //우선 모두 숨긴다.
+				var tmpli_i = 0;
+				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
+					var oc = wcb.webCanvases[i];
+					
+					var li = lis[tmpli_i];
+					$(li).show();
+					li.dataset.wcbActive = oc.dataset.wcbActive;
+					li.dataset.wcbIndex = oc.dataset.wcbIndex;
+					li.title = oc.label;
+					
+					li.wc.setLabel(oc.label);
+					li.wc.clearResize(width,height);
+					li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
+					li.wc.setOpacity(oc.opacity);
+					
+					$(li.span).text(oc.label)
+					tmpli_i++;
+				}
+				
+				/*
 				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
 					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
 					var oc = wcb.webCanvases[i];
@@ -493,6 +530,7 @@ var wc2 = (function(){
 					propLayerList.append(li)
 					//console.log(wcb.webCanvases[i].alt);
 				}
+				*/
 				//--- 히스토리 싱크
 				var propHistoryList = $("#propHistoryList").html("");
 				var limitHeight = 40;

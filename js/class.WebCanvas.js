@@ -63,6 +63,7 @@ function WebCanvas(width,height,colorset){
 		
 		//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
 		
+		c._syncNode();
 		if(colorset){
 			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
 			c.context2d.fillRect(0,0,c.width,c.height);
@@ -104,17 +105,32 @@ function WebCanvas(width,height,colorset){
 			console.log(this.error);
 			return this.error;
 		}
+		,"_syncNode":function(){
+			//this.node.innerHTML = "";//내용 초기화
+			this.node.style.width = this.width+"px";
+			this.node.style.height = this.height+"px";
+			return true;
+		}
 		//-- 리사이즈 (내용유지) Scale image
 		,"resize":function(width,height){
 			var twc = this.clone();
 			this.clear();
-			var context2dCfg = this.getConfigContext2d()
-			this.context2d.save();
+			this.saveContext2d();
 			this.width = width; 
 			this.height = height;
 			this.context2d.drawImage(twc, 0, 0, width, height);
+			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this._syncNode();
+			return true;
+		}
+		//-- 내용을 지우면서 리사이즈 한다.. 
+		,"clearResize":function(width,height){
+			this.saveContext2d();
+			this.width = width; 
+			this.height = height;
 			this.context2d.restore();
-			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this._syncNode();
 			return true;
 		}
 		//-- 사이즈 조정 (내용이 잘릴 수 있음.)
@@ -158,6 +174,7 @@ function WebCanvas(width,height,colorset){
 			this.context2d.drawImage(twc, x, y);
 			this.context2d.restore();
 			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this._syncNode();
 			return true;
 		}
 		,"clear":function(withFillStyle){
