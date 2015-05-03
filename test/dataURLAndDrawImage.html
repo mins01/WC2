@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- 
+2015-04-23 : 제작시작
+임의사용 금지.
+
+-->
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
+		<title>WC2</title>
+	</head>
+	<style>
+	img{border:2px solid red;}
+	canvas{border:2px solid blue;}
+	</style>
+	<body>
+	<div id="divBase">
+		
+	</div>
+	
+	
+	<input type="button" onclick="fn1(this)" value="TEST1. click:img.src=canvas.toDataURL()"></button>
+	<input type="button" onclick="fn2(this)" value="TEST2. click:canvas.drawImage(canvas)"></button>
+	<input type="button" onclick="fn3(this)" value="TEST3. click:canvas.drawImage(image)"></button>
+	<input type="button" onclick="fn3(this)" value="TEST4. click:canvas.putImageData(canvas.getImageData())"></button>
+	
+	<hr>
+	주의 : 수정된 canvas를 사용하였음.<br>
+	테스트 할 때 마다 숫자가 요동침...<br>
+	크롬  버전 42.0.2311.135 에서 테스트
+	<hr>
+	<ul>
+		<li>TPS : 3285.930209633962</li>
+		<li>TPS : 89449.01610017888</li>
+		<li>TPS : 225234.23423423423</li>
+		<li>TPS : 212774.4680851064</li>
+	</ul>
+	
+	
+	<hr>
+	결론<br>
+	TEST4(100%) = TEST3(94%)  > TEST2(40%) >>>>>>>>>>>>>>>>> TEST1(1%)<br>
+	img.src=canvas.toDataURL()은 될 수 있으면 쓰지 말라.<br>
+	canvas간의 데이터 넣기는 canvas.putImageData(canvas.getImageData()) 를 추천.(리사이등은 안하는 경우)<br>
+	canvas.drawImage(canvas) 는 생각보다 느리지만, reisze등을 생각한다면 어쩔 수 없다.(리사이즈로 처리되면 더욱더 느려진다.)<br>
+	
+	<!-- WC2 -->
+	<script src="../js/class.WebCanvas.js"></script>
+	<script>
+	var c1 = WebCanvas(100,100);
+	c1.id = "c1";
+	var c2 = WebCanvas(100,100);
+	c2.id="c2";
+	var img1 = new Image();
+	img1.src = "../img/bg.gif";
+	var divBase = document.getElementById('divBase');
+	c1.line(0,0,100,100);
+	c1.line(0,100,100,0);
+	divBase.appendChild(c1);
+	divBase.appendChild(document.createElement('hr'));
+	divBase.appendChild(img1);
+	divBase.appendChild(document.createElement('hr'));
+	divBase.appendChild(c2);
+	img1.src = c1.toDataURL();
+	
+	function fn1(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		while(i++ <= 50000){
+			img1.src = c1.toDataURL();
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+	function fn2(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		while(i++ <= 50000){
+			c2.drawImage(c1,0,0,50,50);
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+	function fn3(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		while(i++ <= 50000){
+			c2.drawImage(img1,0,0);
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+	function fn4(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		while(i++ <= 50000){
+			c2.putImageData(c1.getImageData());
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+	</script>
+	<!-- -->
+	</body>
+</html>
