@@ -268,7 +268,7 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.copyWithoutOpacity(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"destination-out"});
 				
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
