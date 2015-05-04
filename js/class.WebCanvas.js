@@ -89,11 +89,14 @@ function WebCanvas(width,height,colorset){
 			this.modified();
 		}
 		//-- 수정 시간을 표시
+		,"setMtime":function(mtime){
+			return this.mtime = (mtime==undefined)?(new Date()).getTime():mtime;
+		}
 		,"modified":function(){
-			this.mtime = (new Date()).getTime();
+			this.setMtime();
 		}
 		,"isModified":function(mtime){
-			return this.mtime >= mtime; //수정시간과 입력된 시간을 비교해서 수정여부판단.
+			return this.mtime > mtime; //수정시간과 입력된 시간을 비교해서 수정여부판단.
 		}
 		//-- context2d 관련해서 매핑해서 사용. mtime 때문에.
 		,"cmdContext2d":function(){
@@ -107,10 +110,12 @@ function WebCanvas(width,height,colorset){
 				args.push(arguments[i]);
 			}
 			//var args = Array.prototype.slice.call(arguments, 1);
-			//console.log(cmd,args);
+			//console.log(this.lavel,cmd,args);
 			if(this.context2d[cmd] != undefined && typeof this.context2d[cmd] =="function"){
-				
-				this.modified();
+				if((/(clearRect|fillRect|strokeRect|fill|stroke|fillText|strokeText|drawImage|putImageData)/).test(cmd)){ //내용에 영향을 주는 메소드만
+					this.modified();
+					//console.log(this.label,cmd);
+				}		
 				return this.context2d[cmd].apply(this.context2d,args);
 			}else{
 				this.setError("지원되지 않는 메소드(1) : "+cmd+"("+args.join(',')+")");
@@ -157,6 +162,7 @@ function WebCanvas(width,height,colorset){
 			this.cmdContext2d("drawImage",twc, 0, 0, width, height);
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
+			this.modified();
 			return true;
 		}
 		//-- 내용을 지우면서 리사이즈 한다.. 
@@ -164,9 +170,9 @@ function WebCanvas(width,height,colorset){
 			this.saveContext2d();
 			this.width = width; 
 			this.height = height;
-			this.cmdContext2d("restore");
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
+			this.modified();
 			return true;
 		}
 		//-- 사이즈 조정 (내용이 잘릴 수 있음.)
@@ -216,7 +222,7 @@ function WebCanvas(width,height,colorset){
 		,"clear":function(withFillStyle){
 			//this.width = this.width; //이걸 사요하면 context2d의 설정이 초기화된다.
 			if(withFillStyle){
-				console.log("fill");
+				//console.log("fill");
 				this.cmdContext2d("fillRect",0,0,this.width,this.height);
 			}else{
 				
@@ -554,13 +560,15 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 히스토리,undo용 데이터
 		,"getDataForHistory":function(){
-			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.getImageData()};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.getImageData(),"mtime":this.mtime};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
 			this.setLabel(data.label);
 			this.setOpacity(data.opacity!=undefined?data.opacity:1);
 			this.putImageData(data.imageData);
+			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
+			//console.log(this.label,"수정시간 덮음",this.mtime);
 		}
 		//--- 파일용 데이터
 		,"toWcDataObject":function(type,quality){

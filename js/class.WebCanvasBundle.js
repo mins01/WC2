@@ -155,10 +155,23 @@ function WebCanvasBundle(width,height,colorset){
 			return true;
 		}
 		//-- undo
+		//-- 현재 히스토리를 모든 내용을 담은 히스토리로 바꾼다.
+		,"resaveHistory":function(){
+			var oldMtime = 0;
+			this.historyLog[this.historyIdx] = {"action":this.historyLog[this.historyIdx].action,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()};
+			console.log("히스토리 재저장",oldMtime);
+			return true;
+		}
+		// 히스토리 저장
 		,"saveHistory":function(action){
 			//this.historyIdx = (this.historyIdx+1)%this.commonConfig.limitHistoryLog;
+			if(this.historyIdx<0){
+				var oldMtime = 0;
+			}else{
+				var oldMtime = this.historyLog[this.historyIdx].time;
+			}
 			this.historyIdx++;
-			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"width":this.width,"height":this.height,"data":this.getDataForHistory(),"time":(new Date()).getTime()});
+			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()});
 			if(this.historyLog.length > this.commonConfig.limitHistoryLog){
 				this.historyLog.splice(0,1);
 				this.historyIdx--;
@@ -172,21 +185,27 @@ function WebCanvasBundle(width,height,colorset){
 		,"undo":function(){
 			if(this.historyIdx<=0){this.setError("더 이상의 히스토리가 없습니다");return;}
 			var historyData = this.historyLog[--this.historyIdx];
-			this.resize(historyData.width,historyData.height);
+			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
 			this.putDataForHistory(historyData);
 		}
 		,"redo":function(){
 			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("더 이상의 히스토리가 없습니다");return;}
 			var historyData = this.historyLog[++this.historyIdx];
-			this.resize(historyData.width,historyData.height);
+			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
 			this.putDataForHistory(historyData);
 			
 		}
-		,"getDataForHistory":function(action){
+		,"getDataForHistory":function(oldMtime){
 			var data = [];
 			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
-				data.push(this.webCanvases[i].getDataForHistory());
+				if(this.webCanvases[i].isModified(oldMtime)){
+					data.push(this.webCanvases[i].getDataForHistory());
+					//console.log("PUSH : "+this.webCanvases[i].label);
+				}else{
+					data.push(null); //변경내용이 없음을 표시.
+					//console.log("SKIP : "+this.webCanvases[i].label);
+				}
 			}
 			return data;
 		}
@@ -195,6 +214,11 @@ function WebCanvasBundle(width,height,colorset){
 				if(!this.webCanvases[i]){ //없으면 레이어 하나를 붇인다.
 					this.addWebCanvas();
 				}
+				if(historyData.data[i] == null){//변경사항이 없다.
+					//console.log("put SKIP");
+					continue;
+				}
+				this.webCanvases[i].resize(historyData.width,historyData.height);
 				this.webCanvases[i].putDataForHistory(historyData.data[i]);
 			}
 			for(var m=this.webCanvases.length;i<m;i++){
@@ -291,7 +315,7 @@ function WebCanvasBundle(width,height,colorset){
 			return false;
 		}
 		,"adjustSize":function(width,height,controlPoint){
-			if(this.execAllWebCanvas("adjustSize",arguments)){
+			if(this.execAllWebCanvases("adjustSize",arguments)){
 				this.width = width;
 				this.height = height;
 				this._syncNode();
@@ -299,17 +323,22 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			return false;
 		}
-		,"resize":function(width,height){
-			if(this.execAllWebCanvas("resize",arguments)){
-				this.width = width;
-				this.height = height;
-				this._syncNode();
+		,"resizeNode":function(width,height){ //wc는 무시하고 wcb.node만 리사이즈.
+			this.shadowWebCanvas.clearResize(width,height);
+			this.width = width;
+			this.height = height;
+			this._syncNode();
+			return true;
+		}
+		,"resize":function(width,height){ //wc도 같이 리사이즈
+			if(this.execWebCanvases("resize",arguments)){
+				this.resizeNode(width,height);
 				return true;
 			}
 			return false;
 		}
 		,"crop":function(x0,y0,width,height){
-			if(this.execAllWebCanvas("crop",arguments)){
+			if(this.execAllWebCanvases("crop",arguments)){
 				this.width = width;
 				this.height = height;
 				this._syncNode();
@@ -322,7 +351,7 @@ function WebCanvasBundle(width,height,colorset){
 				this.setError("WebCanvasBundle.rotate90To() : not support degrees : "+deg);
 				return false;
 			}
-			if(this.execAllWebCanvas("rotate90To",arguments)){
+			if(this.execAllWebCanvases("rotate90To",arguments)){
 				var n = deg/90;
 				if(n%2 == 0){
 				}else{ //너비 높이 바꾸기
@@ -349,7 +378,7 @@ function WebCanvasBundle(width,height,colorset){
 		/**
 		* 웹캔버스에 일괄 메소드 적용 시 (쉐도우 캔버스 포함)
 		*/
-		,"execAllWebCanvas":function(method,args){
+		,"execAllWebCanvases":function(method,args){
 			if(!this.execWebCanvases(method,args)){
 				return false;
 			}
@@ -489,7 +518,7 @@ function WebCanvasBundle(width,height,colorset){
 			 return r;
 		}
 		,"flip":function(){
-			return this.execAllWebCanvas("flip",arguments)
+			return this.execAllWebCanvases("flip",arguments)
 		}
 	}
 })();

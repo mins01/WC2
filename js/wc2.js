@@ -195,11 +195,19 @@ var wc2 = (function(){
 		,"saveHistory":function(action){
 			this.activeWcb.saveHistory(action);
 		}
+		,"resaveHistory":function(){
+			this.activeWcb.resaveHistory();
+		}
 		//--- 
+		// 한번에 다중 레이어처리의 경우 resaveHistory()로 모든 레이어에대한 히스토리를 남겨야한다.(안그러면 undo때 레이어 내용이 없음)
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
 			if(cmd != "new" && cmd != "open" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
 			switch(cmd){
-				case "clear":this.activeWcb.clear();this.saveHistory("Image."+cmd);break;
+				case "clear":
+						this.saveHistory("Image."+cmd,true);
+						this.activeWcb.clear();
+						this.saveHistory("Image."+cmd);
+				break;
 				case "new":(this.newWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
 				case "open":
 					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
@@ -233,11 +241,13 @@ var wc2 = (function(){
 				break;
 				
 				case "resize":
+					this.resaveHistory();
 					if(this.activeWcb.resize(arg1,arg2)){
 						this.saveHistory("Image."+cmd);
 					}
 				break;
 				case "adjustSize":
+					this.resaveHistory();
 					if(this.activeWcb.adjustSize(arg1,arg2,arg3)){
 						this.saveHistory("Image."+cmd);
 					}
@@ -500,7 +510,7 @@ var wc2 = (function(){
 					li.title = oc.label;
 					if(usePreviewImageAtLayerInfo==1){
 						//try{
-							li.wc.setLabel(oc.label);
+							li.wc.setLabel(oc.label+"-pre");
 							li.wc.clearResize(width,height);
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							li.wc.setOpacity(oc.opacity);
