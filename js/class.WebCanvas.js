@@ -154,6 +154,10 @@ function WebCanvas(width,height,colorset){
 		}
 		//-- 리사이즈 (내용유지) Scale image
 		,"resize":function(width,height){
+			if(this.width == width && this.height == height){
+				//this.setError("resize() not work");
+				return true; //같은 너비,높이니깐 리사이즈 안함.
+			}
 			var twc = this.clone();
 			this.clear();
 			this.saveContext2d();
@@ -167,6 +171,11 @@ function WebCanvas(width,height,colorset){
 		}
 		//-- 내용을 지우면서 리사이즈 한다.. 
 		,"clearResize":function(width,height){
+			if(this.width == width && this.height == height){
+				this.clear();
+				//this.setError("clearResize() not work. only clear()");
+				return true; //같은 너비,높이니깐 리사이즈 안함.
+			}
 			this.saveContext2d();
 			this.width = width; 
 			this.height = height;
