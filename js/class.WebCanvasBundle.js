@@ -127,13 +127,14 @@ function WebCanvasBundle(width,height,colorset){
 			if(!isNaN(zoom)){
 				this.zoom = zoom;
 			}
-			//this.node.style.transform="scale("+this.zoom+","+this.zoom+")";
-			this.node.style.width = (this.width*this.zoom)+'px';this.node.style.height = (this.height*this.zoom)+'px';
+			this.node.style.transform="scale("+this.zoom+","+this.zoom+")";
+			//this.node.style.width = (this.width*this.zoom)+'px';this.node.style.height = (this.height*this.zoom)+'px';
+			this.node.style.width = (this.width)+'px';this.node.style.height = (this.height)+'px';
 		}
 		,"_syncNode":function(){
 			//this.node.innerHTML = "";//내용 초기화
-			this.node.style.width = this.width+"px";
-			this.node.style.height = this.height+"px";
+			//this.node.style.width = this.width+"px";
+			//this.node.style.height = this.height+"px";
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				//this.webCanvases[i].node.appendChild(this.webCanvases[i]); //IE버그인듯.. 왜 사라지는지, 다시 붙여 넣게 바꾼다.
 				this.node.appendChild(this.webCanvases[i].node);
