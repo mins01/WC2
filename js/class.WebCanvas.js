@@ -82,6 +82,22 @@ function WebCanvas(width,height,colorset){
 		,"initContext2dCfg":{}
 		,"saveContext2dCfg":[]
 		//== 추가 메소드
+		//---context2d 메소드 호출용
+		,"cmdContext2d":function(cmd){
+			if(arguments.length<=0){
+				this.setError("지원되지 않는 메소드(0) : "+arguments.toString());
+				return false;
+			}
+			var cmd = arguments[0];
+			if(this.context2d[cmd] != undefined && typeof this.context2d[cmd] =="function"){
+				var args = Array.prototype.slice.call(arguments, 1);
+				this.context2d[cmd].apply(this.context2d,args);
+				console.log(cmd,args);
+			}else{
+				this.setError("지원되지 않는 메소드(1) : "+arguments.toString());
+				return false;
+			}
+		}
 		//--- 색상 변환용
 		,"colorset2String":function(colorset){
 			switch(colorset.length){
@@ -350,11 +366,18 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){
+			this.cmdContext2d("beginPath");
+			this.cmdContext2d("moveTo",x0,y0);
+			this.cmdContext2d("lineTo",x1,y1);
+			this.cmdContext2d("stroke");
+			this.cmdContext2d("closePath");
+			/*
 			this.context2d.beginPath();
 			this.context2d.moveTo(x0,y0);
 			this.context2d.lineTo(x1,y1);
 			this.context2d.stroke();
 			this.context2d.closePath();
+			*/
 			return true;
 		}
 		//--- 연결된 다중 선 그리기
