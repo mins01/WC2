@@ -187,8 +187,11 @@ function WebCanvas(width,height,colorset){
 		//-- 내용을 지우면서 리사이즈 한다.. 
 		,"clearResize":function(width,height){
 			if(this.width == width && this.height == height){
+				this.saveContext2d();
 				this.clear();
+				this.modified();
 				//this.setError("clearResize() not work. only clear()");
+				this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 				return true; //같은 너비,높이니깐 리사이즈 안함.
 			}
 			this.saveContext2d();
@@ -285,10 +288,9 @@ function WebCanvas(width,height,colorset){
 				for(var x in cfg){
 					if(this.context2d[x] === undefined){
 						continue;
-					}else if(typeof this.context2d[x] == "function" || typeof this.context2d[x] == "object"){
+					}else if(typeof this.context2d[x] == "function"){
 						continue;
 					}
-					
 					if(typeof this.context2d[x] == "number"){
 						this.context2d[x] = parseFloat(cfg[x]);
 					}else{

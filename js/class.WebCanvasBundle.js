@@ -436,6 +436,8 @@ function WebCanvasBundle(width,height,colorset){
 			var t = this.webCanvases[idx1];
 			this.webCanvases[idx1] = this.webCanvases[idx0];
 			this.webCanvases[idx0] = t;
+			this.webCanvases[idx0].modified();
+			this.webCanvases[idx1].modified();
 			this._syncNode();
 			return true;
 		}

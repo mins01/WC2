@@ -30,6 +30,8 @@ var wc2 = (function(){
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
+		 ,"brushWC":null //브러쉬용
+		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -70,7 +72,7 @@ var wc2 = (function(){
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
 			this.hideMenuDetail();
-			this.setTool("pen");
+			this.setTool("brush");
 		}
 		,"setError":function(error,disableShow){
 			this.error = error;
@@ -79,12 +81,17 @@ var wc2 = (function(){
 		}
 		//--- UI초기화
 		,"initUI":function(){
+			//-- 탭 초기화
 			this.tabs = $( "#tabs" ).tabs({
 				"activate": function( event, ui ) {
 					if(!ui.newPanel[0] || !ui.newPanel[0].wcb){return;}
 					wc2.cmdWcb("active",ui.newPanel[0].wcb); //Tab이 active되면 관련 wcb도 active가 된다.
 				}
 			});
+			//-- 브러쉬 초기화
+			this.brushWC = WebCanvas(100,100);
+			$("#formToolBrushCanvasBox").append(this.brushWC.node);
+			this.syncBrushCanvas();
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
@@ -600,15 +607,21 @@ var wc2 = (function(){
 			var history = true;
 			var r = null;
 			switch(cmd){
-				case "clear":r = this.activeWcb.activeWebCanvas.clear();break;
+				case "clear":history = this.activeWcb.activeWebCanvas.clear();break;
 				case "new":
-				case "add":r = this.activeWcb.addWebCanvas();break;
-				case "duplicate":r = this.activeWcb.addDuplicateWebCanvas();break;
-				case "mergeDown":r = this.activeWcb.mergeDown();break;
-				case "remove":r = this.activeWcb.removeWebCanvas();break;
-				case "moveUp":r = this.activeWcb.moveUpWebCanvasByIndex();break;
-				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
-				case "opacity":r = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
+				case "add":history = this.activeWcb.addWebCanvas();break;
+				case "duplicate":history = this.activeWcb.addDuplicateWebCanvas();break;
+				case "mergeDown":history = this.activeWcb.mergeDown();break;
+				case "remove":
+					this.resaveHistory();
+					history = this.activeWcb.removeWebCanvas();break;
+				case "moveUp":
+					this.resaveHistory();
+					history = this.activeWcb.moveUpWebCanvasByIndex();break;
+				case "moveDown":
+					this.resaveHistory();
+					history = this.activeWcb.moveDownWebCanvasByIndex();break;
+				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
 				case "select":r = this._selectLayer(arg1); history = false; break;
 			}
 			if(history){
@@ -678,7 +691,7 @@ var wc2 = (function(){
 		,"initColorPalette":function(){
 			this.strokeStyle = document.getElementById('strokeStyle');
 			$(this.strokeStyle).spectrum({
-					//color: "#000",
+					color: "rgb(0,0,0)",
 					//showAlpha: true,
 					showInput: true,
 					className: "strokeStyle",
@@ -696,7 +709,7 @@ var wc2 = (function(){
 			});
 			this.fillStyle = document.getElementById('fillStyle');
 			$(this.fillStyle).spectrum({
-					//color: "#fff",
+					color: "rgb(255,255,255)",
 					//showAlpha: true,
 					showInput: true,
 					className: "fillStyle",
@@ -705,7 +718,7 @@ var wc2 = (function(){
 					showSelectionPalette: true,
 					containerClassName: 'colorPalette',
 					maxPaletteSize: 20,
-					preferredFormat: "hex",
+					preferredFormat: "rgb",
 					localStorageKey: "wc2.fillStyle",
 					change: function(color) {
 						this.value = color.toRgbString();
@@ -728,11 +741,11 @@ var wc2 = (function(){
 			return true;
 		}
 		,"setStrokeColor":function(val){
-			$( this.strokeStyle).spectrum("set", val);
+			$( this.strokeStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setFillColor":function(val){
-			$( this.fillStyle).spectrum("set", val);
+			$( this.fillStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setSpuitColorTo":function(ta){
@@ -834,6 +847,36 @@ var wc2 = (function(){
 				}
 			}
 			return this.usePreviewImageAtLayerInfo;
+		}
+		//브러쉬 정보 싱크 그리기
+		,"syncBrushCanvas":function(){
+			var f = document.formToolBrush;
+			var fc = document.formColor;
+			var width = parseFloat(f.width.value);
+			var r0p = parseFloat(f.r0p.value);
+			this.brushSpacing  = parseFloat(f.brushSpacing.value);
+			var globalAlpha = parseFloat(f.globalAlpha.value);
+			var strokeStyle = fc.strokeStyle.value;
+			var fillStyle = fc.fillStyle.value;
+
+			
+			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
+			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
+			console.log(strokeStyle,color0);
+			var x0 ,y0 ,r0,x1 ,y1, r1;
+			x0 = y0 = r1 = x1 = y1  = width/2;
+			r0 = Math.min(x0*r0p,x0*0.99);
+			console.log(r1,r0);
+			this.brushWC.clearResize(width,width);
+			var rg = this.brushWC.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
+			rg.addColorStop(0,color0);
+			rg.addColorStop(1,color1);
+			this.brushWC.configContext2d({"fillStyle":rg,"disableStroke":1,"globalAlpha":globalAlpha})
+			this.brushWC.rect(0,0,width,width);
+			this.brushWC.configContext2d({"fillStyle":color0,"disableStroke":1,"globalAlpha":globalAlpha})
+			this.brushWC.circle(x0,y0,r0);
+			
+			return true;
 		}
 	};
 })();
