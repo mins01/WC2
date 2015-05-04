@@ -325,8 +325,9 @@ function WebCanvas(width,height,colorset){
 			if(x < 0 || x > this.width || y < 0 ||y > this.height){
 				return false;
 			}
-			var imagedata = this.cmdContext2d("getImageData",0, 0, this.width, this.height);
-			var pos = Math.round(this.width*y+x)*4
+			var imagedata = this.cmdContext2d("getImageData",x, y, 1, 1);
+			//var pos = Math.round(this.width*y+x)*4
+			var pos = 0;
 			try{
 				return [imagedata.data[pos],imagedata.data[pos+1],imagedata.data[pos+2],(imagedata.data[pos+3]/255)]
 			}catch(e){
