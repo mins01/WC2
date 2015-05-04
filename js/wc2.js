@@ -82,7 +82,7 @@ var wc2 = (function(){
 			this.tabs = $( "#tabs" ).tabs({
 				"activate": function( event, ui ) {
 					if(!ui.newPanel[0] || !ui.newPanel[0].wcb){return;}
-					wc2.cmdWcb("active",ui.newPanel[0].wcb)
+					wc2.cmdWcb("active",ui.newPanel[0].wcb); //Tab이 active되면 관련 wcb도 active가 된다.
 				}
 			});
 		}
@@ -203,19 +203,23 @@ var wc2 = (function(){
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
 			if(cmd != "new" && cmd != "open" && cmd !="active" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
 			var sync = true;
+			//var history = true; 동작별로 히스토리 사용이 들죽 날죽해서 공통처리 안 한다.
 			switch(cmd){
 				case "active":
-					this.setActiveWcb(arg1);
+					if(this.activeWcb != arg1){
+						if(this.activeWcb) this.resaveHistory(); //wcb를 바꾸기전에 히스토리에 내용을 남긴다.
+						this.setActiveWcb(arg1);
+					}
 				break;
 				case "clear":
-						this.saveHistory("Image."+cmd,true);
+						this.resaveHistory();
 						this.activeWcb.clear();
 						this.saveHistory("Image."+cmd);
 				break;
 				case "new":
 					var wcb = this.newWcb(arg1,arg2)
 					wcb.saveHistory("Image."+cmd);
-					this.cmdWcb("active",wcb);
+					//this.cmdWcb("active",wcb);  //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
 					sync = false;
 				break;
 				case "open":
@@ -224,7 +228,7 @@ var wc2 = (function(){
 								function(cmd){
 									return function(wcb){
 										wcb.saveHistory("Image."+cmd);
-										wc2.cmdWcb("active",wcb);
+										//wc2.cmdWcb("active",wcb);  //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
 										//console.log("end");
 									}
 								}(cmd)
@@ -234,7 +238,7 @@ var wc2 = (function(){
 						var wcb = this.newWcbByImage(arg1);
 						if(wcb){
 							wcb.saveHistory("Image."+cmd);
-							this.cmdWcb("active",wcb);
+							//this.cmdWcb("active",wcb); //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
 							sync = false;
 						}
 					}
@@ -284,6 +288,7 @@ var wc2 = (function(){
 			if(sync){
 				this._syncWcbInfo();
 			}
+			
 		}
 		,"saveWcb":function(filename,type,quality){
 			var dataURL = this.activeWcb.toDataURL(type,quality);
@@ -528,7 +533,7 @@ var wc2 = (function(){
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							li.wc.setOpacity(oc.opacity);
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
-						//console.log("pre 갱신",li.wc.label);
+						console.log("pre 갱신",li.wc.label);
 					}
 					
 					$(li.span).text(oc.label)

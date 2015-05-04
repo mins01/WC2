@@ -162,7 +162,7 @@ function WebCanvasBundle(width,height,colorset){
 		//-- 현재 히스토리를 모든 내용을 담은 히스토리로 바꾼다.
 		,"resaveHistory":function(){
 			var oldMtime = 0;
-			this.historyLog[this.historyIdx] = {"action":this.historyLog[this.historyIdx].action,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()};
+			this.historyLog[this.historyIdx].data = this.getDataForHistory(oldMtime);
 			console.log("히스토리 재저장",oldMtime);
 			return true;
 		}
