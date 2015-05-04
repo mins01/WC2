@@ -499,10 +499,14 @@ var wc2 = (function(){
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					li.title = oc.label;
 					if(usePreviewImageAtLayerInfo==1){
-						li.wc.setLabel(oc.label);
-						li.wc.clearResize(width,height);
-						li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
-						li.wc.setOpacity(oc.opacity);
+						try{
+							li.wc.setLabel(oc.label);
+							li.wc.clearResize(width,height);
+							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
+							li.wc.setOpacity(oc.opacity);
+						}catch(e){
+							li.wc.node.className="glyphicon glyphicon-sunglasses"
+						}
 					}
 					
 					$(li.span).text(oc.label)
