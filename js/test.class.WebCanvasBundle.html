@@ -17,7 +17,7 @@
 	var img0 = null;
 	window.onload=function(){
 		//--- 시작
-		var colorset0= [0xaa,0xbb,0xcc,1];		
+		var colorset0= [0xaa,0xbb,0xcc,1];
 		wcb0 = new WebCanvasBundle(200,200,colorset0);
 		document.getElementById('div').appendChild(wcb0.node);
 //--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
@@ -33,19 +33,19 @@
 			console.error("wcb0.addWebCanvas();");
 		}
 		//--- 레이어 순서 바꾸기, 아래로.
-		var r = wcb0.upOrder(1,true);
+		var r = wcb0.moveDownWebCanvasByIndex(1);
 		var colorsetR = wcb0.pickupColor(0,0);
 		if(wc2.colorset2String(colorset0) != wc2.colorset2String(colorsetR)){
-			console.error("var r = wcb0.upOrder(1,true);");
+			console.error("var r = wcb0.moveDownWebCanvasByIndex(1);");
 		}
 		//--- 레이어 순서 바꾸기, 위로.
-		var r = wcb0.upOrder(0,false);
+		var r = wcb0.moveUpWebCanvasByIndex(0);
 		var colorsetR = wcb0.pickupColor(0,0);
 		if(wc2.colorset2String(colorset1) != wc2.colorset2String(colorsetR)){
-			console.error("var r = wcb0.upOrder(0,false);");
+			console.error("var r = wcb0.moveUpWebCanvasByIndex(0);");
 		}
 		
-		actWC = wcb0.setActiveWebCanvasByNum(-1); 
+		actWC = wcb0.setActiveWebCanvasByIndex(-1); 
 		//--- 그리기 설정
 		var context2dCfg = {"lineWidth":4,"strokeStyle":wc2.colorset2String([255,255,255,1]),"fillStyle":wc2.colorset2String([0,0,0,1])};
 		actWC.configContext2d(context2dCfg);	
