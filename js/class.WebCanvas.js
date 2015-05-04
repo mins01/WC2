@@ -105,21 +105,36 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 			var cmd = arguments[0];
-			var args = [];
-			for(var i=1,m=arguments.length;i<m;i++){
-				args.push(arguments[i]);
-			}
-			//var args = Array.prototype.slice.call(arguments, 1);
-			//console.log(this.lavel,cmd,args);
 			if(this.context2d[cmd] != undefined && typeof this.context2d[cmd] =="function"){
+				var args = [];
+				for(var i=1,m=arguments.length;i<m;i++){
+					args.push(arguments[i]);
+				}
+				this._checkArgument(cmd,args);
 				if((/(clearRect|fillRect|strokeRect|fill|stroke|fillText|strokeText|drawImage|putImageData)/).test(cmd)){ //내용에 영향을 주는 메소드만
 					this.modified();
 					//console.log(this.label,cmd);
-				}		
+				}
+				
+				//-- 기본값 처리 
 				return this.context2d[cmd].apply(this.context2d,args);
 			}else{
 				this.setError("지원되지 않는 메소드(1) : "+cmd+"("+args.join(',')+")");
 				return false;
+			}
+		}
+		,"_checkArgument":function(cmd,args){
+			switch(cmd){
+				case "getImageData":
+					if(args[0]==undefined) args[0] = 0;
+					if(args[1]==undefined) args[1] = 0;
+					if(args[2]==undefined) args[2] = this.width;
+					if(args[3]==undefined) args[3] = this.height;
+				break;
+				case "putImageData":
+					if(args[0]==undefined) args[0] = 0;
+					if(args[1]==undefined) args[1] = 0;
+				break;
 			}
 		}
 		//--- 색상 변환용
@@ -348,10 +363,11 @@ function WebCanvas(width,height,colorset){
 		// 인자의 webCanvas가 위에 그려진다.
 		,"merge":function(webCanvas,x0,y0,w0,h0){
 			var opacity = webCanvas.opacity?webCanvas.opacity:1;
-			this.saveContext2d();
-			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":"source-over"});
+			
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
+			this.saveContext2d();	
+			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":"source-over"});
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.restoreContext2d();
 			return this;
@@ -386,11 +402,19 @@ function WebCanvas(width,height,colorset){
 			return this;
 		}
 		,"copy":function(webCanvas,x0,y0,w0,h0){
-			this.clear();
-			this.saveContext2d();
-			this.configContext2d({"globalAlpha":1}); //강제로 1로 설정.
-			var r = this.merge(webCanvas,x0,y0,w0,h0);
-			this.restoreContext2d();
+			if(isNaN(w0) && isNaN(h0) ){
+				if(isNaN(x0)){x0 = 0;}
+				if(isNaN(y0)){y0 = 0;}
+				//this.cmdContext2d("putImageData",webCanvas.getImageData(0,0),x0,y0);
+				this.cmdContext2d("putImageData",this.cmdContext2d("getImageData"),x0,y0);
+				console.log("x");
+			}else{			
+				this.clear();
+				this.saveContext2d();
+				this.configContext2d({"globalAlpha":1}); //강제로 1로 설정.
+				var r = this.merge(webCanvas,x0,y0,w0,h0);
+				this.restoreContext2d();
+			}
 			return r;
 		}
 		,"copyWithoutOpacity":function(webCanvas,x0,y0,w0,h0){
@@ -565,18 +589,20 @@ function WebCanvas(width,height,colorset){
 			var c = WebCanvas(this.width,this.height);
 			c.setLabel(this.label);
 			c.setOpacity(this.opacity);
-			c.cmdContext2d("putImageData",this.getImageData(),0,0);
+			//c.cmdContext2d("putImageData",this.getImageData(),0,0);
+			c.cmdContext2d("putImageData",this.cmdContext2d("getImageData"),0,0);
 			return c;
 		}
 		//--- 히스토리,undo용 데이터
 		,"getDataForHistory":function(){
-			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.getImageData(),"mtime":this.mtime};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.cmdContext2d("getImageData"),"mtime":this.mtime};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
 			this.setLabel(data.label);
 			this.setOpacity(data.opacity!=undefined?data.opacity:1);
-			this.putImageData(data.imageData);
+			//this.putImageData(data.imageData);
+			this.cmdContext2d("putImageData",data.imageData,0,0);
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
 		}
@@ -606,6 +632,7 @@ function WebCanvas(width,height,colorset){
 			}(this,callback);
 			img.src = toDataUrl;
 		}
+		/*
 		,"getImageData":function(x0,y0,w0,h0){
 			if(isNaN(x0)){x0 = 0}
 			if(isNaN(y0)){y0 = 0}
@@ -614,17 +641,15 @@ function WebCanvas(width,height,colorset){
 			return this.cmdContext2d("getImageData",x0,y0,w0,h0);
 		}
 		,"putImageData":function(imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight){
-			if(isNaN(dirtyHeight)){
-				if(isNaN(dirtyY)){
-					if(isNaN(x0)) x0 = 0;
-					if(isNaN(y0)) y0 = 0;
-					return this.cmdContext2d("putImageData",imageData,x0,y0);
-				}
-				return this.cmdContext2d("putImageData",imageData,x0,y0,dirtyX,dirtyY);
+			if(isNaN(dirtyY)){
+				if(isNaN(x0)) x0 = 0;
+				if(isNaN(y0)) y0 = 0;
+				return this.cmdContext2d("putImageData",imageData,x0,y0);
 			}
 			return this.cmdContext2d("putImageData",imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
 			
 		}
+		*/
 		//--- 확대 설정
 		,"setScale":function(sx,sy){
 			this.saveContext2d();
