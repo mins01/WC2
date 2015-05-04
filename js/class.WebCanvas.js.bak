@@ -82,7 +82,7 @@ function WebCanvas(width,height,colorset){
 			this._syncNode();
 			if(colorset){
 				this.configContext2d({"fillStyle":this.colorset2String(colorset)});
-				this.cmdContext2d("fillRect",0,0,this.width,this.height);
+				this.context2d.fillRect(0,0,this.width,this.height);
 			}
 			this.setOpacity(1);
 		}
@@ -137,7 +137,7 @@ function WebCanvas(width,height,colorset){
 			this.saveContext2d();
 			this.width = width; 
 			this.height = height;
-			this.cmdContext2d("drawImage",twc, 0, 0, width, height);
+			this.context2d.drawImage(twc, 0, 0, width, height);
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
 			return true;
@@ -147,7 +147,7 @@ function WebCanvas(width,height,colorset){
 			this.saveContext2d();
 			this.width = width; 
 			this.height = height;
-			this.cmdContext2d("restore");
+			this.context2d.restore();
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
 			return true;
@@ -187,11 +187,11 @@ function WebCanvas(width,height,colorset){
 			}			
 			
 			var context2dCfg = this.getConfigContext2d()
-			this.cmdContext2d("save");
+			this.context2d.save();
 			this.width = width; 
 			this.height = height;
-			this.cmdContext2d("drawImage",twc, x, y);
-			this.cmdContext2d("restore");
+			this.context2d.drawImage(twc, x, y);
+			this.context2d.restore();
 			this.configContext2d(context2dCfg); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
 			return true;
@@ -200,10 +200,10 @@ function WebCanvas(width,height,colorset){
 			//this.width = this.width; //이걸 사요하면 context2d의 설정이 초기화된다.
 			if(withFillStyle){
 				console.log("fill");
-				this.cmdContext2d("fillRect",0,0,this.width,this.height);
+				this.context2d.fillRect(0,0,this.width,this.height);
 			}else{
 				
-				this.cmdContext2d("clearRect",0,0,this.width,this.height);
+				this.context2d.clearRect(0,0,this.width,this.height);
 			}
 			return true;
 		}
@@ -226,10 +226,10 @@ function WebCanvas(width,height,colorset){
 		}
 		,"saveContext2d":function(){
 			this.saveContext2dCfg.push(this.getConfigContext2d());
-			this.cmdContext2d("save");
+			this.context2d.save();
 		}
 		,"restoreContext2d":function(){
-			this.cmdContext2d("restore");
+			this.context2d.restore();
 			var cfg = this.saveContext2dCfg.pop();
 			this.configContext2d(cfg);
 		}
@@ -254,7 +254,7 @@ function WebCanvas(width,height,colorset){
 				// 라인 등의 그리기 툴과로 같이 사용해야 표시된다.
 				// type : repeat|repeat-x|repeat-y|no-repeat
 				
-				this.context2d.fillStyle = this.cmdContext2d("createPattern",cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
+				this.context2d.fillStyle = this.context2d.createPattern(cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
 			}
 			//--- 폰트 설정
 			if(
@@ -293,7 +293,7 @@ function WebCanvas(width,height,colorset){
 			if(x < 0 || x > this.width || y < 0 ||y > this.height){
 				return false;
 			}
-			var imagedata = this.cmdContext2d("getImageData",0, 0, this.width, this.height);
+			var imagedata = this.context2d.getImageData(0, 0, this.width, this.height);
 			var pos = Math.round(this.width*y+x)*4
 			try{
 				return [imagedata.data[pos],imagedata.data[pos+1],imagedata.data[pos+2],(imagedata.data[pos+3]/255)]
@@ -337,7 +337,7 @@ function WebCanvas(width,height,colorset){
 			var opacity = webCanvas.opacity?webCanvas.opacity:1;
 			
 			var c = webCanvas.clone();
-			c.cmdContext2d("save");
+			c.context2d.save();
 
 			c.configContext2d({"globalAlpha":c.context2d.globalAlpha *= opacity , "globalCompositeOperation":"source-over"});
 
@@ -348,7 +348,7 @@ function WebCanvas(width,height,colorset){
 			//this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.copy(c);
 			c.context2d.globalAlpha = 1;
-			c.cmdContext2d("restore");
+			c.context2d.restore();
 			return this;
 		}
 		,"copy":function(webCanvas,x0,y0,w0,h0){
@@ -375,11 +375,11 @@ function WebCanvas(width,height,colorset){
 			this.cmdContext2d("stroke");
 			this.cmdContext2d("closePath");
 			/*
-			this.cmdContext2d("beginPath");
-			this.cmdContext2d("moveTo",x0,y0);
-			this.cmdContext2d("lineTo",x1,y1);
-			this.cmdContext2d("stroke");
-			this.cmdContext2d("closePath");
+			this.context2d.beginPath();
+			this.context2d.moveTo(x0,y0);
+			this.context2d.lineTo(x1,y1);
+			this.context2d.stroke();
+			this.context2d.closePath();
 			*/
 			return true;
 		}
@@ -394,85 +394,85 @@ function WebCanvas(width,height,colorset){
 				//this.setError( this.constructor+".lines() : 배열 너무 짧습니다.");
 				return false;
 			}
-			this.cmdContext2d("beginPath");
-			this.cmdContext2d("moveTo",pos[0][0],pos[0][1]);
+			this.context2d.beginPath();
+			this.context2d.moveTo(pos[0][0],pos[0][1]);
 			for(var i = 0,m=pos.length;i<m;i++){
-				this.cmdContext2d("lineTo",pos[i][0],pos[i][1]);
+				this.context2d.lineTo(pos[i][0],pos[i][1]);
 			}
-			this.cmdContext2d("stroke");
-			this.cmdContext2d("closePath");
+			this.context2d.stroke();
+			this.context2d.closePath();
 			return true;
 		}
 		//--- 곡선그리기
 		,"curve":function(x0,y0,x1,y1,x3,y3,x4,y4){
-			this.cmdContext2d("beginPath");
-			this.cmdContext2d("moveTo",x0,y0);
+			this.context2d.beginPath();
+			this.context2d.moveTo(x0,y0);
 			if(isNaN(x4)){ //quadraticCurveTo를 사용
-				this.cmdContext2d("quadraticCurveTo",x1,y1,x3,y3);
+				this.context2d.quadraticCurveTo(x1,y1,x3,y3);
 			}else{ //bezierCurveTo 를 사용
-				this.cmdContext2d("bezierCurveTo",x1,y1,x3,y3,x4,y4);
+				this.context2d.bezierCurveTo(x1,y1,x3,y3,x4,y4);
 			}
-			this.cmdContext2d("stroke");
-			this.cmdContext2d("closePath");
+			this.context2d.stroke();
+			this.context2d.closePath();
 			return true;
 		}
 		//--- 잘라내기
 		,"crop":function(x0,y0,width,height){
-			var imagedata = this.cmdContext2d("getImageData",x0,y0,width,height);
+			var imagedata = this.context2d.getImageData(x0,y0,width,height);
 			this.clear();
-			this.cmdContext2d("putImageData",imagedata, 0, 0);
+			this.context2d.putImageData(imagedata, 0, 0);
 		}
 		//--- 사각형그리기
 		,"rect":function(x0,y0,width,height){
-			this.cmdContext2d("beginPath");
-			this.cmdContext2d("rect",x0,y0,width,height);
+			this.context2d.beginPath();
+			this.context2d.rect(x0,y0,width,height);
 			if(!this.context2d.disableFill){
-				this.cmdContext2d("fill");
+				this.context2d.fill();
 			}
 			if(!this.context2d.disableStroke){
-				this.cmdContext2d("stroke");
+				this.context2d.stroke();
 			}
-			this.cmdContext2d("closePath");
+			this.context2d.closePath();
 		}
 		//--- 원 그리기
 		,"circle":function(x0,y0,xr,yr,x1,y1){
-			this.cmdContext2d("beginPath");
+			this.context2d.beginPath();
 			if(isNaN(yr)){ //일반적인 정원
-				this.cmdContext2d("arc",x0, y0, xr, 0, Math.PI*2,null);
+				this.context2d.arc(x0, y0, xr, 0, Math.PI*2,null);
 			}else{ //타원
-				this.cmdContext2d("moveTo",x0,y0);
-				this.cmdContext2d("bezierCurveTo",x0+xr, y0+yr, x1+xr, y1+yr, x1, y1);
-				this.cmdContext2d("bezierCurveTo",x1-xr, y1-yr, x0-xr, y0-yr,  x0, y0);
+				this.context2d.moveTo(x0,y0);
+				this.context2d.bezierCurveTo(x0+xr, y0+yr, x1+xr, y1+yr, x1, y1);
+				this.context2d.bezierCurveTo(x1-xr, y1-yr, x0-xr, y0-yr,  x0, y0);
 			}
 			if(!this.context2d.disableFill){
-				this.cmdContext2d("fill");
+				this.context2d.fill();
 			}
 			if(!this.context2d.disableStroke){
-				this.cmdContext2d("stroke");
+				this.context2d.stroke();
 			}
-			this.cmdContext2d("closePath");
+			this.context2d.closePath();
 			return true;
 		}
 		//--- 그림 이동
 		,"move":function(x0,y0){
-			var imagedata = this.cmdContext2d("getImageData",0,0,this.width,this.height);
+			var imagedata = this.context2d.getImageData(0,0,this.width,this.height);
 			this.clear();
-			this.cmdContext2d("putImageData",imagedata, x0, y0);
+			this.context2d.putImageData(imagedata, x0, y0);
 		}
 		//--- toDataURL
 		//,"toDataURL":function(type,encoderOptions)// 캔버스에서 기본으로 지원됨
 		//--- 텍스트, 문자열 들
 		,"text":function(text,x0,y0){
 			text = new String(text);
-			var fontSize = parseFloat((this.cmdContext2d("font.match",/\d+px/))[0]);
+			var fontSize = parseFloat((this.context2d.font.match(/\d+px/))[0]);
 			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
 			var texts = text.split(/\n/);
 			for(var i=0,m=texts.length;i<m;i++){
 				if(!this.context2d.disableFill){
-					this.cmdContext2d("fillText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+					this.context2d.fillText(texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
 				}
 				if(!this.context2d.disableStroke){
-					this.cmdContext2d("strokeText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+					this.context2d.strokeText(texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
 				}
 			}
 		}
@@ -487,11 +487,11 @@ function WebCanvas(width,height,colorset){
 			var maxHeight = parseFloat(fontSize)*parseFloat(lineHeight)*texts.length;
 			
 			for(var i=0,m=texts.length;i<m;i++){
-				maxWidth = Math.max(maxWidth,this.cmdContext2d("measureText",texts[i]).width);
+				maxWidth = Math.max(maxWidth,this.context2d.measureText(texts[i]).width);
 			}
 			var minWidth = maxWidth;
 			for(var i=0,m=texts.length;i<m;i++){
-				minWidth = Math.min(maxWidth,this.cmdContext2d("measureText",texts[i]).width);
+				minWidth = Math.min(maxWidth,this.context2d.measureText(texts[i]).width);
 			}
 			
 			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth,"height":maxHeight,"maxHeight":maxHeight};
@@ -515,11 +515,11 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 			if(isNaN(w0)){
-				this.cmdContext2d("drawImage",img,x0,y0);
+				this.context2d.drawImage(img,x0,y0);
 			}else if(isNaN(x1)){
-				this.cmdContext2d("drawImage",img,x0,y0,w0,h0);
+				this.context2d.drawImage(img,x0,y0,w0,h0);
 			}else if(!(isNaN(h1))){
-				this.cmdContext2d("drawImage",img,x1,y1,w1,h1,x0,y0,w0,h0); //될 수 있으면 사용하지 말라, 어떻게 바뀔지 모르겠다.
+				this.context2d.drawImage(img,x1,y1,w1,h1,x0,y0,w0,h0); //될 수 있으면 사용하지 말라, 어떻게 바뀔지 모르겠다.
 			}else{
 				this.setError( "WebCanvas.drawImage() : check for arguments");
 				return false;
@@ -531,7 +531,7 @@ function WebCanvas(width,height,colorset){
 			var c = WebCanvas(this.width,this.height);
 			c.setLabel(this.label);
 			c.setOpacity(this.opacity);
-			c.cmdContext2d("putImageData",this.getImageData(),0,0);
+			c.context2d.putImageData(this.getImageData(),0,0);
 			return c;
 		}
 		//--- 히스토리,undo용 데이터
@@ -575,24 +575,24 @@ function WebCanvas(width,height,colorset){
 			if(isNaN(y0)){y0 = 0}
 			if(isNaN(w0)){w0 = this.width}
 			if(isNaN(h0)){h0 = this.height}
-			return this.cmdContext2d("getImageData",x0,y0,w0,h0);
+			return this.context2d.getImageData(x0,y0,w0,h0);
 		}
 		,"putImageData":function(imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight){
 			if(isNaN(dirtyHeight)){
 				if(isNaN(dirtyY)){
 					if(isNaN(x0)) x0 = 0;
 					if(isNaN(y0)) y0 = 0;
-					return this.cmdContext2d("putImageData",imageData,x0,y0);
+					return this.context2d.putImageData(imageData,x0,y0);
 				}
-				return this.cmdContext2d("putImageData",imageData,x0,y0,dirtyX,dirtyY);
+				return this.context2d.putImageData(imageData,x0,y0,dirtyX,dirtyY);
 			}
-			return this.cmdContext2d("putImageData",imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
+			return this.context2d.putImageData(imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
 			
 		}
 		//--- 확대 설정
 		,"setScale":function(sx,sy){
 			this.saveContext2d();
-			this.cmdContext2d("scale",sx,sy);
+			this.context2d.scale(sx,sy);
 			return;
 		}
 		,"resetScale":function(){
@@ -604,9 +604,9 @@ function WebCanvas(width,height,colorset){
 		,"setRotate":function(deg,centerX,centerY){
 			var ang = deg * Math.PI / 180
 			this.saveContext2d();
-			this.cmdContext2d("translate",centerX,centerY);
-			this.cmdContext2d("rotate",ang);
-			this.cmdContext2d("translate",-1*centerX,-1*centerY);
+			this.context2d.translate(centerX,centerY);
+			this.context2d.rotate(ang);
+			this.context2d.translate(-1*centerX,-1*centerY);
 			return;
 		}
 		,"resetRotate":function(){
@@ -622,35 +622,35 @@ function WebCanvas(width,height,colorset){
 		,"rotate90To":function(deg){
 			var c = this.clone();
 			if(deg % 90 == 0){
-				this.cmdContext2d("save"); 
+				this.context2d.save(); 
 				switch(deg){
 					case 0 :
 						this.clear();
-						this.cmdContext2d("rotate",deg * Math.PI / 180);
-						this.cmdContext2d("drawImage",c, 0, 0);
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, 0, 0);
 						break;
 					case 90 :
 						this.resize(c.height,c.width);
 						this.clear();
-						this.cmdContext2d("rotate",deg * Math.PI / 180);
-						this.cmdContext2d("drawImage",c, 0, -1*c.height);
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, 0, -1*c.height);
 						break;
 					case 180 :
 						this.clear();
-						this.cmdContext2d("rotate",deg * Math.PI / 180);
-						this.cmdContext2d("drawImage",c, -1*c.width, -1*c.height);
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, -1*c.width, -1*c.height);
 						break;
 					case 270 :
 					case -90 :
 						this.resize(c.height,c.width);
 						this.clear();
-						this.cmdContext2d("rotate",deg * Math.PI / 180);
-						this.cmdContext2d("drawImage",c, -1*c.width, 0);
+						this.context2d.rotate(deg * Math.PI / 180);
+						this.context2d.drawImage(c, -1*c.width, 0);
 						break;		
 				}
 				//반향 되돌리기
-				this.cmdContext2d("rotate",-1*deg * Math.PI / 180 );
-				this.cmdContext2d("restore"); 
+				this.context2d.rotate(-1*deg * Math.PI / 180 );
+				this.context2d.restore(); 
 				return true;
 			}			
 			this.setError( "WebCanvas.rotate90To() : not support degrees : "+deg);
@@ -665,11 +665,11 @@ function WebCanvas(width,height,colorset){
 			posX = flipH ? this.width * -1 : 0, // Set x position to -100% if flip horizontal 
 			posY = flipV ? this.height * -1 : 0; // Set y position to -100% if flip vertical
 
-			this.cmdContext2d("save"); // Save the current state
+			this.context2d.save(); // Save the current state
 			this.clear();
-			this.cmdContext2d("scale",scaleH, scaleV); // Set scale to flip the image
-			this.cmdContext2d("drawImage",c, posX, posY, this.width, this.height); // draw the image
-			this.cmdContext2d("restore"); // Restore the last saved state
+			this.context2d.scale(scaleH, scaleV); // Set scale to flip the image
+			this.context2d.drawImage(c, posX, posY, this.width, this.height); // draw the image
+			this.context2d.restore(); // Restore the last saved state
 		}
 
 
