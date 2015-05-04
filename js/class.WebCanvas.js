@@ -21,13 +21,6 @@ function WebCanvas(width,height,colorset){
 (function(){
 	WebCanvas.create = function(width,height,colorset){
 		var c  = document.createElement('canvas');
-		c.alt = "";
-		c.label = "";
-		c.className = "WC";
-		c.node = document.createElement('div');
-		c.node.className = "WC-node";
-		c.node.appendChild(c);
-		c.node.wc = c;
 		if(c.tagName != 'CANVAS'){
 			c = null;
 			//delete c;
@@ -37,38 +30,7 @@ function WebCanvas(width,height,colorset){
 		for(var x in this._prototype){
 			c[x] = this._prototype[x];
 		}
-		
-		c.error = ""; //최후 에러 메세지
-		c.width = width;
-		c.height = height;
-		c.opacity = 1;
-		c.context2d = c.getContext('2d');
-		//c.context2d.imageSmoothingEnabled = false;//
-		//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
-		c.context2d.lineHeight = 1.5;
-		c.context2d.eraserMode = "pen";
-		c.context2d.disableStroke = 0; //stroke 사용금지
-		c.context2d.disableFill = 0; //strokFiil 사용금지
-		c.context2d.opacity = 1; //레이어 투명도
-		
-		//-- config font
-		//c.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
-		c.context2d.fontStyle = "normal"; //normal,italic,oblique
-		c.context2d.fontVariant = "normal"; //normal,small-caps
-		c.context2d.fontWeight = "normal"; //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
-		c.context2d.fontStyleVariantWeight  = ""; //fontStyle + fontVariant+fontWeight "italic small-caps" 처럼 사용. length>0일 경우 이 값을 우선시함.
-		c.context2d.fontSize = 10; //px
-		c.context2d.lineheight = 1.2; // float number
-		c.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
-		
-		//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
-		
-		c._syncNode();
-		if(colorset){
-			c.configContext2d({"fillStyle":c.colorset2String(colorset)});
-			c.context2d.fillRect(0,0,c.width,c.height);
-		}
-		c.setOpacity(1);
+		c.init(width,height,colorset);
 		return c;
 	}
 	/**
@@ -83,6 +45,47 @@ function WebCanvas(width,height,colorset){
 		,"saveContext2dCfg":[]
 		//== 추가 메소드
 		//---context2d 메소드 호출용
+		,"init":function(width,height,colorset){
+			this.alt = "";
+			this.label = "";
+			this.className = "WC";
+			this.node = document.createElement('div');
+			this.node.className = "WC-node";
+			this.node.appendChild(this);
+			this.node.wc = this;
+
+			this.error = ""; //최후 에러 메세지
+			this.width = width;
+			this.height = height;
+			this.opacity = 1;
+			this.context2d = this.getContext('2d');
+			//this.context2d.imageSmoothingEnabled = false;//
+			//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
+			this.context2d.lineHeight = 1.5;
+			this.context2d.eraserMode = "pen";
+			this.context2d.disableStroke = 0; //stroke 사용금지
+			this.context2d.disableFill = 0; //strokFiil 사용금지
+			this.context2d.opacity = 1; //레이어 투명도
+			
+			//-- config font
+			//this.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
+			this.context2d.fontStyle = "normal"; //normal,italic,oblique
+			this.context2d.fontVariant = "normal"; //normal,small-caps
+			this.context2d.fontWeight = "normal"; //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
+			this.context2d.fontStyleVariantWeight  = ""; //fontStyle + fontVariant+fontWeight "italic small-caps" 처럼 사용. length>0일 경우 이 값을 우선시함.
+			this.context2d.fontSize = 10; //px
+			this.context2d.lineheight = 1.2; // float number
+			this.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
+			
+			//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
+			
+			this._syncNode();
+			if(colorset){
+				this.configContext2d({"fillStyle":this.colorset2String(colorset)});
+				this.context2d.fillRect(0,0,this.width,this.height);
+			}
+			this.setOpacity(1);
+		}
 		,"cmdContext2d":function(cmd){
 			if(arguments.length<=0){
 				this.setError("지원되지 않는 메소드(0) : "+arguments.toString());
