@@ -82,7 +82,7 @@ var wc2 = (function(){
 			this.tabs = $( "#tabs" ).tabs({
 				"activate": function( event, ui ) {
 					if(!ui.newPanel[0] || !ui.newPanel[0].wcb){return;}
-					wc2.setActiveWcb(ui.newPanel[0].wcb)
+					wc2.cmdWcb("active",ui.newPanel[0].wcb)
 				}
 			});
 		}
@@ -161,7 +161,7 @@ var wc2 = (function(){
 					return; //false라도 잘못된것이 아니므로 흘러내린다.
 				}
 				wc2.eventStep = 0;
-				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
+				//wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 			});
 			
 			// 드래그 방지용
@@ -178,7 +178,7 @@ var wc2 = (function(){
 			
 			//-- 레이어 쪽
 			$("#propLayerList").on("click","li",function(event){
-				wc2.selectLayer(this.dataset.wcbIndex)
+				wc2.cmdLayer("select",this.dataset.wcbIndex)
 			});
 			//-- 단축키
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
@@ -201,29 +201,42 @@ var wc2 = (function(){
 		//--- 
 		// 한번에 다중 레이어처리의 경우 resaveHistory()로 모든 레이어에대한 히스토리를 남겨야한다.(안그러면 undo때 레이어 내용이 없음)
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
-			if(cmd != "new" && cmd != "open" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
+			if(cmd != "new" && cmd != "open" && cmd !="active" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
+			var sync = true;
 			switch(cmd){
+				case "active":
+					this.setActiveWcb(arg1);
+				break;
 				case "clear":
 						this.saveHistory("Image."+cmd,true);
 						this.activeWcb.clear();
 						this.saveHistory("Image."+cmd);
 				break;
-				case "new":(this.newWcb(arg1,arg2)).saveHistory("Image."+cmd);break;
+				case "new":
+					var wcb = this.newWcb(arg1,arg2)
+					wcb.saveHistory("Image."+cmd);
+					this.cmdWcb("active",wcb);
+					sync = false;
+				break;
 				case "open":
 					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
-						var t = this.newWcbByWcbdo(arg1.wcbdo,
+						var wcb = this.newWcbByWcbdo(arg1.wcbdo,
 								function(cmd){
 									return function(wcb){
 										wcb.saveHistory("Image."+cmd);
+										wc2.cmdWcb("active",wcb);
 										//console.log("end");
 									}
 								}(cmd)
 							);
+						sync = false;
 					}else{
-						var t = this.newWcbByImage(arg1);
-						if(t){
-							 t.saveHistory("Image."+cmd);
-						 }
+						var wcb = this.newWcbByImage(arg1);
+						if(wcb){
+							wcb.saveHistory("Image."+cmd);
+							this.cmdWcb("active",wcb);
+							sync = false;
+						}
 					}
 				break;
 				case "close":
@@ -258,7 +271,7 @@ var wc2 = (function(){
 				case "redo":
 					this.cmdTool("reset");
 					if(this.activeWcb[cmd]){
-						this.activeWcb[cmd]();
+						sync = this.activeWcb[cmd]();
 					}
 				break;
 				case "save":
@@ -268,7 +281,9 @@ var wc2 = (function(){
 				this.setError("지원되지 않는 메소드");
 				break;
 			}
-			this._syncWcbInfo();
+			if(sync){
+				this._syncWcbInfo();
+			}
 		}
 		,"saveWcb":function(filename,type,quality){
 			var dataURL = this.activeWcb.toDataURL(type,quality);
@@ -313,14 +328,12 @@ var wc2 = (function(){
 			);
 			
 			this.wcbs.push(wcb);
-			this.setActiveWcb(wcb);
 			
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
 			$( "#tabsContent" ).append(wcb.tabFrame);
 			this.tabs.tabs("refresh");
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
 			
-			this._syncWcbInfo();
 			return wcb;
 		}
 		,"newWcb":function(width,height){
@@ -361,7 +374,6 @@ var wc2 = (function(){
 		}
 		,"setActiveWcb":function(wcb){
 			this.activeWcb = wcb;
-			this._syncWcbInfo();
 			wc2Tool.init(this.tool);
 			return this.activeWcb;
 		}
@@ -379,9 +391,9 @@ var wc2 = (function(){
 			}
 			
 			this.tabs.tabs("refresh");
-			this.setActiveWcb(this.wcbs[0]);
+			this.cmdWcb("active",this.wcbs[0]);
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
-			this._syncWcbInfo();
+			//this._syncWcbInfo();
 			return true;
 		}
 		,"rename":function(name){
@@ -500,21 +512,23 @@ var wc2 = (function(){
 				var lis = $("#propLayerList .wc-prop-layer-info");
 				lis.hide(); //우선 모두 숨긴다.
 				var tmpli_i = 0;
+				var his = wcb.currentHistory();
 				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
 					var oc = wcb.webCanvases[i];
-					
 					var li = lis[tmpli_i];
 					$(li).show();
 					li.dataset.wcbActive = oc.dataset.wcbActive;
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					li.title = oc.label;
-					if(usePreviewImageAtLayerInfo==1){
+					//설정을 체크 하고 히스토리를 참고해서 히스토리가 변경된것만 갱신한다.
+					if(usePreviewImageAtLayerInfo==1 && his && his.data[i] != null){
 						//try{
 							li.wc.setLabel(oc.label+"-pre");
 							li.wc.clearResize(width,height);
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							li.wc.setOpacity(oc.opacity);
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
+						//console.log("pre 갱신",li.wc.label);
 					}
 					
 					$(li.span).text(oc.label)
@@ -577,6 +591,8 @@ var wc2 = (function(){
 		}
 		,"cmdLayer":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			var sync = true;
+			var history = true;
 			var r = null;
 			switch(cmd){
 				case "clear":r = this.activeWcb.activeWebCanvas.clear();break;
@@ -588,19 +604,22 @@ var wc2 = (function(){
 				case "moveUp":r = this.activeWcb.moveUpWebCanvasByIndex();break;
 				case "moveDown":r = this.activeWcb.moveDownWebCanvasByIndex();break;
 				case "opacity":r = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
+				case "select":r = this._selectLayer(arg1); history = false; break;
 			}
-			if(r){
+			if(history){
 				this.saveHistory("Layer."+cmd);
 			}
 			this.cmdTool("reset");
-			this._syncWcbInfo();
+			if(sync){
+				this._syncWcbInfo();
+			}
 		}
-		,"selectLayer":function(index){
-			if(!this.activeWcb){ this.setError( "wc2.selectLayer() 활성화된 윈도우가 없습니다."); return; }
+		,"_selectLayer":function(index){
+			if(!this.activeWcb){ this.setError( "wc2._selectLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);
 			this.activeWcb.setActiveWebCanvasByIndex(index);
 			wc2Tool.init(this.tool);
-			this._syncWcbInfo();
+			return true;
 		}
 		//--- 확대/축소
 		,"setZoom":function(zoom){

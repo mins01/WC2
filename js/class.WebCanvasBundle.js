@@ -155,6 +155,10 @@ function WebCanvasBundle(width,height,colorset){
 			return true;
 		}
 		//-- undo
+		//-- 현재 히스토리
+		,"currentHistory":function(){
+			return this.historyLog[this.historyIdx];
+		}
 		//-- 현재 히스토리를 모든 내용을 담은 히스토리로 바꾼다.
 		,"resaveHistory":function(){
 			var oldMtime = 0;
@@ -183,16 +187,18 @@ function WebCanvasBundle(width,height,colorset){
 			this.historyIdx = -1;
 		}
 		,"undo":function(){
-			if(this.historyIdx<=0){this.setError("더 이상의 히스토리가 없습니다");return;}
+			if(this.historyIdx<=0){this.setError("undo() : 더 이상의 히스토리가 없습니다");return false;}
 			var historyData = this.historyLog[--this.historyIdx];
 			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
 			this.putDataForHistory(historyData);
+			return true;
 		}
 		,"redo":function(){
-			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("더 이상의 히스토리가 없습니다");return;}
+			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("redo() : 더 이상의 히스토리가 없습니다");return false;}
 			var historyData = this.historyLog[++this.historyIdx];
 			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
 			this.putDataForHistory(historyData);
+			return true;
 			
 		}
 		,"getDataForHistory":function(oldMtime){
