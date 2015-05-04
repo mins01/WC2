@@ -85,19 +85,35 @@ function WebCanvas(width,height,colorset){
 				this.cmdContext2d("fillRect",0,0,this.width,this.height);
 			}
 			this.setOpacity(1);
+			this.mtime = (new Date()).getTime();
+			this.modified();
 		}
-		,"cmdContext2d":function(cmd){
+		//-- 수정 시간을 표시
+		,"modified":function(){
+			this.mtime = (new Date()).getTime();
+		}
+		,"isModified":function(mtime){
+			return this.mtime >= mtime; //수정시간과 입력된 시간을 비교해서 수정여부판단.
+		}
+		//-- context2d 관련해서 매핑해서 사용. mtime 때문에.
+		,"cmdContext2d":function(){
 			if(arguments.length<=0){
-				this.setError("지원되지 않는 메소드(0) : "+arguments.toString());
+				this.setError("지원되지 않는 메소드(0) : ");
 				return false;
 			}
 			var cmd = arguments[0];
+			var args = [];
+			for(var i=1,m=arguments.length;i<m;i++){
+				args.push(arguments[i]);
+			}
+			//var args = Array.prototype.slice.call(arguments, 1);
+			//console.log(cmd,args);
 			if(this.context2d[cmd] != undefined && typeof this.context2d[cmd] =="function"){
-				var args = Array.prototype.slice.call(arguments, 1);
-				this.context2d[cmd].apply(this.context2d,args);
-				console.log(cmd,args);
+				
+				this.modified();
+				return this.context2d[cmd].apply(this.context2d,args);
 			}else{
-				this.setError("지원되지 않는 메소드(1) : "+arguments.toString());
+				this.setError("지원되지 않는 메소드(1) : "+cmd+"("+args.join(',')+")");
 				return false;
 			}
 		}
@@ -117,6 +133,7 @@ function WebCanvas(width,height,colorset){
 			this.alt = label; //deprecated
 			this.label = label;
 			this.dataset.wcLabel = label;
+			this.modified();
 			return this.label;
 		}
 		,"setError":function(error){
@@ -308,6 +325,7 @@ function WebCanvas(width,height,colorset){
 				opacity = parseFloat(opacity);
 				this.opacity = opacity;
 				this.node.style.opacity = this.opacity;
+				this.modified();
 			}
 			return this.opacity;
 		}
@@ -464,7 +482,7 @@ function WebCanvas(width,height,colorset){
 		//--- 텍스트, 문자열 들
 		,"text":function(text,x0,y0){
 			text = new String(text);
-			var fontSize = parseFloat((this.cmdContext2d("font.match",/\d+px/))[0]);
+			var fontSize = parseFloat((this.context2d.font.match(/\d+px/))[0]);
 			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
 			var texts = text.split(/\n/);
 			for(var i=0,m=texts.length;i<m;i++){
