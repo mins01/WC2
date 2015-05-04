@@ -29,6 +29,7 @@ var wc2 = (function(){
 		 ,"wcbTmpCnt":0
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
+		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -464,7 +465,10 @@ var wc2 = (function(){
 				$("#propHistoryList .wc-prop-history-empty").show();
 				$("#propLayerList .wc-prop-layer-info").hide();
 			}else{
+				var usePreviewImageAtLayerInfo = this.getUsePreviewImageAtLayerInfo();
 				$("#propLayerList .wc-prop-layer-empty").hide();
+				$("#propLayerList")[0].dataset.wc2Preview = usePreviewImageAtLayerInfo;
+
 				var wcb = this.activeWcb;
 				//-- 제목 싱크
 				$(wcb.tabTitleA).text(wcb.name);
@@ -494,11 +498,12 @@ var wc2 = (function(){
 					li.dataset.wcbActive = oc.dataset.wcbActive;
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					li.title = oc.label;
-					
-					li.wc.setLabel(oc.label);
-					li.wc.clearResize(width,height);
-					li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
-					li.wc.setOpacity(oc.opacity);
+					if(usePreviewImageAtLayerInfo==1){
+						li.wc.setLabel(oc.label);
+						li.wc.clearResize(width,height);
+						li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
+						li.wc.setOpacity(oc.opacity);
+					}
 					
 					$(li.span).text(oc.label)
 					tmpli_i++;
@@ -767,6 +772,32 @@ var wc2 = (function(){
 			}
 			var saveFileQuality = form.saveFileQuality.value
 			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
+		}
+		,"preferencesByForm":function(form){
+			var arr = $(form).serializeArray();
+			for(var i=0,m=arr.length;i<m;i++){
+				var el = arr[i];
+				if(this[el.name]!=undefined){
+					if(typeof this[el.name] == "number"){
+						this[el.name] = parseFloat(el.value);
+					}else{
+						this[el.name] = el.value;
+					}
+					
+				}
+			}
+		}
+		//미리보기 사용여부를 너비 기준으로 처리한다.
+		,"getUsePreviewImageAtLayerInfo":function(){
+			if(this.usePreviewImageAtLayerInfo===0){
+				var rect = document.body.getBoundingClientRect();
+				if(rect.width<768){
+					return 2;
+				}else{
+					return 1;
+				}
+			}
+			return this.usePreviewImageAtLayerInfo;
 		}
 	};
 })();

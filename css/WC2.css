@@ -74,6 +74,10 @@ max-height:40px;
 max-width:40px;
 margin-right:2px;
 }
+#propLayerList[data-wc2-preview="2"] .WC-node{
+display:none;
+	
+}
 
 #propLayerList li{ cursor:pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 #propLayerList li[data-wcb-active="1"]{ background-color:#abc; font-weight:bold;}
