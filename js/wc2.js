@@ -205,6 +205,7 @@ var wc2 = (function(){
 		,"resaveHistory":function(){
 			this.activeWcb.resaveHistory();
 		}
+		//--
 		//--- 
 		// 한번에 다중 레이어처리의 경우 resaveHistory()로 모든 레이어에대한 히스토리를 남겨야한다.(안그러면 undo때 레이어 내용이 없음)
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
@@ -233,6 +234,16 @@ var wc2 = (function(){
 					wcb.saveHistory("Image."+cmd);
 					//this.cmdWcb("active",wcb);  //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
 					sync = false;
+				break;
+				case "flip":
+					this.resaveHistory();
+					this.activeWcb.flip(arg1,arg2);
+					this.saveHistory("Image."+cmd);
+				break;
+				case "rotate90To":
+					this.resaveHistory();
+					this.activeWcb.rotate90To(arg1);
+					this.saveHistory("Image."+cmd);
 				break;
 				case "open":
 					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
@@ -624,6 +635,10 @@ var wc2 = (function(){
 		}
 		,"cmdLayer":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb || !this.activeWcb.activeWebCanvas){
+				this.setError("활성화 된 레이어가 없음");
+				return false;
+			}
 			var sync = true;
 			var history = true;
 			var r = null;

@@ -103,23 +103,22 @@
 								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="image-rename">Rename</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen" data-wc-menu="image-resize">Image Resize</a></li>
 								<li><a href="#" class="glyphicon glyphicon-fullscreen" data-wc-menu="image-adjustSize">Canvas Resize</a></li>
-								<li><a href="#" class="glyphicon glyphicon-picture">Insert Image</a></li>
-								<li><a href="#" class="glyphicon glyphicon-scissors" >Crop</a></li>
+
 								<li class="divider"></li>
 								<li class="dropdown-submenu">
 									<a href="#" tabindex="-1" data-toggle="dropdown">Rotate</a>
 									<ul class="dropdown-menu" role="menu">
-									<li><a href="#">90ºCW</a></li>
-									<li><a href="#">180º</a></li>
-									<li><a href="#">90ºCCW</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('rotate90To',90);return false;">90ºCW</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('rotate90To',180);return false;">180º</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('rotate90To',270);return false;">90ºCCW</a></li>
 									</ul>
 								</li>
 								<li class="dropdown-submenu">
 									<a href="#" tabindex="-1" data-toggle="dropdown">Flip</a>
 									<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Vertical</a></li>
-									<li><a href="#">Horizontal</a></li>
-									<li><a href="#">Vertical+Horizontal</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('flip',true,false);return false;">Vertical</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('flip',false,true);return false;">Horizontal</a></li>
+									<li><a href="#" onclick="wc2.cmdWcb('flip',true,true);return false;">Vertical+Horizontal</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -585,18 +584,17 @@ Ciao
 							<div class="panel panel-default">
 								<div  class="panel-heading">Layer</div>
 								<div  class="panel-body">
-									<div class="panel-body btn-group  btn-group-sm" role="group">
+									<div class="panel-body btn-group-sm" role="group">
 											<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
 											<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
 											<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
 											<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
 									</div>
-									<div style="margin-bottom:2px">
+									<div class="panel-body btn-group-xs" role="group">
 											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')" title="Duplicate"></button>
 											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')"  title="MergeDown"></button>
-											
-										
-											<select name="layerOpacity"  class="btn btn-default btn-sm" style="width:6em" onchange="wc2.cmdLayer('opacity',this.value)">
+											<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-refresh" onclick="wc2.cmdLayer('clear')"  title="Clear"></button>
+											<select name="layerOpacity"  class="btn btn-default btn-sm" style="width:5em" onchange="wc2.cmdLayer('opacity',this.value)">
 												<option value="1">100%</option>
 												<option value="0.9">90%</option>
 												<option value="0.8">80%</option>

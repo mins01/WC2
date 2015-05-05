@@ -410,7 +410,7 @@ var wc2Tool = function(){
 				if(this.ing ==0){
 					//this.wcb = wcb;
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-					this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+					this.wcb.shadowWebCanvas.copyData(this.wcb.activeWebCanvas);
 					this.wcb.node.style.cursor = "move";
 					this._initXYWH();
 					this.sc = 1;
@@ -491,20 +491,21 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,t.x,t.y,this.w0,this.h0);
 				this.wcb.shadowWebCanvas.resetRotate()
 				*/
+				console.log(this.dw,this.dh,this.sc);
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.dw)/2
 				var rotateCenterY = (this.dh)/2
 				this.wcb.shadowWebCanvas.setScale(this.sc,this.sc);
 				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
 				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
-				this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas,t.x,t.y);
+				this.wcb.shadowWebCanvas.copyWithoutOpacity(this.wcb.activeWebCanvas,t.x,t.y);
 				this.wcb.shadowWebCanvas.resetRotate()
 				this.wcb.shadowWebCanvas.resetScale();
 			}
 			,"confirm":function(noQ){
 				if(this.ing == 1){
 					if(noQ || confirm("OK?")){
-						this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+						this.wcb.activeWebCanvas.copyWithoutOpacity(this.wcb.shadowWebCanvas);
 						wc2Tool.saveHistory();
 					}
 					this.ing = 0;

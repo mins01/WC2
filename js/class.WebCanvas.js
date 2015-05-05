@@ -404,19 +404,8 @@ function WebCanvas(width,height,colorset){
 			return this;
 		}
 		,"copy":function(webCanvas,x0,y0,w0,h0){
-			if(isNaN(w0) && isNaN(h0) ){
-				if(isNaN(x0)){x0 = 0;}
-				if(isNaN(y0)){y0 = 0;}
-				//this.cmdContext2d("putImageData",webCanvas.getImageData(0,0),x0,y0);
-				this.cmdContext2d("putImageData",this.cmdContext2d("getImageData"),x0,y0);
-				console.log("x");
-			}else{			
-				this.clear();
-				this.saveContext2d();
-				this.configContext2d({"globalAlpha":1}); //강제로 1로 설정.
-				var r = this.merge(webCanvas,x0,y0,w0,h0);
-				this.restoreContext2d();
-			}
+			var r = this.copyWithoutOpacity(webCanvas,x0,y0,w0,h0);
+			this.setOpacity(webCanvas.opacity);
 			return r;
 		}
 		,"copyWithoutOpacity":function(webCanvas,x0,y0,w0,h0){
@@ -425,7 +414,17 @@ function WebCanvas(width,height,colorset){
 			this.configContext2d({"globalAlpha":1}); //강제로 1로 설정.
 			var r = this.mergeWithoutOpacity(webCanvas,x0,y0,w0,h0);
 			this.restoreContext2d();
-			return r;
+			return true;
+		}
+		,"copyData":function(webCanvas,x0,y0,w0,h0){
+			if(isNaN(w0) && isNaN(h0) ){
+				if(isNaN(x0)){x0 = 0;}
+				if(isNaN(y0)){y0 = 0;}
+				//this.cmdContext2d("putImageData",webCanvas.getImageData(0,0),x0,y0);
+				this.cmdContext2d("putImageData",webCanvas.cmdContext2d("getImageData",0,0),x0,y0);
+				//console.log("x");
+			}
+			return true;
 		}
 		//--- 선 그리기
 		,"line":function(x0,y0,x1,y1){

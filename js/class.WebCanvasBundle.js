@@ -339,19 +339,17 @@ function WebCanvasBundle(width,height,colorset){
 				this.width = width;
 				this.height = height;
 			}
-			
+
 			this.shadowWebCanvas.clearResize(this.width,this.height);
 			this.node.style.width = this.width+"px";
 			this.node.style.height = this.height+"px";
 			this.outNode.style.width = (this.width*this.zoom)+"px";
 			this.outNode.style.height = (this.height*this.zoom)+"px";
-			
-			//this._syncNode();
+
 			return true;
 		}
 		,"resizeNode":function(width,height){ //wc는 무시하고 wcb.node만 리사이즈.
 			this._resizeNode(width,height)
-			
 			this._syncNode();
 			return true;
 		}
@@ -378,10 +376,9 @@ function WebCanvasBundle(width,height,colorset){
 				var n = deg/90;
 				if(n%2 == 0){
 				}else{ //너비 높이 바꾸기
-					var t = this.width;
-					this.width = this.height;
-					this.height = t;
-					this._syncNode();
+					var h = this.width;
+					var w = this.height;
+					this.resizeNode(w,h);
 				}
 				return true;
 			}
