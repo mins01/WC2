@@ -20,3 +20,4 @@ https://github.com/phstc/jquery-dateFormat : MIT
 https://github.com/jquery/jquery-mousewheel : https://github.com/jquery/jquery-mousewheel/blob/master/LICENSE.txt
 https://github.com/ccampbell/mousetrap : Apache 2.0
 https://github.com/eligrey/FileSaver.js : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+ http://odyniec.net/projects/imgareaselect/ (https://github.com/odyniec/imgareaselect) : MIT and GPLv2
