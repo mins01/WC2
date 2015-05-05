@@ -432,10 +432,6 @@ var wc2 = (function(){
 			this.tool = tool;
 			this.showPropPanel();
 			wc2.syncContext2dCfg(); //설정을 적용시킨다.
-			if(!wc2Tool.init(this.tool)){
-				//alert(wc2Tool.error);
-				return false;
-			}
 			
 			$("button[data-wc-tool]").each(
 				function(){
@@ -447,6 +443,11 @@ var wc2 = (function(){
 					$(this).addClass("active")
 				}
 			)
+			
+			if(!wc2Tool.init(this.tool)){
+				//alert(wc2Tool.error);
+				return false;
+			}
 			
 			return this.tool;
 		}
@@ -524,6 +525,11 @@ var wc2 = (function(){
 				//var propLayerList = $("#propLayerList").html("");
 				var height = 40;
 				var width = Math.round(wcb.width*(height/wcb.height));
+				if(width>40){
+					height = Math.round(height*(40/width));
+					width=40;
+				}
+				var marginTop = (40-height)/2
 				var lis = $("#propLayerList .wc-prop-layer-info");
 				var propLayerList = $("#propLayerList");
 				for(var i=0,m=wcb.webCanvases.length-lis.length ;i<m;i++){ //모자른 lis를 생성하지
@@ -553,8 +559,9 @@ var wc2 = (function(){
 							li.wc.clearResize(width,height);
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							li.wc.setOpacity(oc.opacity);
+							li.wc.node.style.marginTop = marginTop+"px";
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
-						console.log("pre 갱신",li.wc.label);
+						//console.log("pre 갱신",li.wc.label);
 					}
 					
 					$(li.span).text(oc.label)
@@ -876,11 +883,11 @@ var wc2 = (function(){
 			
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
-			console.log(strokeStyle,color0);
+			//console.log(strokeStyle,color0);
 			var x0 ,y0 ,r0,x1 ,y1, r1;
 			x0 = y0 = r1 = x1 = y1  = width/2;
 			r0 = Math.min(x0*r0p,x0*0.99);
-			console.log(r1,r0);
+			//console.log(r1,r0);
 			this.brushWC.clearResize(width,width);
 			var rg = this.brushWC.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
 			rg.addColorStop(0,color0);
