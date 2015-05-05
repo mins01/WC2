@@ -555,7 +555,7 @@ var wc2 = (function(){
 				var lis = $("#propLayerList .wc-prop-layer-info");
 				lis.hide(); //우선 모두 숨긴다.
 				var tmpli_i = 0;
-				var his = wcb.currentHistory();
+				//var his = wcb.currentHistory();
 				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
 					var oc = wcb.webCanvases[i];
 					var li = lis[tmpli_i];
@@ -564,7 +564,7 @@ var wc2 = (function(){
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
 					li.title = oc.label;
 					//설정을 체크 하고 히스토리를 참고해서 히스토리가 변경된것만 갱신한다.
-					if(usePreviewImageAtLayerInfo==1 && his && his.data[i] != null){
+					if(usePreviewImageAtLayerInfo==1){
 						//try{
 							li.wc.setLabel(oc.label+"-pre");
 							li.wc.clearResize(width,height);
@@ -645,9 +645,16 @@ var wc2 = (function(){
 			switch(cmd){
 				case "clear":history = this.activeWcb.activeWebCanvas.clear();break;
 				case "new":
-				case "add":history = this.activeWcb.addWebCanvas();break;
-				case "duplicate":history = this.activeWcb.addDuplicateWebCanvas();break;
-				case "mergeDown":history = this.activeWcb.mergeDown();break;
+				case "add":
+					this.resaveHistory();
+					history = this.activeWcb.addWebCanvas();break;
+				case "duplicate":
+					this.resaveHistory();
+					history = this.activeWcb.addDuplicateWebCanvas();break;
+				case "mergeDown":
+					this.resaveHistory();
+					history = this.activeWcb.mergeDown();
+				break;
 				case "remove":
 					this.resaveHistory();
 					history = this.activeWcb.removeWebCanvas();break;
