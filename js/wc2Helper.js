@@ -86,13 +86,13 @@ var wc2Helper = function(){
 			saveAs(blob, filename);
 		},
 		//-- base64 encode (http://ecmanaut.blogspot.kr/2006/07/encoding-decoding-utf8-in-javascript.html)
-		//--- 한글 지원에 문제가 있어서 
-		"utf8_to_b64"(str) {
+		//--- btoa 를 바로 사용하면  한글 지원에 문제가 있어서 
+		"utf8_to_b64":function(str) {
 			return window.btoa(unescape(encodeURIComponent(str)));
 		},
 		//--- base64 denode (http://ecmanaut.blogspot.kr/2006/07/encoding-decoding-utf8-in-javascript.html)
-		//--- 한글 지원에 문제가 있어서
-		"b64_to_utf8"(str) {
+		//--- btoa 를 바로 사용하면 한글 지원에 문제가 있어서
+		"b64_to_utf8":function(str) {
 			 return decodeURIComponent(escape(window.atob(str)));
 		},
 	}
