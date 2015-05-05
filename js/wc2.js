@@ -32,6 +32,7 @@ var wc2 = (function(){
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
 		 ,"brushWC":null //브러쉬용
 		 ,"brushSpacing":1 //브러쉬 간격
+		 ,"tabsContent":null
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -92,6 +93,7 @@ var wc2 = (function(){
 			this.brushWC = WebCanvas(100,100);
 			$("#formToolBrushCanvasBox").append(this.brushWC.node);
 			this.syncBrushCanvas();
+			this.tabsContent = document.getElementById('tabsContent');
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
@@ -361,7 +363,7 @@ var wc2 = (function(){
 			this.wcbs.push(wcb);
 			
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
-			$( "#tabsContent" ).append(wcb.tabFrame);
+			this.tabsContent.appendChild(wcb.tabFrame);
 			this.tabs.tabs("refresh");
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
 			
@@ -441,6 +443,7 @@ var wc2 = (function(){
 			}
 			//this.tool = wc2Tool[tool];
 			this.tool = tool;
+			this.tabsContent.dataset.wcTool = tool
 			this.showPropPanel();
 			wc2.syncContext2dCfg(); //설정을 적용시킨다.
 			

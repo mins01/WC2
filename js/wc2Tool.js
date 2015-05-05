@@ -411,7 +411,6 @@ var wc2Tool = function(){
 					//this.wcb = wcb;
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					this.wcb.shadowWebCanvas.copyData(this.wcb.activeWebCanvas);
-					this.wcb.node.style.cursor = "move";
 					this._initXYWH();
 					this.sc = 1;
 				}
@@ -520,7 +519,6 @@ var wc2Tool = function(){
 					return this.confirm(true);
 				}
 				if(this.wcb){
-					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
@@ -551,7 +549,6 @@ var wc2Tool = function(){
 					//this.wcb = wcb;
 					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
-					this.wcb.node.style.cursor = "move";
 					this._initXYWH();
 					this.predraw();
 				}
@@ -635,7 +632,6 @@ var wc2Tool = function(){
 					return this.confirm(true);
 				}
 				if(this.wcb){
-					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 				
@@ -656,7 +652,6 @@ var wc2Tool = function(){
 				this.textNode  = document.getElementById('textareaText');
 				
 				if(this.ing ==0){
-					this.wcb.node.style.cursor = "move";
 					this._initXYWH();
 					this.predraw();
 				}
@@ -742,7 +737,6 @@ var wc2Tool = function(){
 					return this.confirm(true);
 				}
 				if(this.wcb){
-					this.wcb.node.style.cursor = "";
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 				
