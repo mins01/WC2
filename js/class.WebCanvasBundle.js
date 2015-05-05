@@ -515,7 +515,7 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		//-- wcbjson 형식으로 저장하기 위한 것.
 		,"toWcbDataURL":function(){
-			return "data:application/json;base64,"+window.btoa(this.toWcbDataJson());
+			return "data:application/json;base64,"+wc2Helper.utf8_to_b64(this.toWcbDataJson());
 		}
 		,"toWcbDataJson":function(){
 			return JSON.stringify(this.toWcbDataObject());

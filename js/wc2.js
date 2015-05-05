@@ -374,7 +374,7 @@ var wc2 = (function(){
 			}
 			var wcb = new WebCanvasBundle(width,height,[255,255,255]);
 			wcb.addWebCanvas(); //빈 레이어 하나 추가
-			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmssSSS '));
+			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmssSSS'));
 			return this._addWcb(wcb);
 		}
 		,"newWcbByImage":function(image){
@@ -384,7 +384,7 @@ var wc2 = (function(){
 				return false;
 			}
 			wcb.addWebCanvas(); //빈 레이어 하나 추가
-			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmss'));
+			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmssSSS'));
 			return this._addWcb(wcb);
 		}
 		,"newWcbByWcbdo":function(wcbdo,onload){
