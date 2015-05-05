@@ -935,7 +935,7 @@ var wc2Tool = function(){
 					var y2 = y0+a1;
 					//var c2 = Math.sqrt(Math.pow(x2-x0,2)+Math.pow(y2-y0,2)); //빗변
 					xys.push([x2,y2])
-					console.log([x2,y2]);
+					//console.log([x2,y2]);
 				}while(ci<=c)
 				
 				//console.log(x0,y0,x2,y2,c2 );
@@ -943,6 +943,99 @@ var wc2Tool = function(){
 				
 			}
 		}//-- end fn
+		//-- 잘라내기, 크롭, crop
+		,"crop":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"left":-1,"top":-1
+			,"left1":-1,"top1":-1
+			,"f":null
+			,"init":function(wcb){
+				// imageAreaSelect 
+				this.f = document.formToolCrop;
+				this.f.x.value = 0;
+				this.f.y.value = 0;
+				this.f.width.value = 0;
+				this.f.height.value = 0;
+				
+				if(this.wcb){
+					this.f.width.value = this.wcb.width;
+					this.f.height.value = this.wcb.height;
+					//*
+					$(this.wcb.outNode).imgAreaSelect({
+						"handles": true,
+						"zIndex":9000,
+						"parent":"#tabsContent",
+						"parent":this.wcb.outNode,
+						"onSelectChange":function(toolCrop){
+							return function(img, selection){
+								toolCrop.onSelectChange(img, selection);
+							}
+						}(this),
+
+					});
+				}
+				
+				//this.wcb = wcb;
+				return true;
+			}
+			,"onSelectChange":function(img, selection){
+				var x = selection.x1/this.wcb.zoom;
+				var y = selection.y1/this.wcb.zoom;
+				var width = selection.width/this.wcb.zoom;
+				var height = selection.height/this.wcb.zoom;
+				this.f.x.value = x;
+				this.f.y.value = y;
+				this.f.width.value = width;
+				this.f.height.value = height;
+				
+			}
+			,"end":function(){
+				return true;
+			}
+			,"mousewheel":function(event){
+				
+				return true;
+			}
+			,"down":function(event){
+				return true;
+			}
+			,"move":function(event){
+				
+				return true;
+			}
+			,"up":function(event){
+				
+				return true;
+			}
+			,"predraw":function(){
+				
+				return true;
+			}
+			,"confirm":function(){
+				this.reset(1);
+				var x = this.f.x.value, y  = this.f.y.value,
+				width = this.f.width.value,
+				height = this.f.height.value;
+				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)){
+					wc2.setError("tool.crop() : 잘못된 입력값.")
+				}else{
+					wc2.cmdWcb("crop",x,y,width,height);
+				}
+			}
+			,"reset":function(reuseable){ 
+				if(reuseable){
+					$(this.wcb.outNode).imgAreaSelect({
+						"hide":true,
+					});
+				}else{
+					$(this.wcb.outNode).imgAreaSelect({
+						"remove":true,
+					});
+				}
+				return true;
+			}
+		} //-- end fn
 	}
 	return r;
 }();

@@ -223,6 +223,11 @@ var wc2 = (function(){
 						this.activeWcb.clear();
 						this.saveHistory("Image."+cmd);
 				break;
+				case "crop":
+						this.resaveHistory();
+						this.activeWcb.crop(arg1,arg2,arg3,arg4);
+						this.saveHistory("Image."+cmd);
+				break;
 				case "new":
 					var wcb = this.newWcb(arg1,arg2)
 					wcb.saveHistory("Image."+cmd);
@@ -315,9 +320,11 @@ var wc2 = (function(){
 			wcb.tabFrame  = $("#defaultTabContent").clone()[0];
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
+			
 
 			wcb.wcbFrame = $(wcb.tabFrame).find('.wcb-frame')[0];
 			wcb.wcbMove = $(wcb.tabFrame).find('.wcb-move')[0];
+			wcb.wcbBox = $(wcb.tabFrame).find('.wcb-box')[0];
 			$(wcb.wcbMove).css("left","0px").css("top","0px")
 			
 			wcb.tabTitleLi = document.createElement('li');
@@ -329,7 +336,8 @@ var wc2 = (function(){
 			$(wcb.tabTitleA).text("TITLE");
 			$(wcb.tabFrame).append(wcb.wcbFrame);
 			$(wcb.wcbFrame).append(wcb.wcbMove);
-			$(wcb.wcbMove).append(wcb.node);
+			//$(wcb.wcbMove).append(wcb.node);
+			$(wcb.wcbBox).append(wcb.outNode);
 			
 			$(wcb.tabFrame).on("change",".wcb-zoom",
 				function(wcb){
@@ -387,6 +395,7 @@ var wc2 = (function(){
 		,"setActiveWcb":function(wcb){
 			this.activeWcb = wcb;
 			wc2Tool.init(this.tool);
+			this.cmdTool("reset");
 			return this.activeWcb;
 		}
 		,"closeWcb":function(wcb){
@@ -428,6 +437,17 @@ var wc2 = (function(){
 				return false;
 			}
 			
+			$("button[data-wc-tool]").each(
+				function(){
+					$(this).removeClass("active")
+				}
+			)
+			$("button[data-wc-tool='"+tool+"']").each(
+				function(){
+					$(this).addClass("active")
+				}
+			)
+			
 			return this.tool;
 		}
 		,"setToolByBtn":function(btn){
@@ -437,12 +457,6 @@ var wc2 = (function(){
 				return false;
 			}
 			var tool = btn.dataset.wcTool;
-			$(btn).parent().parent().find(".btn").each(
-				function(){
-					$(this).removeClass("active")
-				}
-			)
-			$(btn).addClass("active");
 			return this.setTool(tool);
 		}
 		//--- target에 대한 마우스 클릭 위치

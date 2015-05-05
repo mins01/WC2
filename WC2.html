@@ -30,6 +30,8 @@
 		<!-- spectrum.css on jquery -->
 		<link rel="stylesheet" href="jquery/spectrum.css">
 		<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.1/spectrum.min.css"> -->
+		<!-- image area select http://odyniec.net/projects/imgareaselect/ -->
+		<link rel="stylesheet" type="text/css" href="jquery/odyniec-imgareaselect/distfiles/css/imgareaselect-default.css" />
 
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -163,7 +165,7 @@
 					<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush"  type="button" title="Brush"><span class="small-text">B</span></button>
 					<button class="btn btn-default glyphicon glyphicon-erase" data-wc-tool="eraser" type="button"   title="Eraser"></button>
 					<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
-					<button class="btn btn-default glyphicon glyphicon-scissors  disabled" type="button" title="Crop"></button>
+					<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop"  type="button" title="Crop"></button>
 					<button class="btn btn-default glyphicon no-glyphicon " data-wc-tool="line" type="button" title="Line">⁄</button>
 					<button class="btn btn-default glyphicon no-glyphicon"  data-wc-tool="curve" type="button" title="Curve">∼</button>
 					<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
@@ -488,7 +490,35 @@ Ciao
 						</div>
 					</form>
 					
-					<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform" onsubmit="return false">
+					<form name="formToolCrop" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Crop</div>
+							<div  class="panel-body">
+								<table class="" style="width:100%">
+									<col width="50%">
+									<col width="50%">
+									<tr>
+										<th>X</th>
+										<th><input type="text" class="form-control" name="x" value="0"></th>
+									</tr>
+									<tr>
+										<th>Y</th>
+										<th><input type="text" class="form-control" name="y" value="0"></th>
+									</tr>
+									<tr>
+										<th>Width</th>
+										<th><input type="text" class="form-control" name="width" value="0"></th>
+									</tr>
+									<tr>
+										<th>Height</th>
+										<th><input type="text" class="form-control" name="height" value="0"></th>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
+					
+					<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform  wc-tool-crop" onsubmit="return false">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Confirm/Reset</div>
 							<div  class="panel-body">
@@ -636,7 +666,8 @@ Ciao
 			<div id="defaultTabContent">
 				<div class="wcb-frame">
 					<div class="wcb-move">
-						
+						<div class="wcb-box">
+						</div>
 					</div>
 				</div>
 				<select class="btn btn-default wcb-zoom">
@@ -1039,6 +1070,9 @@ Ciao
 	
 	<!-- https://github.com/jquery/jquery-mousewheel -->
 	<script src="jquery/jquery.mousewheel.js"></script>
+
+	<!-- image area select http://odyniec.net/projects/imgareaselect/ -->
+	<script type="text/javascript" src="jquery/odyniec-imgareaselect/jquery.imgareaselect.min.js"></script>
 	
 	<!-- https://github.com/ccampbell/mousetrap -->
 	<script src="etcmodule/mousetrap.min.js"></script>
@@ -1074,7 +1108,7 @@ Ciao
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('edit-preferences');
 		wc2.hideMenuDetail();
-		
+		//wc2.setTool("crop");
 	});
 	</script>
 	</body>

@@ -479,8 +479,9 @@ function WebCanvas(width,height,colorset){
 		//--- 잘라내기
 		,"crop":function(x0,y0,width,height){
 			var imagedata = this.cmdContext2d("getImageData",x0,y0,width,height);
-			this.clear();
+			this.clearResize(width,height);
 			this.cmdContext2d("putImageData",imagedata, 0, 0);
+			return true;
 		}
 		//--- 사각형그리기
 		,"rect":function(x0,y0,width,height){
@@ -493,6 +494,7 @@ function WebCanvas(width,height,colorset){
 				this.cmdContext2d("stroke");
 			}
 			this.cmdContext2d("closePath");
+			return true;
 		}
 		//--- 원 그리기
 		,"circle":function(x0,y0,xr,yr,x1,y1){
@@ -518,6 +520,7 @@ function WebCanvas(width,height,colorset){
 			var imagedata = this.cmdContext2d("getImageData",0,0,this.width,this.height);
 			this.clear();
 			this.cmdContext2d("putImageData",imagedata, x0, y0);
+			return true;
 		}
 		//--- toDataURL
 		//,"toDataURL":function(type,encoderOptions)// 캔버스에서 기본으로 지원됨
@@ -535,6 +538,7 @@ function WebCanvas(width,height,colorset){
 					this.cmdContext2d("strokeText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
 				}
 			}
+			return true;
 		}
 		//--- 문자열 길이 알아내기 (다중 문장 처리가능)
 		,"measureText":function(text){
@@ -607,6 +611,7 @@ function WebCanvas(width,height,colorset){
 			this.cmdContext2d("putImageData",data.imageData,0,0);
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
+			return true;
 		}
 		//--- 파일용 데이터
 		,"toWcDataObject":function(type,quality){
@@ -617,6 +622,7 @@ function WebCanvas(width,height,colorset){
 			this.resize(wcdo.width,wcdo.height);
 			this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.loadToDataURL(wcdo.dataURL,onload)
+			return true;
 		}
 		,"loadToDataURL":function(toDataUrl,callback){
 			var img = new Image();
@@ -633,6 +639,7 @@ function WebCanvas(width,height,colorset){
 				}
 			}(this,callback);
 			img.src = toDataUrl;
+			return true;
 		}
 		/*
 		,"getImageData":function(x0,y0,w0,h0){

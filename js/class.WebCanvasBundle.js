@@ -61,8 +61,11 @@ function WebCanvasBundle(width,height,colorset){
 			//-- 설정 초기화
 			this.width = width;
 			this.height = height;
+			this.outNode = document.createElement('div');
+			this.outNode.className = "WCB-box";
 			this.node = document.createElement('div');
 			this.node.className = "WCB";
+			this.outNode.appendChild(this.node);
 			this.node.wcb = this;
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
 			this.shadowWebCanvas.className = "WC WC-shadow";
@@ -129,7 +132,9 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			this.node.style.transform="scale("+this.zoom+","+this.zoom+")";
 			//this.node.style.width = (this.width*this.zoom)+'px';this.node.style.height = (this.height*this.zoom)+'px';
-			this.node.style.width = (this.width)+'px';this.node.style.height = (this.height)+'px';
+			//this.node.style.width = (this.width)+'px';this.node.style.height = (this.height)+'px';
+			//this.outNode.style.width = (this.width)+'px';this.outNode.style.height = (this.height)+'px';
+			this._resizeNode(this.width,this.height);
 		}
 		,"_syncNode":function(){
 			//this.node.innerHTML = "";//내용 초기화
@@ -329,10 +334,24 @@ function WebCanvasBundle(width,height,colorset){
 			}
 			return false;
 		}
+		,"_resizeNode":function(width,height){ //wc는 무시하고 wcb.node만 리사이즈.
+			if(!isNaN(width)){
+				this.width = width;
+				this.height = height;
+			}
+			
+			this.shadowWebCanvas.clearResize(this.width,this.height);
+			this.node.style.width = this.width+"px";
+			this.node.style.height = this.height+"px";
+			this.outNode.style.width = (this.width*this.zoom)+"px";
+			this.outNode.style.height = (this.height*this.zoom)+"px";
+			
+			//this._syncNode();
+			return true;
+		}
 		,"resizeNode":function(width,height){ //wc는 무시하고 wcb.node만 리사이즈.
-			this.shadowWebCanvas.clearResize(width,height);
-			this.width = width;
-			this.height = height;
+			this._resizeNode(width,height)
+			
 			this._syncNode();
 			return true;
 		}
@@ -345,9 +364,7 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"crop":function(x0,y0,width,height){
 			if(this.execAllWebCanvases("crop",arguments)){
-				this.width = width;
-				this.height = height;
-				this._syncNode();
+				this.resizeNode(width,height)
 				return true;
 			}
 			return true;

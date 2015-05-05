@@ -216,3 +216,6 @@ background-color:rgba(0,0,0,0.2);
 
 /* ºê·¯½¬ */
 #formToolBrushCanvasBox .WC-node{display:inline-block;}
+
+/* imageAreaSelect . fix crush bootstrap */ 
+.imgareaselect-outer {box-sizing: content-box;}
