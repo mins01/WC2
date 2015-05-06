@@ -47,7 +47,21 @@ function WebCanvas(width,height,colorset){
 		//---context2d 메소드 호출용
 		,"init":function(width,height,colorset){
 			this.alt = "";
-			this.label = "";
+			//this.label = "";
+			var o={}
+			var _label = "";
+			Object.defineProperty(this, 'label', {
+				get:function(){ return _label; },
+				set:function(wc){
+						return function(newValue){ 
+							_label = newValue;
+							wc._setLabel();
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+			
 			this.className = "WC";
 			this.node = document.createElement('div');
 			this.node.className = "WC-node";
@@ -149,12 +163,13 @@ function WebCanvas(width,height,colorset){
 		,"setName":function(alt){ 
 			return this.setLabel(alt);
 		}
-		,"setLabel":function(label){
-			this.alt = label; //deprecated
-			this.label = label;
-			this.dataset.wcLabel = label;
+		,"_setLabel":function(){
+			this.dataset.wcLabel = this.label;
 			this.modified();
 			return this.label;
+		}
+		,"setLabel":function(label){
+			return this.label = label;
 		}
 		,"setError":function(error){
 			this.error = error;
