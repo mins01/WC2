@@ -41,7 +41,19 @@ function WebCanvasBundle(width,height,colorset){
 			this.zoom = 1
 			this.toolName = ""
 			this.context2dCfg = {}
-			this.name = "";
+			var _name = "";
+			Object.defineProperty(this, 'name', {
+				get:function(){ return _name; },
+				set:function(wcb){
+						return function(newValue){ 
+							_name = newValue;
+							wcb._setName();
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+			this.name="";
 			this.tempCounter = 0
 			this.historyLog = [];
 			this.historyIdx = -1; //-1로 초기화
@@ -51,10 +63,12 @@ function WebCanvasBundle(width,height,colorset){
 			console.log(this.error);
 			return this.error;
 		}
-		,"setName":function(name){
-			this.name = name;
-			this.node.dataset.wcbName = name;
+		,"_setName":function(){
+			this.node.dataset.wcbName = this.name;
 			return this.name;
+		}
+		,"setName":function(name){
+			return this.name = name;
 		}
 		// 너비 높이로 만들기
 		,"create":function(width,height,colorset){
