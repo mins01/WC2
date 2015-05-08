@@ -124,7 +124,7 @@ function WebCanvas(width,height,colorset){
 				for(var i=1,m=arguments.length;i<m;i++){
 					args.push(arguments[i]);
 				}
-				this._checkArgument(cmd,args);
+				this._checkCmdContext2dArgument(cmd,args);
 				if((/(clearRect|fillRect|strokeRect|fill|stroke|fillText|strokeText|drawImage|putImageData)/).test(cmd)){ //내용에 영향을 주는 메소드만
 					this.modified();
 					//console.log(this.label,cmd);
@@ -137,7 +137,8 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 		}
-		,"_checkArgument":function(cmd,args){
+		//---  아큐멘트를 체크해서 기본값 처리를 한다.
+		,"_checkCmdContext2dArgument":function(cmd,args){
 			switch(cmd){
 				case "getImageData":
 					if(args[0]==undefined) args[0] = 0;
@@ -146,8 +147,9 @@ function WebCanvas(width,height,colorset){
 					if(args[3]==undefined) args[3] = this.height;
 				break;
 				case "putImageData":
-					if(args[0]==undefined) args[0] = 0;
+					//if(args[0]==undefined) args[0] = null; //imageData
 					if(args[1]==undefined) args[1] = 0;
+					if(args[2]==undefined) args[2] = 0;
 				break;
 			}
 		}
@@ -754,6 +756,16 @@ function WebCanvas(width,height,colorset){
 			this.cmdContext2d("scale",scaleH, scaleV); // Set scale to flip the image
 			this.cmdContext2d("drawImage",c, posX, posY, this.width, this.height); // draw the image
 			this.cmdContext2d("restore"); // Restore the last saved state
+		}
+		//--- 인버트
+		,"invert":function(){
+			var imageData = this.cmdContext2d('getImageData');
+			for(var i=0,m=imageData.data.length;i<m;i+=4){
+				imageData.data[i] = 255 - imageData.data[i]
+				imageData.data[i+1] = 255 - imageData.data[i+1]
+				imageData.data[i+2] = 255 - imageData.data[i+2]
+			}
+			this.cmdContext2d('putImageData',imageData);
 		}
 
 

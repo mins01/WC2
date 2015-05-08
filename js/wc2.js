@@ -669,6 +669,7 @@ var wc2 = (function(){
 					history = this.activeWcb.moveDownWebCanvasByIndex();break;
 				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
 				case "select":r = this._selectLayer(arg1); history = false; break;
+				case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
 			}
 			if(history){
 				this.saveHistory("Layer."+cmd);
