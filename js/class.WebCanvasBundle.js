@@ -53,7 +53,7 @@ function WebCanvasBundle(width,height,colorset){
 				enumerable: true,
 				configurable: false
 			});
-			this.name="";
+			
 			this.tempCounter = 0
 			this.historyLog = [];
 			this.historyIdx = -1; //-1로 초기화
@@ -89,7 +89,7 @@ function WebCanvasBundle(width,height,colorset){
 			//this.initEvent();
 			//this.setToolName("line");
 			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
-			this.setName("WCB")
+			this.name="WCB";
 			this.setZoom(1);
 
 		}
