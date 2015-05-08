@@ -81,6 +81,16 @@ var wc2Helper = function(){
 			}
 			return new Blob( [arr], {"type": type || 'image/png'}  );
 		},
+		//-- 바이너리를 blob으로
+		"bin2Blob":function(bin, type) {
+			var bin = atob( dataURL.split(',')[1] ),
+				len = bin.length,
+				arr = new Uint8Array(len);
+			for (var i=0; i<len; i++ ) {
+				arr[i] = bin.charCodeAt(i);
+			}
+			return new Blob( [arr], {"type": type || 'image/png'}  );
+		},
 		//-- blob 저장하기 (Dependencies FileSaver )
 		"saveAs":function(blob,filename){
 			saveAs(blob, filename);

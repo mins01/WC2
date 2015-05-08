@@ -759,7 +759,7 @@ Ciao
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">in PC</span>
-											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
+											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson,.wcblzs" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
 											<span class="input-group-btn">
 											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
 											</span>
@@ -792,6 +792,7 @@ Ciao
 													<option value="jpg">.jpg (if supported)</option>
 													<option value="webp">.webp (if supported)</option>
 													<option value="wcbjson">.wcbjson</option>
+													<option value="wcblzs">.wcblzs</option>
 												</select>
 												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality">
 													<option value="1">100%</option>
@@ -812,7 +813,8 @@ Ciao
 									<li class="list-group-item text-danger">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
-										<strong>wcbjson</strong> support multi-Layer.(json file) <br>
+										<strong>wcbjson</strong> : support multi-Layer.(json file) <br>
+										<strong>wcblzs</strong> wcbjson is compressed by <a href="http://pieroxy.net/blog/pages/lz-string/index.html" target="_blank">LZ-String</a> <br>(wcblzs is binary file, reduce 7~9% then wcbjson ) <br>
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
@@ -1097,7 +1099,8 @@ Ciao
 	<!-- https://github.com/ccampbell/mousetrap -->
 	<script src="etcmodule/mousetrap.min.js"></script>
 	<!-- https://github.com/eligrey/FileSaver.js -->
-	<script src="etcmodule/FileSaver.min.js"></script>
+	<!--<script src="etcmodule/FileSaver.min.js"></script>-->
+	<script src="etcmodule/FileSaver.js"></script>
 	<!-- https://github.com/pieroxy/lz-string/ -->
 	<script src="etcmodule/lz-string.min.js"></script>
 	

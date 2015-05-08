@@ -316,15 +316,27 @@ var wc2 = (function(){
 			
 		}
 		,"saveWcb":function(filename,type,quality){
-			var dataURL = this.activeWcb.toDataURL(type,quality);
+			var toDataURLType = type;
+			if(type == "wcblzs"){
+				toDataURLType = "wcbjson";
+				var dataURL = this.activeWcb.toWcbDataJson();
+			}else{
+				var dataURL = this.activeWcb.toDataURL(toDataURLType,quality);
+			}
+			
 			if(dataURL === false){
 				alert(this.activeWcb.error);
 				return false;
 			}
-			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
+			if(type == "wcblzs"){ //압축한다.
+				var blob = new Blob([ LZString.compressToUint8Array(dataURL)], {type: "application/octet-stream"});
+				return wc2Helper.saveAs( blob,filename);
+			}else{
+				return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
+			}
 		}
 		,"saveLayer":function(){
-			var type = 'png';
+			var type = 'png'; //png로 고정
 			var quality = undefined;
 			var filename = this.activeWcb.name+"_"+this.activeWcb.activeWebCanvas.label+".png";
 			
@@ -870,6 +882,15 @@ var wc2 = (function(){
 							preview.src = wcbdo.preview.dataURL;
 						}
 					}(preview),"readAsText");
+				}else if(el.value.indexOf("wcblzs")!= -1){ //전용 파일(압축)
+					wc2Helper.loadInputFile(el , function(){
+						return function(result){
+							var wcbdo = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(result)));// wcbDataObject
+							preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
+							preview.src = wcbdo.preview.dataURL;
+						}
+					//}(preview),"readAsBinaryString");
+					}(preview),"readAsArrayBuffer");
 				}else{
 					wc2Helper.loadInputFileAndView(el , preview);
 				}
