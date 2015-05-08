@@ -323,6 +323,19 @@ var wc2 = (function(){
 			}
 			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
 		}
+		,"saveLayer":function(){
+			var type = 'png';
+			var quality = undefined;
+			var filename = this.activeWcb.name+"_"+this.activeWcb.activeWebCanvas.label+".png";
+			
+			
+			var dataURL = this.activeWcb.activeWebCanvas.toDataURL(type,quality);
+			if(dataURL === false){
+				alert(this.activeWcb.error);
+				return false;
+			}
+			return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
+		}
 		,"addWcb":function(width,height){
 			var width = 300;
 			var height =  300;
@@ -670,6 +683,8 @@ var wc2 = (function(){
 				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
 				case "select":r = this._selectLayer(arg1); history = false; break;
 				case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
+				case "save":r = this.saveLayer();break;
+				case "rename":r =  this.activeWcb.activeWebCanvas.label = arg1;break;
 			}
 			if(history){
 				this.saveHistory("Layer."+cmd);
@@ -828,6 +843,7 @@ var wc2 = (function(){
 				switch(menu){
 					case "file-save":t[0].saveFileName.value = this.activeWcb.name;break;
 					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
+					case "layer-rename":t[0].renameName.value = this.activeWcb.activeWebCanvas.label;break;
 					case "image-adjustSize":
 					case "image-resize":t[0].width.defaultValue = t[0].width.value = this.activeWcb.width;
 												t[0].height.defaultValue = t[0].height.value = this.activeWcb.height;

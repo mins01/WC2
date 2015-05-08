@@ -92,7 +92,7 @@
 							<li><a href="#" class="glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');">Undo</a></li>
 							<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 							<li class="divider"></li>
-							<li><a href="#" class="glyphicon glyphicon-wrench" " data-wc-menu="edit-preferences">Preferences</a></li>
+							<li><a href="#" class="glyphicon glyphicon-wrench" data-wc-menu="edit-preferences">Preferences</a></li>
 						  </ul>
 						</li>
 						
@@ -125,15 +125,19 @@
 						</li>
 						
 						<li class="dropdown">
-						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Layer <span class="caret"></span></a>
-						  <ul class="dropdown-menu" role="menu">
-							<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')">Add</a></li>
-							<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')">Duplicate</a></li>
-							<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')">MergeDown</a></li>
-							<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
-							<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')">Remove</a></li>
-							<li class="divider"></li>
-							<li><a href="#" class="glyphicon glyphicon-adjust" onclick="wc2.cmdLayer('invert')">Invert</a></li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Layer <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')">Add</a></li>
+								<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')">Duplicate</a></li>
+								<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')">MergeDown</a></li>
+								<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
+								<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')">Remove</a></li>
+								<li class="divider"></li>
+								<li><a href="#" class="glyphicon glyphicon-adjust" onclick="wc2.cmdLayer('invert')">Invert</a></li>
+								<li class="divider"></li>
+								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="layer-rename">Rename</a></li>
+								<li><a href="#" class="glyphicon glyphicon-save-file" onclick="wc2.cmdLayer('save')">Save</a></li>
+							</ul>
 						  </ul>
 						</li>
 				  </ul>
@@ -858,7 +862,27 @@ Ciao
 				</form>
 				<form name="formMenuDetailImageRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-rename" onsubmit="wc2.cmdWcb('rename',this.renameName.value);wc2.hideMenuDetail();">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">Rename</div>
+						<div  class="panel-heading">Image Rename</div>
+						<div  class="panel-body">
+								<ul class="list-group ">
+									<li class="list-group-item list-group-item-success">name</li>
+									<li class="list-group-item" style="text-align:left">
+										<div class="input-group">
+											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
+											<input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
+										</div>
+									</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Rename</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailLayerRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-layer-rename" onsubmit="wc2.cmdLayer('rename',this.renameName.value);wc2.hideMenuDetail();">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Layer Rename</div>
 						<div  class="panel-body">
 								<ul class="list-group ">
 									<li class="list-group-item list-group-item-success">name</li>
