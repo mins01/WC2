@@ -1075,6 +1075,10 @@ Ciao
 										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
 									</li>
 									<li class="list-group-item" >
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+									<li class="list-group-item" >
 										<div  class="form-inline">
 											change viewport content sacle form Mobil-Web
 											<select  class="form-control"  name="viewportContentScale">
@@ -1086,11 +1090,8 @@ Ciao
 												<option value="">Web 1:1</option>
 											</select>
 											<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="wc2.changeViewport(this.form.viewportContentScale.value);"> Change</button>
+											<br>Tested by Mobile Chrome 41.0.2272.96
 										</div>
-									</li>
-									<li class="list-group-item" >
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
 								</ul>
 						</div>

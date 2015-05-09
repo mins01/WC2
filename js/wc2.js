@@ -33,6 +33,7 @@ var wc2 = (function(){
 		 ,"brushWC":null //브러쉬용
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"tabsContent":null
+		 ,"deviceWidth":0
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -82,6 +83,9 @@ var wc2 = (function(){
 		}
 		//--- UI초기화
 		,"initUI":function(){
+			//-- 장치 device-width 체크
+			var rect = document.body.getBoundingClientRect();
+			this.deviceWidth = rect.width; //모바일이라면 사용할겠지
 			//-- 탭 초기화
 			this.tabs = $( "#tabs" ).tabs({
 				"activate": function( event, ui ) {
@@ -971,8 +975,10 @@ var wc2 = (function(){
 			}
 			var vp0 = document.getElementById('viewport');
 			vp0.setAttribute("content",content);
-			//var vp1 = document.createElement('meta');
-			//m.setAttribute("content",content);
+			var vp1 = document.createElement('meta');
+			vp1.setAttribute("content",content);
+			var head = document.getElementsByTagName('head');
+			head[0].appendChild(vp1);
 			return true;
 		}
 	};
