@@ -981,5 +981,21 @@ var wc2 = (function(){
 			head[0].appendChild(vp1);
 			return true;
 		}
+		,"closeOnclickNavbar":function(event){
+			var ta = event.target;
+			if(ta.tagName=='A'){
+				if(!!ta.onclick|| ta.getAttribute("href").length>4||ta.dataset.wcMenu){
+					wc2.closeNavbar();
+				}
+			}
+			
+		}
+		,"closeNavbar":function(isOpen){
+			if(!isOpen){
+				$("#bs-example-navbar-collapse-1.in").removeClass("in").attr("aria-expanded","false");
+			}else{
+				$("#bs-example-navbar-collapse-1").addClass("in").attr("aria-expanded","true");
+			}
+		}
 	};
 })();
