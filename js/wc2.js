@@ -962,5 +962,18 @@ var wc2 = (function(){
 			
 			return true;
 		}
+		,"changeViewport":function(scale){
+			if(scale==""){
+				var content="";
+			}else{
+				//var content="width="+width+", initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+				var content="width=device-width, initial-scale="+scale+", maximum-scale="+scale+", user-scalable=no";
+			}
+			var vp0 = document.getElementById('viewport');
+			vp0.setAttribute("content",content);
+			//var vp1 = document.createElement('meta');
+			//m.setAttribute("content",content);
+			return true;
+		}
 	};
 })();
