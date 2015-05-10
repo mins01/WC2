@@ -310,6 +310,9 @@ var wc2 = (function(){
 				case "save":
 					this.saveWcb(arg1,arg2,arg3);
 				break;
+				case "upload":
+					this.uploadWcb(arg1,arg2,arg3);
+				break;
 				default:
 				this.setError("지원되지 않는 메소드");
 				break;
@@ -319,7 +322,7 @@ var wc2 = (function(){
 			}
 			
 		}
-		,"saveWcb":function(filename,type,quality){
+		,"blobWcb":function(type,quality){
 			var toDataURLType = type;
 			if(type == "wcblzs"){
 				toDataURLType = "wcbjson";
@@ -334,10 +337,50 @@ var wc2 = (function(){
 			}
 			if(type == "wcblzs"){ //압축한다.
 				var blob = new Blob([ LZString.compressToUint8Array(dataURL)], {type: "application/octet-stream"});
-				return wc2Helper.saveAs( blob,filename);
+				
 			}else{
-				return wc2Helper.saveAs(wc2Helper.dataURL2Blob(dataURL),filename);
+				var blob = wc2Helper.dataURL2Blob(dataURL);
 			}
+			return blob;
+		}
+		,"saveWcb":function(filename,type,quality){
+			var blob = this.blobWcb(type,quality);
+			return wc2Helper.saveAs( blob,filename);
+		}
+		,"uploadWcb":function(filename,type,quality){
+			var blob = this.blobWcb(type,quality);
+			var formdata = new FormData();
+			formdata.append("upfiles[]", blob, filename); 
+			$.ajax({
+				url: '../WG/WG.up.php',
+				processData: false,
+				contentType: false,
+				dataType :"json",
+				data: formdata,
+				type: 'POST',
+				success: function(wcb){return function(result){
+					if(!result || !result[0]){
+						alert("잘못된 업로드 결과");
+						return false;
+					}
+					var r = result[0];
+					if(r['save_error'] !=''){
+						alert("Error :"+r['save_error']);
+						return false;
+					}
+					wc2.cmdWcb("active",wcb);
+					if(r['save_name'] != r['name']){ //이름이 바껴서 저장된 경우
+						var n = r['save_name'].replace(/\.[^\.]*$/,''); //확장자 제거
+						wc2.cmdWcb("rename",n);
+						console.log("rename by upload");
+					}
+					if(confirm("Success Upload.\nView Image?")){
+						wc2.viewImageURL(r["url"]);
+					}
+					return true;
+				}}(this.activeWcb)
+            });
+			return true;
 		}
 		,"saveLayer":function(){
 			var type = 'png'; //png로 고정
@@ -700,7 +743,7 @@ var wc2 = (function(){
 				case "select":r = this._selectLayer(arg1); history = false; break;
 				case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
 				case "save":r = this.saveLayer();break;
-				case "rename":r =  this.activeWcb.activeWebCanvas.label = arg1;break;
+				case "rename":this.resaveHistory();r =  this.activeWcb.activeWebCanvas.label = arg1;break;
 			}
 			if(history){
 				this.saveHistory("Layer."+cmd);
@@ -747,23 +790,36 @@ var wc2 = (function(){
 				this.setError( "wc2.viewImage() : 활성화된 윈도우가 없음");
 				return false;
 			}
+			return this._viewImage(wc2.activeWcb.toDataURL());
+		}
+		//--- 뷰 URL 이미지 
+		,"viewImageURL":function(url){
+			return this._viewImage(url);
+		}
+		,"_viewImage":function(url){
 			var div = document.createElement('div');
 			div.className = "wc-viewImage";
 			var img = new Image();
 			img.title = wc2.activeWcb.name;
-			img.className ="wc-viewImage";
+			img.className ="wc-viewImage bg-grid";
 			$(div).append(img);
 			$(img).bind("load",function(event){
+				var rect = document.body.getBoundingClientRect();
 				$( this ).parent().dialog({"resizable":true,"draggable":true,
 					"position": { my: "center top" , at: "center top", of: "#contentArea" },
+					"width":Math.min(this.naturalWidth + 100,rect.width - 50),
+					"height":Math.min(this.naturalHeight + 100,rect.height - 50),
+					"maxWidth":rect.width - 50,
+					"maxHeight":rect.height - 50,
 					"modal":true,
 					"title":wc2.activeWcb.name+" (view)",
 					"close": function( event, ui ) {
 						$(this).dialog('destroy').remove();
 					},
 				});
+				$( this ).parent().append(this.naturalWidth+"x"+this.naturalHeight);
 			})
-			img.src = wc2.activeWcb.toDataURL();
+			img.src = url;
 		}
 		//--- 색상관련
 		,"initColorPalette":function(){
@@ -909,6 +965,15 @@ var wc2 = (function(){
 			}
 			var saveFileQuality = form.saveFileQuality.value
 			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
+		}
+		,"btnFileUpload":function(form){
+			var saveFileName = form.saveFileName.value
+			var saveFileType = form.saveFileType.value
+			if(saveFileType.length > 0){
+				saveFileName+="."+saveFileType;
+			}
+			var saveFileQuality = form.saveFileQuality.value
+			return this.cmdWcb("upload",saveFileName,saveFileType,saveFileQuality);
 		}
 		,"preferencesByForm":function(form){
 			var arr = $(form).serializeArray();

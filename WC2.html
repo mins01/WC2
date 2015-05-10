@@ -78,7 +78,7 @@
 						  <ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" >New</a></li>
 							<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open">Open</a></li>
-							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save">Save</a></li>
+							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save"> Save &amp; <span class="glyphicon glyphicon-cloud-upload"></span>Upload</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.cmdWcb('close')">Close</a></li>
@@ -818,7 +818,8 @@ Ciao
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
 								</ul>

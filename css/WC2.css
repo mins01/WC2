@@ -110,8 +110,8 @@ display:none;
 }
 
 
-div.wc-viewImage{}
-div.wc-viewImage img.wc-viewImage{ }
+div.wc-viewImage{text-align:center;padding:5px; }
+div.wc-viewImage img.wc-viewImage{ border:4px inset #abc;}
 
 /* 이미지 툴용 prop */
 #imageNode{max-width:100%;}

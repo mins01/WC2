@@ -194,7 +194,7 @@ function WebCanvasBundle(width,height,colorset){
 				var oldMtime = this.historyLog[this.historyIdx].time;
 			}
 			this.historyIdx++;
-			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()});
+			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"name":this.name,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()});
 			if(this.historyLog.length > this.commonConfig.limitHistoryLog){
 				this.historyLog.splice(0,1);
 				this.historyIdx--;
@@ -209,6 +209,7 @@ function WebCanvasBundle(width,height,colorset){
 			if(this.historyIdx<=0){this.setError("undo() : 더 이상의 히스토리가 없습니다");return false;}
 			var historyData = this.historyLog[--this.historyIdx];
 			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
+			this.name = historyData.name;
 			this.putDataForHistory(historyData);
 			return true;
 		}
@@ -216,6 +217,7 @@ function WebCanvasBundle(width,height,colorset){
 			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("redo() : 더 이상의 히스토리가 없습니다");return false;}
 			var historyData = this.historyLog[++this.historyIdx];
 			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
+			this.name = historyData.name;
 			this.putDataForHistory(historyData);
 			return true;
 			
