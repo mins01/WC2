@@ -433,7 +433,7 @@ function WebCanvas(width,height,colorset){
 			this.restoreContext2d();
 			return true;
 		}
-		,"copyData":function(webCanvas,x0,y0,w0,h0){
+		,"copyImageData":function(webCanvas,x0,y0,w0,h0){
 			if(isNaN(w0) && isNaN(h0) ){
 				if(isNaN(x0)){x0 = 0;}
 				if(isNaN(y0)){y0 = 0;}

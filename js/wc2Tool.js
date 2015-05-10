@@ -268,7 +268,7 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-				this.wcb.shadowWebCanvas.copyWithoutOpacity(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"destination-out"});
 				
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
@@ -293,7 +293,7 @@ var wc2Tool = function(){
 			}
 			,"up":function(event){
 				this.predraw();
-				this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+				this.wcb.activeWebCanvas.copyImageData(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
 				return true;
@@ -410,7 +410,7 @@ var wc2Tool = function(){
 				if(this.ing ==0){
 					//this.wcb = wcb;
 					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-					this.wcb.shadowWebCanvas.copyData(this.wcb.activeWebCanvas);
+					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 					this._initXYWH();
 					this.sc = 1;
 				}
