@@ -509,7 +509,7 @@ var wc2Tool = function(){
 			,"confirm":function(noQ){
 				if(this.ing == 1){
 					if(noQ || confirm("OK?")){
-						this.wcb.activeWebCanvas.copyWithoutOpacity(this.wcb.shadowWebCanvas);
+						this.wcb.activeWebCanvas.copyImageData(this.wcb.shadowWebCanvas);
 						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
