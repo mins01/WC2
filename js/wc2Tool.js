@@ -576,7 +576,15 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"mousewheel":function(event){
-				return wc2Tool.move.mousewheel.apply(this,arguments); //동작이 똑같아서 가져다 쓴다.
+				if(this.ing == 0){ return false; }
+				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
+				if(event.altKey){ //rotate
+					wc2Tool.transform._rotate.call(this,event.deltaY);
+				}else{ //scale
+					wc2Tool.transform._scale.call(this,event.deltaY);
+				}
+				this.predraw();
+				//console.log(this.sc);
 			}
 			,"down":function(event){
 				this.ing = 1;
