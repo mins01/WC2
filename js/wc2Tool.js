@@ -858,8 +858,10 @@ var wc2Tool = function(){
 			"wcb":null
 			,"x0":-1,"y0":-1
 			,"ing":0
+			,"lastLen":0
 			,"init":function(){
 				this.ing = 1;
+				this.lastLen = 0;
 				return true;
 			}
 			,"end":function(){
@@ -911,7 +913,7 @@ var wc2Tool = function(){
 			}
 			,"calXY":function(x0,y0,x1,y1,brushSpacing){
 				var xys = [];
-				xys.push([x0,y0])
+				
 				if(x0==x1 && y0==y1){
 					return xys;
 				}
@@ -921,9 +923,16 @@ var wc2Tool = function(){
 				var sinA = a/c;
 				var cosA = b/c;
 				var ci = 0;
+				this.lastLen+=c;
+
+				if(this.lastLen < brushSpacing){
+						return xys;
+				}
+				this.lastLen -=brushSpacing;
+				ci += brushSpacing;
+				xys.push([x0,y0])
 				
-				do{
-					ci += brushSpacing;
+				while(ci<c && this.lastLen >= brushSpacing){
 					var a1 = ci * sinA;
 					var b1 = ci * cosA;
 					var x2 = x0+b1;
@@ -931,7 +940,10 @@ var wc2Tool = function(){
 					//var c2 = Math.sqrt(Math.pow(x2-x0,2)+Math.pow(y2-y0,2)); //빗변
 					xys.push([x2,y2])
 					//console.log([x2,y2]);
-				}while(ci<c)
+					ci += brushSpacing;
+					this.lastLen -=brushSpacing;
+					
+				}
 				
 				//console.log(x0,y0,x2,y2,c2 );
 				return xys;
