@@ -492,9 +492,9 @@ var wc2Tool = function(){
 				*/
 				
 				if(this.sc == 1 && this.deg == 0){
+					this.wcb.shadowWebCanvas.clear();
 					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas,this.x0,this.y0);
 				}else{
-					console.log(this.dw,this.dh,this.sc);
 					this.wcb.shadowWebCanvas.clear();
 					var rotateCenterX = (this.dw)/2
 					var rotateCenterY = (this.dh)/2
