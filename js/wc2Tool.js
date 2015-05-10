@@ -143,9 +143,12 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"reset":function(){ 
+				
 				this.ing = false;
 				this.step = 0
-				this.wcb.shadowWebCanvas.clear();
+				if(this.wcb){
+					this.wcb.shadowWebCanvas.clear();
+				}
 				return true;
 			}
 			,"down":function(event){
@@ -763,11 +766,13 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
+				if(!this.wcb){return false;}
 				this.move(event);
 				$("#divSelectedColorSpuit").css("backgroundColor",this.colorStyle);
 				return true;
 			}
 			,"move":function(event){
+				if(!this.wcb){return false;}
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = t.x;
 				this.y0 = t.y;
@@ -776,12 +781,13 @@ var wc2Tool = function(){
 				
 			}
 			,"up":function(event){
+				if(!this.wcb){return false;}
 				this.predraw();
 				this.end();
 				return true;
 			}
 			,"predraw":function(){
-				 var colorset = this.wcb.pickupColor(this.x0,this.y0);
+				var colorset = this.wcb.pickupColor(this.x0,this.y0);
 				this.colorStyle = this.wcb.shadowWebCanvas.colorset2String(colorset);
 				if(this.colorStyle=== false){return true;}
 				//console.log(colorset,this.colorStyle);
@@ -1035,14 +1041,16 @@ var wc2Tool = function(){
 				}
 			}
 			,"reset":function(reuseable){ 
-				if(reuseable){
-					$(this.wcb.outNode).imgAreaSelect({
-						"hide":true,
-					});
-				}else{
-					$(this.wcb.outNode).imgAreaSelect({
-						"remove":true,
-					});
+				if(this.wcb){
+					if(reuseable){
+						$(this.wcb.outNode).imgAreaSelect({
+							"hide":true,
+						});
+					}else{
+						$(this.wcb.outNode).imgAreaSelect({
+							"remove":true,
+						});
+					}
 				}
 				return true;
 			}

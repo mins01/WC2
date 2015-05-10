@@ -206,10 +206,10 @@ var wc2 = (function(){
 		}
 		//--- 히스토리
 		,"saveHistory":function(action){
-			this.activeWcb.saveHistory(action);
+			if(this.activeWcb) this.activeWcb.saveHistory(action);
 		}
 		,"resaveHistory":function(){
-			this.activeWcb.resaveHistory();
+			if(this.activeWcb) this.activeWcb.resaveHistory();
 		}
 		//--
 		//--- 
