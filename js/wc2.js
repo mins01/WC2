@@ -817,7 +817,7 @@ var wc2 = (function(){
 						$(this).dialog('destroy').remove();
 					},
 				});
-				$( this ).parent().append(this.naturalWidth+"x"+this.naturalHeight);
+				$( this ).parent().append("<div>"+this.naturalWidth+"x"+this.naturalHeight+"</div>");
 			})
 			img.src = url;
 		}
