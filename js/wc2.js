@@ -252,7 +252,9 @@ var wc2 = (function(){
 					this.saveHistory("Image."+cmd);
 				break;
 				case "open":
-					if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
+					if(typeof arg1 =="string"){
+						this.newWcbByURL(arg1); //URL에서 읽어온다.
+					}else if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
 						var wcb = this.newWcbByWcbdo(arg1.wcbdo,
 								function(cmd){
 									return function(wcb){
@@ -451,6 +453,27 @@ var wc2 = (function(){
 			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmssSSS'));
 			return this._addWcb(wcb);
 		}
+		,"newWcbByURL":function(url){
+			var preview = new Image();
+			preview.onload = function(){
+				wc2.newWcbByImage(this);
+			}
+			preview.onerror = function(event){
+				wc2.loadAjax(event.target.src,
+						function( data, textStatus, jqXHR ) {
+							//if(jqXHR.getResponseHeader("Content-Type") =='application/json'){
+								var json = JSON.parse(data); //json으로 만들어지면 wcbdo 로 처리한다.
+								if(json){
+									wc2.newWcbByWcbdo(json);
+								}
+							//}
+						}
+				);
+				this.onerror = undefined;
+			}
+			preview.src = url;
+		}
+		
 		,"newWcbByImage":function(image){
 			var wcb = new WebCanvasBundle(100,100);
 			if(wcb.openByImage(image)=== false){
@@ -465,7 +488,7 @@ var wc2 = (function(){
 			var wcb = new WebCanvasBundle(100,100);
 			var callback = function(wcb,onload){
 				return function(){
-					onload(wcb);
+					if(onload) onload(wcb);
 					wc2._addWcb(wcb);
 				}
 			}(wcb,onload)
@@ -927,27 +950,61 @@ var wc2 = (function(){
 		,"btnShowMenuDetail":function(menuBtn){
 			return this.showMenuDetail(menuBtn.dataset.wcMenu)
 		}
+		,"loadAjax":function(url,success){
+			$.ajax(
+				{
+					"url": url,
+					crossDomain: true,
+					dataType: "text",
+					"success": success,
+					error: function( jqXHR, textStatus, errorThrown ) {
+						console.log( jqXHR, textStatus, errorThrown );
+					}
+				}
+			)
+		}
+		,"viewPreviewImageByWcbdo":function(wcbdo){
+			var preview = document.getElementById('formMenuDetailFileOpenPreview');
+			preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
+			preview.src = wcbdo.preview.dataURL;
+		}
 		//--
+		,"viewPreviewImageByWcbdoByURL":function(url){
+			var preview = document.getElementById('formMenuDetailFileOpenPreview');
+			preview.wcbdo = null;
+			preview.onerror = function(event){
+				wc2.loadAjax(event.target.src,
+						function( data, textStatus, jqXHR ) {
+							//if(jqXHR.getResponseHeader("Content-Type") =='application/json'){
+								var json = JSON.parse(data); //json으로 만들어지면 wcbdo 로 처리한다.
+								if(json){
+									wc2.viewPreviewImageByWcbdo(json);
+								}
+							//}
+						}
+				);
+				this.onerror = undefined;
+			}
+			preview.src = url;
+		}
 		,"btnFileOpenPreviewImage":function(el){
 			var preview = document.getElementById('formMenuDetailFileOpenPreview');
 			preview.wcbdo = null;
 			if(el.type=="text" && el.value.length > 0){
-				preview.src = el.value;
+				this.viewPreviewImageByWcbdoByURL(el.value);
 			}else if(el.type=="file"  && el.value.length > 0){
 				if(el.value.indexOf("wcbjson")!= -1){ //전용 파일
 					wc2Helper.loadInputFile(el , function(){
 						return function(result){
 							var wcbdo = JSON.parse(result);// wcbDataObject
-							preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
-							preview.src = wcbdo.preview.dataURL;
+							wc2.viewPreviewImageByWcbdo(wcbdo)
 						}
 					}(preview),"readAsText");
 				}else if(el.value.indexOf("wcblzs")!= -1){ //전용 파일(압축)
 					wc2Helper.loadInputFile(el , function(){
 						return function(result){
 							var wcbdo = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(result)));// wcbDataObject
-							preview.wcbdo = wcbdo; //이 값이 false가 아니면 wcbdo로 읽어오게 한다.
-							preview.src = wcbdo.preview.dataURL;
+							wc2.viewPreviewImageByWcbdo(wcbdo)
 						}
 					//}(preview),"readAsBinaryString");
 					}(preview),"readAsArrayBuffer");
@@ -1060,6 +1117,23 @@ var wc2 = (function(){
 				$("#bs-example-navbar-collapse-1.in").removeClass("in").attr("aria-expanded","false");
 			}else{
 				$("#bs-example-navbar-collapse-1").addClass("in").attr("aria-expanded","true");
+			}
+		}
+		//입력된 URL의 QueryString을 기준으로 자동 처리한다.
+		,"initByQueryString":function(qstr){
+			qstr = qstr.replace(/^\?/,'');
+			var arr = qstr.split('&');
+			var cmds = [];
+			for(var i=0,m=arr.length;i<m;i++){
+				var t = arr[i].split('=');
+				var cmd = t[0]
+				var arg1 = decodeURIComponent(t[1]);
+				if(cmd=="open"){
+					this.cmdWcb("open",arg1);
+				}else{
+					console.log("지원되지 않는 명령어");
+				}
+				
 			}
 		}
 	};

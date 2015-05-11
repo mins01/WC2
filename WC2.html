@@ -1162,7 +1162,11 @@ Ciao
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
-		wc2.cmdWcb("new",300,300);
+		if(document.location.search.length>4){ //입력된 URL의 QueryString을 기준으로 자동 처리한다.
+			wc2.initByQueryString(document.location.search);
+		}else{
+			wc2.cmdWcb("new",300,300);
+		}
 		
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('edit-preferences');
