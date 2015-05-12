@@ -221,6 +221,11 @@ background-color:rgba(0,0,0,0.2);
 
 /* ºê·¯½¬ */
 #formToolBrushCanvasBox .WC-node{display:inline-block;}
-
+#toolBrushList img
+,#toolBrushList input{width:34px;height:34px;
+border:1px gray outset; margin:2px;box-sizing: border-box; box-shadow: 0px 1px 3px rgba(0,0,0,0.9);
+border-radius: 3px;
+cursor:pointer;
+}
 /* imageAreaSelect . fix crush bootstrap */ 
 .imgareaselect-outer {box-sizing: content-box;}

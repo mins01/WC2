@@ -30,7 +30,7 @@ var wc2 = (function(){
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
-		 ,"brushWC":null //브러쉬용
+		 ,"brushIMG":null //브러쉬용
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"tabsContent":null
 		 ,"deviceWidth":0
@@ -93,11 +93,31 @@ var wc2 = (function(){
 					wc2.cmdWcb("active",ui.newPanel[0].wcb); //Tab이 active되면 관련 wcb도 active가 된다.
 				}
 			});
+			
+			//-- 브러쉬 목록
+			var t = $("#toolBrushList");
+			for(var i=0,m=wc2Brush.list.length;i<m;i++){
+				var v = wc2Brush.list[i];
+				var src = wc2Brush.dir+"/"+v;
+				var str = '<img class="bg-grid" src="'+src+'"  data-wc-brush="'+v+'">'
+				t.append(str);
+			}
+			t.on( "click", "img", function(event){
+				document.formToolBrush.brush = this;
+				wc2.syncBrushCanvas();
+			});
+			t.find("img")[0].onload = function(event){
+				document.formToolBrush.brush = this;
+				wc2.syncBrushCanvas();
+			}
 			//-- 브러쉬 초기화
-			this.brushWC = WebCanvas(100,100);
-			$("#formToolBrushCanvasBox").append(this.brushWC.node);
-			this.syncBrushCanvas();
+			
+			this.brushIMG = t.find("img")[0].cloneNode();
+			this.brushIMG.className = "";
+			
+			$("#formToolBrushCanvasBox").append(this.brushIMG);
 			this.tabsContent = document.getElementById('tabsContent');
+			
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
@@ -1083,7 +1103,16 @@ var wc2 = (function(){
 			
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
+			
+			wc2Brush.sync(f.brush,strokeStyle,width,globalAlpha);
+			
+			// this.brushWC.clearResize(width,width);
+			// this.brushWC.drawImage(f.brush,0,0,width,width);
+			// var colorset =wc2Helper.string2Colorset(strokeStyle);
+			// this.brushWC.coverColor(colorset);
+			this.brushIMG.src = wc2Brush.toDataURL();
 			//console.log(strokeStyle,color0);
+			/* 원으로 그리기
 			var x0 ,y0 ,r0,x1 ,y1, r1;
 			x0 = y0 = r1 = x1 = y1  = width/2;
 			r0 = Math.min(x0*r0p,x0*0.99);
@@ -1096,7 +1125,8 @@ var wc2 = (function(){
 			this.brushWC.rect(0,0,width,width);
 			this.brushWC.configContext2d({"fillStyle":color0,"disableStroke":1,"globalAlpha":globalAlpha})
 			this.brushWC.circle(x0,y0,r0);
-			
+			*/
+
 			return true;
 		}
 		,"changeViewport":function(scale){
