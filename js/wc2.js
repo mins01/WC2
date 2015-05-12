@@ -253,7 +253,13 @@ var wc2 = (function(){
 				break;
 				case "open":
 					if(typeof arg1 =="string"){
-						this.newWcbByURL(arg1); //URL에서 읽어온다.
+						this.newWcbByURL(arg1,function(cmd){
+									return function(wcb){
+										wcb.saveHistory("Image."+cmd);
+										//wc2.cmdWcb("active",wcb);  //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
+										//console.log("end");
+									}
+								}(cmd)); //URL에서 읽어온다.
 					}else if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
 						var wcb = this.newWcbByWcbdo(arg1.wcbdo,
 								function(cmd){
@@ -453,21 +459,26 @@ var wc2 = (function(){
 			wcb.setName($.format.date(new Date(),'yyyyMMddHHmmssSSS'));
 			return this._addWcb(wcb);
 		}
-		,"newWcbByURL":function(url){
+		,"newWcbByURL":function(url,onload){
 			var preview = new Image();
-			preview.onload = function(){
-				wc2.newWcbByImage(this);
-			}
+			preview.onload = function(onload){
+				return function(){
+					wc2.newWcbByImage(this);
+					onload();
+				}
+			}(onload)
 			preview.onerror = function(event){
 				wc2.loadAjax(event.target.src,
-						function( data, textStatus, jqXHR ) {
+					function(onload){
+						return function( data, textStatus, jqXHR ) {
 							//if(jqXHR.getResponseHeader("Content-Type") =='application/json'){
 								var json = JSON.parse(data); //json으로 만들어지면 wcbdo 로 처리한다.
 								if(json){
-									wc2.newWcbByWcbdo(json);
+									wc2.newWcbByWcbdo(json,onload);
 								}
 							//}
 						}
+					}(onload)
 				);
 				this.onerror = undefined;
 			}
