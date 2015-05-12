@@ -897,6 +897,10 @@ var wc2Tool = function(){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = this.x1 = t.x;
 				this.y0 = this.y1 = t.y;
+				
+				var x = this.x0;
+				var y = this.y0;
+				this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,x-(wc2.brushIMG.naturalWidth/2),y-(wc2.brushIMG.naturalHeight/2));
 				this.predraw();
 				//console.log("down");
 				return true;
