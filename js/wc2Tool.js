@@ -926,7 +926,8 @@ var wc2Tool = function(){
 					for(var i=0,m=xys.length;i<m;i++){
 						x = xys[i][0];
 						y = xys[i][1];
-						this.wcb.shadowWebCanvas.drawImage(wc2.brushWC,x-(wc2.brushWC.width/2),y-(wc2.brushWC.height/2));
+						//this.wcb.shadowWebCanvas.drawImage(wc2.brushWC,x-(wc2.brushWC.width/2),y-(wc2.brushWC.height/2));
+						this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,x-(wc2.brushIMG.naturalWidth/2),y-(wc2.brushIMG.naturalHeight/2));
 					}
 				}
 			}

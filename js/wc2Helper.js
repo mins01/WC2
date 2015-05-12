@@ -105,5 +105,32 @@ var wc2Helper = function(){
 		"b64_to_utf8":function(str) {
 			 return decodeURIComponent(escape(window.atob(str)));
 		},
+		//-- [r,g,b,a] 를 rgba(r,g,b,a) 문자열로
+		"colorset2String":function(colorset){
+			switch(colorset.length){
+				case 3:return "rgb("+colorset.join(',')+")";break;
+				case 4:return "rgba("+colorset.join(',')+")";break;
+			}
+			return false;
+		},
+		//-- rgba(r,g,b,a) 문자열을 [r,g,b,a]
+		"string2Colorset":function(string){
+			var colorset = false;
+			if(string.indexOf('#')==0){ //#RRGGBB 형식
+				var colorset = [];
+				if(string.length == 3){
+					var t = string.substr(0,1);colorset.push(parseInt(t+t,16));
+					var t = string.substr(1,1);colorset.push(parseInt(t+t,16));
+					var t = string.substr(2,1);colorset.push(parseInt(t+t,16));
+				}else{
+					var t = string.substr(0,2);colorset.push(parseInt(t,16));
+					var t = string.substr(2,2);colorset.push(parseInt(t,16));
+					var t = string.substr(3,2);colorset.push(parseInt(t,16));
+				}
+			}else if(string.toLowerCase().indexOf('rgb')==0){
+				var colorset = string.replace(/[^\d,]/g,'').split(',');
+			}
+			return colorset;
+		},
 	}
 }();

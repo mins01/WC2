@@ -767,6 +767,16 @@ function WebCanvas(width,height,colorset){
 			}
 			this.cmdContext2d('putImageData',imageData);
 		}
+		//--- 색채우기 (모든 색을 바꾼다. 알파값은 바꾸지 않는다)
+		,"coverColor":function(colorset){
+			var imageData = this.cmdContext2d('getImageData');
+			for(var i=0,m=imageData.data.length;i<m;i+=4){
+				imageData.data[i] = colorset[0];
+				imageData.data[i+1] = colorset[1];
+				imageData.data[i+2] = colorset[2];
+			}
+			this.cmdContext2d('putImageData',imageData);
+		}
 
 
 	} // end : WebCanvas._prototype
