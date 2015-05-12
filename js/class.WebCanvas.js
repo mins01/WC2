@@ -71,6 +71,20 @@ function WebCanvas(width,height,colorset){
 			this.error = ""; //최후 에러 메세지
 			this.width = width;
 			this.height = height;
+			
+			var _opacity
+			Object.defineProperty(this, 'opacity', {
+				get:function(){ return _opacity; },
+				set:function(wc){
+						return function(newValue){ 
+							if(isNaN(newValue)){return false}
+							_opacity = newValue;
+							wc._setOpacity();
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
 			this.opacity = 1;
 			this.context2d = this.getContext('2d');
 			//this.context2d.imageSmoothingEnabled = false;//
@@ -79,7 +93,7 @@ function WebCanvas(width,height,colorset){
 			this.context2d.eraserMode = "pen";
 			this.context2d.disableStroke = 0; //stroke 사용금지
 			this.context2d.disableFill = 0; //strokFiil 사용금지
-			this.context2d.opacity = 1; //레이어 투명도
+			//this.context2d.opacity = 1; //레이어 투명도
 			
 			//-- config font
 			//this.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
@@ -371,12 +385,12 @@ function WebCanvas(width,height,colorset){
 		,"setZoom":function(){
 		}
 		,"setOpacity":function(opacity){
-			if(!isNaN(opacity)){
-				opacity = parseFloat(opacity);
-				this.opacity = opacity;
-				this.node.style.opacity = this.opacity;
-				this.modified();
-			}
+			this.opacity = parseFloat(opacity);
+			return this.opacity;
+		}
+		,"_setOpacity":function(){
+			this.node.style.opacity = this.opacity;
+			this.modified();
 			return this.opacity;
 		}
 		// 인자의 webCanvas가 위에 그려진다.
