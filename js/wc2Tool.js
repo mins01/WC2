@@ -924,18 +924,16 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				if(this.ing){
-					var xys = this.calXY(this.x0,this.y0,this.x1,this.y1,wc2.brushSpacing);
+					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,wc2.brushSpacing);
+					var w2 = (wc2.brushIMG.naturalWidth || wc2.brushIMG.width)/2
+					var h2 = (wc2.brushIMG.naturalHeight || wc2.brushIMG.height)/2
 					//console.log(xys);
-					var x = 0, y = 0;
 					for(var i=0,m=xys.length;i<m;i++){
-						x = xys[i][0];
-						y = xys[i][1];
-						//this.wcb.shadowWebCanvas.drawImage(wc2.brushWC,x-(wc2.brushWC.width/2),y-(wc2.brushWC.height/2));
-						this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,x-(wc2.brushIMG.naturalWidth/2),y-(wc2.brushIMG.naturalHeight/2));
+						this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,xys[i][0]-w2,xys[i][1]-h2);
 					}
 				}
 			}
-			,"calXY":function(x0,y0,x1,y1,brushSpacing){
+			,"dotsInLine":function(x0,y0,x1,y1,brushSpacing){
 				var xys = [];
 				
 				if(x0==x1 && y0==y1){

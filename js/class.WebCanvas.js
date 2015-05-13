@@ -791,7 +791,5 @@ function WebCanvas(width,height,colorset){
 			}
 			this.cmdContext2d('putImageData',imageData);
 		}
-
-
 	} // end : WebCanvas._prototype
 })();
