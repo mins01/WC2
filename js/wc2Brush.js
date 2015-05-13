@@ -11,13 +11,14 @@
 * '공대여자는 이쁘다.'를 나타내야만 사용할 수 있습니다.
 */
 var wc2Brush = function(){
+	this.init();
+}
+wc2Brush.prototype = function(){
 	return {
 		"brushWC":WebCanvas(100,100),
 		"dir":"brush",//브러쉬 이미지 경로
-		"init":function(dir){
-			if(dir == undefined){
-				this.dir = dir;
-			}
+		"init":function(){
+		
 		}
 		,"sync":function(image,colorStyle,width,globalAlpha){
 			this.brushWC.clearResize(width,width);
@@ -31,14 +32,3 @@ var wc2Brush = function(){
 		}
 	}
 }();
-
-wc2Brush.list =[
-	"circle01.png",
-	"circle02.png",
-	"rect01.png",
-	"rect02.png",
-	"etc_backslash.png",
-	"etc_slash.png",
-	"etc_dotc.png",
-	"etc_dotr.png",
-];

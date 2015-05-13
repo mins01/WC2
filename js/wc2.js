@@ -34,6 +34,7 @@ var wc2 = (function(){
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"tabsContent":null
 		 ,"deviceWidth":0
+		 ,"brush4Brush":null
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -96,9 +97,9 @@ var wc2 = (function(){
 			
 			//-- 브러쉬 목록
 			var t = $("#toolBrushList");
-			for(var i=0,m=wc2Brush.list.length;i<m;i++){
-				var v = wc2Brush.list[i];
-				var src = wc2Brush.dir+"/"+v;
+			for(var i=0,m=wc2BrushList.length;i<m;i++){
+				var v = wc2BrushList[i];
+				var src = wc2BrushList.dir+"/"+v;
 				var str = '<img class="bg-grid" src="'+src+'"  data-wc-brush="'+v+'">'
 				t.append(str);
 			}
@@ -111,7 +112,7 @@ var wc2 = (function(){
 				wc2.syncBrushCanvas();
 			}
 			//-- 브러쉬 초기화
-			
+			this.brush4Brush = new wc2Brush();
 			this.brushIMG = t.find("img")[0].cloneNode();
 			this.brushIMG.className = "";
 			
@@ -1094,7 +1095,6 @@ var wc2 = (function(){
 			var f = document.formToolBrush;
 			var fc = document.formColor;
 			var width = parseFloat(f.width.value);
-			var r0p = parseFloat(f.r0p.value);
 			this.brushSpacing  = parseFloat(f.brushSpacing.value);
 			var globalAlpha = parseFloat(f.globalAlpha.value);
 			var strokeStyle = fc.strokeStyle.value;
@@ -1104,13 +1104,13 @@ var wc2 = (function(){
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
 			
-			wc2Brush.sync(f.brush,strokeStyle,width,globalAlpha);
+			this.brush4Brush.sync(f.brush,strokeStyle,width,globalAlpha);
 			
 			// this.brushWC.clearResize(width,width);
 			// this.brushWC.drawImage(f.brush,0,0,width,width);
 			// var colorset =wc2Helper.string2Colorset(strokeStyle);
 			// this.brushWC.coverColor(colorset);
-			this.brushIMG.src = wc2Brush.toDataURL();
+			this.brushIMG.src = this.brush4Brush.toDataURL();
 			//console.log(strokeStyle,color0);
 			/* 원으로 그리기
 			var x0 ,y0 ,r0,x1 ,y1, r1;
