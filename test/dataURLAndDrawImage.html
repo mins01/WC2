@@ -22,31 +22,29 @@
 	</div>
 	
 	
-	<input type="button" onclick="fn1(this)" value="TEST1. click:img.src=canvas.toDataURL()"></button>
-	<input type="button" onclick="fn2(this)" value="TEST2. click:canvas.drawImage(canvas)"></button>
-	<input type="button" onclick="fn3(this)" value="TEST3. click:canvas.drawImage(image)"></button>
-	<input type="button" onclick="fn3(this)" value="TEST4. click:canvas.putImageData(canvas.getImageData())"></button>
+	TEST1. click:img.src=canvas.toDataURL() : <input type="button" onclick="fn1(this)" value="go">:2540:100%<br>
+	TEST2. click:canvas.drawImage(canvas) : <input type="button" onclick="fn2(this)" value="go">:20240:797%<br>
+	TEST3. click:canvas.drawImage(image) : <input type="button" onclick="fn3(this)" value="go">:64937:2557%<br>
+	TEST4. click:canvas.putImageData(canvas.getImageData()) : <input type="button" onclick="fn4(this)" value="go">:4072:160%<br>
+	TEST4_1. click:canvas.putImageData(imageData) : <input type="button" onclick="fn4_1(this)" value="go">:8691:342%<br>
+	TEST5. click:canvas.clear() : <input type="button" onclick="fn5(this)" value="go">:127550:5022%<br>
 	
 	<hr>
 	주의 : 수정된 canvas를 사용하였음.<br>
 	테스트 할 때 마다 숫자가 요동침...<br>
 	크롬  버전 42.0.2311.135 에서 테스트
 	<hr>
-	<ul>
-		<li>TPS : 3285.930209633962</li>
-		<li>TPS : 89449.01610017888</li>
-		<li>TPS : 225234.23423423423</li>
-		<li>TPS : 212774.4680851064</li>
-	</ul>
 	
 	
 	<hr>
-	결론<br>
-	TEST4(100%) = TEST3(94%)  > TEST2(40%) >>>>>>>>>>>>>>>>> TEST1(1%)<br>
-	img.src=canvas.toDataURL()은 될 수 있으면 쓰지 말라.<br>
-	canvas간의 데이터 넣기는 canvas.putImageData(canvas.getImageData()) 를 추천.(리사이등은 안하는 경우)<br>
-	canvas.drawImage(canvas) 는 생각보다 느리지만, reisze등을 생각한다면 어쩔 수 없다.(리사이즈로 처리되면 더욱더 느려진다.)<br>
-	
+<pre>
+결론<br>
+canvas.clear() > canvas.drawImage(image) > canvas.drawImage(canvas)  >canvas.putImageData(imageData) >canvas.putImageData(canvas.getImageData()) > img.src=canvas.toDataURL()<br>
+img.src=canvas.toDataURL()은 될 수 있으면 쓰지 말라. 하지만 image를 붙여넣기위한 이미지를 만든다면 무시.(1회동작이니깐)<br>
+canvas.putImageData(canvas.getImageData())는 비트 단위 정확한 이동 등에만 사용하라, 그게 아니면 canvas.drawImage(canvas) 쪽이 더 빠르다.<br>
+canvas.drawImage(canvas) 는 생각보다 느리지만, reisze등을 생각한다면 어쩔 수 없다.(리사이즈로 처리되면 더욱더 느려진다.)<br>
+getImageData()와 putImageData()의 속도는 거의 같은 듯(getImageData를 한 번만 하면 속도가 약 2배 정도 나온다.)
+</pre>
 	<!-- WC2 -->
 	<script src="../js/class.WebCanvas.js"></script>
 	<script>
@@ -106,7 +104,32 @@
 		var i = 0;
 		var st = (new Date()).getTime();
 		while(i++ <= 50000){
-			c2.putImageData(c1.getImageData());
+			c2.cmdContext2d("putImageData",c1.cmdContext2d("getImageData"));
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+		function fn4_1(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		var imgData = c1.cmdContext2d("getImageData");
+		while(i++ <= 50000){
+			c2.cmdContext2d("putImageData",imgData);
+			if(i%1000==0){
+				document.title = i
+			}
+		}
+		var gap = (new Date()).getTime()-st;
+		btn.value = 'TPS : '+(i/(gap/1000));
+	}
+	function fn5(btn){
+		var i = 0;
+		var st = (new Date()).getTime();
+		while(i++ <= 50000){
+			c2.clear();
 			if(i%1000==0){
 				document.title = i
 			}
