@@ -222,13 +222,16 @@
 							</div>
 						</div>
 					</form>
-					<form name="formEraser" action="javascript:void(0)" class="wc-tool wc-tool-eraser" onsubmit="return false">
+					<form name="formToolEraser" action="javascript:void(0)" class="wc-tool wc-tool-eraser" onsubmit="return false" onchange="wc2.syncEraser()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Eraser</div>
 							<div  class="panel-body">
 								<table class="">
 									<col width="50%">
 									<col width="50%">
+									<tr class="bg-grid" >
+										<th colspan="2" height="100" id="formToolEraserCanvasBox" align="center" ></th>
+									</tr>
 									<tr>
 										<th>line</th>
 										<td><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" >
@@ -240,10 +243,9 @@
 										</td>
 									</tr>
 									<tr>
-										<th>eraserMode</th>
-										<td><select name="eraserMode">
-											<option value="pen">pen</option>
-										</select> </td>
+										<th>Spacing</th>
+										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -457,7 +459,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush" onsubmit="this.onchange();return false" onchange="wc2.syncBrushCanvas();">
+					<form name="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush</div>
 							<div  class="panel-body">
@@ -550,7 +552,7 @@ Ciao
 					</form>
 					
 					
-					<form name="formColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush" onsubmit="return false" onchange="wc2.syncBrushCanvas();wc2.cmdTool('predraw')" >
+					<form name="formColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush" onsubmit="return false" onchange="wc2.syncBrush();wc2.cmdTool('predraw')" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">Color</div>
 							<div  class="panel-body">
@@ -566,7 +568,7 @@ Ciao
 									<tr>
 										<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
 										</th>
-										<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.syncBrushCanvas();wc2.cmdTool('predraw')" title="exchange color"></button></th>
+										<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
 										<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
 									</tr>
 								</table>

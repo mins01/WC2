@@ -30,11 +30,13 @@ var wc2 = (function(){
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
-		 ,"brushIMG":null //브러쉬용
 		 ,"brushSpacing":1 //브러쉬 간격
+		 ,"brushIMG":null //브러쉬용
+		 ,"brush4Brush":null
 		 ,"tabsContent":null
 		 ,"deviceWidth":0
-		 ,"brush4Brush":null
+		 ,"eraserIMG":null //지우개용
+		 ,"brush4eraser":null
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -94,7 +96,7 @@ var wc2 = (function(){
 					wc2.cmdWcb("active",ui.newPanel[0].wcb); //Tab이 active되면 관련 wcb도 active가 된다.
 				}
 			});
-			
+			this.tabsContent = document.getElementById('tabsContent');
 			//-- 브러쉬 목록
 			var t = $("#toolBrushList");
 			for(var i=0,m=wc2BrushList.length;i<m;i++){
@@ -105,19 +107,26 @@ var wc2 = (function(){
 			}
 			t.on( "click", "img", function(event){
 				document.formToolBrush.brush = this;
-				wc2.syncBrushCanvas();
+				wc2.syncBrush();
 			});
-			t.find("img")[0].onload = function(event){
-				document.formToolBrush.brush = this;
-				wc2.syncBrushCanvas();
-			}
 			//-- 브러쉬 초기화
 			this.brush4Brush = new wc2Brush();
 			this.brushIMG = t.find("img")[0].cloneNode();
 			this.brushIMG.className = "";
 			
 			$("#formToolBrushCanvasBox").append(this.brushIMG);
-			this.tabsContent = document.getElementById('tabsContent');
+			
+			//--- 지우개 초기화
+			this.brush4Eraser = new wc2Brush();
+			this.eraserIMG = t.find("img")[0].cloneNode();
+			this.eraserIMG.className = "";
+			$("#formToolEraserCanvasBox").append(this.eraserIMG);
+			//--- 초기화 이미지 onload 처리
+			t.find("img")[0].onload = function(event){
+				document.formToolBrush.brush = this;
+				wc2.syncBrush();
+				wc2.syncEraser();
+			}
 			
 		}
 		//--- 이벤트 초기화
@@ -1090,8 +1099,21 @@ var wc2 = (function(){
 			}
 			return this.usePreviewImageAtLayerInfo;
 		}
+		//지우개용 브러쉬 정보 싱크 그리기
+		,"syncEraser":function(){
+			var f = document.formToolEraser;
+			var fc = document.formColor;
+			//var strokeStyle = fc.strokeStyle.value;
+			var lineWidth = parseFloat(f.lineWidth.value);
+			var globalAlpha = parseFloat(f.globalAlpha.value);
+			var r = lineWidth/2;
+			var colorStyle = "rgb(255,255,255)";
+			this.brush4Eraser.circle(r,colorStyle,globalAlpha,0,1);
+			this.eraserIMG.src = this.brush4Eraser.toDataURL();
+			
+		}
 		//브러쉬 정보 싱크 그리기
-		,"syncBrushCanvas":function(){
+		,"syncBrush":function(){
 			var f = document.formToolBrush;
 			var fc = document.formColor;
 			var width = parseFloat(f.width.value);
@@ -1104,7 +1126,7 @@ var wc2 = (function(){
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
 			
-			this.brush4Brush.sync(f.brush,strokeStyle,width,globalAlpha);
+			this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			
 			// this.brushWC.clearResize(width,width);
 			// this.brushWC.drawImage(f.brush,0,0,width,width);

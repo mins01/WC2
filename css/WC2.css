@@ -227,5 +227,13 @@ border:1px gray outset; margin:2px;box-sizing: border-box; box-shadow: 0px 1px 3
 border-radius: 3px;
 cursor:pointer;
 }
+/* Áö¿ì°³ */
+#formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}
+
 /* imageAreaSelect . fix crush bootstrap */ 
 .imgareaselect-outer {box-sizing: content-box;}
+
+
+
+
+

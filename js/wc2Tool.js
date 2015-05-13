@@ -253,13 +253,14 @@ var wc2Tool = function(){
 		//-- 지우개
 		,"eraser":{
 			"wcb":null
-			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
-			,"eraserMode":"pen"
+			,"x0":-1,"y0":-1
+			,"ing":0
+			,"lastLen":0
 			,"init":function(wcb){
 				//this.wcb = wcb;
 				//console.log("init");				
-				this.eraserMode = this.wcb.shadowWebCanvas.getConfigContext2d("eraserMode");
-				
+				this.lastLen = 0;
+				this.brushIMG = wc2.eraserIMG;
 				return true;
 			}
 			,"end":function(){
@@ -270,29 +271,28 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
+				
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"destination-out"});
 				
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 = t.x;
-				this.y0 = t.y;
-				this.x1 = t.x;
-				this.y1 = t.y;
+				this.ing = 1;
+				this.brushSpacing = parseFloat(document.formToolEraser.brushSpacing.value);
+				console.log(this.brushSpacing);
 				
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = this.x1 = t.x;
+				this.y0 = this.y1 = t.y;
+				
+				var x = this.x0;
+				var y = this.y0;
+				this.wcb.shadowWebCanvas.drawImage(this.brushIMG,x-(this.brushIMG.naturalWidth/2),y-(this.brushIMG.naturalHeight/2));
 				this.predraw();
 				//console.log("down");
 				return true;
 			}
 			,"move":function(event){
-				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 = this.x1;
-				this.y0 = this.y1;
-				this.x1 = t.x;
-				this.y1 = t.y;
-				this.predraw();
-				//console.log("move");
-				return true;
+				return wc2Tool.brush.move.apply(this,arguments);
 			}
 			,"up":function(event){
 				this.predraw();
@@ -302,9 +302,10 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
-				if(this.eraserMode=="pen"){
-					this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
-				}
+				return wc2Tool.brush.predraw.apply(this,arguments);
+			}
+			,"dotsInLine":function(){
+				return wc2Tool.brush.dotsInLine.apply(this,arguments);
 			}
 		}
 		//-- 사각형
@@ -875,12 +876,13 @@ var wc2Tool = function(){
 		//-- 브러쉬
 		,"brush":{
 			"wcb":null
-			,"x0":-1,"y0":-1
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"ing":0
 			,"lastLen":0
 			,"init":function(){
 				this.ing = 1;
 				this.lastLen = 0;
+				this.brushIMG = wc2.brushIMG;
 				return true;
 			}
 			,"end":function(){
@@ -894,13 +896,14 @@ var wc2Tool = function(){
 			,"down":function(event){
 				this.wcb.shadowWebCanvas.clear();
 				this.ing = 1;
+				this.brushSpacing = parseFloat(document.formToolBrush.brushSpacing.value);
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = this.x1 = t.x;
 				this.y0 = this.y1 = t.y;
 				
 				var x = this.x0;
 				var y = this.y0;
-				this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,x-(wc2.brushIMG.naturalWidth/2),y-(wc2.brushIMG.naturalHeight/2));
+				this.wcb.shadowWebCanvas.drawImage(this.brushIMG,x-(this.brushIMG.naturalWidth/2),y-(this.brushIMG.naturalHeight/2));
 				this.predraw();
 				//console.log("down");
 				return true;
@@ -924,12 +927,12 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				if(this.ing){
-					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,wc2.brushSpacing);
-					var w2 = (wc2.brushIMG.naturalWidth || wc2.brushIMG.width)/2
-					var h2 = (wc2.brushIMG.naturalHeight || wc2.brushIMG.height)/2
+					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,this.brushSpacing);
+					var w2 = (this.brushIMG.naturalWidth || this.brushIMG.width)/2
+					var h2 = (this.brushIMG.naturalHeight || this.brushIMG.height)/2
 					//console.log(xys);
 					for(var i=0,m=xys.length;i<m;i++){
-						this.wcb.shadowWebCanvas.drawImage(wc2.brushIMG,xys[i][0]-w2,xys[i][1]-h2);
+						this.wcb.shadowWebCanvas.drawImage(this.brushIMG,xys[i][0]-w2,xys[i][1]-h2);
 					}
 				}
 			}
