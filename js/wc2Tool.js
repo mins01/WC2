@@ -1069,6 +1069,84 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
+		//-- 패턴
+		,"pattern":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"w":-1
+			,"ing":0
+			,"lastLen":0
+			,"init":function(){
+				this.ing = 1;
+				this.lastLen = 0;
+				this.brushIMG = wc2.brushIMG;
+				return true;
+			}
+			,"end":function(){
+				//console.log("end");
+				this.ing = 0;
+				this.wcb.shadowWebCanvas.clear();
+				$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
+				wc2Tool.saveHistory();
+				return true;
+			}
+			,"down":function(event){
+				
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.saveContext2d();
+				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
+				
+				
+				this.ing = 1;
+				this.brushSpacing =  parseFloat(document.formToolPattern.brushSpacing.value);
+				this.w =  parseFloat(document.formToolPattern.width.value);
+				var w2
+				
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = this.x1 = t.x;
+				this.y0 = this.y1 = t.y;
+				
+				var x = this.x0;
+				var y = this.y0;
+				this.wcb.shadowWebCanvas.circle(this.x0,this.x1,w2);
+				this.predraw();
+				//console.log("down");
+				return true;
+				
+				return true;
+			}
+			,"move":function(event){
+				return wc2Tool.brush.move.apply(this,arguments);
+			}
+			,"up":function(event){
+				this.wcb.shadowWebCanvas.configContext2d({"patternImage":"","disableStroke":1});
+				this.wcb.activeWebCanvas.copyImageData(this.wcb.shadowWebCanvas);
+				this.wcb.shadowWebCanvas.restoreContext2d();
+				//this.wcb.activeWebCanvas.copy(this.wcb.shadowWebCanvas);
+				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			
+			,"predraw":function(){
+				if(this.ing){
+					
+					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,this.brushSpacing);
+					var w2 = this.w/2
+					var h2 = this.w/2
+					//console.log(xys);
+					for(var i=0,m=xys.length;i<m;i++){
+						//this.wcb.shadowWebCanvas.drawImage(this.brushIMG,xys[i][0]-w2,xys[i][1]-h2);
+						this.wcb.shadowWebCanvas.circle(xys[i][0],xys[i][1],w2);
+					}
+				}
+			}
+			,"dotsInLine":function(){
+				return wc2Tool.brush.dotsInLine.apply(this,arguments);
+			}
+		}//-- end fn
 	}
 	return r;
 }();

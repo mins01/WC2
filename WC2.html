@@ -173,6 +173,8 @@
 					<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="circle" type="button" title="Circle">○</button>
 					<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
 					<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
+					<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
+					
 					<hr class="soften">
 					<button class="btn btn-default glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');" type="button" title="Undo"></button>
 					<button class="btn btn-default glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');" type="button" title="Redo"></button>
@@ -491,7 +493,38 @@ Ciao
 							</div>
 						</div>
 					</form>
-					
+					<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Pattern</div>
+							<div  class="panel-body">
+								<table class="">
+									<col width="50%">
+									<col width="50%">
+									<tr class="bg-grid" >
+										<th colspan="2" height="100" id="formToolPatternCanvasBox" align="center" ><img id="imagePattern" src="img/bg.gif"></th>
+									</tr>
+									<tr>
+										<th>Size</th>
+										<td><input   type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></td>
+									</tr>
+									<tr>
+										<th>alpha</th>
+										<td><input type="range" min="0" max="1" value="0.5" step="0.1" name="globalAlpha"  >
+										</td>
+									</tr>
+									<tr>
+										<th>Spacing</th>
+										<td><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  >
+										</td>
+									</tr>
+								</table>
+								<div id="toolPatternList">
+									
+								</div>
+								
+							</div>
+						</div>
+					</form>
 					<form name="formToolCrop" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Crop</div>
@@ -1154,6 +1187,7 @@ Ciao
 	<script src="js/wc2Tool.js"></script>
 	<script src="js/wc2Brush.js"></script>
 	<script src="js/wc2BrushList.js"></script>
+	<script src="js/wc2PatternList.js"></script>
 	<script src="js/wc2Helper.js"></script>
 	<!-- -->
 	

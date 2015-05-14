@@ -130,6 +130,24 @@ var wc2 = (function(){
 				wc2.syncBrush();
 				wc2.syncEraser();
 			}
+			//--- 패턴 목록
+			var t = $("#toolPatternList");
+			for(var i=0,m=wc2PatternList.length;i<m;i++){
+				if(wc2PatternList[i].indexOf('data')===0){
+					var src = wc2PatternList[i];	
+				}else{
+					var src = wc2PatternList.dir+"/"+wc2PatternList[i];	
+				}
+				var str = '<img class="bg-grid" src="'+src+'" >'
+				t.append(str);
+			}
+			t.on( "click", "img", function(event){
+				wc2.syncPattern(event.target);
+			});
+			t.find("img")[0].onload = function(event){
+				//imagePattern
+				wc2.syncPattern(this);
+			}
 			
 		}
 		//--- 이벤트 초기화
@@ -1124,36 +1142,24 @@ var wc2 = (function(){
 			var globalAlpha = parseFloat(f.globalAlpha.value);
 			var strokeStyle = fc.strokeStyle.value;
 			var fillStyle = fc.fillStyle.value;
-
-			
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
-			
 			this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
-			
-			// this.brushWC.clearResize(width,width);
-			// this.brushWC.drawImage(f.brush,0,0,width,width);
-			// var colorset =wc2Helper.string2Colorset(strokeStyle);
-			// this.brushWC.coverColor(colorset);
 			this.brushIMG.src = this.brush4Brush.toDataURL();
-			//console.log(strokeStyle,color0);
-			/* 원으로 그리기
-			var x0 ,y0 ,r0,x1 ,y1, r1;
-			x0 = y0 = r1 = x1 = y1  = width/2;
-			r0 = Math.min(x0*r0p,x0*0.99);
-			//console.log(r1,r0);
-			this.brushWC.clearResize(width,width);
-			var rg = this.brushWC.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
-			rg.addColorStop(0,color0);
-			rg.addColorStop(1,color1);
-			this.brushWC.configContext2d({"fillStyle":rg,"disableStroke":1,"globalAlpha":globalAlpha})
-			this.brushWC.rect(0,0,width,width);
-			this.brushWC.configContext2d({"fillStyle":color0,"disableStroke":1,"globalAlpha":globalAlpha})
-			this.brushWC.circle(x0,y0,r0);
-			*/
-
 			return true;
 		}
+		//브러쉬 정보 싱크 그리기
+		,"syncPattern":function(img){
+			$("#toolPatternList img").each(
+				function(idx,el){
+					$(el).removeClass("active");
+				}
+			)
+			$(img).addClass("active");
+			$("#imagePattern").prop("src",img.src);
+			return true;
+		}
+		
 		,"changeViewport":function(scale){
 			if(scale==""){
 				var content="";

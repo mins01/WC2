@@ -155,6 +155,8 @@ box-sizing: border-box;
 padding:0px;
 position: absolute;
 }
+/* 툴 설정 부분 */
+#propPanel .wc-tool table{width:100%; table-layout:fixed;}
 
 /* 커서 정의부 */
 #tabsContent{ cursor:crosshair; }
@@ -219,6 +221,13 @@ background-color:rgba(0,0,0,0.2);
 
 #btnQuickNewFile{cursor:pointer;}
 
+
+/* 지우개 */
+#formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}
+
+/* imageAreaSelect . fix crush bootstrap */ 
+.imgareaselect-outer {box-sizing: content-box;}
+
 /* 브러쉬 */
 #formToolBrushCanvasBox .WC-node{display:inline-block;}
 #toolBrushList img
@@ -227,13 +236,14 @@ border:1px gray outset; margin:2px;box-sizing: border-box; box-shadow: 0px 1px 3
 border-radius: 3px;
 cursor:pointer;
 }
-/* 지우개 */
-#formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}
-
-/* imageAreaSelect . fix crush bootstrap */ 
-.imgareaselect-outer {box-sizing: content-box;}
-
-
+/* 패턴 */
+#formToolPatternCanvasBox{overflow:scroll;}
+#toolPatternList img
+,#toolPatternList input{width:34px;height:34px;
+border:1px gray outset; margin:2px;box-sizing: border-box; box-shadow: 0px 1px 3px rgba(0,0,0,0.9);
+border-radius: 3px;
+cursor:pointer;
+}
 
 
 
