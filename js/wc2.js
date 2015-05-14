@@ -100,9 +100,12 @@ var wc2 = (function(){
 			//-- 브러쉬 목록
 			var t = $("#toolBrushList");
 			for(var i=0,m=wc2BrushList.length;i<m;i++){
-				var v = wc2BrushList[i];
-				var src = wc2BrushList.dir+"/"+v;
-				var str = '<img class="bg-grid" src="'+src+'"  data-wc-brush="'+v+'">'
+				if(wc2BrushList[i].indexOf('data')===0){
+					var src = wc2BrushList[i];	
+				}else{
+					var src = wc2BrushList.dir+"/"+wc2BrushList[i];	
+				}
+				var str = '<img class="bg-grid" src="'+src+'" >'
 				t.append(str);
 			}
 			t.on( "click", "img", function(event){
