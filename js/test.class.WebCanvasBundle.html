@@ -112,11 +112,17 @@
 		//--- 이미지 복제
 		wcb0.resize(100,100);
 		
-		wcb0.clear();
+		
 		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([0xaa,0xbb,0xcc,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
 		actWC.configContext2d(context2dCfg);	
+		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([255,255,255,1])
+		,"font":"20px sans-serif"
+		,"textBaseline":"top"};
+		wcb0.webCanvases[0].configContext2d(context2dCfg);	
+		wcb0.clear();
+
 		actWC.rect(0,10,100,20)
 		actWC.rect(40,10,20,100)
 		
@@ -149,7 +155,7 @@
 		actWC.text("테스트AaBbC#韓",0,0);
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",0,20);
 
-		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,0]),"fillStyle":wc2.colorset2String([0,0,0,1])
+		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,0]),"fillStyle":wc2.colorset2String([100,100,100,1])
 		,"font":"normal normal bold 12px sans-serif "
 		,"textAlign":"center"
 		,"textBaseline":"top"
@@ -242,6 +248,13 @@
 	function copy2(){
 		actWC.copy(img0,0,0,300,300);
 	}
+	function fn_globalCompositeOperation(type){
+		actWC.saveContext2d();
+		var context2dCfg = {"globalCompositeOperation":type};
+		actWC.configContext2d(context2dCfg);
+		actWC.cmdContext2d("drawImage",img0,50,50);
+		actWC.restoreContext2d();
+	}
 	
 	</script>
 </head>
@@ -253,37 +266,55 @@
 	<fieldset>
 		<legend>test button</legend>
 		<div>
-			<input type="button" value="addWebCanvas()"  onclick="layerNumbering()">
-			<input type="button" value="addWebCanvas([0x33,0x66,0x99,1])"  onclick="wcb0.addWebCanvas([0x33,0x66,0x99,1]);layerNumbering()">
+			<form action="#">
+				<input type="button" value="addWebCanvas()"  onclick="layerNumbering()">
+				<input type="button" value="addWebCanvas([0x33,0x66,0x99,1])"  onclick="wcb0.addWebCanvas([0x33,0x66,0x99,1]);layerNumbering()">
+				
+				<input type="button" value="clear()"  onclick="wcb0.clear();">
+				<input type="button" value="resize(200,200)"  onclick="wcb0.resize(200,200);">
+				<input type="button" value="resize(100,200)"  onclick="wcb0.resize(100,200);">
+				<input type="button" value="resize(100,100)"  onclick="wcb0.resize(100,100);">
+				<input type="button" value="upOrder(0,false),최하 레이어 위로"  onclick="wcb0.upOrder(0,false)">
+				<input type="button" value="upOrder(1,true),최하 바로 위 레이어 아래로"  onclick="wcb0.upOrder(1,true)">
+				<hr>버튼을 눌러 체크 : 회전
+				<input type="button" value="wcb0.rotate90To(0);"  onclick="wcb0.rotate90To(0);">
+				<input type="button" value="wcb0.rotate90To(90);"  onclick="wcb0.rotate90To(90);">
+				<input type="button" value="wcb0.rotate90To(180);"  onclick="wcb0.rotate90To(180);">
+				<input type="button" value="wcb0.rotate90To(270);"  onclick="wcb0.rotate90To(270);">
+				<input type="button" value="wcb0.rotate90To(-90);"  onclick="wcb0.rotate90To(-90);">
+				<hr>버튼을 눌러 체크 : 반전
+				<input type="button" value="wcb0.flip(true,false);"  onclick="wcb0.flip(true,false);">
+				<input type="button" value="wcb0.flip(false,true);"  onclick="wcb0.flip(false,true);">
+				<input type="button" value="wcb0.flip(true,true);"  onclick="wcb0.flip(true,true);">
+				<hr>버튼을 눌러 체크 : 패턴 (설정 후 사격형 그리기를 해보아라)
+				<input type="button" value="clear()"  onclick="wcb0.clear();">
+				<input type="button" value="setPatternStyle(img0,'repeat');"  onclick="setPatternStyle(img0,'repeat')">
+				<input type="button" value="setPatternStyle(img0,'repeat-x');"  onclick="setPatternStyle(img0,'repeat-x')">
+				<input type="button" value="setPatternStyle(img0,'repeat-y');"  onclick="setPatternStyle(img0,'repeat-y')">
+				<input type="button" value="setPatternStyle(img0,'no-repeat');"  onclick="setPatternStyle(img0,'no-repeat')">
+				<input type="button" value="actWC.rect(0,0,400,400); //사각형 그리기"  onclick="actWC.rect(0,0,250,250);">
+				<hr>연속된 선 그리기
+				<input type="button" value="lines();"  onclick="lines()">
+				<hr>
+				<input type="button" value="copy();"  onclick="copy()">
+				<input type="button" value="copy2();"  onclick="copy2()">
+				<hr>
+				<select name="globalCompositeOperation">
+					<option value="source-atop">source-atop</option>
+					<option value="source-in">source-in</option>
+					<option value="source-over">source-over (default)</option>
+					<option value="destination-atop">destination-atop</option>
+					<option value="destination-in">destination-in</option>
+					<option value="destination-out">destination-out</option>
+					<option value="destination-over">destination-over</option>
+					<option value="copy">copy</option>
+					<option value="xor">xor</option>
+				</select>
 			
-			<input type="button" value="clear()"  onclick="wcb0.clear();">
-			<input type="button" value="resize(200,200)"  onclick="wcb0.resize(200,200);">
-			<input type="button" value="resize(100,200)"  onclick="wcb0.resize(100,200);">
-			<input type="button" value="resize(100,100)"  onclick="wcb0.resize(100,100);">
-			<input type="button" value="upOrder(0,false),최하 레이어 위로"  onclick="wcb0.upOrder(0,false)">
-			<input type="button" value="upOrder(1,true),최하 바로 위 레이어 아래로"  onclick="wcb0.upOrder(1,true)">
-			<hr>버튼을 눌러 체크 : 회전
-			<input type="button" value="wcb0.rotate90To(0);"  onclick="wcb0.rotate90To(0);">
-			<input type="button" value="wcb0.rotate90To(90);"  onclick="wcb0.rotate90To(90);">
-			<input type="button" value="wcb0.rotate90To(180);"  onclick="wcb0.rotate90To(180);">
-			<input type="button" value="wcb0.rotate90To(270);"  onclick="wcb0.rotate90To(270);">
-			<input type="button" value="wcb0.rotate90To(-90);"  onclick="wcb0.rotate90To(-90);">
-			<hr>버튼을 눌러 체크 : 반전
-			<input type="button" value="wcb0.flip(true,false);"  onclick="wcb0.flip(true,false);">
-			<input type="button" value="wcb0.flip(false,true);"  onclick="wcb0.flip(false,true);">
-			<input type="button" value="wcb0.flip(true,true);"  onclick="wcb0.flip(true,true);">
-			<hr>버튼을 눌러 체크 : 패턴 (설정 후 사격형 그리기를 해보아라)
-			<input type="button" value="clear()"  onclick="wcb0.clear();">
-			<input type="button" value="setPatternStyle(img0,'repeat');"  onclick="setPatternStyle(img0,'repeat')">
-			<input type="button" value="setPatternStyle(img0,'repeat-x');"  onclick="setPatternStyle(img0,'repeat-x')">
-			<input type="button" value="setPatternStyle(img0,'repeat-y');"  onclick="setPatternStyle(img0,'repeat-y')">
-			<input type="button" value="setPatternStyle(img0,'no-repeat');"  onclick="setPatternStyle(img0,'no-repeat')">
-			<input type="button" value="actWC.rect(0,0,400,400); //사각형 그리기"  onclick="actWC.rect(0,0,250,250);">
-			<hr>연속된 선 그리기
-			<input type="button" value="lines();"  onclick="lines()">
-			<input type="button" value="copy();"  onclick="copy()">
-			<input type="button" value="copy2();"  onclick="copy2()">
+				<input type="button" value="fn_globalCompositeOperation(type);"  onclick="fn_globalCompositeOperation(this.form.globalCompositeOperation.value)">
+			</form>
 		</div>
+		
 	</fieldset>
 </fieldset>
 <div style="float:left;border:4px solid red;" id="div_image"></div>

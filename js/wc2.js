@@ -41,7 +41,7 @@ var wc2 = (function(){
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
 								"globalAlpha": 1, // 0~1
-								"globalCompositeOperation": "source-over", //source-atop,source-in,source-out,source-over (default),destination-atop,destination-in,destination-out,destination-over,lighter,copy,xor , vendorName-operationName(etc)
+								"globalCompositeOperation": "source-over", //source-atop,source-in,source-out,source-over (default),destination-atop,destination-in,destination-out,destination-over,lighter,copy,xor , vendorName-operationName(etc) //https://developer.mozilla.org/samples/canvas-tutorial/6_1_canvas_composite.html
 								"imageSmoothingEnabled": true, //이미지 리사이즈시 더 부드럽도록 보여준다.
 								"lineCap": "round", // butt, round, square :  : use only "round"
 								"lineDashOffset": 0,
@@ -77,6 +77,7 @@ var wc2 = (function(){
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
 			this.hideMenuDetail();
+			this.hideFilterDetail();
 			this.setTool("brush");
 		}
 		,"setError":function(error,disableShow){
@@ -148,6 +149,11 @@ var wc2 = (function(){
 				//imagePattern
 				wc2.syncPattern(this);
 			}
+			//--- 필터 설정 부분
+			this.filterPreviewWC = WebCanvas(100,100);
+			$(this.filterPreviewWC).addClass("bg-grid");
+			var t = $("#filterCanvasBox");
+			t.html("").append(this.filterPreviewWC.node);
 			
 		}
 		//--- 이벤트 초기화
@@ -838,26 +844,6 @@ var wc2 = (function(){
 				this._syncWcbInfo();
 			}
 		}
-		,"cmdFilter":function(cmd,arg1,arg2,arg3){
-			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
-			if(!this.activeWcb || !this.activeWcb.activeWebCanvas){
-				this.setError("활성화 된 레이어가 없음");
-				return false;
-			}
-			var sync = true;
-			var history = true;
-			var r = null;
-			switch(cmd){
-				case "invert":wc2Filter[cmd](this.activeWcb.activeWebCanvas);break;
-			}
-			if(history){
-				this.saveHistory("Layer."+cmd);
-			}
-			this.cmdTool("reset");
-			if(sync){
-				this._syncWcbInfo();
-			}
-		}
 		,"_selectLayer":function(index){
 			if(!this.activeWcb){ this.setError( "wc2._selectLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);
@@ -1227,6 +1213,76 @@ var wc2 = (function(){
 				}
 				
 			}
+		}
+		//-------- 필터 부분
+		,"btnShowFilterDetail":function(menuBtn){
+			return this.showFilterDetail(menuBtn.dataset.wcMenu)
+		}
+		,"hideFilterDetail":function(){
+			$("#filterDetailArea").hide()
+			return true;
+		}
+		,"showFilterDetail":function(menu){
+			$("#FilterDetailArea").show().find(".wc-fdetail").each(
+				function(){
+					$(this).hide();
+				}
+			)
+			var t = $("#menuDetailArea").find(".wc-fdetail-"+menu)
+			t.show();
+			
+			if(this.activeWcb){
+				switch(menu){
+					case "invert":t[0].saveFileName.value = this.activeWcb.name;break;
+					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
+					case "layer-rename":t[0].renameName.value = this.activeWcb.activeWebCanvas.label;break;
+					case "image-adjustSize":
+					case "image-resize":t[0].width.defaultValue = t[0].width.value = this.activeWcb.width;
+												t[0].height.defaultValue = t[0].height.value = this.activeWcb.height;
+					break;
+				}
+			}
+		}
+		,"_cmdFilter":function(wc,cmd,arg1,arg2,arg3){
+			if(wc2Filter[cmd]==undefined){
+				this.setError("필터 "+cmd+"가 없습니다.");
+			}
+			switch(cmd){
+				case "invert":wc2Filter[cmd](wc);break;
+			}
+		}
+		,"cmdFilter":function(cmd,arg1,arg2,arg3){
+			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb || !this.activeWcb.activeWebCanvas){
+				this.setError("활성화 된 레이어가 없음");
+				return false;
+			}
+			var sync = true;
+			var history = true;
+			var r = null;
+			
+			this._cmdFilter(this.activeWcb.activeWebCanvas,cmd,arg1,arg2,arg3);
+			
+			if(history){
+				this.saveHistory("Layer."+cmd);
+			}
+			this.cmdTool("reset");
+			if(sync){
+				this._syncWcbInfo();
+			}
+		}
+		,"cmdPreviewFilter":function(cmd,arg1,arg2,arg3){
+			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb || !this.activeWcb.activeWebCanvas){
+				this.setError("활성화 된 레이어가 없음");
+				return false;
+			}
+			var w = 200;
+			var h = 200/this.activeWcb.width*this.activeWcb.height;
+			this.filterPreviewWC.resize(w,h);
+			this.filterPreviewWC.copy(this.activeWcb.activeWebCanvas,0,0,w,h);
+			if(cmd=="reset") return;
+			this._cmdFilter(this.filterPreviewWC,cmd,arg1,arg2,arg3);
 		}
 	};
 })();

@@ -221,6 +221,9 @@ background-color:rgba(0,0,0,0.2);
 
 #btnQuickNewFile{cursor:pointer;}
 
+/* 필터 상세 부분 */
+#filterCanvasBox{min-height:100px; text-align:center;}
+#filterCanvasBox .WC-node{display:inline-block;}
 
 /* 지우개 */
 #formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}

@@ -136,7 +136,7 @@
 								<li class="dropdown-submenu">
 									<a href="#" tabindex="-1" data-toggle="dropdown"><span  class="glyphicon glyphicon-list-alt"></span>Filter</a>
 										<ul class="dropdown-menu" role="menu">
-										<li><a href="#" class="glyphicon glyphicon-adjust" onclick="wc2.cmdFilter('invert')">Invert</a></li>
+										<li><a href="#" class="glyphicon glyphicon-adjust"  data-wc-menu="layer-filter-invert">Invert</a></li>
 										</ul>
 								</li>
 								
@@ -1141,6 +1141,33 @@ Ciao
 					</div>
 				</form>
 
+				
+				<form name="formMenuDetailLayerFilterPreview" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" >
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Preview</div>
+						<div  class="panel-body" id="filterCanvasBox">
+							BOX
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailLayerFilterInvert" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" onsubmit="wc2.cmdFilter('invert');wc2.hideMenuDetail();return false;" >
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Invert</div>
+						<div  class="panel-body" id="filterCanvasBox">
+							<ul class="list-group ">
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="wc2.cmdPreviewFilter('invert');"> Preview</button>
+									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+								</li>
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > Invert</button>
+									<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
 
 				
 		</article>

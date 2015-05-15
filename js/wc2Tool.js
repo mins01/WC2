@@ -1093,6 +1093,7 @@ var wc2Tool = function(){
 			,"down":function(event){
 				
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				//this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.saveContext2d();
 				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
