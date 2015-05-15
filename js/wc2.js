@@ -838,6 +838,26 @@ var wc2 = (function(){
 				this._syncWcbInfo();
 			}
 		}
+		,"cmdFilter":function(cmd,arg1,arg2,arg3){
+			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
+			if(!this.activeWcb || !this.activeWcb.activeWebCanvas){
+				this.setError("활성화 된 레이어가 없음");
+				return false;
+			}
+			var sync = true;
+			var history = true;
+			var r = null;
+			switch(cmd){
+				case "invert":wc2Filter[cmd](this.activeWcb.activeWebCanvas);break;
+			}
+			if(history){
+				this.saveHistory("Layer."+cmd);
+			}
+			this.cmdTool("reset");
+			if(sync){
+				this._syncWcbInfo();
+			}
+		}
 		,"_selectLayer":function(index){
 			if(!this.activeWcb){ this.setError( "wc2._selectLayer() 활성화된 윈도우가 없습니다."); return; }
 			wc2Tool.reset(this.tool);

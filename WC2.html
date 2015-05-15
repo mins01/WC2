@@ -133,7 +133,15 @@
 								<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
 								<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')">Remove</a></li>
 								<li class="divider"></li>
-								<li><a href="#" class="glyphicon glyphicon-adjust" onclick="wc2.cmdLayer('invert')">Invert</a></li>
+								<li class="dropdown-submenu">
+									<a href="#" tabindex="-1" data-toggle="dropdown"><span  class="glyphicon glyphicon-list-alt"></span>Filter</a>
+										<ul class="dropdown-menu" role="menu">
+										<li><a href="#" class="glyphicon glyphicon-adjust" onclick="wc2.cmdFilter('invert')">Invert</a></li>
+										</ul>
+								</li>
+								
+								
+								
 								<li class="divider"></li>
 								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="layer-rename">Rename</a></li>
 								<li><a href="#" class="glyphicon glyphicon-save-file" onclick="wc2.cmdLayer('save')">Save</a></li>
@@ -1188,6 +1196,7 @@ Ciao
 	<script src="js/wc2Brush.js"></script>
 	<script src="js/wc2BrushList.js"></script>
 	<script src="js/wc2PatternList.js"></script>
+	<script src="js/wc2Filter.js"></script>
 	<script src="js/wc2Helper.js"></script>
 	<!-- -->
 	
