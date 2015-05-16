@@ -77,7 +77,7 @@ var wc2 = (function(){
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
 			this.hideMenuDetail();
-			this.hideFilterDetail();
+			//this.hideFilterDetail();
 			this.setTool("brush");
 		}
 		,"setError":function(error,disableShow){
@@ -999,20 +999,29 @@ var wc2 = (function(){
 					$(this).hide();
 				}
 			)
-			var t = $("#menuDetailArea").find(".wc-mdetail-"+menu)
-			t.show();
+			var frms = $("#menuDetailArea").find(".wc-mdetail-"+menu)
+			frms.show();
+			
 			
 			if(this.activeWcb){
 				switch(menu){
-					case "file-save":t[0].saveFileName.value = this.activeWcb.name;break;
-					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
-					case "layer-rename":t[0].renameName.value = this.activeWcb.activeWebCanvas.label;break;
+					case "file-save":frms[0].saveFileName.value = this.activeWcb.name;break;
+					case "image-rename":frms[0].renameName.value = this.activeWcb.name;break;
+					case "layer-rename":frms[0].renameName.value = this.activeWcb.activeWebCanvas.label;break;
 					case "image-adjustSize":
-					case "image-resize":t[0].width.defaultValue = t[0].width.value = this.activeWcb.width;
-												t[0].height.defaultValue = t[0].height.value = this.activeWcb.height;
+					case "image-resize":frms[0].width.defaultValue = frms[0].width.value = this.activeWcb.width;
+												frms[0].height.defaultValue = frms[0].height.value = this.activeWcb.height;
 					break;
+					
+				}
+				if(menu.indexOf("layer-filter-") == 0){
+					frms.each(function(){
+						if(this.onchange) this.onchange();
+						}
+					);
 				}
 			}
+			
 		}
 		//-- UI 메뉴용
 		,"btnShowMenuDetail":function(menuBtn){
@@ -1215,6 +1224,7 @@ var wc2 = (function(){
 			}
 		}
 		//-------- 필터 부분
+		/*
 		,"btnShowFilterDetail":function(menuBtn){
 			return this.showFilterDetail(menuBtn.dataset.wcMenu)
 		}
@@ -1243,13 +1253,31 @@ var wc2 = (function(){
 				}
 			}
 		}
+		*/
 		,"_cmdFilter":function(wc,cmd,arg1,arg2,arg3){
 			if(wc2Filter[cmd]==undefined){
 				this.setError("필터 "+cmd+"가 없습니다.");
 			}
-			switch(cmd){
-				case "invert":wc2Filter[cmd](wc);break;
+			
+			var imageData = wc.cmdContext2d('getImageData');
+			var cmd = arguments[1];
+			var args = [];
+			args.push(imageData);
+			for(var i=2,m=arguments.length;i<m;i++){
+				args.push(arguments[i]);
 			}
+			wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
+			/*
+			switch(cmd){
+				case "invert":
+				case "grayscale":
+				case "brightness":
+				case "threshold":
+				case "threshold":
+					wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
+				break;
+			}
+			*/
 		}
 		,"cmdFilter":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
