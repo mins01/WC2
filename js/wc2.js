@@ -520,8 +520,8 @@ var wc2 = (function(){
 			var preview = new Image();
 			preview.onload = function(onload){
 				return function(){
-					wc2.newWcbByImage(this);
-					onload();
+					var wcb = wc2.newWcbByImage(this);
+					if(onload) onload(wcb);
 				}
 			}(onload)
 			preview.onerror = function(event){
