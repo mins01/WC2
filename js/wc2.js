@@ -490,7 +490,7 @@ var wc2 = (function(){
 			wcb.tabTitleA.href="#"+wcb.tabFrame.id;
 			
 			$(wcb.tabTitleLi).append(wcb.tabTitleA);
-			$(wcb.tabTitleA).text("TITLE");
+			$(wcb.tabTitleA).text(wcb.name);
 			$(wcb.tabFrame).append(wcb.wcbFrame);
 			$(wcb.wcbFrame).append(wcb.wcbMove);
 			//$(wcb.wcbMove).append(wcb.node);
@@ -684,11 +684,14 @@ var wc2 = (function(){
 				function(){
 					var cfg = $(this).serializeObject();
 					
-					//console.log(this.name);
-					//console.log(cfg);
+					console.log(this.name);
+					console.log(cfg);
 					wc2.activeWcb.configContext2d(cfg);
 				}
 			)
+			if(this.tool =="brush"){
+				this.syncBrush();
+			}
 		}
 		//--- 레이어 관련
 		//-- 레이어 싱크 (최적화 필요)
@@ -1321,7 +1324,7 @@ var wc2 = (function(){
 		}
 		,"saveWcbLocalStorage":function(){
 			if(this.wcbs.length==0){
-				this.setErrot("No Wcbs"); return false;
+				this.setError("No Wcbs"); return false;
 			}
 			var tempWcbs = {};
 			tempWcbs.mtime = (new Date).getTime();
@@ -1330,18 +1333,29 @@ var wc2 = (function(){
 			for(var i=0,m=this.wcbs.length;i<m;i++){
 				tempWcbs.data.push(this.wcbs[i].toWcbDataObject());
 			}
-			localStorage.setItem("tempWcbs", JSON.stringify(tempWcbs));
+			var t = JSON.stringify(tempWcbs);
+			if(t.length>1024*1024*3){
+				if(!confirm("Too Large Data. (bigger then 3MB)\nContinue?")){
+					return false;
+				}
+			}
+			localStorage.setItem("wc2.tempWcbs", t);
+			alert("Save In Temporary OK");
+			return true;
 		}
 		,"openWcbLocalStorage":function(){
-			var tempWcbs = localStorage.getItem("tempWcbs");
+			var tempWcbs = localStorage.getItem("wc2.tempWcbs");
 			if(tempWcbs == null){
-				this.setErrot("No TempWcbs"); return false;
+				this.setError("No TempWcbs"); return false;
 			}
 			var tempWcbs = JSON.parse(tempWcbs);
-			confirm("Open?\n"+tempWcbs.data.length+" Document.\nSaved Date : "+new Date(tempWcbs.mtime).toLocaleString());
+			if(!confirm("Open? "+tempWcbs.data.length+" Document.\nSaved Date : "+new Date(tempWcbs.mtime).toLocaleString())){
+				return false;
+			}
 			for(var i=0,m=tempWcbs.data.length;i<m;i++){
 				this.cmdWcb("open",tempWcbs.data[i]);
 			}
+			return true;
 		}
 	};
 })();
