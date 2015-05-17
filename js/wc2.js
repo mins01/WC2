@@ -424,7 +424,7 @@ var wc2 = (function(){
 			var formdata = new FormData();
 			formdata.append("upfiles[]", blob, filename); 
 			$.ajax({
-				url: '../WG/WG.up.php',
+				url: '/web_work/web/WG/WG.up.php',
 				processData: false,
 				contentType: false,
 				dataType :"json",
