@@ -548,7 +548,7 @@ function WebCanvasBundle(width,height,colorset){
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				data.push(this.webCanvases[i].toWcDataObject());
 			}
-			return {"name":this.name,"width":this.width,"height":this.height,"preview":preview,"data":data};
+			return {"dataType":"wcb","name":this.name,"width":this.width,"height":this.height,"preview":preview,"data":data};
 		}
 		,"clear":function(){
 			var r = this.execWebCanvases("clear",{})

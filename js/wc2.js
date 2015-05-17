@@ -317,13 +317,20 @@ var wc2 = (function(){
 										//console.log("end");
 									}
 								}(cmd)); //URL에서 읽어온다.
+					}else if(arg1.dataType && arg1.dataType=="wcb"){ //wcbdo 을 읽어드렸다.
+						var wcb = this.newWcbByWcbdo(arg1,
+								function(cmd){
+									return function(wcb){
+										wcb.saveHistory("Image."+cmd);
+									}
+								}(cmd)
+							);
+						sync = false;
 					}else if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
 						var wcb = this.newWcbByWcbdo(arg1.wcbdo,
 								function(cmd){
 									return function(wcb){
 										wcb.saveHistory("Image."+cmd);
-										//wc2.cmdWcb("active",wcb);  //setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // 여기서 한다.
-										//console.log("end");
 									}
 								}(cmd)
 							);
@@ -1311,6 +1318,30 @@ var wc2 = (function(){
 			this.filterPreviewWC.copy(this.activeWcb.activeWebCanvas,0,0,w,h);
 			if(cmd=="reset") return;
 			this._cmdFilter(this.filterPreviewWC,cmd,arg1,arg2,arg3);
+		}
+		,"saveWcbLocalStorage":function(){
+			if(this.wcbs.length==0){
+				this.setErrot("No Wcbs"); return false;
+			}
+			var tempWcbs = {};
+			tempWcbs.mtime = (new Date).getTime();
+			tempWcbs.data = [];
+			
+			for(var i=0,m=this.wcbs.length;i<m;i++){
+				tempWcbs.data.push(this.wcbs[i].toWcbDataObject());
+			}
+			localStorage.setItem("tempWcbs", JSON.stringify(tempWcbs));
+		}
+		,"openWcbLocalStorage":function(){
+			var tempWcbs = localStorage.getItem("tempWcbs");
+			if(tempWcbs == null){
+				this.setErrot("No TempWcbs"); return false;
+			}
+			var tempWcbs = JSON.parse(tempWcbs);
+			confirm("Open?\n"+tempWcbs.data.length+" Document.\nSaved Date : "+new Date(tempWcbs.mtime).toLocaleString());
+			for(var i=0,m=tempWcbs.data.length;i<m;i++){
+				this.cmdWcb("open",tempWcbs.data[i]);
+			}
 		}
 	};
 })();
