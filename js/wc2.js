@@ -683,9 +683,8 @@ var wc2 = (function(){
 			$("#propPanel "+className).each(
 				function(){
 					var cfg = $(this).serializeObject();
-					
-					console.log(this.name);
-					console.log(cfg);
+					//console.log(this.name);
+					//console.log(cfg);
 					wc2.activeWcb.configContext2d(cfg);
 				}
 			)
