@@ -115,16 +115,11 @@ var wc2 = (function(){
 			});
 			//-- 브러쉬 초기화
 			this.brush4Brush = new wc2Brush();
-			this.brushIMG = t.find("img")[0].cloneNode();
-			this.brushIMG.className = "";
-			
-			$("#formToolBrushCanvasBox").append(this.brushIMG);
+			$("#formToolBrushCanvasBox").append(this.brush4Brush.brushWC);
 			
 			//--- 지우개 초기화
 			this.brush4Eraser = new wc2Brush();
-			this.eraserIMG = t.find("img")[0].cloneNode();
-			this.eraserIMG.className = "";
-			$("#formToolEraserCanvasBox").append(this.eraserIMG);
+			$("#formToolEraserCanvasBox").append(this.brush4Eraser.brushWC);
 			//--- 초기화 이미지 onload 처리
 			t.find("img")[0].onload = function(event){
 				document.formToolBrush.brush = this;
@@ -615,7 +610,8 @@ var wc2 = (function(){
 			this.tool = tool;
 			this.tabsContent.dataset.wcTool = tool
 			this.showPropPanel();
-			wc2.syncContext2dCfg(); //설정을 적용시킨다.
+			this.syncContext2dCfg(); //설정을 적용시킨다.
+
 			
 			$("button[data-wc-tool]").each(
 				function(){
@@ -627,6 +623,8 @@ var wc2 = (function(){
 					$(this).addClass("active")
 				}
 			)
+			
+			
 			
 			if(!wc2Tool.init(this.tool)){
 				//alert(wc2Tool.error);
@@ -1154,7 +1152,7 @@ var wc2 = (function(){
 			var r = lineWidth/2;
 			var colorStyle = "rgb(255,255,255)";
 			this.brush4Eraser.circle(r,colorStyle,globalAlpha,0,1);
-			this.eraserIMG.src = this.brush4Eraser.toDataURL();
+			//this.eraserIMG.src = this.brush4Eraser.toDataURL();
 			
 		}
 		//브러쉬 정보 싱크 그리기
@@ -1168,11 +1166,14 @@ var wc2 = (function(){
 			var fillStyle = fc.fillStyle.value;
 			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
+			//console.log(strokeStyle);
+			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
 			this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
-			this.brushIMG.src = this.brush4Brush.toDataURL();
+			
+			//this.brushIMG.src = this.brush4Brush.toDataURL();
 			return true;
 		}
-		//브러쉬 정보 싱크 그리기
+		//패턴 정보 싱크 그리기
 		,"syncPattern":function(img){
 			$("#toolPatternList img").each(
 				function(idx,el){

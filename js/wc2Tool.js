@@ -876,103 +876,41 @@ var wc2Tool = function(){
 		//-- 브러쉬
 		,"brush":{
 			"wcb":null
-			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"ing":0
 			,"lastLen":0
 			,"init":function(){
 				this.ing = 1;
-				this.lastLen = 0;
-				this.brushIMG = wc2.brushIMG;
+				// wc2.brush4Brush;
 				return true;
 			}
 			,"end":function(){
 				//console.log("end");
 				this.ing = 0;
 				this.wcb.shadowWebCanvas.clear();
-				this.pos = [];
 				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
 				this.wcb.shadowWebCanvas.clear();
 				this.ing = 1;
-				this.brushSpacing = parseFloat(document.formToolBrush.brushSpacing.value);
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 = this.x1 = t.x;
-				this.y0 = this.y1 = t.y;
+				wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
 				
-				var x = this.x0;
-				var y = this.y0;
-				this.wcb.shadowWebCanvas.drawImage(this.brushIMG,x-(this.brushIMG.naturalWidth/2),y-(this.brushIMG.naturalHeight/2));
-				this.predraw();
-				//console.log("down");
 				return true;
 			}
 			,"move":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x1 = t.x;
-				this.y1 = t.y;
-				this.predraw();
-				
-				this.x0 = t.x;
-				this.y0 = t.y;
-				//console.log("move");
+				wc2.brush4Brush.drawBrush(t.x,t.y);
 				return true;
 			}
 			,"up":function(event){
+				wc2.brush4Brush.endBrush();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();
 				return true;
 			}
 			,"predraw":function(){
-				if(this.ing){
-					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,this.brushSpacing);
-					var w2 = (this.brushIMG.naturalWidth || this.brushIMG.width)/2
-					var h2 = (this.brushIMG.naturalHeight || this.brushIMG.height)/2
-					//console.log(xys);
-					for(var i=0,m=xys.length;i<m;i++){
-						this.wcb.shadowWebCanvas.drawImage(this.brushIMG,xys[i][0]-w2,xys[i][1]-h2);
-					}
-				}
-			}
-			,"dotsInLine":function(x0,y0,x1,y1,brushSpacing){
-				var xys = [];
-				
-				if(x0==x1 && y0==y1){
-					return xys;
-				}
-				var b = x1-x0; //밑변
-				var a = y1-y0;	//높이
-				var c = Math.sqrt(Math.pow(a,2)+Math.pow(b,2)); //빗변
-				var sinA = a/c;
-				var cosA = b/c;
-				var ci = 0;
-				this.lastLen+=c;
-
-				if(this.lastLen < brushSpacing){
-						return xys;
-				}
-				this.lastLen -=brushSpacing;
-				ci += brushSpacing;
-				xys.push([x0,y0])
-				
-				while(ci<c && this.lastLen >= brushSpacing){
-					var a1 = ci * sinA;
-					var b1 = ci * cosA;
-					var x2 = x0+b1;
-					var y2 = y0+a1;
-					//var c2 = Math.sqrt(Math.pow(x2-x0,2)+Math.pow(y2-y0,2)); //빗변
-					xys.push([x2,y2])
-					//console.log([x2,y2]);
-					ci += brushSpacing;
-					this.lastLen -=brushSpacing;
-					
-				}
-				
-				//console.log(x0,y0,x2,y2,c2 );
-				return xys;
-				
 			}
 		}//-- end fn
 		//-- 잘라내기, 크롭, crop
