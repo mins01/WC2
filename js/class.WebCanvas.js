@@ -791,5 +791,80 @@ function WebCanvas(width,height,colorset){
 			}
 			this.cmdContext2d('putImageData',imageData);
 		}
+		//--- 브러쉬 그리기용
+		,"beginBrush":function(x,y,brushWC,spacing){
+			this.spacing = spacing
+			this.brushWC = brushWC
+			//this.spacing = spacing;
+			this.brushLastLen = 0;
+			this.x0 = x;
+			this.y0 = y;
+			this.brushing = 1;
+			
+			var w2 = (this.brushWC.width)/2
+			var h2 = (this.brushWC.height)/2
+			console.log(x,y);
+			this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
+		}
+		,"drawBrush":function(x,y){
+			this.x1 = x;
+			this.y1 = y;
+			this._draw();
+			this.x0 = x;
+			this.y0 = y;
+		}
+		,"endBrush":function(){
+			this.brushLastLen = 0;
+			this.brushing = 0;
+		}
+		,"_draw":function(){
+			if(this.brushing){
+				var xys = this._dotsInLine(this.x0,this.y0,this.x1,this.y1);
+				var w2 = (this.brushWC.width)/2
+				var h2 = (this.brushWC.height)/2
+				//console.log(xys);
+				for(var i=0,m=xys.length;i<m;i++){
+					this.drawImage(this.brushWC,xys[i][0]-w2,xys[i][1]-h2);
+				}
+			}
+		}
+		,"_dotsInLine":function(x0,y0,x1,y1){
+			var spacing = this.spacing;
+			var xys = [];
+			
+			if(x0==x1 && y0==y1){
+				return xys;
+			}
+			var b = x1-x0; //밑변
+			var a = y1-y0;	//높이
+			var c = Math.sqrt(Math.pow(a,2)+Math.pow(b,2)); //빗변
+			var sinA = a/c;
+			var cosA = b/c;
+			var ci = 0;
+			this.brushLastLen+=c;
+
+			if(this.brushLastLen < spacing){
+					return xys;
+			}
+			this.brushLastLen -=spacing;
+			ci += spacing;
+			xys.push([x0,y0])
+			
+			while(ci<c && this.brushLastLen >= spacing){
+				var a1 = ci * sinA;
+				var b1 = ci * cosA;
+				var x2 = x0+b1;
+				var y2 = y0+a1;
+				//var c2 = Math.sqrt(Math.pow(x2-x0,2)+Math.pow(y2-y0,2)); //빗변
+				xys.push([x2,y2])
+				//console.log([x2,y2]);
+				ci += spacing;
+				this.lastLen -=spacing;
+				
+			}
+			//console.log(x0,y0,x2,y2,c2 );
+			return xys;
+			
+		}
 	} // end : WebCanvas._prototype
 })();
