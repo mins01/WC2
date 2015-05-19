@@ -279,7 +279,7 @@ var wc2Tool = function(){
 				
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolEraser.brushSpacing.value));
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,parseFloat(document.formToolEraser.brushSpacing.value));
 
 				return true;
 			}
