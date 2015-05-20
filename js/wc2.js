@@ -117,11 +117,13 @@ var wc2 = (function(){
 			*/
 			//-- 브러쉬 초기화
 			this.brush4Brush = new wc2Brush();
-			$("#formToolBrushCanvasBox").append(this.brush4Brush.brushWC);
+			//$("#formToolBrushCanvasBox").append(this.brush4Brush.brushWC);
+			$("#formToolBrushCanvasBox").append(this.brush4Brush.previewBrushWC);
 			this.syncBrush();
 			//--- 지우개 초기화
 			this.brush4Eraser = new wc2Brush();
-			$("#formToolEraserCanvasBox").append(this.brush4Eraser.brushWC);
+			//$("#formToolEraserCanvasBox").append(this.brush4Eraser.brushWC);
+			$("#formToolEraserCanvasBox").append(this.brush4Eraser.previewBrushWC);
 			this.syncEraser();
 			//--- 초기화 이미지 onload 처리
 			/*
@@ -1155,24 +1157,24 @@ var wc2 = (function(){
 		,"syncEraser":function(){
 			var f = document.formToolEraser;
 			var fc = document.formColor;
-			var width = parseFloat(f.width.value);
-			var globalAlpha = parseFloat(f.globalAlpha.value);
+			var width = parseFloat(f.brushWidth.value);
+			var globalAlpha = parseFloat(f.brushGlobalAlpha.value);
 			var r = width/2;
 			var r0p = parseFloat(f.r0p.value);
 			var colorStyle = "rgb(255,255,255)";
 			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
 			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
-
+			this.brush4Eraser.previewBrush()
 		}
 		//브러쉬 정보 싱크 그리기
 		,"syncBrush":function(){
 			var f = document.formToolBrush;
 			var fc = document.formColor;
-			var width = parseFloat(f.width.value);
+			var width = parseFloat(f.brushWidth.value);
 			var r = width/2;
 			var r0p = parseFloat(f.r0p.value);
 			this.brushSpacing  = parseFloat(f.brushSpacing.value);
-			var globalAlpha = parseFloat(f.globalAlpha.value);
+			var globalAlpha = parseFloat(f.brushGlobalAlpha.value);
 			var strokeStyle = fc.strokeStyle.value;
 			var fillStyle = fc.fillStyle.value;
 			//var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
@@ -1181,6 +1183,7 @@ var wc2 = (function(){
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
 			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
+			this.brush4Brush.previewBrush()
 			
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
 			return true;

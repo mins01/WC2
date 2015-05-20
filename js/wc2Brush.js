@@ -20,7 +20,7 @@ wc2Brush.prototype = function(){
 		"spacing":0, //선간격
 		"init":function(){
 			this.brushWC = WebCanvas(100,100)
-			//this.previewBrushWC = WebCanvas(150,100)
+			this.previewBrushWC = WebCanvas(150,100)
 		}
 		,"image":function(image,width,height,colorStyle,globalAlpha){
 			this.brushWC.clearResize(width,height);
@@ -62,6 +62,29 @@ wc2Brush.prototype = function(){
 		}
 		,"toDataURL":function(){
 			return this.brushWC.toDataURL();
-		}	
+		}
+		,"previewBrush":function(){
+			this.previewBrushWC.clear();
+			var r = 60;
+			var r2 = (r*r);
+			var a = r;
+			var x = -1*r;
+			//var y = Math.sqrt(r2-(x*x));
+			var y = (x*x)/a
+			this.previewBrushWC.beginBrush(x+75,y+20,this.brushWC,this.spacing);
+			while((x+=a/10 )<=r){
+				//y = Math.sqrt(r2-(x*x));
+				var y = (x*x)/a
+				
+				this.previewBrushWC.drawBrush(x+75,y+20);
+			}
+			
+			/*
+			this.previewBrushWC.beginBrush(20,20,this.brushWC,this.spacing);
+			this.previewBrushWC.drawBrush(110,80);
+			this.previewBrushWC.drawBrush(75,80);
+			*/
+			this.previewBrushWC.endBrush();
+		}
 	}
 }();
