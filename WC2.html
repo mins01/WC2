@@ -253,9 +253,13 @@
 										<th colspan="2" height="100" id="formToolEraserCanvasBox" align="center" ></th>
 									</tr>
 									<tr>
-										<th>line</th>
-										<td><input type="range" min="1" max="50" value="5" size="5" name="lineWidth" >
+										<th>Size</th>
+										<td><input type="range" min="1" max="50" value="5" size="5" name="width" >
 										</td>
+									</tr>
+									<tr>
+										<th>R0</th>
+										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
 									</tr>
 									<tr>
 										<th>alpha</th>
@@ -494,6 +498,10 @@ Ciao
 										<td><input   type="range" min="1" max="50" size="5" name="width" maxlength="5" value="3" ></td>
 									</tr>
 									<tr>
+										<th>R0</th>
+										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
+									</tr>
+									<tr>
 										<th>alpha</th>
 										<td><input type="range" min="0" max="1" value="0.5" step="0.1" name="globalAlpha"  >
 										</td>
@@ -504,10 +512,6 @@ Ciao
 										</td>
 									</tr>
 								</table>
-								<div id="toolBrushList">
-									
-								</div>
-								
 							</div>
 						</div>
 					</form>

@@ -99,6 +99,7 @@ var wc2 = (function(){
 			});
 			this.tabsContent = document.getElementById('tabsContent');
 			//-- 브러쉬 목록
+			/*
 			var t = $("#toolBrushList");
 			for(var i=0,m=wc2BrushList.length;i<m;i++){
 				if(wc2BrushList[i].indexOf('data')===0){
@@ -113,19 +114,23 @@ var wc2 = (function(){
 				document.formToolBrush.brush = this;
 				wc2.syncBrush();
 			});
+			*/
 			//-- 브러쉬 초기화
 			this.brush4Brush = new wc2Brush();
 			$("#formToolBrushCanvasBox").append(this.brush4Brush.brushWC);
-			
+			this.syncBrush();
 			//--- 지우개 초기화
 			this.brush4Eraser = new wc2Brush();
 			$("#formToolEraserCanvasBox").append(this.brush4Eraser.brushWC);
+			this.syncEraser();
 			//--- 초기화 이미지 onload 처리
+			/*
 			t.find("img")[0].onload = function(event){
 				document.formToolBrush.brush = this;
 				wc2.syncBrush();
 				wc2.syncEraser();
 			}
+			*/
 			//--- 패턴 목록
 			var t = $("#toolPatternList");
 			for(var i=0,m=wc2PatternList.length;i<m;i++){
@@ -1146,29 +1151,32 @@ var wc2 = (function(){
 		,"syncEraser":function(){
 			var f = document.formToolEraser;
 			var fc = document.formColor;
-			//var strokeStyle = fc.strokeStyle.value;
-			var lineWidth = parseFloat(f.lineWidth.value);
+			var width = parseFloat(f.width.value);
 			var globalAlpha = parseFloat(f.globalAlpha.value);
-			var r = lineWidth/2;
+			var r = width/2;
+			var r0p = parseFloat(f.r0p.value);
 			var colorStyle = "rgb(255,255,255)";
-			this.brush4Eraser.circle(r,colorStyle,globalAlpha,0,1);
-			//this.eraserIMG.src = this.brush4Eraser.toDataURL();
-			
+			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
+			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
+
 		}
 		//브러쉬 정보 싱크 그리기
 		,"syncBrush":function(){
 			var f = document.formToolBrush;
 			var fc = document.formColor;
 			var width = parseFloat(f.width.value);
+			var r = width/2;
+			var r0p = parseFloat(f.r0p.value);
 			this.brushSpacing  = parseFloat(f.brushSpacing.value);
 			var globalAlpha = parseFloat(f.globalAlpha.value);
 			var strokeStyle = fc.strokeStyle.value;
 			var fillStyle = fc.fillStyle.value;
-			var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
-			var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
+			//var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
+			//var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
 			//console.log(strokeStyle);
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
-			this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
+			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
+			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
 			return true;
