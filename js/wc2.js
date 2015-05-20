@@ -691,9 +691,7 @@ var wc2 = (function(){
 					wc2.activeWcb.configContext2d(cfg);
 				}
 			)
-			if(this.tool =="brush"){
-				this.syncBrush();
-			}
+
 		}
 		//--- 레이어 관련
 		//-- 레이어 싱크 (최적화 필요)
@@ -992,6 +990,7 @@ var wc2 = (function(){
 			}else{
 				this.setFillColor(c)
 			}
+			this.syncColor();
 			return true;
 		}
 		//--- 메뉴 상세 설정 화면용
@@ -1146,6 +1145,11 @@ var wc2 = (function(){
 				}
 			}
 			return this.usePreviewImageAtLayerInfo;
+		}
+		//색 정보 싱크 그리기
+		,"syncColor":function(){
+			this.syncBrush();
+			this.cmdTool('predraw')
 		}
 		//지우개용 브러쉬 정보 싱크 그리기
 		,"syncEraser":function(){
