@@ -807,7 +807,7 @@ function WebCanvas(width,height,colorset){
 			this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
 		}
 		,"drawBrush":function(x,y){
-			console.log(x,y);
+			//console.log(x,y);
 			this.x1 = x;
 			this.y1 = y;
 			this._draw();

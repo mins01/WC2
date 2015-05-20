@@ -43,8 +43,8 @@ wc2Brush.prototype = function(){
 			var color0 = colorStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = colorStyle.replace('rgb','rgba').replace(')',',0)');
 			this.brushWC.clearResize(width,width);
-			this.brushWC.saveContext2d();
 			this.brushWC.configContext2d({"globalAlpha":globalAlpha,"imageSmoothingEnabled":false})
+			this.brushWC.saveContext2d();
 			if(r0p<1){
 				var rg = this.brushWC.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
 				rg.addColorStop(0,color0);
@@ -89,7 +89,9 @@ wc2Brush.prototype = function(){
 				
 				this.previewBrushWC.drawBrush(x+75,y+50);
 			}
-			
+			this.previewBrushWC.configContext2d({"fontSize":16,"lineHeight":1.2,"disableStroke":1,"textBaseline":"top"})
+			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";
+			this.previewBrushWC.text(txt,0,40)
 			/*
 			this.previewBrushWC.beginBrush(20,20,this.brushWC,this.spacing);
 			this.previewBrushWC.drawBrush(110,80);
