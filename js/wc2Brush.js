@@ -63,20 +63,31 @@ wc2Brush.prototype = function(){
 		,"toDataURL":function(){
 			return this.brushWC.toDataURL();
 		}
-		,"previewBrush":function(){
+		//--포물선으로 선 미리보기를 보여준다.
+		,"previewBrush":function(){ 
 			this.previewBrushWC.clear();
-			var r = 60;
+			var r = 20;
+			var xlimit = 60;
 			var r2 = (r*r);
-			var a = r;
-			var x = -1*r;
+			var a = -1*r;
+			var x = -1*xlimit;
 			//var y = Math.sqrt(r2-(x*x));
-			var y = (x*x)/a
-			this.previewBrushWC.beginBrush(x+75,y+20,this.brushWC,this.spacing);
-			while((x+=a/10 )<=r){
+			//var y = (x*x)/a
+			var y = -1*Math.abs(Math.sqrt(a*x));
+			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing);
+			while((x+=this.spacing )<0 ){
 				//y = Math.sqrt(r2-(x*x));
-				var y = (x*x)/a
+				y = -1*Math.abs(Math.sqrt(a*x));
 				
-				this.previewBrushWC.drawBrush(x+75,y+20);
+				this.previewBrushWC.drawBrush(x+75,y+50);
+			}
+			a *= -1;
+			while((x+=this.spacing )<=xlimit ){
+				console.log(x);
+				//y = Math.sqrt(r2-(x*x));
+				y = Math.abs(Math.sqrt(a*x));
+				
+				this.previewBrushWC.drawBrush(x+75,y+50);
 			}
 			
 			/*
