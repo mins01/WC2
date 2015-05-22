@@ -1016,6 +1016,11 @@ var wc2 = (function(){
 			frms.show();
 			
 			
+			if(menu.indexOf("layer-filter"==0)){ //필터용 프리뷰
+				$(".wc-mdetail-layer-filter-preview").show();
+			}
+			
+			
 			if(this.activeWcb){
 				switch(menu){
 					case "file-save":frms[0].saveFileName.value = this.activeWcb.name;break;

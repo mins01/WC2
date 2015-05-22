@@ -22,3 +22,4 @@ https://github.com/ccampbell/mousetrap : Apache 2.0
 https://github.com/eligrey/FileSaver.js : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
 http://odyniec.net/projects/imgareaselect/ (https://github.com/odyniec/imgareaselect) : MIT and GPLv2
 https://github.com/pieroxy/lz-string/ (http://pieroxy.net/blog/pages/lz-string/index.html) :  WTFPL
+https://github.com/kig/canvasfilters : MIT

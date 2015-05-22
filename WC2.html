@@ -141,12 +141,14 @@
 										<ul class="dropdown-menu" role="menu">
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-invert">Invert</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-grayscale">Grayscale</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness &amp; Contrast</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-threshold">Threshold</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sharpen">sharpen</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-blur">blur</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sobel">sobel</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-above">above</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sharpen">Sharpen</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-gaussianblur">GaussianBlur</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sobel">Sobel &amp; Laplace</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-above">Above</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-distortsine">DistortSine</a></li>
+											
 										</ul>
 								</li>
 								
@@ -903,6 +905,7 @@ Ciao
 											<li>공대여자 : <a href="http://www.mins01.com/" target="_blank">Homepage</a></li>
 											<li>URL : <a href="http://www.mins01.com/web_work/web/WC2/WC2.html" target="_blank">http://www.mins01.com/web_work/web/WC2/WC2.html</a></li>
 											<li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
+											<li>readme : <a href="readme.txt" target="_blank">readme.txt</a></li>
 											<li>"공대여자는 이쁘다."</li>
 											<li>계속 수정중.</li>
 										</ul>
@@ -1158,7 +1161,7 @@ Ciao
 
 				
 				<form name="formMenuDetailLayerFilterPreview" action="javascript:void(0)"  
-					class="wc-mdetail wc-mdetail-layer-filter-invert wc-mdetail-layer-filter-grayscale  wc-mdetail-layer-filter-brightness  wc-mdetail-layer-filter-threshold wc-mdetail-layer-filter-sharpen wc-mdetail-layer-filter-blur wc-mdetail-layer-filter-sobel wc-mdetail-layer-filter-above" >
+					class="wc-mdetail wc-mdetail-layer-filter-preview" >
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Preview</div>
 						<div  class="panel-body" id="filterCanvasBox">
@@ -1170,7 +1173,7 @@ Ciao
 					<input type="hidden" name="cmd" value="invert">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Invert</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1186,11 +1189,18 @@ Ciao
 					</div>
 				</form>
 				<form name="formMenuDetailLayerFilterGrayscale" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-grayscale" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
-					<input type="hidden" name="cmd" value="grayscale">
+					<!-- <input type="hidden" name="cmd" value="grayscale"> -->
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Grayscale</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-body" >
 							<ul class="list-group ">
+								<li class="list-group-item">
+									<select class="form-control" name="cmd">
+										<option value="grayscale">grayscale</option>
+										<option value="grayscaleAvg">grayscaleAvg</option>
+										<option value="luminance">luminance</option>
+									</select>
+								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
@@ -1208,7 +1218,7 @@ Ciao
 					<input type="hidden" name="cmd" value="sharpen">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">sharpen</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1223,15 +1233,19 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterBrightness" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.adjustment.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.adjustment.value);" >
+				<form name="formMenuDetailLayerFilterBrightnessContrast" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.brightness.value,this.contrast.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.brightness.value,this.contrast.value);" >
 					<input type="hidden" name="cmd" value="brightness">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">Brightness</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-heading">Brightness &amp; Contrast</div>
+						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
 									Brightness : <span id="spanBrightness">0</span>
-									<input type="range" name="adjustment" value="0" min="-255" max="255" step="1" onchange="$('#spanBrightness').html(this.value);">
+									<input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01" onchange="$('#spanBrightness').html(this.value);">
+								</li>
+								<li class="list-group-item">
+									Contrast : <span id="spanContrast">1</span>
+									<input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01" onchange="$('#spanContrast').html(this.value);">
 								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1246,17 +1260,25 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value);" >
+				<form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);" >
 					<input type="hidden" name="cmd" value="threshold">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">threshold</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
 									threshold : <span id="spanThreshold">128</span>
 									<input type="range" name="threshold" value="128" min="0" max="255" step="1" onchange="$('#spanThreshold').html(this.value);">
 								</li>
 								<li class="list-group-item">
+									Low : <span id="spanThresholdLow">0</span>
+									<input type="range" name="thresholdLow" value="0" min="0" max="255" step="1" onchange="$('#spanThresholdLow').html(this.value);">
+								</li>
+								<li class="list-group-item">
+									Hight : <span id="spanThresholdHigh">255</span>
+									<input type="range" name="thresholdHigh" value="255" min="0" max="255" step="1" onchange="$('#spanThresholdHigh').html(this.value);">
+								</li>
+								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
 								</li>
@@ -1269,12 +1291,16 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-blur" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
-					<input type="hidden" name="cmd" value="blur">
+				<form name="formMenuDetailLayerFilterGaussianBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-gaussianblur" onsubmit="wc2.cmdFilter(this.cmd.value,this.diameter.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.diameter.value);" >
+					<input type="hidden" name="cmd" value="gaussianBlur">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">blur</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-heading">GaussianBlur</div>
+						<div  class="panel-body" >
 							<ul class="list-group ">
+								<li class="list-group-item">
+									diameter : <span id="spanDiameter">0</span>
+									<input type="range" name="diameter" value="0" min="0" max="128" step="0.1" onchange="$('#spanDiameter').html(this.value);">
+								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
@@ -1289,11 +1315,17 @@ Ciao
 					</div>
 				</form>
 				<form name="formMenuDetailLayerFilterSobel" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sobel" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
-					<input type="hidden" name="cmd" value="sobel">
+					<!-- <input type="hidden" name="cmd" value="sobel"> -->
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">sobel</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-heading">Sobel &amp; Laplace</div>
+						<div  class="panel-body" >
 							<ul class="list-group ">
+								<li class="list-group-item">
+									<select class="form-control" name="cmd">
+										<option value="sobel">sobel</option>
+										<option value="laplace">laplace</option>
+									</select>
+								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
@@ -1310,9 +1342,36 @@ Ciao
 				<form name="formMenuDetailLayerFilterAbove" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-above" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
 					<input type="hidden" name="cmd" value="above">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">above</div>
-						<div  class="panel-body" id="filterCanvasBox">
+						<div  class="panel-heading">Above</div>
+						<div  class="panel-body" >
 							<ul class="list-group ">
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+								</li>
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+									<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailLayerFilterSistortSine" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-distortsine" onsubmit="wc2.cmdFilter(this.cmd.value,this.amount.value,this.yamount.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.amount.value,this.yamount.value);" >
+					<input type="hidden" name="cmd" value="distortSine">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">DistortSine</div>
+						<div  class="panel-body" >
+							<ul class="list-group ">
+								<li class="list-group-item">
+									amount : <span id="spanAmount">0.5</span>
+									<input type="range" name="amount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanAmount').html(this.value);">
+								</li>
+								<li class="list-group-item">
+									yamount : <span id="spanYamount">0.5</span>
+									<input type="range" name="yamount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanYamount').html(this.value);">
+								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
@@ -1362,9 +1421,9 @@ Ciao
 	<script src="etcmodule/FileSaver.js"></script>
 	<!-- https://github.com/pieroxy/lz-string/ -->
 	<script src="etcmodule/lz-string.min.js"></script>
-	
-	
-	
+	<!-- https://github.com/kig/canvasfilters -->
+	<script src="etcmodule/filters.js"></script>
+
 	<script src="jquery/jquery-helper.js"></script>
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->

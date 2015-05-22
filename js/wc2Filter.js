@@ -5,6 +5,7 @@
 * mins01.com
 * 2015-05-14 : create file
 * 필터  목록
+* depend : filter.js
 */
 /*
 * # warning
@@ -28,35 +29,34 @@ var wc2Filter = function(){
 			}
 			return imageData;
 		},
-		//--- 무채색화 (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
 		"grayscale":function(imageData){
-			var d = imageData.data
-			for(var i=0,m=d.length;i<m;i+=4){
-				var v = 0.2126*d[i] + 0.7152*d[i+1]  + 0.0722*d[i+2];
-				d[i] = d[i+1] = d[i+2] = v;
-			}
-			return imageData;
+			return Filters.grayscale(imageData);
 		},
-		//--- 명암조절 (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
-		"brightness":function(imageData,adjustment){
-			adjustment = parseFloat(adjustment);
-			var d = imageData.data
-			for(var i=0,m=d.length;i<m;i+=4){
-				d[i] += adjustment;
-				d[i+1] += adjustment;
-				d[i+2] += adjustment;
-			}
-			return imageData;
+		"grayscaleAvg":function(imageData){
+			return Filters.grayscaleAvg(imageData);
 		},
-		//--- threshold  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
-		"threshold":function(imageData,threshold){
-			var d = imageData.data
-			for (var i=0; i<d.length; i+=4) {
-				var v = (0.2126*d[i]+ 0.7152*d[i+1] + 0.0722*d[i+2] >= threshold) ? 255 : 0;
-				d[i] = d[i+1] = d[i+2] = v
-			}
-			return imageData;
+		"luminance":function(imageData){
+			return Filters.luminance(imageData);
 		},
+		"brightness":function(imageData,brightness,contrast){
+			return Filters.brightnessContrast(imageData,brightness, contrast);
+		},
+		"gaussianBlur":function(imageData,diameter){
+			return Filters.gaussianBlur(imageData,parseFloat(diameter))
+		},
+		"threshold":function(imageData,threshold, high, low){
+			return Filters.threshold(imageData,parseFloat(threshold),parseFloat(high),parseFloat(low));
+		},
+		"sobel":function(imageData){
+			return Filters.sobel(imageData);
+		},
+		"laplace":function(imageData){
+			return Filters.laplace(imageData);
+		},
+		"distortSine":function(imageData, amount, yamount){
+			return Filters.distortSine(imageData,parseFloat(amount),parseFloat(yamount));
+		},
+		
 		//--- convolute  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
 		"convolute":function(imageData, weights, opaque) {
 			var side = Math.round(Math.sqrt(weights.length));
@@ -152,35 +152,6 @@ var wc2Filter = function(){
 				[ 0, -1,  0,
 			   -1,  5, -1,
 				0, -1,  0])
-		},
-		//--- blurC  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
-		"blur":function(imageData){
-			return this.convolute(imageData,
-				[ 1/9, 1/9, 1/9,
-				1/9, 1/9, 1/9,
-				1/9, 1/9, 1/9])
-		},
-		//--- sharpen  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
-		"sobel":function(imageData){
-			var imageData = this.grayscale(imageData);
-			var vertical = this.convoluteFloat32(imageData,
-				[-1,-2,-1,
-				  0, 0, 0,
-				  1, 2, 1]);
-			var horizontal = this.convoluteFloat32(imageData,
-				[-1,0,1,
-				 -2,0,2,
-				 -1,0,1]);
-			var id = this.createImageData(vertical.width, vertical.height);
-			for (var i=0; i<id.data.length; i+=4) {
-				var v = Math.abs(vertical.data[i]);
-				id.data[i] = v;
-				var h = Math.abs(horizontal.data[i]);
-				id.data[i+1] = h
-				id.data[i+2] = (v+h)/4;
-				id.data[i+3] = 255;
-		  }
-		  return id;
 		},
 		//--- above  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
 		"above":function(imageData){
