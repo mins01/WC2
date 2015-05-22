@@ -181,8 +181,12 @@ function WebCanvasBundle(width,height,colorset){
 		//-- 현재 히스토리를 모든 내용을 담은 히스토리로 바꾼다.
 		,"resaveHistory":function(){
 			var oldMtime = 0;
+			if(this.historyLog[this.historyIdx].data.skip == 0){ //이미 전레이어 정보가 들어가 있다.
+				//console.log("리세이브 스킵");
+				return false; 
+			} 
 			this.historyLog[this.historyIdx].data = this.getDataForHistory(oldMtime);
-			console.log("히스토리 재저장",oldMtime);
+			//console.log("히스토리 재저장",oldMtime);
 			return true;
 		}
 		// 히스토리 저장
@@ -194,7 +198,9 @@ function WebCanvasBundle(width,height,colorset){
 				var oldMtime = this.historyLog[this.historyIdx].time;
 			}
 			this.historyIdx++;
-			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,{"action":action,"name":this.name,"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()});
+			this.historyLog.splice(this.historyIdx,this.commonConfig.limitHistoryLog,
+			{"action":action,"name":this.name,"activeIdx":this.getIndexAcviceWebCanvas(),"width":this.width,"height":this.height,"data":this.getDataForHistory(oldMtime),"time":(new Date()).getTime()}
+			);
 			if(this.historyLog.length > this.commonConfig.limitHistoryLog){
 				this.historyLog.splice(0,1);
 				this.historyIdx--;
@@ -205,32 +211,38 @@ function WebCanvasBundle(width,height,colorset){
 			this.historyLog.splice(0,this.historyLog.length);
 			this.historyIdx = -1;
 		}
-		,"undo":function(){
-			if(this.historyIdx<=0){this.setError("undo() : 더 이상의 히스토리가 없습니다");return false;}
-			var historyData = this.historyLog[--this.historyIdx];
+		,"loadHistory":function(historyData){
 			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
 			this.name = historyData.name;
 			this.putDataForHistory(historyData);
+			this.setActiveWebCanvasByIndex(historyData.activeIdx);
+			//console.log("액티브 히스토리"+historyData.activeIdx);
+			return true
+		}
+		,"undo":function(){
+			if(this.historyIdx<=0){this.setError("undo() : 더 이상의 히스토리가 없습니다");return false;}
+			var historyData = this.historyLog[--this.historyIdx];
+			this.loadHistory(historyData);
 			return true;
 		}
 		,"redo":function(){
 			if(this.historyIdx>=(this.historyLog.length-1)){this.setError("redo() : 더 이상의 히스토리가 없습니다");return false;}
 			var historyData = this.historyLog[++this.historyIdx];
-			this.resizeNode(historyData.width,historyData.height); //.resize()를 사용하면 상관 없는 것들의 크기도 변경해서 mtime이 바뀜
-			this.name = historyData.name;
-			this.putDataForHistory(historyData);
+			this.loadHistory(historyData)
 			return true;
 			
 		}
 		,"getDataForHistory":function(oldMtime){
 			var data = [];
+			data.skip = 0;
 			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				if(this.webCanvases[i].isModified(oldMtime)){
 					data.push(this.webCanvases[i].getDataForHistory());
 					//console.log("PUSH : "+this.webCanvases[i].label);
 				}else{
-					data.push(null); //변경내용이 없음을 표시.
+					data.push(this.webCanvases[i].getDataForHistory(true));
+					data.skip++; 
 					//console.log("SKIP : "+this.webCanvases[i].label);
 				}
 			}
@@ -239,17 +251,15 @@ function WebCanvasBundle(width,height,colorset){
 		,"putDataForHistory":function(historyData){
 			for(var i=0,m=historyData.data.length;i<m;i++){
 				if(!this.webCanvases[i]){ //없으면 레이어 하나를 붇인다.
-					this.addWebCanvas();
+					var c = this.addWebCanvas();
 				}
-				if(historyData.data[i] == null){//변경사항이 없다.
-					//console.log("put SKIP");
-					continue;
-				}
-				this.webCanvases[i].resize(historyData.width,historyData.height);
-				this.webCanvases[i].putDataForHistory(historyData.data[i]);
 			}
 			for(var m=this.webCanvases.length;i<m;i++){
 				this.removeWebCanvasByIndex(i);
+			}
+			for(var i=0,m=historyData.data.length;i<m;i++){
+				this.webCanvases[i].resize(historyData.width,historyData.height);
+				this.webCanvases[i].putDataForHistory(historyData.data[i]);
 			}
 		}
 		//--- 웹캔버스 제어부분
@@ -281,7 +291,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"addWebCanvas":function(colorset){
 			var c = WebCanvas(this.width,this.height,colorset);
 			c.className = "WC";
-			c.setLabel("Layer"+ (++this.tempCounter));
+			c.label = "Layer"+(++this.tempCounter);
 			return this._addWebCanvas(c);
 		}
 		,"_addWebCanvas":function(c){

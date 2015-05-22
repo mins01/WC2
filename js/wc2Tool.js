@@ -79,7 +79,7 @@ var wc2Tool = function(){
 			return this[toolName].mousewheel(event);
 		}
 		,"saveHistory":function(){
-			wc2.saveHistory("Tool."+this.lastToolName);
+			wc2.saveHistory("Tool."+this.lastToolName+"."+wc2.activeWcb.activeWebCanvas.label);
 		}
 		//-- 라인
 		,"line":{

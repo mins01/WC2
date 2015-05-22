@@ -269,6 +269,7 @@ var wc2 = (function(){
 		}
 		,"resaveHistory":function(){
 			if(this.activeWcb) this.activeWcb.resaveHistory();
+			//console.log("리세이브");
 		}
 		//--
 		//--- 
@@ -843,8 +844,8 @@ var wc2 = (function(){
 					this.resaveHistory();
 					history = this.activeWcb.moveDownWebCanvasByIndex();break;
 				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
-				case "select":r = this._selectLayer(arg1); history = false; break;
-				case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
+				case "select":this.resaveHistory();r = this._selectLayer(arg1); history = false; break;
+				//case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
 				case "save":r = this.saveLayer();break;
 				case "rename":this.resaveHistory();r =  this.activeWcb.activeWebCanvas.label = arg1;break;
 			}

@@ -83,7 +83,7 @@ wc2Brush.prototype = function(){
 			}
 			a *= -1;
 			while((x+=this.spacing )<=xlimit ){
-				console.log(x);
+				//console.log(x);
 				//y = Math.sqrt(r2-(x*x));
 				y = Math.abs(Math.sqrt(a*x));
 				

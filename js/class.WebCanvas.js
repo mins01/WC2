@@ -630,15 +630,19 @@ function WebCanvas(width,height,colorset){
 			return c;
 		}
 		//--- 히스토리,undo용 데이터
-		,"getDataForHistory":function(){
-			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":this.cmdContext2d("getImageData"),"mtime":this.mtime};
+		,"getDataForHistory":function(emptyImageData){
+				return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":emptyImageData?null:this.cmdContext2d("getImageData"),"mtime":this.mtime};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
-			this.setLabel(data.label);
+
+			this.label = data.label;
 			this.setOpacity(data.opacity!=undefined?data.opacity:1);
 			//this.putImageData(data.imageData);
-			this.cmdContext2d("putImageData",data.imageData,0,0);
+			if(data.imageData !=null){
+				//console.log(this.label+":imageData");
+				this.cmdContext2d("putImageData",data.imageData,0,0);
+			}
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
 			return true;
