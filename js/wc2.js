@@ -98,23 +98,6 @@ var wc2 = (function(){
 				}
 			});
 			this.tabsContent = document.getElementById('tabsContent');
-			//-- 브러쉬 목록
-			/*
-			var t = $("#toolBrushList");
-			for(var i=0,m=wc2BrushList.length;i<m;i++){
-				if(wc2BrushList[i].indexOf('data')===0){
-					var src = wc2BrushList[i];	
-				}else{
-					var src = wc2BrushList.dir+"/"+wc2BrushList[i];	
-				}
-				var str = '<img class="bg-grid" src="'+src+'" >'
-				t.append(str);
-			}
-			t.on( "click", "img", function(event){
-				document.formToolBrush.brush = this;
-				wc2.syncBrush();
-			});
-			*/
 			//-- 브러쉬 초기화
 			this.brush4Brush = new wc2Brush();
 			//$("#formToolBrushCanvasBox").append(this.brush4Brush.brushWC);
@@ -256,8 +239,11 @@ var wc2 = (function(){
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
 			Mousetrap.bind(['ctrl+shift+z','ctrl+y'], function(event) { wc2.cmdWcb("redo"); });
 			//-- 메뉴 부분 이벤트 처리용
-			$("#topMenu").on("click","a[data-wc-menu]",function(event){
-				wc2.btnShowMenuDetail(event.target);
+			$("#topMenu").on("click","a",function(event){
+				wc2.closeOnclickNavbar(event);
+				if(event.target.dataset.wcMenu){
+					wc2.btnShowMenuDetail(event.target);
+				}
 				return;
 			});
 			
@@ -1232,9 +1218,9 @@ var wc2 = (function(){
 		}
 		,"closeNavbar":function(isOpen){
 			if(!isOpen){
-				$("#bs-example-navbar-collapse-1.in").removeClass("in").attr("aria-expanded","false");
+				$("#top-navbar.in").removeClass("in").attr("aria-expanded","false");
 			}else{
-				$("#bs-example-navbar-collapse-1").addClass("in").attr("aria-expanded","true");
+				$("#top-navbar").addClass("in").attr("aria-expanded","true");
 			}
 		}
 		//입력된 URL의 QueryString을 기준으로 자동 처리한다.
