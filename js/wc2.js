@@ -246,7 +246,10 @@ var wc2 = (function(){
 				}
 				return;
 			});
-			
+			//-- 페이지 이동시 물어보디
+			window.onbeforeunload = function(){ 
+			return wc2.onbeforeunloadForDocument(); 
+			}
 			
 		}
 		//--- 히스토리
@@ -1364,6 +1367,23 @@ var wc2 = (function(){
 				this.cmdWcb("open",tempWcbs.data[i]);
 			}
 			return true;
+		}
+		//-- 종료시 물어보기, 사용흔적이 없으면 안 물어본다.
+		,"onbeforeunloadForDocument":function(){
+			var docCnt = this.wcbs.length;
+			var useCnt = 0;
+			
+			for(var i=0,m=docCnt;i<m;i++){
+				console.log(this.wcbs[i].historyLog.length);
+				if(this.wcbs[i].historyLog.length>1){
+					useCnt++;
+				}
+			}
+			if(useCnt>0){
+				return "Should you quit?\n==================\ndrawing : "+useCnt+" images\nTotal : "+docCnt+" images";
+			}else{
+				return undefined;
+			}
 		}
 	};
 })();
