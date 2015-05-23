@@ -1347,6 +1347,7 @@ var wc2 = (function(){
 			if(this.wcbs.length==0){
 				this.setError("No Wcbs"); return false;
 			}
+			if(!confirm("임시 저장 하시겠습니까?")) return false;
 			var tempWcbs = {};
 			tempWcbs.mtime = (new Date).getTime();
 			tempWcbs.data = [];
