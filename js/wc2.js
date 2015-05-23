@@ -1003,7 +1003,7 @@ var wc2 = (function(){
 			frms.show();
 			
 			
-			if(menu.indexOf("layer-filter"==0)){ //필터용 프리뷰
+			if(menu.indexOf("layer-filter")==0){ //필터용 프리뷰
 				$(".wc-mdetail-layer-filter-preview").show();
 			}
 			
