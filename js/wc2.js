@@ -1374,7 +1374,6 @@ var wc2 = (function(){
 			var useCnt = 0;
 			
 			for(var i=0,m=docCnt;i<m;i++){
-				console.log(this.wcbs[i].historyLog.length);
 				if(this.wcbs[i].historyLog.length>1){
 					useCnt++;
 				}
