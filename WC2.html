@@ -609,8 +609,8 @@ Ciao
 						</div>
 					</form>
 					
-					
-					<form name="formColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush" onsubmit="return false" onchange="wc2.syncColor();" >
+					<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
+					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  " onsubmit="return false" onchange="wc2.syncColor();" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">Color</div>
 							<div  class="panel-body">

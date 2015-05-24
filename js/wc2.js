@@ -925,7 +925,8 @@ var wc2 = (function(){
 		,"initColorPalette":function(){
 			this.strokeStyle = document.getElementById('strokeStyle');
 			$(this.strokeStyle).spectrum({
-					color: "rgb(0,0,0)",
+					//color: "rgb(0,0,0)",
+					color:this.strokeStyle.value,
 					//showAlpha: true,
 					showInput: true,
 					className: "strokeStyle",
@@ -943,7 +944,8 @@ var wc2 = (function(){
 			});
 			this.fillStyle = document.getElementById('fillStyle');
 			$(this.fillStyle).spectrum({
-					color: "rgb(255,255,255)",
+					//color: "rgb(255,255,255)",
+					color:this.fillStyle.value,
 					//showAlpha: true,
 					showInput: true,
 					className: "fillStyle",
@@ -1154,11 +1156,16 @@ var wc2 = (function(){
 		,"syncColor":function(){
 			this.syncBrush();
 			this.cmdTool('predraw')
+			
+			$(this.strokeStyle).spectrum("set",this.strokeStyle.value);
+			$(this.fillStyle).spectrum("set",this.fillStyle.value);
+			
+			this.saveSetting(document.getElementById("formToolColor"),"change");
 		}
 		//지우개용 브러쉬 정보 싱크 그리기
 		,"syncEraser":function(){
 			var f = document.formToolEraser;
-			var fc = document.formColor;
+			var fc = document.formToolColor;
 			var width = parseFloat(f.brushWidth.value);
 			var globalAlpha = parseFloat(f.brushGlobalAlpha.value);
 			var r = width/2;
@@ -1171,7 +1178,7 @@ var wc2 = (function(){
 		//브러쉬 정보 싱크 그리기
 		,"syncBrush":function(){
 			var f = document.formToolBrush;
-			var fc = document.formColor;
+			var fc = document.formToolColor;
 			var width = parseFloat(f.brushWidth.value);
 			var r = width/2;
 			var r0p = parseFloat(f.r0p.value);
