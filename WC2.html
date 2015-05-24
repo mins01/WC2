@@ -96,6 +96,8 @@
 							<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-wrench" data-wc-menu="edit-preferences">Preferences</a></li>
+							<li class="divider"></li>
+							<li><a href="#" class="glyphicon glyphicon-remove" onclick="wc2.clearSavedSetting();">Clear saved setting</a></li>
 						  </ul>
 						</li>
 						
@@ -219,7 +221,7 @@
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  >
+										<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  >
 										</td>
 									</tr>
 									<tbody class="wc-tool wc-tool-rect  wc-tool-circle">
@@ -260,7 +262,7 @@
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha"  >
+										<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  >
 										</td>
 									</tr>
 									<tr>
@@ -299,7 +301,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="1" step="0.1" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" >
+										<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" >
 										</td>
 									</tr>
 									<tr>
@@ -474,7 +476,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="1" step="0.1" name="brushGlobalAlpha"  >
+										<td><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  >
 										</td>
 									</tr>
 									<tr>
@@ -506,7 +508,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.1" name="brushGlobalAlpha"  >
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
 										</td>
 									</tr>
 									<tr>
@@ -534,7 +536,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>alpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.1" name="globalAlpha"  >
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
 										</td>
 									</tr>
 									<tr>
@@ -1116,7 +1118,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="";>
+				<form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="";>
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Preferences</div>
 						<div  class="panel-body">
@@ -1126,33 +1128,31 @@ Ciao
 										<div  class="form-inline">
 											<span>Use Preview Iamge At Layer Info? : </span>
 											<select class="form-control" name="usePreviewImageAtLayerInfo">
-												<option value="0" selected>Auto</option>
+												<option value="0" selected>Auto (by Width)</option>
 												<option value="1">Use</option>
-												<option value="2">Not Use</option>
+												<option value="2">Not Use (Fast)</option>
 											</select>
 										</div>
-									</li>
-									<li class="list-group-item" >
-										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
 									<li class="list-group-item list-group-item-success">change viewport content sacle form Mobil-Web</li>
 									<li class="list-group-item" >
 										<div  class="form-inline">
-											
 											<select  class="form-control"  name="viewportContentScale">
 												<option value="1">default</option>
+												<option value="0.667">x1.5</option>
 												<option value="0.5">x2</option>
 												<option value="0.333">x3</option>
 												<option value="0.25">x4</option>
 												<option value="0.20">x5</option>
 												<option value="">Web 1:1</option>
 											</select>
-											<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="wc2.changeViewport(this.form.viewportContentScale.value);"> Change</button>
-											<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 											<br>Tested by Mobile Chrome 41.0.2272.96
 										</div>
+									</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
 								</ul>
 						</div>

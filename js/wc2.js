@@ -70,6 +70,7 @@ var wc2 = (function(){
 								}
 		 //--- 초기화
 		,"init":function(){
+			this.initVar();
 			this.initUI();
 			this.initEvent();
 			this.initColorPalette();
@@ -80,6 +81,22 @@ var wc2 = (function(){
 			//this.hideFilterDetail();
 			this.setTool("brush");
 			this.loadSetting();
+		}
+		,"initVar":function(){
+			//-- viewport 확대비율
+			var _viewportContentScale = 1;
+			Object.defineProperty(this, 'viewportContentScale', {
+				get:function(){ return _viewportContentScale; },
+				set:function(wc2){
+						return function(newValue){ 
+							_viewportContentScale = newValue;
+							wc2.changeViewport(_viewportContentScale);
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+			
 		}
 		,"setError":function(error,disableShow){
 			this.error = error;
@@ -1139,6 +1156,8 @@ var wc2 = (function(){
 					
 				}
 			}
+			//this.changeViewport(this.viewportContentScale); //변수 설정시 자동 처리됨
+			this.saveSetting(form,"submit"); //설정 저장
 		}
 		//미리보기 사용여부를 너비 기준으로 처리한다.
 		,"getUsePreviewImageAtLayerInfo":function(){
@@ -1427,6 +1446,12 @@ var wc2 = (function(){
 					f["on"+eventType]();
 				}
 			}
+		}
+		//-- 저장된 설정 삭제
+		,"clearSavedSetting":function(){
+			if(!confirm("All saved settings will be initialized. Are you sure you want to initialize?")){return false;}
+			localStorage.setItem("wc2.setting","{}");
+			return true;
 		}
 	};
 })();
