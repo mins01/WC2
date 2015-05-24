@@ -79,6 +79,7 @@ var wc2 = (function(){
 			this.hideMenuDetail();
 			//this.hideFilterDetail();
 			this.setTool("brush");
+			this.loadSetting();
 		}
 		,"setError":function(error,disableShow){
 			this.error = error;
@@ -250,6 +251,12 @@ var wc2 = (function(){
 			window.onbeforeunload = function(){ 
 			return wc2.onbeforeunloadForDocument(); 
 			}
+			//-- 자동 설정 저장 이벤트
+			$(document).on("change","form.wc-save-setting",function(event){
+				wc2.saveSetting(this,event.type);
+				return;
+			});
+			
 			
 		}
 		//--- 히스토리
@@ -1382,6 +1389,36 @@ var wc2 = (function(){
 				return "Should you quit?\n==================\ndrawing : "+useCnt+" images\nTotal : "+docCnt+" images";
 			}else{
 				return undefined;
+			}
+		}
+		//-- 설정 자동 저장
+		,"saveSetting":function(f,eventType){
+			var setting = localStorage.getItem("wc2.setting");
+			if(!setting){ setting = "{}";}
+			setting = JSON.parse(setting);
+			if(!f.id){alert("Required prop id.");return false;}
+			setting[f.id] = $(f).serializeObject();
+			setting[f.id].eventType = eventType;
+			localStorage.setItem("wc2.setting",JSON.stringify(setting));
+			console.log(localStorage.getItem("wc2.setting"));
+		}
+		//-- 저장된 설정 읽기
+		,"loadSetting":function(){
+			var setting = localStorage.getItem("wc2.setting");
+			if(!setting){ setting = "{}";}
+			setting = JSON.parse(setting);
+			for(var id in setting){
+				var f = document.getElementById(id);
+				if(!f){continue;}
+				var eventType = setting[id].eventType
+				delete setting[id].eventType;
+				for(var x in setting[id]){
+					if(!f[x]==undefined){continue;}
+					f[x].value = setting[id][x];
+				}
+				if(f["on"+eventType] != undefined){ //적용
+					f["on"+eventType]();
+				}
 			}
 		}
 	};

@@ -205,7 +205,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Property</div>
 				<div class="panel-body">
-					<form name="formStrokStyle" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-curve wc-tool-pen wc-tool-rect wc-tool-circle" onsubmit="return false">
+					<form name="formStrokStyle" id="formStrokStyle" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-curve wc-tool-pen wc-tool-rect wc-tool-circle  wc-save-setting" onsubmit="return false">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Line</div>
 							<div  class="panel-body">
@@ -275,7 +275,7 @@
 							</div>
 						</div>
 					</form>
-					<form name="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
+					<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">text</div>
 							<div  class="panel-body">
@@ -453,7 +453,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolEraser" action="javascript:void(0)" class="wc-tool wc-tool-eraser" onsubmit="return false" onchange="wc2.syncEraser()">
+					<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Eraser</div>
 							<div  class="panel-body">
@@ -486,7 +486,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();">
+					<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false" onchange="wc2.syncBrush()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush</div>
 							<div  class="panel-body">
