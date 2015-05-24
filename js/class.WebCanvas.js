@@ -46,6 +46,7 @@ function WebCanvas(width,height,colorset){
 		//== 추가 메소드
 		//---context2d 메소드 호출용
 		,"init":function(width,height,colorset){
+			this.canvas = this;
 			this.alt = "";
 			//this.label = "";
 			var o={}
@@ -72,7 +73,7 @@ function WebCanvas(width,height,colorset){
 			this.width = width;
 			this.height = height;
 			
-			var _opacity
+			var _opacity = 1;
 			Object.defineProperty(this, 'opacity', {
 				get:function(){ return _opacity; },
 				set:function(wc){
@@ -80,12 +81,28 @@ function WebCanvas(width,height,colorset){
 							if(isNaN(newValue)){return false}
 							_opacity = newValue;
 							wc._setOpacity();
+							return _opacity;
 					}
 				}(this),
 				enumerable: true,
 				configurable: false
 			});
 			this.opacity = 1;
+			var _hide = false;
+			Object.defineProperty(this, 'hide', {
+				get:function(){ return _hide; },
+				set:function(wc){
+						return function(newValue){ 
+							if(isNaN(newValue)){return false}
+							_hide = !!newValue;
+							wc.node.dataset.wcHide = _hide?1:0; 
+							return _hide;
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+			this.hide = false;
 			this.context2d = this.getContext('2d');
 			//this.context2d.imageSmoothingEnabled = false;//
 			//-- 추가 설정 (밖에서 설정 할 수 있게 기본값을 넣어둔다. 여기서 안 정하면 설정이 안된다.)
@@ -180,7 +197,7 @@ function WebCanvas(width,height,colorset){
 			return this.setLabel(alt);
 		}
 		,"_setLabel":function(){
-			this.dataset.wcLabel = this.label;
+			this.canvas.dataset.wcLabel = this.label;
 			this.modified();
 			return this.label;
 		}
@@ -631,12 +648,13 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 히스토리,undo용 데이터
 		,"getDataForHistory":function(emptyImageData){
-				return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"imageData":emptyImageData?null:this.cmdContext2d("getImageData"),"mtime":this.mtime};
+				return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"imageData":emptyImageData?null:this.cmdContext2d("getImageData"),"mtime":this.mtime};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
 
 			this.label = data.label;
+			this.hide = data.hide;
 			this.setOpacity(data.opacity!=undefined?data.opacity:1);
 			//this.putImageData(data.imageData);
 			if(data.imageData !=null){
@@ -649,12 +667,16 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 파일용 데이터
 		,"toWcDataObject":function(type,quality){
-			return {"width":this.width,"height":this.height,"opacity":this.opacity,"label":this.label,"dataURL":this.toDataURL(type,quality)};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"dataURL":this.toDataURL(type,quality)};
 		}
 		,"putWcDataObject":function(wcdo,onload){
-			this.setLabel(wcdo.label);
+			//this.setLabel(wcdo.label);
+			this.label = wcdo.label;
 			this.resize(wcdo.width,wcdo.height);
-			this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
+			//this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
+			this.opacity = (wcdo.opacity!=undefined?wcdo.opacity:1);
+			this.hide = wcdo.hide;
+			
 			this.loadToDataURL(wcdo.dataURL,onload)
 			return true;
 		}

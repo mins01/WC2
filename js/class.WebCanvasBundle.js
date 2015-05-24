@@ -484,6 +484,9 @@ function WebCanvasBundle(width,height,colorset){
 		,"mergeAll":function(){
 			var c = WebCanvas(this.width,this.height);
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
+				if(this.webCanvases[i].hide){ //숨긴경우 머지 안한다.
+					continue;
+				}
 				c.merge(this.webCanvases[i]);
 			}
 			return c

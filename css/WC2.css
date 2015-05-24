@@ -249,4 +249,34 @@ cursor:pointer;
 }
 
 
+/* 레이어 */
 
+.wc-prop-layer-info  .eye{
+	display:block;
+	width:40px; text-align:center;
+	position:absolute;
+	bottom:0px; left:0px;
+	font-family: 'Glyphicons Halflings';
+	margin-left:5px;
+}
+.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{ 
+	display:none;
+	content: "\e105";
+ }
+.wc-prop-layer-info[data-wc-hide="1"] .eye::before{
+	content: "\e106";
+}
+
+
+@media (max-width: 768px) {
+	/* 툴 버튼을 작은 버튼으로 변경 */
+	.wc-prop-layer-info .eye{
+		position: static; 
+		padding-right:5px;
+		display:inline;
+	}
+	.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{ 
+		display:inline;
+	}
+	
+}

@@ -740,8 +740,12 @@ var wc2 = (function(){
 					li.className="list-group-item wc-prop-layer wc-prop-layer-info";
 					li.wc = WebCanvas(width,height);
 					li.appendChild(li.wc.node);
+					li.spanEye =  document.createElement("span");
+					li.spanEye.className="eye"
+					li.appendChild(li.spanEye);
 					li.span =  document.createElement("span");
 					li.appendChild(li.span);
+					
 					propLayerList.append(li);
 				}
 				var lis = $("#propLayerList .wc-prop-layer-info");
@@ -754,6 +758,7 @@ var wc2 = (function(){
 					$(li).show();
 					li.dataset.wcbActive = oc.dataset.wcbActive;
 					li.dataset.wcbIndex = oc.dataset.wcbIndex;
+					li.dataset.wcHide = oc.node.dataset.wcHide;
 					li.title = oc.label;
 					//설정을 체크 하고 히스토리를 참고해서 히스토리가 변경된것만 갱신한다.
 					if(usePreviewImageAtLayerInfo==1){
@@ -761,7 +766,9 @@ var wc2 = (function(){
 							li.wc.setLabel(oc.label+"-pre");
 							li.wc.clearResize(width,height);
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
-							li.wc.setOpacity(oc.opacity);
+							//li.wc.setOpacity(oc.opacity);
+							li.wc.opacity = oc.opacity;
+							li.wc.hide = oc.hide;
 							li.wc.node.style.marginTop = marginTop+"px";
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
 						//console.log("pre 갱신",li.wc.label);
@@ -770,34 +777,6 @@ var wc2 = (function(){
 					$(li.span).text(oc.label)
 					tmpli_i++;
 				}
-				
-				/*
-				for(var i=wcb.webCanvases.length-1,m=0;i>=m;i--){
-					c.copy(wcb.webCanvases[i],0,0,c.width,c.height);
-					var oc = wcb.webCanvases[i];
-					try{
-						var img = new Image();
-						img.src = c.toDataURL();
-					}catch(e){
-						this.setError(e.toString());
-						var img = document.createElement('span');
-						img.className="glyphicon glyphicon-sunglasses";
-						img.title="not support Preview"
-						
-					}
-					var li = document.createElement("li");
-					li.className="list-group-item";
-					li.dataset.wcbActive = oc.dataset.wcbActive;
-					li.dataset.wcbIndex = oc.dataset.wcbIndex;
-					li.title = oc.label;
-					img.alt = oc.label;
-					img.title = oc.label;
-					$(li).append(img);
-					$(li).append(document.createTextNode(wcb.webCanvases[i].label));
-					propLayerList.append(li)
-					//console.log(wcb.webCanvases[i].alt);
-				}
-				*/
 				//--- 히스토리 싱크
 				var propHistoryList = $("#propHistoryList").html("");
 				var limitHeight = 40;
@@ -823,6 +802,8 @@ var wc2 = (function(){
 		,"_syncWcInfo":function(){
 			if(this.activeWcb && this.activeWcb.activeWebCanvas){
 				document.formPropLayer.layerOpacity.value = this.activeWcb.activeWebCanvas.opacity;
+				document.formPropLayer.layerNotHide.checked = !this.activeWcb.activeWebCanvas.hide;
+				
 			}
 		}
 		,"cmdLayer":function(cmd,arg1,arg2,arg3){
@@ -857,13 +838,15 @@ var wc2 = (function(){
 					this.resaveHistory();
 					history = this.activeWcb.moveDownWebCanvasByIndex();break;
 				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
+				case "hide":this.activeWcb.activeWebCanvas.hide = arg1;break;
+				case "toggleHide":this.activeWcb.activeWebCanvas.hide = !this.activeWcb.activeWebCanvas.hide;break;
 				case "select":this.resaveHistory();r = this._selectLayer(arg1); history = false; break;
 				//case "invert":r = this.activeWcb.activeWebCanvas.invert();break;
 				case "save":r = this.saveLayer();break;
 				case "rename":this.resaveHistory();r =  this.activeWcb.activeWebCanvas.label = arg1;break;
 			}
 			if(history){
-				this.saveHistory("Layer."+cmd);
+				this.saveHistory("Layer."+cmd+":"+this.activeWcb.activeWebCanvas.label);
 			}
 			this.cmdTool("reset");
 			if(sync){
