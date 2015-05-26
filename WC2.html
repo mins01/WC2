@@ -985,10 +985,12 @@ Ciao
 														<span class="glyphicon glyphicon-resize-horizontal"></span>
 														width
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="if(this.form.sameProportion.checked){
+													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange();"
+													onchange="if(this.form.sameProportion.checked){
 														if(isNaN(this.form.width.value)){return false;}
 														this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
-													}">
+													}"
+													>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -997,7 +999,7 @@ Ciao
 														<span class="glyphicon glyphicon-resize-vertical"></span>
 														height
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onchange="this.onkeyup()" onkeyup="if(this.form.sameProportion.checked){
+													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
 														if(isNaN(this.form.height.value)){return false;}
 														this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
 													}">
@@ -1033,7 +1035,7 @@ Ciao
 														<span class="glyphicon glyphicon-resize-horizontal"></span>
 														width
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onchange="this.onkeyup()"  onkeyup="if(this.form.sameProportion.checked){
+													<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange()"  onchange="if(this.form.sameProportion.checked){
 														if(isNaN(this.form.width.value)){return false;}
 														this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
 													}">
@@ -1045,7 +1047,7 @@ Ciao
 														<span class="glyphicon glyphicon-resize-vertical"></span>
 														height
 													</span>
-													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onchange="this.onkeyup()" onkeyup="if(this.form.sameProportion.checked){
+													<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
 														if(isNaN(this.form.height.value)){return false;}
 														this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
 													}">
