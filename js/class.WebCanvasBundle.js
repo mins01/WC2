@@ -369,8 +369,8 @@ function WebCanvasBundle(width,height,colorset){
 			this.shadowWebCanvas.clearResize(this.width,this.height);
 			this.node.style.width = this.width+"px";
 			this.node.style.height = this.height+"px";
-			this.outNode.style.width = (this.width*this.zoom)+"px";
-			this.outNode.style.height = (this.height*this.zoom)+"px";
+			//this.outNode.style.width = (this.width*this.zoom)+"px";
+			//this.outNode.style.height = (this.height*this.zoom)+"px";
 
 			return true;
 		}

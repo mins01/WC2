@@ -19,8 +19,7 @@ body{margin:0;padding:0;height:100%;}
 .WCB{
 	position:relative; background-image:url("../img/bg.gif"); 
 	transform: scale(1, 1);
-	/*transform-origin: left top;*/
-	transform-origin: 0 0;
+	transform-origin: center top;
 }
 .WCB .WC-node{
 	position:absolute; top:0;left:0;bottom:0;right:0;
