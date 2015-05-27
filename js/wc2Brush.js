@@ -43,7 +43,7 @@ wc2Brush.prototype = function(){
 			var color0 = colorStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = colorStyle.replace('rgb','rgba').replace(')',',0)');
 			this.brushWC.clearResize(width,width);
-			this.brushWC.configContext2d({"globalAlpha":globalAlpha,"imageSmoothingEnabled":false})
+			this.brushWC.configContext2d({"globalAlpha":globalAlpha,"imageSmoothingEnabled":true})
 			this.brushWC.saveContext2d();
 			if(r0p<1){
 				var rg = this.brushWC.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
@@ -51,7 +51,8 @@ wc2Brush.prototype = function(){
 				rg.addColorStop(r0p,color0);
 				rg.addColorStop(1,color1);
 				this.brushWC.configContext2d({"fillStyle":rg,"disableStroke":1})
-				this.brushWC.rect(0,0,width,width);
+				//this.brushWC.rect(0,0,width,width);
+				this.brushWC.circle(x0,y0,r1);
 			}else{
 				this.brushWC.configContext2d({"fillStyle":color0,"disableStroke":1})
 				this.brushWC.circle(x0,y0,r1);

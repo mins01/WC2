@@ -339,10 +339,10 @@ function WebCanvas(width,height,colorset){
 					}else if(typeof this.context2d[x] == "function"){
 						continue;
 					}
-					if(typeof this.context2d[x] == "number"){
-						this.context2d[x] = parseFloat(cfg[x]);
-					}else{
-						this.context2d[x] = cfg[x];
+					switch(typeof this.context2d[x]){
+						case "number": this.context2d[x] = parseFloat(cfg[x]);break;
+						case "boolean": this.context2d[x] = !!cfg[x];break;
+						default: this.context2d[x] = cfg[x];
 					}
 				}
 			}
@@ -800,6 +800,7 @@ function WebCanvas(width,height,colorset){
 		//--- 인버트
 		,"invert":function(){
 			var imageData = this.cmdContext2d('getImageData');
+			
 			for(var i=0,m=imageData.data.length;i<m;i+=4){
 				imageData.data[i] = 255 - imageData.data[i]
 				imageData.data[i+1] = 255 - imageData.data[i+1]
@@ -808,6 +809,8 @@ function WebCanvas(width,height,colorset){
 			this.cmdContext2d('putImageData',imageData);
 		}
 		//--- 색채우기 (모든 색을 바꾼다. 알파값은 바꾸지 않는다)
+		//-- 모든 브라우저에서 버그가 있다. 알파값에 따라서 premultiplied alpha color values 로 RGB값이 변경됨.
+		//-- http://stackoverflow.com/questions/23497925/how-can-i-stop-the-alpha-premultiplication-with-canvas-imagedata
 		,"coverColor":function(colorset){
 			var imageData = this.cmdContext2d('getImageData');
 			for(var i=0,m=imageData.data.length;i<m;i+=4){

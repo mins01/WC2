@@ -1194,6 +1194,7 @@ var wc2 = (function(){
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
 			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
+			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);
 			this.brush4Brush.previewBrush()
 			
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
@@ -1402,6 +1403,7 @@ var wc2 = (function(){
 		}
 		//-- 설정 자동 저장
 		,"saveSetting":function(f,eventType){
+			if(!localStorage){return false;}
 			var setting = localStorage.getItem("wc2.setting");
 			if(!setting){ setting = "{}";}
 			setting = JSON.parse(setting);
@@ -1409,10 +1411,11 @@ var wc2 = (function(){
 			setting[f.id] = $(f).serializeObject();
 			setting[f.id].eventType = eventType;
 			localStorage.setItem("wc2.setting",JSON.stringify(setting));
-			console.log(localStorage.getItem("wc2.setting"));
+			//console.log(localStorage.getItem("wc2.setting"));
 		}
 		//-- 저장된 설정 읽기
 		,"loadSetting":function(){
+			if(!localStorage){return false;}
 			var setting = localStorage.getItem("wc2.setting");
 			if(!setting){ setting = "{}";}
 			setting = JSON.parse(setting);
@@ -1422,7 +1425,7 @@ var wc2 = (function(){
 				var eventType = setting[id].eventType
 				delete setting[id].eventType;
 				for(var x in setting[id]){
-					if(!f[x]==undefined){continue;}
+					if(f[x]==undefined || setting[id][x]==undefined){continue;}
 					f[x].value = setting[id][x];
 				}
 				if(f["on"+eventType] != undefined){ //적용
@@ -1432,6 +1435,7 @@ var wc2 = (function(){
 		}
 		//-- 저장된 설정 삭제
 		,"clearSavedSetting":function(){
+			if(!localStorage){return false;}
 			if(!confirm("All saved settings will be initialized. Are you sure you want to initialize?")){return false;}
 			localStorage.setItem("wc2.setting","{}");
 			return true;
