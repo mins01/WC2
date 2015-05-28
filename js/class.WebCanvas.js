@@ -839,7 +839,7 @@ function WebCanvas(width,height,colorset){
 			//console.log(x,y);
 			this.x1 = x;
 			this.y1 = y;
-			this._draw();
+			this._drawBrushLine(this.x0,this.y0,this.x1,this.y1);
 			this.x0 = x;
 			this.y0 = y;
 		}
@@ -847,19 +847,20 @@ function WebCanvas(width,height,colorset){
 			this.brushLastLen = 0;
 			this.brushing = 0;
 		}
-		,"_draw":function(){
+		,"_drawBrushLine":function(x0,y0,x1,y1){
 			if(this.brushing){
-				var xys = this._dotsInLine(this.x0,this.y0,this.x1,this.y1);
+				var xys = this._dotsInLine(x0,y0,x1,y1);
 				var w2 = (this.brushWC.width)/2
 				var h2 = (this.brushWC.height)/2
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
-					this.drawImage(this.brushWC,xys[i][0]-w2,xys[i][1]-h2);
-					var x = xys[i][0], y = xys[i][1];
-					//this.circleWithGradient(x,y,w2,colorStyle)
+					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2);
 				}
 			}
+		}
+		,"_drawBrushDot":function(x,y){
+			this.drawImage(this.brushWC,x,y);
 		}
 		,"_dotsInLine":function(x0,y0,x1,y1){
 			var spacing = this.spacing;

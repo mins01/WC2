@@ -877,14 +877,24 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"end":function(){
-				//console.log("end");
+				
 				this.ing = 0;
 				this.wcb.shadowWebCanvas.clear();
+				//$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
+				
 				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
+				/*
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this.wcb.shadowWebCanvas.saveContext2d();
+				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"copy"});
+				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.restoreContext2d();
+				*/
 				this.wcb.shadowWebCanvas.clear();
+				
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
@@ -901,6 +911,7 @@ var wc2Tool = function(){
 			,"up":function(event){
 				//wc2.brush4Brush.endBrush();
 				this.wcb.shadowWebCanvas.endBrush();
+				//this.wcb.activeWebCanvas.copyImageData(this.wcb.shadowWebCanvas);
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				//console.log("up");
 				this.end();

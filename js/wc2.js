@@ -1173,6 +1173,7 @@ var wc2 = (function(){
 			var r = width/2;
 			var r0p = parseFloat(f.r0p.value);
 			var colorStyle = "rgb(255,255,255)";
+			//this.brush4Eraser.colorStyle = strokeStyle;
 			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
 			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
 			this.brush4Eraser.previewBrush()
@@ -1191,11 +1192,13 @@ var wc2 = (function(){
 			//var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			//var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
 			//console.log(strokeStyle);
+			this.brush4Brush.colorStyle = strokeStyle;
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
 			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);
 			this.brush4Brush.previewBrush()
+			
 			
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
 			return true;
