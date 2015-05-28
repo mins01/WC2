@@ -833,7 +833,8 @@ function WebCanvas(width,height,colorset){
 			var w2 = (this.brushWC.width)/2
 			var h2 = (this.brushWC.height)/2
 			//console.log(x,y);
-			this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
+			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
+			this._drawBrushDot(this.x0-w2,this.y0-h2);
 		}
 		,"drawBrush":function(x,y){
 			//console.log(x,y);
