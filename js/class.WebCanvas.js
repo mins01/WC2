@@ -853,8 +853,11 @@ function WebCanvas(width,height,colorset){
 				var w2 = (this.brushWC.width)/2
 				var h2 = (this.brushWC.height)/2
 				//console.log(xys);
+				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
 					this.drawImage(this.brushWC,xys[i][0]-w2,xys[i][1]-h2);
+					var x = xys[i][0], y = xys[i][1];
+					//this.circleWithGradient(x,y,w2,colorStyle)
 				}
 			}
 		}
@@ -895,6 +898,24 @@ function WebCanvas(width,height,colorset){
 			//console.log(x0,y0,x2,y2,c2 );
 			return xys;
 			
+		}
+		,"circleWithGradient":function(x,y,r,colorStyle){
+			var rg = this.getCircleGradient(x,y,0,r,colorStyle)
+			this.configContext2d({"fillStyle":rg,"disableStroke":1})
+			this.circle(x,y,r);
+		}
+		,"getCircleGradient":function(x0,y0,r0,r1,colorStyle){
+			return this.getRadialGradient(x0,y0,r0,x0,y0,r1,colorStyle);
+		}
+		,"getRadialGradient":function(x0,y0,r0,x1,y1,r1,colorStyle){
+			var color0 = colorStyle.replace('rgb','rgba').replace(')',',1)');
+			var color1 = colorStyle.replace('rgb','rgba').replace(')',',0)');
+			
+			var rg = this.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
+			rg.addColorStop(0,color0);
+			//rg.addColorStop(r0p,color0);
+			rg.addColorStop(1,color1);
+			return rg;
 		}
 	} // end : WebCanvas._prototype
 })();
