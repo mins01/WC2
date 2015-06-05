@@ -1439,7 +1439,7 @@ var wc2 = (function(){
 		//-- 저장된 설정 삭제
 		,"clearSavedSetting":function(){
 			if(!localStorage){return false;}
-			if(!confirm("All saved settings will be initialized. Are you sure you want to initialize?\n(Preferences, Brush, etc... ")){return false;}
+			if(!confirm("All saved settings will be initialized. Are you sure you want to initialize?\n(Preferences, Brush, etc... )")){return false;}
 			localStorage.setItem("wc2.setting","{}");
 			$("form.wc-save-setting").each(function(idx,el){
 				el.reset();
