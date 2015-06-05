@@ -198,7 +198,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
-				console.log(this.step);
+				//console.log(this.step);
 				this.wcb.shadowWebCanvas.clear();
 				if(this.step == 0){ //직선.
 					this.wcb.shadowWebCanvas.line(this.x0,this.y0,this.x1,this.y1);
@@ -350,6 +350,7 @@ var wc2Tool = function(){
 		,"circle":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"ing":0
 			,"init":function(wcb){
 				//this.wcb = wcb;
 				//console.log("init");
@@ -358,10 +359,11 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-			wc2Tool.saveHistory();
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
+				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = t.x;
 				this.y0 = t.y;
@@ -380,13 +382,15 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				this.predraw();
+				this.ing = 0;
+				//this.predraw();
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-				//console.log("up");
+				console.log("up");
 				this.end();
 				return true;
 			}
 			,"predraw":function(){
+				if(this.ing == 0){return false;}
 				this.wcb.shadowWebCanvas.clear();
 				//-- 정원 그리기
 				var xd = (this.x1 - this.x0)/2;
