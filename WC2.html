@@ -96,8 +96,6 @@
 							<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-wrench" data-wc-menu="edit-preferences">Preferences</a></li>
-							<li class="divider"></li>
-							<li><a href="#" class="glyphicon glyphicon-remove" onclick="wc2.clearSavedSetting();">Clear saved setting</a></li>
 						  </ul>
 						</li>
 						
@@ -785,7 +783,7 @@ Ciao
 											<button  type="reset" class="btn btn-default glyphicon glyphicon-remove-circle"  >Close</button>
 										</div>
 									</li>
-									<li class="list-group-item list-group-item-success">favorite</li>
+									<li class="list-group-item list-group-item-success">Rect</li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',100,100);false;">100x100</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',200,200);false;">200x200</a></li>
 									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
@@ -894,7 +892,7 @@ Ciao
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In PC</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In Local Disk(PC,SmartPhone)</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload In Web</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
@@ -1170,6 +1168,10 @@ Ciao
 										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+									<li class="list-group-item list-group-item-success">Clear saved setting</li>
+									<li class="list-group-item" >
+										<button class="btn btn-default  btn-sm  glyphicon glyphicon-remove" type="button" onclick="wc2.clearSavedSetting();"> Reset?</button>
 									</li>
 								</ul>
 						</div>
