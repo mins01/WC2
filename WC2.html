@@ -768,19 +768,18 @@ Ciao
 		
 		<!-- 메뉴 상세 부분 -->
 		<article id="menuDetailArea" class="overflow-scrolly" >
-				<form name="formMenuDetailFileNew"  id="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new wc-save-setting" onreset="wc2.hideMenuDetail();">
+				<form name="formMenuDetailFileNew"  id="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new wc-save-setting" >
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">New File</div>
 						<div  class="panel-body">
-							
 								<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
 									<li class="list-group-item list-group-item-success">Manual</li>
 									<li class="list-group-item">
 										<div class="form-inline">
 											<input class="form-control" type="number" name="width" maxlength="6" min="1" max="99999" value="300" placeholder="width.."> X
 											<input class="form-control" type="number" name="height" maxlength="6" min="1" max="99999" value="300" placeholder="height..">
-											<button  type="reset" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);">New</button>
-											<button  type="reset" class="btn btn-default glyphicon glyphicon-remove-circle"  >Close</button>
+											<button  type="button" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);wc2.hideMenuDetail();" >New</button>
+											<button  type="button" class="btn btn-default glyphicon glyphicon-remove-circle"  onclick="wc2.hideMenuDetail();" >Close</button>
 										</div>
 									</li>
 									<li class="list-group-item list-group-item-success">Rect</li>
