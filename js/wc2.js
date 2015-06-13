@@ -37,6 +37,7 @@ var wc2 = (function(){
 		 ,"deviceWidth":0
 		 ,"eraserIMG":null //지우개용
 		 ,"brush4eraser":null
+		 ,"uploadURL":"/WG2/up.php"
 		 ,"defaultContext2dCfg":{ //상세 설명은 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 을 참고
 								"fillStyle":  "rgba(0, 0, 0, 0)",
 								"font": "10px sans-serif",
@@ -438,12 +439,13 @@ var wc2 = (function(){
 		,"uploadWcb":function(filename,type,quality){
 			var blob = this.blobWcb(type,quality);
 			var formdata = new FormData();
-			formdata.append("upfiles[]", blob, filename); 
+			formdata.append("upf[]", blob, filename); 
 			$.ajax({
-				url: '/web_work/web/WG/WG.up.php',
+				url: this.uploadURL,
 				processData: false,
 				contentType: false,
-				dataType :"json",
+				//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				dataType :"jsonp",
 				data: formdata,
 				type: 'POST',
 				success: function(wcb){return function(result){
@@ -452,18 +454,18 @@ var wc2 = (function(){
 						return false;
 					}
 					var r = result[0];
-					if(r['save_error'] !=''){
-						alert("Error :"+r['save_error']);
+					if(r['error_msg'] !=''){
+						alert("Error :"+r['error_msg']);
 						return false;
 					}
 					wc2.cmdWcb("active",wcb);
-					if(r['save_name'] != r['name']){ //이름이 바껴서 저장된 경우
-						var n = r['save_name'].replace(/\.[^\.]*$/,''); //확장자 제거
+					if(r['save_name'] != r['basename']){ //이름이 바껴서 저장된 경우
+						var n = r['basename'].replace(/\.[^\.]*$/,''); //확장자 제거
 						wc2.cmdWcb("rename",n);
 						console.log("rename by upload");
 					}
 					if(confirm("Success Upload.\nView Image?")){
-						wc2.viewImageURL(r["url"]);
+						wc2.viewImageURL(r["previewurl"]);
 					}
 					return true;
 				}}(this.activeWcb)
