@@ -313,7 +313,8 @@ function WebCanvasBundle(width,height,colorset){
 				return false;
 			}
 			var c = WebCanvas(this.width,this.height);
-			c.copy(this.webCanvases[idx-1]);
+			//c.copy(this.webCanvases[idx-1]);
+			c.merge(this.webCanvases[idx-1]);
 			c.merge(this.activeWebCanvas);
 			this.activeWebCanvas.copy(c);
 			this.activeWebCanvas.setOpacity(1); //강제로 1로 만듬
