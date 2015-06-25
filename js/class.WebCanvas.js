@@ -820,6 +820,51 @@ function WebCanvas(width,height,colorset){
 			}
 			this.cmdContext2d('putImageData',imageData);
 		}
+				//--- 원브러쉬 그리기용
+		,"beginCircleBrush":function(x,y,circleBrushR,spacing){
+			this.spacing = spacing
+			this.circleBrushR = circleBrushR
+			//this.spacing = spacing;
+			this.brushLastLen = 0;
+			this.x0 = x;
+			this.y0 = y;
+			this.brushing = 1;
+			
+			var w2 = this.circleBrushR;
+			var h2 = this.circleBrushR;
+			//console.log(x,y);
+			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
+			this._drawCircleBrushDot(this.x0-w2,this.y0-h2);
+		}
+		,"drawCircleBrush":function(x,y){
+			//console.log(x,y);
+			this.x1 = x;
+			this.y1 = y;
+			this._drawCircleBrushLine(this.x0,this.y0,this.x1,this.y1);
+			this.x0 = x;
+			this.y0 = y;
+		}
+		,"endCircleBrush":function(){
+			this.brushLastLen = 0;
+			this.brushing = 0;
+		}
+		,"_drawCircleBrushLine":function(x0,y0,x1,y1){
+			if(this.brushing){
+				var xys = this._dotsInLine(x0,y0,x1,y1);
+				var w2 = this.circleBrushR;
+				var h2 = this.circleBrushR;
+				//console.log(xys);
+				//var colorStyle = "rgb(230, 195, 236)";
+				for(var i=0,m=xys.length;i<m;i++){
+					this._drawCircleBrushDot(xys[i][0]-w2,xys[i][1]-h2);
+				}
+			}
+		}
+		,"_drawCircleBrushDot":function(x,y){
+			//this.drawImage(this.brushWC,x,y);
+			//this.circleWithGradient(x,y,this.circleBrushR);
+			this.circle(x,y,this.circleBrushR);
+		}
 		//--- 브러쉬 그리기용
 		,"beginBrush":function(x,y,brushWC,spacing){
 			this.spacing = spacing

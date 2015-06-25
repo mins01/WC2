@@ -1046,6 +1046,24 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.saveContext2d();
 				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
+
+				this.ing = 1;
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
+				//this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				//this.wcb.shadowWebCanvas.beginCircleBrush(t.x,t.y,10,10,document.getElementById('strokeStyle').value);
+				var r = document.formToolPattern.width.value/2
+				var brushSpacing = document.formToolPattern.brushSpacing.value/2
+				this.wcb.shadowWebCanvas.beginCircleBrush(t.x,t.y,r,brushSpacing);
+				
+				return true;
+
+
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				//this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				this.wcb.shadowWebCanvas.saveContext2d();
+				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
 				
 				
 				this.ing = 1;
@@ -1063,10 +1081,27 @@ var wc2Tool = function(){
 				this.predraw();
 				//console.log("down");
 				return true;
+
+
+				this.wcb.shadowWebCanvas.clear();
+				
+				this.ing = 1;
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				
+				return true;
+
 				
 				return true;
 			}
 			,"move":function(event){
+
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				//wc2.brush4Brush.drawBrush(t.x,t.y);
+				this.wcb.shadowWebCanvas.drawCircleBrush(t.x,t.y);
+				return true;
+
 				return wc2Tool.brush.move.apply(this,arguments);
 			}
 			,"up":function(event){
@@ -1081,6 +1116,7 @@ var wc2Tool = function(){
 			}
 			
 			,"predraw":function(){
+				return;
 				if(this.ing){
 					
 					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,this.brushSpacing);
