@@ -465,7 +465,8 @@ var wc2 = (function(){
 						console.log("rename by upload");
 					}
 					if(confirm("Success Upload.\nView Image?")){
-						wc2.viewImageURL(r["previewurl"]);
+						//wc2.viewImageURL(r["previewurl"]);
+						wc2.viewImageURL(r["downurl"]);
 					}
 					return true;
 				}}(this.activeWcb)
