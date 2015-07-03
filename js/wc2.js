@@ -873,6 +873,7 @@ var wc2 = (function(){
 		,"cmdTool":function(cmd){
 			switch(cmd){
 				case "confirm":wc2Tool.confirm(this.tool);wc2._syncWcbInfo();break;
+				case "initPreview":wc2Tool.initPreview(this.tool);break;
 				case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
 				case "predraw":wc2.syncContext2dCfg();wc2Tool.predraw(this.tool,this.activeWcb);break;
 			}

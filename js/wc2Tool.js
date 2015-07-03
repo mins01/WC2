@@ -73,6 +73,10 @@ var wc2Tool = function(){
 			if(!toolName || !this[toolName].reset){ return false;}
 			return this[toolName].reset();
 		}
+		,"initPreview":function(toolName){ //특정 툴에서만 있다. 위치를 초기화시킨다.
+			if(!toolName || !this[toolName].initPreview){ return false;}
+			return this[toolName].initPreview();
+		}
 		,"onMouseWheel":function(toolName,event){ //여기만 mouse를 나타내는 이유는 다른것들은 터치 이벤트와 공통으로 사용하기 때문.
 			//에러는 init에서 이미 체크했다.
 			if(!toolName || !this[toolName].mousewheel){ return false;}
@@ -542,7 +546,9 @@ var wc2Tool = function(){
 			,"dw":-1,"dh":-1,"sc":1 //확대관련
 			,"deg":0//회전관련(각도)
 			,"ing":0
+			,"f":null
 			,"init":function(wcb){
+				this.f = document.formPropImage;
 				this.img  = document.getElementById('imageNode');
 				this.img.onload = function(toolImage){
 					return function(){
@@ -552,12 +558,11 @@ var wc2Tool = function(){
 				}(this);
 				
 				if(this.ing ==0){
-					//this.wcb = wcb;
-					//$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-					//this.wcb.shadowWebCanvas.copy(this.wcb.activeWebCanvas);
+					this.ing = 1;
 					this._initXYWH();
 					this.predraw();
 				}
+				
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
@@ -565,27 +570,49 @@ var wc2Tool = function(){
 				this.dh = this.img.naturalHeight; //기준 높이
 				this.w0 = this.dw;
 				this.h0 = this.dh;
-				this.x0 = (this.wcb.width-this.w0)/2;
-				this.y0 = (this.wcb.height-this.h0)/2;
-				this.sc = 1;
-				this.deg = 0;
+				//this.x0 = (this.wcb.width-this.w0)/2;
+				this.f.x0.value = (this.wcb.width-this.w0)/2;
+				//this.y0 = (this.wcb.height-this.h0)/2;
+				this.f.y0.value = (this.wcb.height-this.h0)/2;
+				//this.sc = 1;
+				this.f.sc.value = 1;
+				//this.deg = 0;
+				this.f.deg.value = 0;
 			}
 			,"end":function(){
 				return true;
+			}
+			,"_scale":function(deltaY){
+				var sc = parseFloat(this.f.sc.value) + (deltaY/50);
+				sc = Math.min(100,Math.max(0.01,sc)).toFixed(2); //0.1 ~ 10 배까지 가능하도록
+				this.f.sc.value = sc;
+				var w = this.dw * sc;
+				var h = this.dh * sc;
+				this.x0 += (this.w0-w)/2;
+				this.y0 += (this.h0-h)/2;
+				this.w0  = w;
+				this.h0  = h;
+			}
+			,"_rotate":function(deltaY){
+				var deg = parseFloat(this.f.deg.value) -1*deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
+				//this.deg += deg;
+				this.f.deg.value = deg;
 			}
 			,"mousewheel":function(event){
 				if(this.ing == 0){ return false; }
 				//console.log(event.deltaX, event.deltaY, event.deltaFactor);
 				if(event.altKey){ //rotate
-					wc2Tool.transform._rotate.call(this,event.deltaY);
+					//wc2Tool.transform._rotate.call(this,event.deltaY);
+					this._rotate(event.deltaY);
 				}else{ //scale
-					wc2Tool.transform._scale.call(this,event.deltaY);
+					//wc2Tool.transform._scale.call(this,event.deltaY);
+					this._scale(event.deltaY);
 				}
 				this.predraw();
 				//console.log(this.sc);
 			}
 			,"down":function(event){
-				this.ing = 1;
+				//this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x1 = t.x;
 				this.y1 = t.y;
@@ -594,8 +621,10 @@ var wc2Tool = function(){
 			}
 			,"move":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.x0 += t.x-this.x1;
-				this.y0 += t.y-this.y1;
+				//this.x0 += t.x-this.x1;
+				//this.y0 += t.y-this.y1;
+				this.f.x0.value = parseFloat(this.f.x0.value) + t.x-this.x1;
+				this.f.y0.value = parseFloat(this.f.y0.value) + t.y-this.y1;
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
@@ -610,45 +639,49 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
-				/*
-				this.wcb.shadowWebCanvas.clear();
-				var rotateCenterX = (this.w0)/2
-				var rotateCenterY = (this.h0)/2
-				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0,this.y0);
-				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
-				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y,this.w0,this.h0);
-				this.wcb.shadowWebCanvas.resetRotate()
-				*/
+				var x0 = parseFloat(this.f.x0.value)
+				var y0 = parseFloat(this.f.y0.value)
+				var sc = parseFloat(this.f.sc.value)
+				var deg = parseFloat(this.f.deg.value)
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.dw)/2
 				var rotateCenterY = (this.dh)/2
-				this.wcb.shadowWebCanvas.setScale(this.sc,this.sc);
-				var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
-				this.wcb.shadowWebCanvas.setRotate(this.deg,rotateCenterX,rotateCenterY)
+				this.wcb.shadowWebCanvas.setScale(sc,sc);
+				//var t = this.wcb.shadowWebCanvas.getRotateXY(this.deg,this.x0/this.sc,this.y0/this.sc);
+				var t = this.wcb.shadowWebCanvas.getRotateXY(deg,x0/sc,y0/sc);
+				this.wcb.shadowWebCanvas.setRotate(deg,rotateCenterX,rotateCenterY)
 				this.wcb.shadowWebCanvas.merge(this.img,t.x,t.y);
 				this.wcb.shadowWebCanvas.resetRotate()
 				this.wcb.shadowWebCanvas.resetScale();
 			}
 			,"confirm":function(noQ){
-				if(this.ing == 1){
-					if(noQ || confirm("OK?")){
-						this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-						wc2Tool.saveHistory();
-					}
-					this.ing = 0;
-					return this.reset();
+				if(noQ || confirm("OK?")){
+					this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+					wc2Tool.saveHistory();
+					//this.ing = 0;
 				}
 				return true;
 				
 			}
 			,"reset":function(type){
-				if(this.ing ==1 && confirm("Not Confirm! Confirm OK?")){
-					return this.confirm(true);
+				if(this.ing ==1){
+					if(confirm("Not Confirm! Confirm OK?")){
+						var r = this.confirm(true);
+						this.end;
+						return r;
+					}else{
+						this.ing = 0;
+						if(this.wcb){
+							this.wcb.shadowWebCanvas.clear();
+						}
+					}
 				}
-				if(this.wcb){
-					this.ing = 0;
-					this.wcb.shadowWebCanvas.clear();
-				
+				return true;
+			}
+			,"initPreview":function(){
+				if(this.ing ==1){
+					this._initXYWH();
+					this.predraw();
 				}
 				return true;
 			}
