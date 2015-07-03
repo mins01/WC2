@@ -274,26 +274,11 @@
 										<th>URL</th>
 										<td><input type="text" name="inputImageFile" style="width:90%" onchange="document.getElementById('imageNode').src=this.value"></td>
 									</tr>
-									<tr>
-										<th>X</th>
-										<td><input type="number" name="x0" value="0" step="1" style="width:90%"></td>
-									</tr>
-									<tr>
-										<th>Y</th>
-										<td><input type="number" name="y0" value="0" step="1" style="width:90%"></td>
-									</tr>
-									<tr>
-										<th>Sacle</th>
-										<td><input type="number" name="sc" value="0" step="0.01" style="width:90%"></td>
-									</tr>
-									<tr>
-										<th>Rotate</th>
-										<td><input type="number" name="deg" value="0" step="1" style="width:90%"></td>
-									</tr>
 								</table>
 							</div>
 						</div>
 					</form>
+					
 					<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">text</div>
@@ -421,6 +406,33 @@ Ciao
 										</td>
 									</tr>
 									
+								</table>
+							</div>
+						</div>
+					</form>
+					<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Transform Property</div>
+							<div  class="panel-body">
+								<table class="" style="width:100%">
+									<col width="60">
+									<col width="">
+									<tr>
+										<th>X</th>
+										<td><input type="number" name="x0" value="0" step="1" style="width:90%"></td>
+									</tr>
+									<tr>
+										<th>Y</th>
+										<td><input type="number" name="y0" value="0" step="1" style="width:90%"></td>
+									</tr>
+									<tr>
+										<th>Sacle</th>
+										<td><input type="number" name="sc" value="0" step="0.01" style="width:90%"></td>
+									</tr>
+									<tr>
+										<th>Rotate</th>
+										<td><input type="number" name="deg" value="0" step="1" style="width:90%"></td>
+									</tr>
 								</table>
 							</div>
 						</div>
@@ -602,7 +614,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false">
+					<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform " onsubmit="return false">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Confirm/Init</div>
 							<div  class="panel-body">
@@ -617,7 +629,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-text wc-tool-transform  wc-tool-crop" onsubmit="return false">
+					<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Confirm/Reset</div>
 							<div  class="panel-body">
