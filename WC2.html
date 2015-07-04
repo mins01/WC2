@@ -147,6 +147,7 @@
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-invert">Invert</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-grayscale">Grayscale</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness &amp; Contrast</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-colorize">Colorize</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-threshold">Threshold</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sharpen">Sharpen</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-gaussianblur">GaussianBlur</a></li>
@@ -1239,6 +1240,37 @@ Ciao
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
+								</li>
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+									<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+				<form name="formMenuDetailLayerFilterColorize" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-colorize" onsubmit="wc2.cmdFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);" >
+					<input type="hidden" name="cmd" value="colorize">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">Colorize</div>
+						<div  class="panel-body" >
+							<ul class="list-group ">
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+									<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
+								</li>
+								<li class="list-group-item">
+									R : <span id="spanBrightness">0</span>
+									<input type="range" name="R" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
+								</li>
+								<li class="list-group-item">
+									G : <span id="spanBrightness">0</span>
+									<input type="range" name="G" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
+								</li>
+								<li class="list-group-item">
+									B : <span id="spanBrightness">0</span>
+									<input type="range" name="B" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>

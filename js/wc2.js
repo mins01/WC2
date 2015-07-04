@@ -1311,17 +1311,6 @@ var wc2 = (function(){
 				args.push(arguments[i]);
 			}
 			wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
-			/*
-			switch(cmd){
-				case "invert":
-				case "grayscale":
-				case "brightness":
-				case "threshold":
-				case "threshold":
-					wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
-				break;
-			}
-			*/
 		}
 		,"cmdFilter":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }

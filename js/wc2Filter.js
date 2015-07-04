@@ -56,7 +56,19 @@ var wc2Filter = function(){
 		"distortSine":function(imageData, amount, yamount){
 			return Filters.distortSine(imageData,parseFloat(amount),parseFloat(yamount));
 		},
-		
+		//--- colorize
+		"colorize":function(imageData, r, g, b){
+			r = parseFloat(r);
+			g = parseFloat(g);
+			b = parseFloat(b);
+			var d = imageData.data
+			for(var i=0,m=d.length;i<m;i+=4){
+				d[i] = Math.max(0,Math.min(255,d[i]+r));
+				d[i+1] = Math.max(0,Math.min(255,d[i+1]+g));
+				d[i+2] = Math.max(0,Math.min(255,d[i+2]+b));
+			}
+			return imageData;
+		},		
 		//--- convolute  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
 		"convolute":function(imageData, weights, opaque) {
 			var side = Math.round(Math.sqrt(weights.length));
