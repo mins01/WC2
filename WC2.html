@@ -1261,15 +1261,15 @@ Ciao
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
 								</li>
 								<li class="list-group-item">
-									R : <span id="spanBrightness">0</span>
+									R : <span>0</span>
 									<input type="range" name="R" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
-									G : <span id="spanBrightness">0</span>
+									G : <span>0</span>
 									<input type="range" name="G" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
-									B : <span id="spanBrightness">0</span>
+									B : <span>0</span>
 									<input type="range" name="B" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
@@ -1333,12 +1333,12 @@ Ciao
 						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
-									Brightness : <span id="spanBrightness">0</span>
-									<input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01" onchange="$('#spanBrightness').html(this.value);">
+									Brightness : <span>0</span>
+									<input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
-									Contrast : <span id="spanContrast">1</span>
-									<input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01" onchange="$('#spanContrast').html(this.value);">
+									Contrast : <span>1</span>
+									<input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01" onchange="$(this).parent().find('span').first().html(this.value);">
 								</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>

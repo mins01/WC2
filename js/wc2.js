@@ -1037,6 +1037,10 @@ var wc2 = (function(){
 				}
 				if(menu.indexOf("layer-filter-") == 0){
 					frms.each(function(){
+						this.reset();
+						$(this).find("[onchange]").each(function(){
+							this.onchange();
+						});
 						if(this.onchange) this.onchange();
 						}
 					);
