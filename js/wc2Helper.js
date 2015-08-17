@@ -28,7 +28,7 @@ var wc2Helper = function(){
 			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
-					if(file.type.indexOf('image')===-1){ 
+					if(file.type.indexOf('image')===-1){
 						alert("이미지가 아닌 파일이 포함되어있습니다. 다시 선택해주시기 바랍니다.");
 						ta.value="";
 						return false;
@@ -55,7 +55,7 @@ var wc2Helper = function(){
 			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
-					
+
 					(function(file,callback,readType){
 						var fileReader = new FileReader();
 						fileReader.onload = function (event) {
@@ -73,13 +73,15 @@ var wc2Helper = function(){
 		//-- toBlob가 지원되지 않으므로
 		//-- 참고 : https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
 		"dataURL2Blob":function(dataURL, type) {
-			var bin = atob( dataURL.split(',')[1] ),
+			var parts = dataURL.split(",");
+			var contentType = parts[0].split(":")[1];
+			var bin = atob( parts[1] ),
 				len = bin.length,
 				arr = new Uint8Array(len);
 			for (var i=0; i<len; i++ ) {
 				arr[i] = bin.charCodeAt(i);
 			}
-			return new Blob( [arr], {"type": type || 'image/png'}  );
+			return new Blob( [arr], {"type": type?type:contentType}  );
 		},
 		//-- 바이너리를 blob으로
 		"bin2Blob":function(bin, type) {
@@ -96,7 +98,7 @@ var wc2Helper = function(){
 			saveAs(blob, filename);
 		},
 		//-- base64 encode (http://ecmanaut.blogspot.kr/2006/07/encoding-decoding-utf8-in-javascript.html)
-		//--- btoa 를 바로 사용하면  한글 지원에 문제가 있어서 
+		//--- btoa 를 바로 사용하면  한글 지원에 문제가 있어서
 		"utf8_to_b64":function(str) {
 			return window.btoa(unescape(encodeURIComponent(str)));
 		},
