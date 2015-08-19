@@ -180,15 +180,18 @@
 		</header>
 
 
-		<aside id="toolPanel"   class="wc2-panel collapse">
+		<aside id="toolPanel"   class="wc2-panel">
 			<div class="panel panel-default">
 				<div class="panel-heading">Tool</div>
 				<div class="panel-body">
 					<button class="btn btn-default glyphicon glyphicon-move" data-wc-tool="move" type="button" title="Move"></button>
 					<button class="btn btn-default glyphicon glyphicon-screenshot" data-wc-tool="spuit"  type="button" title="Spuit"></button>
-					<button class="btn btn-default glyphicon glyphicon-pencil active" data-wc-tool="pen"  type="button" title="Pen"><span class="small-text">p</span></button>
-					<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush"  type="button" title="Brush"><span class="small-text">B</span></button>
+					<button class="btn btn-default glyphicon glyphicon-pencil active" data-wc-tool="pen"  type="button" title="Pen"><span class="small-text tiny-text">P</span></button>
 					<button class="btn btn-default glyphicon glyphicon-erase" data-wc-tool="eraser" type="button"   title="Eraser"></button>
+					<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush"  type="button" title="Brush Set1"><span class="small-text tiny-text">B</span></button>
+					<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush2"  type="button" title="Brush Set2"><span class="small-text  tiny-text">B2</span></button>
+					<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush3"  type="button" title="Brush Set3"><span class="small-text  tiny-text">B3</span></button>
+					
 					<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
 					<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop"  type="button" title="Crop"></button>
 					<button class="btn btn-default glyphicon no-glyphicon " data-wc-tool="line" type="button" title="Line">⁄</button>
@@ -518,17 +521,97 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false" onchange="wc2.syncBrush()">
-						<input type="hidden" name="imageSmoothingEnabled" value="1">
+					<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false" onchange="wc2.syncBrush()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush</div>
-							<div  class="panel-body">
 								<table class="">
 									<col width="50%">
 									<col width="50%">
 									<tr class="bg-grid" >
 										<th colspan="2" height="100" id="formToolBrushCanvasBox" align="center" ></th>
 									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
+					<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)">
+						<input type="hidden" name="imageSmoothingEnabled" value="1">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Brush Set1</div>
+							<div  class="panel-body">
+								<table class="">
+									<col width="50%">
+									<col width="50%">
+									<tr>
+										<th>Size</th>
+										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
+									</tr>
+									<tr>
+										<th>R0</th>
+										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
+									</tr>
+									<tr>
+										<th>brushAlpha</th>
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
+										</td>
+									</tr>
+									<tr>
+										<th>Spacing</th>
+										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
+										</td>
+									</tr>
+									<tr>
+										<th>Alpha</th>
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
+					<form name="formToolBrush2" id="formToolBrush2" action="javascript:void(0)" class="wc-tool wc-tool-brush2 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" data-disabled-load="1" onchange="wc2.syncBrush(this)">
+						<input type="hidden" name="imageSmoothingEnabled" value="1">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Brush Set2</div>
+							<div  class="panel-body">
+								<table class="">
+									<col width="50%">
+									<col width="50%">
+									<tr>
+										<th>Size</th>
+										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
+									</tr>
+									<tr>
+										<th>R0</th>
+										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
+									</tr>
+									<tr>
+										<th>brushAlpha</th>
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
+										</td>
+									</tr>
+									<tr>
+										<th>Spacing</th>
+										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
+										</td>
+									</tr>
+									<tr>
+										<th>Alpha</th>
+										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</form>
+					<form name="formToolBrush3" id="formToolBrush3" action="javascript:void(0)" class="wc-tool wc-tool-brush3 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange"  data-disabled-load="1" onchange="wc2.syncBrush()">
+						<input type="hidden" name="imageSmoothingEnabled" value="1">
+						<div class="panel panel-default">
+							<div  class="panel-heading">Brush Set3</div>
+							<div  class="panel-body">
+								<table class="">
+									<col width="50%">
+									<col width="50%">
 									<tr>
 										<th>Size</th>
 										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
@@ -662,7 +745,7 @@ Ciao
 					</form>
 					
 					<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  " onsubmit="return false" onchange="wc2.syncColor();" >
+					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">Color</div>
 							<div  class="panel-body">

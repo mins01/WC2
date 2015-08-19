@@ -697,6 +697,12 @@ var wc2 = (function(){
 			var className = ".wc-tool-"+this.tool;
 			$("#propPanel .wc-tool").hide();
 			$("#propPanel "+className).show();
+			
+			$("#propPanel "+className+"[data-shown='onchange']").each(function(){
+				this.onchange();
+			});
+			
+			
 		}
 		,"syncContext2dCfg":function(){
 			if(!this.activeWcb){return;}
@@ -938,7 +944,7 @@ var wc2 = (function(){
 					showPalette: true,
 					showSelectionPalette: true,
 					containerClassName: 'colorPalette',
-					maxPaletteSize: 20,
+					maxSelectionSize: 40,
 					preferredFormat: "rgb",
 					localStorageKey: "wc2.strokeStyle",
 					change: function(color) {
@@ -957,7 +963,7 @@ var wc2 = (function(){
 					showPalette: true,
 					showSelectionPalette: true,
 					containerClassName: 'colorPalette',
-					maxPaletteSize: 20,
+					maxSelectionSize: 40,
 					preferredFormat: "rgb",
 					localStorageKey: "wc2.fillStyle",
 					change: function(color) {
@@ -1187,9 +1193,9 @@ var wc2 = (function(){
 			this.brush4Eraser.previewBrush()
 		}
 		//브러쉬 정보 싱크 그리기
-		,"syncBrush":function(){
-			var f = document.formToolBrush;
-			var fc = document.formToolColor;
+		,"syncBrush":function(f,fc){
+			var f = f||document.formToolBrush;
+			var fc = fc||document.formToolColor;
 			var width = parseFloat(f.brushWidth.value);
 			var r = width/2;
 			var r0p = parseFloat(f.r0p.value);
@@ -1422,13 +1428,15 @@ var wc2 = (function(){
 			for(var id in setting){
 				var f = document.getElementById(id);
 				if(!f){continue;}
+				console.log(id,setting[id]);
 				var eventType = setting[id].eventType
 				delete setting[id].eventType;
 				for(var x in setting[id]){
 					if(f[x]==undefined || setting[id][x]==undefined){continue;}
 					f[x].value = setting[id][x];
 				}
-				if(f["on"+eventType] != undefined){ //적용
+
+				if($(f).attr('data-disabled-load')!='1' && eventType && f["on"+eventType] != undefined){ //적용
 					f["on"+eventType]();
 				}
 			}

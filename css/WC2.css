@@ -248,6 +248,13 @@ border-radius: 3px;
 cursor:pointer;
 }
 
+/* 툴 버튼에 처리 */
+#toolPanel .btn {position:relative;}
+#toolPanel .btn .tiny-text{position:absolute;bottom:0px;}
+
+
+/* 스펙트럼 파레트쪽 처리 */
+.sp-palette-row-selection{width:180px;}
 
 /* 레이어 */
 

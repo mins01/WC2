@@ -61,8 +61,9 @@ var wc2Tool = function(){
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].end();
 		}
-		,"predraw":function(toolName){
+		,"predraw":function(toolName,wcb){
 			//에러는 init에서 이미 체크했다.
+			this[toolName].wcb = wcb;
 			return this[toolName].predraw();
 		}
 		,"confirm":function(toolName){ //특정 툴에서만 있다. 확인을 받아야만 적용되는 경우. reset과 짝을 이루어 있어야한다.
@@ -1183,5 +1184,7 @@ var wc2Tool = function(){
 			}
 		}//-- end fn
 	}
+	r.brush2 = r.brush;
+	r.brush3 = r.brush;
 	return r;
 }();
