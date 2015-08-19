@@ -39,7 +39,9 @@ wc2Brush.prototype = function(){
 			//console.log(r1,r0);
 			r0 = 0;
 			r1 = x0;
-			
+			if(r<1){ //크롬 4.4.0.2403.115 에서 r이 0 미만이면 그라데이션 원 그리는데 문제가 있다.
+				r0p = 1; //그라에션은을 사용 안하도록 한다.
+			}
 			var color0 = colorStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = colorStyle.replace('rgb','rgba').replace(')',',0)');
 			this.brushWC.clearResize(width,width);
