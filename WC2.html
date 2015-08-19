@@ -16,10 +16,10 @@
 		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>		
 		
 		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		
 		<!-- 드롭다운 메뉴 확장용 CSS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/css/dropdowns-enhancement.css -->
 		<link rel="stylesheet" href="./bootstrap/css/dropdowns-enhancement.css">		
@@ -61,7 +61,9 @@
 				data-toggle="collapse" data-target="#propPanel"></button>
 
 				<button type="button" class="navbar-toggle  glyphicon glyphicon-pencil" title="Tool"
-				data-toggle="collapse" data-target="#toolPanel"></button>
+				data-toggle="collapse" data-target="#toolPanel" aria-expanded="true"></button>
+				
+				<button type="button" class="navbar-toggle glyphicon glyphicon-fullscreen" title="FullScreen" onclick="wc2.toggleFullScreen();" ></button>
 				  
 				<!--
 				<a class="navbar-brand" href="http://mins01.com" target="_blank">
@@ -96,6 +98,8 @@
 							<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-wrench" data-wc-menu="edit-preferences">Preferences</a></li>
+							<li class="divider"></li>
+							<li><a href="#" class="glyphicon glyphicon-fullscreen" onclick="wc2.toggleFullScreen();">FullScreen</a></li>
 						  </ul>
 						</li>
 						
@@ -180,7 +184,7 @@
 		</header>
 
 
-		<aside id="toolPanel"   class="wc2-panel">
+		<aside id="toolPanel" class="wc2-panel collapse in" aria-expanded="true">
 			<div class="panel panel-default">
 				<div class="panel-heading">Tool</div>
 				<div class="panel-body">
@@ -208,7 +212,7 @@
 				</div>
 			</div>
 		</aside>
-		<aside id="propPanel"   class="wc2-panel collapse">
+		<aside id="propPanel"  class="wc2-panel collapse" aria-expanded="false" >
 			<div class="panel panel-default">
 				<div class="panel-heading">Property</div>
 				<div class="panel-body">
@@ -1570,7 +1574,7 @@ Ciao
 	</div> <!-- <div id="container"> -->
 
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<!-- 드롭다운 메뉴 확장용 JS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/js/dropdowns-enhancement.js -->
 	<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 	<!-- jquery-ui -->
