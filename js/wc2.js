@@ -697,12 +697,13 @@ var wc2 = (function(){
 			var className = ".wc-tool-"+this.tool;
 			$("#propPanel .wc-tool").hide();
 			$("#propPanel "+className).show();
-			
+			this.syncPropPanel();
+		}
+		,"syncPropPanel":function(){ //현재 보이는 것중 onchange 가 있으면 실행시킨다.
+			var className = ".wc-tool-"+this.tool;
 			$("#propPanel "+className+"[data-shown='onchange']").each(function(){
 				this.onchange();
 			});
-			
-			
 		}
 		,"syncContext2dCfg":function(){
 			if(!this.activeWcb){return;}
@@ -1170,7 +1171,8 @@ var wc2 = (function(){
 		}
 		//색 정보 싱크 그리기
 		,"syncColor":function(){
-			this.syncBrush();
+			//this.syncBrush();
+			this.syncPropPanel();
 			this.cmdTool('predraw')
 			
 			$(this.strokeStyle).spectrum("set",this.strokeStyle.value);
