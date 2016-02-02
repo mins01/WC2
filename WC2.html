@@ -27,8 +27,18 @@
 		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-startup-image" href="img/apple-touch-icon.png">
-		
+
 		<meta name="description" content="WC2 , 웹 캔버스 2 , 웹 드로잉 ">
+		<meta property="fb:app_id" content="1089054314479874" />
+		<meta property="og:title" content="WC2-웹 캔버스 2">
+		<meta property="og:image" content="http://www.mins01.com/WC2/img/apple-touch-icon.png">
+		<meta property="og:image:width" content="129" />
+		<meta property="og:image:height" content="129" />
+		<meta property="og:site_name" content="WC2-웹 캔버스 2">
+		<meta property="og:type" content="website">
+
+		
+		
 		<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>		
@@ -1080,7 +1090,15 @@ Ciao
 										Recommend using the latest version browser.
 									</li>
 									<li class="list-group-item">
+										<div
+										class="fb-like"
+										data-share="true"
+										data-width="450"
+										data-show-faces="true">
+										</div>
+										<div>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</div>
 									</li>
 								</ul>
 						</div>
@@ -1588,6 +1606,7 @@ Ciao
 
 
 		
+
 		
 	</div> <!-- <div id="container"> -->
 
@@ -1681,5 +1700,22 @@ Ciao
 	};
 	
 	</script>
+	<script>
+  window.fbAsyncInit = function() {
+	FB.init({
+	  appId      : '1089054314479874',
+	  xfbml      : true,
+	  version    : 'v2.5'
+	});
+  };
+
+  (function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = document.location.protocol +"//connect.facebook.net/ko_KR/all.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 	</body>
 </html>
