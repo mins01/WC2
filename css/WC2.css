@@ -6,7 +6,7 @@
 */
 /*
 * # warning
-* '°ø´ë¿©ÀÚ´Â ÀÌ»Ú´Ù.'¸¦ ³ªÅ¸³»¾ß¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.
+* 'ê³µëŒ€ì—¬ìëŠ” ì´ì˜ë‹¤.'ë¥¼ ë‚˜íƒ€ë‚´ì•¼ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 */
 
 html{overflow:hidden;padding:0;margin:0;height:100%;}
@@ -15,8 +15,8 @@ input,textarea,select,button{padding:0;}
 .navbar{padding-bottom:0px;}
 .navbar-brand img{width:50px;height:20px;}
 .nav .glyphicon::before {margin-right:0.5em}
-.glyphicon{ font-family: 'dotum',arial,sans-serif,'Glyphicons Halflings';} /* ÆùÆ® ÀçÁ¤ÀÇ */
-/* ºÎÆ®½ºÆ®·¦°ú Ãæµ¹ È¸ÇÇ */
+.glyphicon{ font-family: 'dotum',arial,sans-serif,'Glyphicons Halflings';} /* í°íŠ¸ ì¬ì •ì˜ */
+/* ë¶€íŠ¸ìŠ¤íŠ¸ë©ê³¼ ì¶©ëŒ íšŒí”¼ */
 .ui-dialog{box-sizing:content-box;}
 .ui-dialog *{box-sizing:content-box;}
 
@@ -97,7 +97,7 @@ display:none;
 	#propPanel{display:block;visibility: visible;}
 }
 @media (max-width: 768px) {
-	/* Åø ¹öÆ°À» ÀÛÀº ¹öÆ°À¸·Î º¯°æ */
+	/* íˆ´ ë²„íŠ¼ì„ ì‘ì€ ë²„íŠ¼ìœ¼ë¡œ ë³€ê²½ */
 	#toolPanel{width:30px; min-width:26px}
 	#toolPanel .btn{   
 			padding: 1px 5px;
@@ -113,7 +113,7 @@ display:none;
 div.wc-viewImage{text-align:center;padding:5px; }
 div.wc-viewImage img.wc-viewImage{ border:4px inset #abc;}
 
-/* ÀÌ¹ÌÁö Åø¿ë prop */
+/* ì´ë¯¸ì§€ íˆ´ìš© prop */
 #imageNode{max-width:100%;}
 
 
@@ -155,10 +155,10 @@ box-sizing: border-box;
 padding:0px;
 position: absolute;
 }
-/* Åø ¼³Á¤ ºÎºĞ */
+/* íˆ´ ì„¤ì • ë¶€ë¶„ */
 #propPanel .wc-tool table{width:100%; table-layout:fixed;}
 
-/* Ä¿¼­ Á¤ÀÇºÎ */
+/* ì»¤ì„œ ì •ì˜ë¶€ */
 #tabsContent{ cursor:crosshair; }
 #tabsContent[data-wc-tool="move"]{cursor:move;}
 #tabsContent[data-wc-tool="transform"]{cursor:move;}
@@ -209,29 +209,29 @@ background: #ccc;
 background: #abc;
 }
 
-/* ¸Ş´º »ó¼¼ ºÎºĞ */
+/* ë©”ë‰´ ìƒì„¸ ë¶€ë¶„ */
 #menuDetailArea{
 position:fixed;top:52px;left:0;right:0;bottom:0;z-index:3;
 background-color:rgba(0,0,0,0.2);
 }
 #menuDetailArea .wc2-panel{margin:0 auto;min-width:200px; max-width:600px;}
 #menuDetailArea .wc-menudetail{}
-/* file-open ÀÌ¹ÌÁö ¹Ì¸®º¸±â */
+/* file-open ì´ë¯¸ì§€ ë¯¸ë¦¬ë³´ê¸° */
 #formMenuDetailFileOpenPreview{max-width:90%;}
 
 #btnQuickNewFile{cursor:pointer;}
 
-/* ÇÊÅÍ »ó¼¼ ºÎºĞ */
+/* í•„í„° ìƒì„¸ ë¶€ë¶„ */
 #filterCanvasBox{min-height:100px; text-align:center;}
 #filterCanvasBox .WC-node{display:inline-block;}
 
-/* Áö¿ì°³ */
+/* ì§€ìš°ê°œ */
 #formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}
 
 /* imageAreaSelect . fix crush bootstrap */ 
 .imgareaselect-outer {box-sizing: content-box;}
 
-/* ºê·¯½¬ */
+/* ë¸ŒëŸ¬ì‰¬ */
 #formToolBrushCanvasBox .WC-node{display:inline-block;}
 #toolBrushList img
 ,#toolBrushList input{width:34px;height:34px;
@@ -239,7 +239,7 @@ border:1px gray outset; margin:2px;box-sizing: border-box; box-shadow: 0px 1px 3
 border-radius: 3px;
 cursor:pointer;
 }
-/* ÆĞÅÏ */
+/* íŒ¨í„´ */
 #formToolPatternCanvasBox{overflow:scroll;}
 #toolPatternList img
 ,#toolPatternList input{width:34px;height:34px;
@@ -248,15 +248,15 @@ border-radius: 3px;
 cursor:pointer;
 }
 
-/* Åø ¹öÆ°¿¡ Ã³¸® */
+/* íˆ´ ë²„íŠ¼ì— ì²˜ë¦¬ */
 #toolPanel .btn {position:relative;}
 #toolPanel .btn .tiny-text{position:absolute;bottom:0px;}
 
 
-/* ½ºÆåÆ®·³ ÆÄ·¹Æ®ÂÊ Ã³¸® */
+/* ìŠ¤í™íŠ¸ëŸ¼ íŒŒë ˆíŠ¸ìª½ ì²˜ë¦¬ */
 .sp-palette-row-selection{width:180px;}
 
-/* ·¹ÀÌ¾î */
+/* ë ˆì´ì–´ */
 
 .wc-prop-layer-info  .eye{
 	display:block;
@@ -276,7 +276,7 @@ cursor:pointer;
 
 
 @media (max-width: 768px) {
-	/* Åø ¹öÆ°À» ÀÛÀº ¹öÆ°À¸·Î º¯°æ */
+	/* íˆ´ ë²„íŠ¼ì„ ì‘ì€ ë²„íŠ¼ìœ¼ë¡œ ë³€ê²½ */
 	.wc-prop-layer-info .eye{
 		position: static; 
 		padding-right:5px;
