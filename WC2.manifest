@@ -1,6 +1,6 @@
 CACHE MANIFEST
-# rv 201600202-8
-NETWORK:
+# rv 201600223-0
+
 
 CACHE:
 WC2.html
@@ -40,3 +40,8 @@ pattern/pattern01.png
 pattern/pattern02.png
 img/favicon.ico
 img/apple-touch-icon.png
+
+NETWORK:
+*
+http://*
+https://*
