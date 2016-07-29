@@ -284,7 +284,8 @@ var wc2Tool = function(){
 				
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,parseFloat(document.formToolEraser.brushSpacing.value));
+				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,parseFloat(document.formToolEraser.brushSpacing.value));
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,wc2.brush4Eraser.spacing);
 
 				return true;
 			}
@@ -952,7 +953,8 @@ var wc2Tool = function(){
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
 				
 				return true;
 			}
@@ -1138,7 +1140,8 @@ var wc2Tool = function(){
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
 				
 				return true;
 
