@@ -109,8 +109,8 @@ button.no-glyphicon{font-size:14px;width:40px; font-weight:bold;}
 .overflow-scrolly{overflow-y:auto; overflow-x:hidden}
 #propPanel table{border-width:0;padding:0;margin:0;width:100%; border-collapse: separate;}
 #propPanel th,#propPanel td {padding:2px; border-bottom:1px dashed #ccc; }
-#propPanel tr:last-child th,
-#propPanel tr:last-child td{border-bottom-width:0;}
+#propPanel tbody:last-child tr:last-child th,
+#propPanel tbody:last-child tr:last-child td{border-bottom-width:0;}
 #propPanel th{text-align:center;}
 #propPanel td{text-align:left;}
 

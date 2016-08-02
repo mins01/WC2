@@ -995,7 +995,7 @@ var wc2Tool = function(){
 					this.f.width.value = this.wcb.width;
 					this.f.height.value = this.wcb.height;
 					//*
-					$(this.wcb.node).imgAreaSelect({
+					$(this.wcb.outNode).imgAreaSelect({
 						"handles": true,
 						"zIndex":9000,
 						"parent":"#tabsContent",
@@ -1058,11 +1058,11 @@ var wc2Tool = function(){
 			,"reset":function(reuseable){ 
 				if(this.wcb){
 					if(reuseable){
-						$(this.wcb.node).imgAreaSelect({
+						$(this.wcb.outNode).imgAreaSelect({
 							"hide":true,
 						});
 					}else{
-						$(this.wcb.node).imgAreaSelect({
+						$(this.wcb.outNode).imgAreaSelect({
 							"remove":true,
 						});
 					}

@@ -261,6 +261,16 @@
 										<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  >
 										</td>
 									</tr>
+									<tr>
+										<th>line-join</th>
+										<td>
+											<select name="lineJoin" style="width:90%">
+												<option value="round" selected="selected">round(원)</option>
+												<option value="bevel">bevel(마름모)</option>
+												<option value="miter">miter(사각형)</option>
+											</select>
+										</td>
+									</tr>
 									<tbody class="wc-tool wc-tool-rect  wc-tool-circle">
 										<tr>
 											<th>use-line</th>
@@ -777,7 +787,7 @@ Ciao
 					</form>
 					
 					<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" >
+					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">Color</div>
 							<div  class="panel-body">

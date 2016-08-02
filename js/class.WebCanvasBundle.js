@@ -149,6 +149,9 @@ function WebCanvasBundle(width,height,colorset){
 			//this.node.style.width = (this.width)+'px';this.node.style.height = (this.height)+'px';
 			//this.outNode.style.width = (this.width)+'px';this.outNode.style.height = (this.height)+'px';
 			this._resizeNode(this.width,this.height);
+			
+			this.outNode.style.width = this.width*this.zoom+'px';
+			this.outNode.style.height = this.height*this.zoom+'px';
 		}
 		,"_syncNode":function(){
 			//this.node.innerHTML = "";//내용 초기화
