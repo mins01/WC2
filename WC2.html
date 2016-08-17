@@ -883,7 +883,7 @@ Ciao
 				<tr>
 					<td height="10">
 						<ul id="tabsTitle">
-						<li style="float:right"><a href="#tabs-1" onclick="wc2.cmdWcb('new',300,300);return false" title="quick new file" id="btnQuickNewFile">+</a></li>
+						<li style="float:right"><a href="#tabs-1" onclick="$('#btn_new').trigger('click');return false" title="quick new file" id="btnQuickNewFile">+</a></li>
 						</ul>
 					</td>
 				</tr>
@@ -936,6 +936,16 @@ Ciao
 		
 		<!-- 메뉴 상세 부분 -->
 		<article id="menuDetailArea" class="overflow-scrolly" >
+				<script>
+				function newImage(w,h){
+				var f = document.formMenuDetailFileNew;
+					f.width.value = w;
+					f.height.value = h;
+					$(f.width).trigger('change');
+					$(f.height).trigger('change');
+					$('#btn_new').trigger('click');
+				}
+				</script>
 				<form name="formMenuDetailFileNew"  id="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new wc-save-setting" >
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">New File</div>
@@ -946,36 +956,36 @@ Ciao
 										<div class="form-inline">
 											<input class="form-control" type="number" name="width" maxlength="6" min="1" max="99999" value="300" placeholder="width.."> X
 											<input class="form-control" type="number" name="height" maxlength="6" min="1" max="99999" value="300" placeholder="height..">
-											<button  type="button" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);wc2.hideMenuDetail();" >New</button>
+											<button  type="button" id="btn_new" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);wc2.hideMenuDetail();" >New</button>
 											<button  type="button" class="btn btn-default glyphicon glyphicon-remove-circle"  onclick="wc2.hideMenuDetail();" >Close</button>
 										</div>
 									</li>
 									<li class="list-group-item list-group-item-success">Rect</li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',100,100);false;">100x100</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',200,200);false;">200x200</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',300,300);false;">300x300</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',400,400);false;">400x400</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',500,500);false;">500x600</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',600,600);false;">600x600</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(100,100);false;">100x100</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(200,200);false;">200x200</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(300,300);false;">300x300</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(400,400);false;">400x400</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(500,500);false;">500x500</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(600,600);false;">600x600</a></li>
 									<li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
 									
 									
 									<li class="list-group-item list-group-item-success">3:4</li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,480);return false;">640x480 (VGA)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,600);return false;">800x600 (SVGA)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1024,768);return false;">1024x768 (XGA)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(640,480);return false;">640x480 (VGA)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(800,600);return false;">800x600 (SVGA)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(1024,768);return false;">1024x768 (XGA)</a></li>
 									<li class="list-group-item list-group-item-success">16:9</li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1360,768);return false;">1360x768 (HD)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1600,900);return false;">1600x900 (HD+)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1920,1080);return false;">1920x1080 (FHD)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(1360,768);return false;">1360x768 (HD)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(1600,900);return false;">1600x900 (HD+)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(1920,1080);return false;">1920x1080 (FHD)</a></li>
 									<li class="list-group-item list-group-item-success">Smart Phone</li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',320,480);return false;">320x480 (iphone3)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',480,800);return false;">480x800 (galaxyS1)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,960);return false;">640x960 (iphone4)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',640,1136);return false;">640x1136 (iphone5)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',720,1280);return false;">720x1280 (galaxyS3)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',800,1280);return false;">800x1280 (galaxynote1)</a></li>
-									<li class="list-group-item"><a href="#" onclick="wc2.cmdWcb('new',1080,1920);return false;">1080x1920 (galaxynote3)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(320,480);return false;">320x480 (iphone3)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(480,800);return false;">480x800 (galaxyS1)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(640,960);return false;">640x960 (iphone4)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(640,1136);return false;">640x1136 (iphone5)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(720,1280);return false;">720x1280 (galaxyS3)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(800,1280);return false;">800x1280 (galaxynote1)</a></li>
+									<li class="list-group-item"><a href="#" onclick="newImage(1080,1920);return false;">1080x1920 (galaxynote3)</a></li>
 									<li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
 								</ul>
 							
@@ -1693,7 +1703,8 @@ Ciao
 		if(document.location.search.length>4){ //입력된 URL의 QueryString을 기준으로 자동 처리한다.
 			wc2.initByQueryString(document.location.search);
 		}else{
-			wc2.cmdWcb("new",300,300);
+			//wc2.cmdWcb("new",300,300);
+			$('#btn_new').trigger('click');
 		}
 		
 		//wc2.showMenuDetail('file-new');
