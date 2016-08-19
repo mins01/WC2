@@ -19,8 +19,8 @@ body{margin:0;padding:0;height:100%;}
 .WCB{
 	position:relative; background-image:url("../img/bg.gif"); 
 	transform: scale(1, 1);
-	transform-origin: center top;
-	/*-webkit-transform-origin-x: 0;*/
+		
+	-webkit-transform-origin:0 0;
 	transform-origin:0 0;
 }
 .WCB .WC-node{
