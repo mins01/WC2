@@ -1092,30 +1092,30 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				
+				var shadowWebCanvas = this.wcb.shadowWebCanvas;
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				//this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-				this.wcb.shadowWebCanvas.saveContext2d();
-				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
+				shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				shadowWebCanvas.saveContext2d();
+				shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
 
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				//this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
-				//this.wcb.shadowWebCanvas.beginCircleBrush(t.x,t.y,10,10,document.getElementById('strokeStyle').value);
+				//shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				//shadowWebCanvas.beginCircleBrush(t.x,t.y,10,10,document.getElementById('strokeStyle').value);
 				var r = document.formToolPattern.width.value/2
 				var brushSpacing = document.formToolPattern.brushSpacing.value/2
-				this.wcb.shadowWebCanvas.beginCircleBrush(t.x,t.y,r,brushSpacing);
+				shadowWebCanvas.beginCircleBrush(t.x,t.y,r,brushSpacing);
 				
 				return true;
 
 
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-				//this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-				this.wcb.shadowWebCanvas.saveContext2d();
-				this.wcb.shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
+				//shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+				shadowWebCanvas.saveContext2d();
+				shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
 				
 				
 				this.ing = 1;
@@ -1129,19 +1129,19 @@ var wc2Tool = function(){
 				
 				var x = this.x0;
 				var y = this.y0;
-				this.wcb.shadowWebCanvas.circle(this.x0,this.x1,w2);
+				shadowWebCanvas.circle(this.x0,this.x1,w2);
 				this.predraw();
 				//console.log("down");
 				return true;
 
 
-				this.wcb.shadowWebCanvas.clear();
+				shadowWebCanvas.clear();
 				
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
+				// shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
+				shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
 				
 				return true;
 

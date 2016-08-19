@@ -830,11 +830,12 @@ function WebCanvas(width,height,colorset){
 			this.y0 = y;
 			this.brushing = 1;
 			
-			var w2 = this.circleBrushR;
-			var h2 = this.circleBrushR;
-			//console.log(x,y);
+			// var w2 = this.circleBrushR;
+			// var h2 = this.circleBrushR;
+			// console.log(x,y,w2);
 			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
-			this._drawCircleBrushDot(this.x0-w2,this.y0-h2);
+			// this._drawCircleBrushDot(this.x0-w2,this.y0-h2);
+			this._drawCircleBrushDot(this.x0,this.y0);
 		}
 		,"drawCircleBrush":function(x,y){
 			//console.log(x,y);
@@ -851,12 +852,13 @@ function WebCanvas(width,height,colorset){
 		,"_drawCircleBrushLine":function(x0,y0,x1,y1){
 			if(this.brushing){
 				var xys = this._dotsInLine(x0,y0,x1,y1);
-				var w2 = this.circleBrushR;
-				var h2 = this.circleBrushR;
+				// var w2 = this.circleBrushR;
+				// var h2 = this.circleBrushR;
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
-					this._drawCircleBrushDot(xys[i][0]-w2,xys[i][1]-h2);
+					// this._drawCircleBrushDot(xys[i][0]-w2,xys[i][1]-h2);
+					this._drawCircleBrushDot(xys[i][0],xys[i][1]);
 				}
 			}
 		}
