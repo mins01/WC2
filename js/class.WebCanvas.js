@@ -162,7 +162,13 @@ function WebCanvas(width,height,colorset){
 				}
 				
 				//-- 기본값 처리 
-				return this.context2d[cmd].apply(this.context2d,args);
+				try{
+					return this.context2d[cmd].apply(this.context2d,args);
+				}catch(e){
+					alert(e.message);
+					console.log(e);
+				}
+				
 			}else{
 				this.setError("지원되지 않는 메소드(1) : "+cmd+"("+args.join(',')+")");
 				return false;
