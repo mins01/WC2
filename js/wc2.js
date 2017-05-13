@@ -69,6 +69,7 @@ var wc2 = (function(){
 								"fontStyleVariantWeight": "", //fontStyle + fontVariant + fontWeight
 								"fontFamily": "sans-serif", // font-name
 								}
+		,"useOnbeforeunloadForDocument":true //저장안하고 나갈때 경고 사용여부
 		 //--- 초기화
 		,"init":function(){
 			this.initVar();
@@ -89,7 +90,7 @@ var wc2 = (function(){
 			Object.defineProperty(this, 'viewportContentScale', {
 				get:function(){ return _viewportContentScale; },
 				set:function(wc2){
-						return function(newValue){ 
+						return function(newValue){
 							_viewportContentScale = newValue;
 							wc2.changeViewport(_viewportContentScale);
 					}
@@ -97,7 +98,7 @@ var wc2 = (function(){
 				enumerable: true,
 				configurable: false
 			});
-			
+
 		}
 		,"setError":function(error,disableShow){
 			this.error = error;
@@ -139,9 +140,9 @@ var wc2 = (function(){
 			var t = $("#toolPatternList");
 			for(var i=0,m=wc2PatternList.length;i<m;i++){
 				if(wc2PatternList[i].indexOf('data')===0){
-					var src = wc2PatternList[i];	
+					var src = wc2PatternList[i];
 				}else{
-					var src = wc2PatternList.dir+"/"+wc2PatternList[i];	
+					var src = wc2PatternList.dir+"/"+wc2PatternList[i];
 				}
 				var str = '<img class="bg-grid" src="'+src+'" >'
 				t.append(str);
@@ -158,11 +159,11 @@ var wc2 = (function(){
 			$(this.filterPreviewWC).addClass("bg-grid");
 			var t = $("#filterCanvasBox");
 			t.html("").append(this.filterPreviewWC.node);
-			
+
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
-			
+
 			var onDown = function(event) {
 				if(event.target.tagname=="select"){
 					return true;
@@ -184,7 +185,7 @@ var wc2 = (function(){
 					alert(wc2Tool.error);
 					return false;
 				}
-				
+
 				if(!wc2Tool.onDown(wc2.tool,event)){
 					wc2.setError( wc2Tool.error);
 					return false;
@@ -220,14 +221,14 @@ var wc2 = (function(){
 				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 				return false;
 			}
-			
+
 			$(document).on( "touchstart", ".wcb-frame",onDown );
 			$(document).on( "touchmove", onMove );
 			$(document).on( "touchend", onUp );
 			$(document).on( "mousedown", ".wcb-frame",onDown );
 			$(document).on( "mousemove", onMove);
 			$(document).on( "mouseup", onUp);
-			
+
 			//--- 휠 동작
 			$(document).on('mousewheel', ".wcb-frame", function(event) {
 				if(!wc2Tool.onMouseWheel(wc2.tool,event)){
@@ -237,19 +238,19 @@ var wc2 = (function(){
 				wc2.eventStep = 0;
 				//wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 			});
-			
+
 			// 드래그 방지용
 			$('body').on("selectstart", function(event){ return false; });
 			$('#contentArea').on("dragstart", function(event){ return false; });
 			// 툴 panel
-			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){ 
+			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){
 				wc2.setToolByBtn(this);
 			});
 			// 설정
-			$("#propPanel").on("change", function(event){ 
+			$("#propPanel").on("change", function(event){
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
 			});
-			
+
 			//-- 레이어 쪽
 			$("#propLayerList").on("click","li",function(event){
 				wc2.cmdLayer("select",this.dataset.wcbIndex)
@@ -266,16 +267,16 @@ var wc2 = (function(){
 				return;
 			});
 			//-- 페이지 이동시 물어보디
-			window.onbeforeunload = function(){ 
-			return wc2.onbeforeunloadForDocument(); 
+			window.onbeforeunload = function(){
+			return wc2.onbeforeunloadForDocument();
 			}
 			//-- 자동 설정 저장 이벤트
 			$(document).on("change","form.wc-save-setting",function(event){
 				wc2.saveSetting(this,event.type);
 				return;
 			});
-			
-			
+
+
 		}
 		//--- 히스토리
 		,"saveHistory":function(action){
@@ -286,7 +287,7 @@ var wc2 = (function(){
 			//console.log("리세이브");
 		}
 		//--
-		//--- 
+		//---
 		// 한번에 다중 레이어처리의 경우 resaveHistory()로 모든 레이어에대한 히스토리를 남겨야한다.(안그러면 undo때 레이어 내용이 없음)
 		,"cmdWcb":function(cmd,arg1,arg2,arg3,arg4,arg5){
 			if(cmd != "new" && cmd != "open" && cmd !="active" && !this.activeWcb){this.setError("활성화된 wcb 객체가 없음.");return false;}
@@ -366,15 +367,15 @@ var wc2 = (function(){
 						this.closeWcb();
 					}
 				break;
-				
+
 				case "rename":
 					if(this.activeWcb.setName(arg1)){
 						$(this.activeWcb.tabTitleA).text(arg1);
 						this.saveHistory("Image."+cmd);
 					}
-					
+
 				break;
-				
+
 				case "resize":
 					this.resaveHistory();
 					if(this.activeWcb.resize(arg1,arg2)){
@@ -387,7 +388,7 @@ var wc2 = (function(){
 						this.saveHistory("Image."+cmd);
 					}
 				break;
-				
+
 				//-- 단순호출처리
 				case "undo":
 				case "redo":
@@ -409,7 +410,7 @@ var wc2 = (function(){
 			if(sync){
 				this._syncWcbInfo();
 			}
-			
+
 		}
 		,"blobWcb":function(type,quality){
 			var toDataURLType = type;
@@ -419,14 +420,14 @@ var wc2 = (function(){
 			}else{
 				var dataURL = this.activeWcb.toDataURL(toDataURLType,quality);
 			}
-			
+
 			if(dataURL === false){
 				alert(this.activeWcb.error);
 				return false;
 			}
 			if(type == "wcblzs"){ //압축한다.
 				var blob = new Blob([ LZString.compressToUint8Array(dataURL)], {type: "application/octet-stream"});
-				
+
 			}else{
 				var blob = wc2Helper.dataURL2Blob(dataURL);
 			}
@@ -439,7 +440,7 @@ var wc2 = (function(){
 		,"uploadWcb":function(filename,type,quality){
 			var blob = this.blobWcb(type,quality);
 			var formdata = new FormData();
-			formdata.append("upf[]", blob, filename); 
+			formdata.append("upf[]", blob, filename);
 			$.ajax({
 				url: this.uploadURL,
 				processData: false,
@@ -477,8 +478,8 @@ var wc2 = (function(){
 			var type = 'png'; //png로 고정
 			var quality = undefined;
 			var filename = this.activeWcb.name+"_"+this.activeWcb.activeWebCanvas.label+".png";
-			
-			
+
+
 			var dataURL = this.activeWcb.activeWebCanvas.toDataURL(type,quality);
 			if(dataURL === false){
 				alert(this.activeWcb.error);
@@ -496,25 +497,25 @@ var wc2 = (function(){
 			wcb.tabFrame  = $("#defaultTabContent").clone()[0];
 			wcb.tabFrame.wcb = wcb;
 			wcb.tabFrame.id = "wcb-frame-"+(++this.wcbTmpCnt);
-			
+
 
 			wcb.wcbFrame = $(wcb.tabFrame).find('.wcb-frame')[0];
 			wcb.wcbMove = $(wcb.tabFrame).find('.wcb-move')[0];
 			wcb.wcbBox = $(wcb.tabFrame).find('.wcb-box')[0];
 			$(wcb.wcbMove).css("left","0px").css("top","0px")
-			
+
 			wcb.tabTitleLi = document.createElement('li');
-			wcb.tabTitleLi.className = "wcb-title-li"; 
+			wcb.tabTitleLi.className = "wcb-title-li";
 			wcb.tabTitleA = document.createElement('a');
 			wcb.tabTitleA.href="#"+wcb.tabFrame.id;
-			
+
 			$(wcb.tabTitleLi).append(wcb.tabTitleA);
 			$(wcb.tabTitleA).text(wcb.name);
 			$(wcb.tabFrame).append(wcb.wcbFrame);
 			$(wcb.wcbFrame).append(wcb.wcbMove);
 			//$(wcb.wcbMove).append(wcb.node);
 			$(wcb.wcbBox).append(wcb.outNode);
-			
+
 			$(wcb.tabFrame).on("change",".wcb-zoom",
 				function(wcb){
 					return function(event){
@@ -522,14 +523,14 @@ var wc2 = (function(){
 					}
 				}(wcb)
 			);
-			
+
 			this.wcbs.push(wcb);
-			
+
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
 			this.tabsContent.appendChild(wcb.tabFrame);
 			this.tabs.tabs("refresh");
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
-			
+
 			return wcb;
 		}
 		,"newWcb":function(width,height){
@@ -567,7 +568,7 @@ var wc2 = (function(){
 			}
 			preview.src = url;
 		}
-		
+
 		,"newWcbByImage":function(image){
 			var wcb = new WebCanvasBundle(100,100);
 			if(wcb.openByImage(image)=== false){
@@ -612,7 +613,7 @@ var wc2 = (function(){
 					break;
 				}
 			}
-			
+
 			this.tabs.tabs("refresh");
 			this.cmdWcb("active",this.wcbs[0]);
 			setTimeout(function(){ wc2.tabs.tabs({"active":-1})} , 100); // IE에서는 제대로 동작 안해서
@@ -622,7 +623,7 @@ var wc2 = (function(){
 		,"rename":function(name){
 			if(!this.activeWcb){return false;}
 			if(!this.activeWcb.setName(name)){return false;}
-			
+
 			this.activeWcw.dialog( "option", "title",name );
 		}
 		,"setTool":function(tool){
@@ -636,7 +637,7 @@ var wc2 = (function(){
 			this.showPropPanel();
 			this.syncContext2dCfg(); //설정을 적용시킨다.
 
-			
+
 			$("button[data-wc-tool]").each(
 				function(){
 					$(this).removeClass("active")
@@ -647,18 +648,18 @@ var wc2 = (function(){
 					$(this).addClass("active")
 				}
 			)
-			
-			
-			
+
+
+
 			if(!wc2Tool.init(this.tool)){
 				//alert(wc2Tool.error);
 				return false;
 			}
-			
+
 			return this.tool;
 		}
 		,"setToolByBtn":function(btn){
-			
+
 			if(!btn.dataset || !btn.dataset.wcTool){
 				this.setError( "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.");
 				return false;
@@ -671,7 +672,7 @@ var wc2 = (function(){
 			var rect = target.getBoundingClientRect();
 			var scrollTop= Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 			var scrollLeft= Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-			
+
 			var x = evt.clientX;
 			var y = evt.clientY;
 			if(evt.touches && evt.touches[0]){
@@ -683,7 +684,7 @@ var wc2 = (function(){
 				var x = touch.clientX;
 				var y = touch.clientY;
 			}
-			
+
 			return {
 			  "x": x - rect.left + scrollTop,
 			  "y": y - rect.top + scrollLeft
@@ -722,7 +723,7 @@ var wc2 = (function(){
 		//--- 레이어 관련
 		//-- 레이어 싱크 (최적화 필요)
 		,"_syncWcbInfo":function(){
-			if(!this.activeWcb){ 
+			if(!this.activeWcb){
 				$("#propLayerList .wc-prop-layer-empty").show();
 				$("#propHistoryList .wc-prop-history-empty").show();
 				$("#propLayerList .wc-prop-layer-info").hide();
@@ -755,7 +756,7 @@ var wc2 = (function(){
 					li.appendChild(li.spanEye);
 					li.span =  document.createElement("span");
 					li.appendChild(li.span);
-					
+
 					propLayerList.append(li);
 				}
 				var lis = $("#propLayerList .wc-prop-layer-info");
@@ -783,7 +784,7 @@ var wc2 = (function(){
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
 						//console.log("pre 갱신",li.wc.label);
 					}
-					
+
 					$(li.span).text(oc.label)
 					tmpli_i++;
 				}
@@ -813,7 +814,7 @@ var wc2 = (function(){
 			if(this.activeWcb && this.activeWcb.activeWebCanvas){
 				document.formPropLayer.layerOpacity.value = this.activeWcb.activeWebCanvas.opacity;
 				document.formPropLayer.layerNotHide.checked = !this.activeWcb.activeWebCanvas.hide;
-				
+
 			}
 		}
 		,"cmdLayer":function(cmd,arg1,arg2,arg3){
@@ -875,7 +876,7 @@ var wc2 = (function(){
 			if(!this.activeWcb){ this.setError( "wc2.setZoom() 활성화된 윈도우가 없습니다."); return; }
 			this.activeWcb.setZoom(zoom);
 		}
-		
+
 		//--- tool confirm/reset
 		,"cmdTool":function(cmd){
 			switch(cmd){
@@ -884,7 +885,7 @@ var wc2 = (function(){
 				case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
 				case "predraw":wc2.syncContext2dCfg();wc2Tool.predraw(this.tool,this.activeWcb);break;
 			}
-			
+
 		}
 		//-- 유틸성
 		//--- 색상문자열 만들기
@@ -895,7 +896,7 @@ var wc2 = (function(){
 			}
 			return false;
 		}
-		//--- 뷰 이미지 
+		//--- 뷰 이미지
 		,"viewImage":function(){
 			if(!wc2.activeWcb){
 				this.setError( "wc2.viewImage() : 활성화된 윈도우가 없음");
@@ -903,7 +904,7 @@ var wc2 = (function(){
 			}
 			return this._viewImage(wc2.activeWcb.toDataURL());
 		}
-		//--- 뷰 URL 이미지 
+		//--- 뷰 URL 이미지
 		,"viewImageURL":function(url){
 			return this._viewImage(url);
 		}
@@ -1024,13 +1025,13 @@ var wc2 = (function(){
 			)
 			var frms = $("#menuDetailArea").find(".wc-mdetail-"+menu)
 			frms.show();
-			
-			
+
+
 			if(menu.indexOf("layer-filter")==0){ //필터용 프리뷰
 				$(".wc-mdetail-layer-filter-preview").show();
 			}
-			
-			
+
+
 			if(this.activeWcb){
 				switch(menu){
 					case "file-save":frms[0].saveFileName.value = this.activeWcb.name;break;
@@ -1040,7 +1041,7 @@ var wc2 = (function(){
 					case "image-resize":frms[0].width.defaultValue = frms[0].width.value = this.activeWcb.width;
 												frms[0].height.defaultValue = frms[0].height.value = this.activeWcb.height;
 					break;
-					
+
 				}
 				if(menu.indexOf("layer-filter-") == 0){
 					frms.each(function(){
@@ -1053,7 +1054,7 @@ var wc2 = (function(){
 					);
 				}
 			}
-			
+
 		}
 		//-- UI 메뉴용
 		,"btnShowMenuDetail":function(menuBtn){
@@ -1080,9 +1081,9 @@ var wc2 = (function(){
 		//--
 		,"viewPreviewImageByWcbdoByURL":function(url){
 			if(url.indexOf(document.location.protocol+'//'+document.location.hostname)!=0){ //같은 도메인이 아니면, 프록시 사용
-				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);	
+				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);
 			}
-			
+
 			var preview = document.getElementById('formMenuDetailFileOpenPreview');
 			preview.wcbdo = null;
 			preview.onerror = function(event){
@@ -1155,7 +1156,7 @@ var wc2 = (function(){
 					}else{
 						this[el.name] = el.value;
 					}
-					
+
 				}
 			}
 			//this.changeViewport(this.viewportContentScale); //변수 설정시 자동 처리됨
@@ -1178,10 +1179,10 @@ var wc2 = (function(){
 			//this.syncBrush();
 			this.syncPropPanel();
 			this.cmdTool('predraw')
-			
+
 			$(this.strokeStyle).spectrum("set",this.strokeStyle.value);
 			$(this.fillStyle).spectrum("set",this.fillStyle.value);
-			
+
 			this.saveSetting(document.getElementById("formToolColor"),"change");
 		}
 		//지우개용 브러쉬 정보 싱크 그리기
@@ -1218,8 +1219,8 @@ var wc2 = (function(){
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);
 			this.brush4Brush.previewBrush()
-			
-			
+
+
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
 			return true;
 		}
@@ -1234,7 +1235,7 @@ var wc2 = (function(){
 			$("#imagePattern").prop("src",img.src);
 			return true;
 		}
-		
+
 		,"changeViewport":function(scale){
 			if(scale==""){
 				var content="";
@@ -1257,7 +1258,7 @@ var wc2 = (function(){
 					wc2.closeNavbar();
 				}
 			}
-			
+
 		}
 		,"closeNavbar":function(isOpen){
 			if(!isOpen){
@@ -1280,8 +1281,31 @@ var wc2 = (function(){
 				}else{
 					console.log("지원되지 않는 명령어");
 				}
-				
+
 			}
+		}
+		//WC2CB(콜백함수모음객체)로 동작에 대해서 제어한다.
+		,"initByWC2CB":function(WC2CB){
+			if(WC2CB.getImage){
+				this.cmdWcb("open",WC2CB.getImage());
+			}
+			if(WC2CB.btnFileSaveCallback){
+				$("#btnFileSaveCallback").removeClass("hide")
+				this.btnFileSaveCallback = function(win,wc2){
+					return function(){
+						this.useOnbeforeunloadForDocument = false;
+						var r = WC2CB.btnFileSaveCallback(win,wc2);
+						this.useOnbeforeunloadForDocument = true;
+						return r;
+					}
+
+				}(window,this)
+			}
+
+		}
+		//콜백용 저장 버튼 동작용.
+		,"btnFileSaveCallback":function(win,wc2){
+
 		}
 		//-------- 필터 부분
 		/*
@@ -1300,7 +1324,7 @@ var wc2 = (function(){
 			)
 			var t = $("#menuDetailArea").find(".wc-fdetail-"+menu)
 			t.show();
-			
+
 			if(this.activeWcb){
 				switch(menu){
 					case "invert":t[0].saveFileName.value = this.activeWcb.name;break;
@@ -1318,7 +1342,7 @@ var wc2 = (function(){
 			if(wc2Filter[cmd]==undefined){
 				this.setError("필터 "+cmd+"가 없습니다.");
 			}
-			
+
 			var imageData = wc.cmdContext2d('getImageData');
 			var cmd = arguments[1];
 			var args = [];
@@ -1337,9 +1361,9 @@ var wc2 = (function(){
 			var sync = true;
 			var history = true;
 			var r = null;
-			
+
 			this._cmdFilter(this.activeWcb.activeWebCanvas,cmd,arg1,arg2,arg3);
-			
+
 			if(history){
 				this.saveHistory("Layer."+cmd);
 			}
@@ -1369,7 +1393,7 @@ var wc2 = (function(){
 			var tempWcbs = {};
 			tempWcbs.mtime = (new Date).getTime();
 			tempWcbs.data = [];
-			
+
 			for(var i=0,m=this.wcbs.length;i<m;i++){
 				tempWcbs.data.push(this.wcbs[i].toWcbDataObject());
 			}
@@ -1399,9 +1423,10 @@ var wc2 = (function(){
 		}
 		//-- 종료시 물어보기, 사용흔적이 없으면 안 물어본다.
 		,"onbeforeunloadForDocument":function(){
+			if(!this.useOnbeforeunloadForDocument){return undefined;}
 			var docCnt = this.wcbs.length;
 			var useCnt = 0;
-			
+
 			for(var i=0,m=docCnt;i<m;i++){
 				if(this.wcbs[i].historyLog.length>1){
 					useCnt++;
@@ -1458,7 +1483,7 @@ var wc2 = (function(){
 			});
 			return true;
 		}
-		//-- 토글 풀 스크린 
+		//-- 토글 풀 스크린
 		,"toggleFullScreen":function() {
 		  if (!document.fullscreenElement &&    // alternative standard method
 			  !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods

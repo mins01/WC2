@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+2017-05-14 : 제작시작
+임의사용 금지.
+
+-->
+<html lang="ko">
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	</head>
+	<body>
+	<h2>callback_save</h2>
+	<img src="img/apple-touch-icon.png" id="img">
+	<button type="button" onclick="window.open('WC2.html','_blank');">WC2 OPEN</button>
+	<script>
+	var WC2CB = {
+		"getImage":function(){
+			return document.getElementById('img');
+		},
+		"btnFileSaveCallback":function(win,wc2){
+			var dataUrl = wc2.activeWcb.toDataURL()
+			$("#img").prop("src",dataUrl);
+			win.close();
+		}
+	};
+	</script>
+	</body>
+</html>
