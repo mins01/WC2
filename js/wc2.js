@@ -1508,5 +1508,20 @@ var wc2 = (function(){
 			}
 		  }
 		}
+		//-- 자동화
+		,"automation":function(cmd,arg1,arg2){
+			switch(cmd){
+				case 'resize':
+				if(arg1 != null){
+					var w = arg1;
+					var h = this.activeWcb.height * (arg1/this.activeWcb.width);
+				}else{
+					var w = this.activeWcb.width * (arg2/this.activeWcb.height);;
+					var h = arg2
+				}
+				this.cmdWcb("resize",w,h)
+				break;
+			}
+		}
 	};
 })();

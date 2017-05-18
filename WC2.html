@@ -189,12 +189,27 @@
 
 										</ul>
 								</li>
-
-
-
-
-							</ul>
 						  </ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Automation <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="dropdown-submenu">
+									<a href="#" tabindex="-1" data-toggle="dropdown"><span  class="glyphicon glyphicon-fullscreen"></span>Resize</a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-horizontal"  onclick="wc2.automation('resize',600,null);return false;">width=600px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-horizontal"  onclick="wc2.automation('resize',400,null);return false;">width=400px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-horizontal"  onclick="wc2.automation('resize',300,null);return false;">width=300px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-horizontal"  onclick="wc2.automation('resize',200,null);return false;">width=200px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-horizontal"  onclick="wc2.automation('resize',100,null);return false;">width=100px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-vertical"  onclick="wc2.automation('resize',null,600);return false;">height=600px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-vertical"  onclick="wc2.automation('resize',null,400);return false;">height=400px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-vertical"  onclick="wc2.automation('resize',null,300);return false;">height=300px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-vertical"  onclick="wc2.automation('resize',null,200);return false;">height=200px</a></li>
+											<li><a href="#" class="glyphicon glyphicon glyphicon glyphicon-resize-vertical"  onclick="wc2.automation('resize',null,100);return false;">height=100px</a></li>
+										</ul>
+								</li>
+							</ul>
 						</li>
 				  </ul>
 				  <ul class="nav navbar-nav navbar-right">
@@ -1702,11 +1717,16 @@ Ciao
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
 		try{
+			var init_loaded = false;
 			if(document.location.search.length>4){ //입력된 URL의 QueryString을 기준으로 자동 처리한다.
 				wc2.initByQueryString(document.location.search);
-			}else if(opener && "WC2CB" in opener){ //WC2 callback 객체
+				init_loaded = true;
+			}
+			if(opener && "WC2CB" in opener){ //WC2 callback 객체
 				wc2.initByWC2CB(opener.window.WC2CB);
-			}else{
+				init_loaded = true;
+			}
+			if(!init_loaded){
 				//wc2.cmdWcb("new",300,300);
 				$('#btn_new').trigger('click');
 			}
@@ -1714,7 +1734,7 @@ Ciao
 			alert(e.name+":"+e.message);
 			$('#btn_new').trigger('click');
 		}
-		
+
 
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('edit-preferences');
