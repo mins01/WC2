@@ -501,6 +501,7 @@ function WebCanvasBundle(width,height,colorset){
 		}
 		,"toDataURL":function(type,encoderOptions){
 			var useEncoderOptions = false;
+
 			
 			if(type && type.toLowerCase){
 				type = type.toLowerCase()
@@ -518,12 +519,18 @@ function WebCanvasBundle(width,height,colorset){
 				case 'image/jpeg':
 					mimeType = "image/jpeg";
 					useEncoderOptions = true;
+					if(encoderOptions != undefined){
+							encoderOptions = parseFloat(encoderOptions);
+					}
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
 				case 'webp':
 				case 'image/webp':
 					mimeType = "image/webp";
 					useEncoderOptions = true;
+					if(encoderOptions != undefined){
+							encoderOptions = parseFloat(encoderOptions);
+					}
 					if(isNaN(encoderOptions)){encoderOptions=1;}
 				break;
 				case "wcb.json":
