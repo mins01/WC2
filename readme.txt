@@ -15,7 +15,7 @@ bootstrap : MIT
 jquery : MIT
 jquery-ui : MIT
 https://github.com/behigh/bootstrap_dropdowns_enhancement : MIT
-https://bgrins.github.io/spectrum/ : ???
+https://bgrins.github.io/spectrum/ : https://github.com/bgrins/spectrum/blob/master/LICENSE : MIT License
 https://github.com/phstc/jquery-dateFormat : MIT
 https://github.com/jquery/jquery-mousewheel : https://github.com/jquery/jquery-mousewheel/blob/master/LICENSE.txt
 https://github.com/ccampbell/mousetrap : Apache 2.0
