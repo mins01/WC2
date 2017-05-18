@@ -28,6 +28,8 @@ input,textarea,select,button{padding:0;}
 
 select[disabled]{ background-color:#ccc; opacity:0.3}
 
+.not-active{pointer-events:none;}
+
 /* jquery-ui 와 충돌 회피 (이미지 사용관련)*/
 .ui-widget-header .ui-state-default {
 	background-image:none;
