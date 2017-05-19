@@ -1076,7 +1076,7 @@ Ciao
 										</div>
 
 									</li>
-									<li class="list-group-item text-danger">
+									<li class="list-group-item text-danger hide">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
 										<strong>wcbjson</strong> : support multi-Layer.(json file) <br>
@@ -1084,11 +1084,20 @@ Ciao
 										Recommend using the latest version browser.<br>
 										The upload file will not be overwritten. Instead stored under a new name.
 									</li>
+									
 									<li class="list-group-item">
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In Local Disk</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload In Web</button>
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload hide" id="btnFileSaveCallback" type="button" onclick="wc2.btnFileSaveCallback(this.form);wc2.hideMenuDetail();"> Save Callback</button>
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-picture hide" id="btnFileSaveCallback" type="button" onclick="wc2.btnFileSaveCallback(this.form);wc2.hideMenuDetail();"> Save Callback</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+									</li>
+									<li class="list-group-item list-group-item-success">Preview</li>
+									<li class="list-group-item text-danger">
+										<div style="max-height:200px;overflow:auto;">
+										<img src="about:blank" id="formMenuDetailFileSave-preview" />	
+										</div>
+										
+										<button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button>
 									</li>
 								</ul>
 						</div>
