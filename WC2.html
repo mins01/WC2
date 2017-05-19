@@ -108,7 +108,7 @@
 						  <ul class="dropdown-menu" role="menu">
 							<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" >New</a></li>
 							<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open">Open</a></li>
-							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save">Save / <span class="glyphicon glyphicon-cloud-upload not-active"> </span>Upload</a></li>
+							<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save" onclick="wc2.btnFileSavePreview();">Save / <span class="glyphicon glyphicon-cloud-upload not-active"> </span>Upload</a></li>
 							<li><a href="#" class="glyphicon glyphicon-picture"  onclick="wc2.viewImage()">View</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-remove-circle" onclick="wc2.cmdWcb('close')">Close</a></li>
@@ -1053,14 +1053,14 @@ Ciao
 										<div class="input-group">
 											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0" maxlength="50"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
-												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson');">
+												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson'); this.onblur()" onblur="wc2.btnFileSavePreview();">
 													<option value="png">.png</option>
 													<option value="jpg">.jpg (if supported)</option>
 													<option value="webp">.webp (if supported)</option>
 													<option value="wcbjson">.wcbjson</option>
 													<option disabled value="wcblzs">.wcblzs</option>
 												</select>
-												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality">
+												<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality" onchange="this.onblur();" onblur="wc2.btnFileSavePreview();">
 													<option value="1">100%</option>
 													<option value="0.9">90%</option>
 													<option value="0.8">80%</option>
@@ -1076,6 +1076,7 @@ Ciao
 										</div>
 
 									</li>
+
 									<li class="list-group-item text-danger hide">
 										<strong>webp</strong> is supported by only Chrome.<br>
 										<strong>jpg</strong> is not supported by old browser.<br>
@@ -1084,21 +1085,20 @@ Ciao
 										Recommend using the latest version browser.<br>
 										The upload file will not be overwritten. Instead stored under a new name.
 									</li>
-									
+
 									<li class="list-group-item">
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In Local Disk</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload In Web</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-picture hide" id="btnFileSaveCallback" type="button" onclick="wc2.btnFileSaveCallback(this.form);wc2.hideMenuDetail();"> Save Callback</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 									</li>
-									<li class="list-group-item list-group-item-success">Preview</li>
 									<li class="list-group-item text-danger">
-										<div style="max-height:200px;overflow:auto;">
-										<img src="about:blank" id="formMenuDetailFileSave-preview" />	
+										<div  style="max-height:200px;overflow:auto;padding:10px;background-color:#ccc;">
+										<img class="bg-grid" src="about:blank" id="formMenuDetailFileSave-preview" />
 										</div>
-										
-										<button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button>
+										<!-- <button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button> -->
 									</li>
+
 								</ul>
 						</div>
 					</div>

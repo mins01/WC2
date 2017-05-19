@@ -23,7 +23,9 @@
 			return document.getElementById('img');
 		},
 		"btnFileSaveCallback":function(win,wc2){
-			var dataUrl = wc2.activeWcb.toDataURL()
+			// var dataUrl = wc2.activeWcb.toDataURL()
+			var dataUrl = wc2.getDataurlForFileSavePreview();
+
 			$("#img").prop("src",dataUrl);
 			win.close();
 		}

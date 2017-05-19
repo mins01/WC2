@@ -1137,26 +1137,25 @@ var wc2 = (function(){
 			var saveFileQuality = form.saveFileQuality.value
 			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
 		}
-		,"btnFileSavePreview":function(form){
-			
+		,"getDataurlForFileSavePreview":function(){
+			var form = document.formMenuDetailFileSave
 			if(!wc2.activeWcb){
 				this.setError( "wc2.viewImage() : 활성화된 윈도우가 없음");
 				return false;
 			}
-			
-			var saveFileName = form.saveFileName.value
+
 			var saveFileType = form.saveFileType.value
-			if(saveFileType.length > 0){
-				saveFileName+="."+saveFileType;
-			}
 			if(saveFileType=='wcbjson'){
 				saveFileType = 'png';
 			}
-			
+
 			var saveFileQuality = form.saveFileQuality.value
-			
-			$("#formMenuDetailFileSave-preview").prop("src",wc2.activeWcb.toDataURL(saveFileType,saveFileQuality))
-		}		
+			return wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);
+		}
+		,"btnFileSavePreview":function(){
+
+			$("#formMenuDetailFileSave-preview").prop("src",this.getDataurlForFileSavePreview())
+		}
 		,"btnFileUpload":function(form){
 			var saveFileName = form.saveFileName.value
 			var saveFileType = form.saveFileType.value
