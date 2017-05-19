@@ -1153,8 +1153,16 @@ var wc2 = (function(){
 			return wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);
 		}
 		,"btnFileSavePreview":function(){
-
-			$("#formMenuDetailFileSave-preview").prop("src",this.getDataurlForFileSavePreview())
+			var dataurl = this.getDataurlForFileSavePreview();
+			if(!dataurl){
+				$("#formMenuDetailFileSave-preview").prop("src",'about:blank')
+				$("#formMenuDetailFileSave-preview-size").text('- Byte');
+				return false;
+			}
+			var t = dataurl.replace(/^data:.*;base64,/,'');
+			$("#formMenuDetailFileSave-preview").prop("src",dataurl)
+			var size = new Intl.NumberFormat().format(window.atob(t).length);
+			$("#formMenuDetailFileSave-preview-size").text(size+' Byte');
 		}
 		,"btnFileUpload":function(form){
 			var saveFileName = form.saveFileName.value
