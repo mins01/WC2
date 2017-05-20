@@ -1732,10 +1732,15 @@ Ciao
 				wc2.initByQueryString(document.location.search);
 				init_loaded = true;
 			}
-			if(opener && "WC2CB" in opener){ //WC2 callback 객체
-				wc2.initByWC2CB(opener.window.WC2CB);
-				init_loaded = true;
+			try{
+				if(opener && "WC2CB" in opener){ //WC2 callback 객체
+					wc2.initByWC2CB(opener.window.WC2CB);
+					init_loaded = true;
+				}
+			}catch(e){
+				console.log(e);
 			}
+
 			if(!init_loaded){
 				//wc2.cmdWcb("new",300,300);
 				$('#btn_new').trigger('click');
