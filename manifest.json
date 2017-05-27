@@ -1,0 +1,14 @@
+{
+  "short_name": "WC2",
+  "name": "WebCanvas2",
+  "icons": [
+    {
+      "src": "img/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "129x129"
+    }
+  ],
+  "start_url": "WC2.html",
+  "display": "standalone",
+  "theme_color": "#aabbcc"
+}
