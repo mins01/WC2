@@ -1080,9 +1080,7 @@ var wc2 = (function(){
 		}
 		//--
 		,"viewPreviewImageByWcbdoByURL":function(url){
-			if(url.indexOf(document.location.protocol+'//'+document.location.hostname)!=0){ //같은 도메인이 아니면, 프록시 사용
-				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);
-			}
+			url = this.converURL(url);
 
 			var preview = document.getElementById('formMenuDetailFileOpenPreview');
 			preview.wcbdo = null;
@@ -1549,6 +1547,13 @@ var wc2 = (function(){
 				this.cmdWcb("resize",w,h)
 				break;
 			}
+		}
+		//-- 외부 URL지원용
+		,"converURL":function(url){
+			if(url.indexOf(document.location.protocol+'//'+document.location.hostname)!=0){ //같은 도메인이 아니면, 프록시 사용
+				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);
+			}
+			return url;
 		}
 	};
 })();

@@ -54,7 +54,7 @@ function WebCanvas(width,height,colorset){
 			Object.defineProperty(this, 'label', {
 				get:function(){ return _label; },
 				set:function(wc){
-						return function(newValue){ 
+						return function(newValue){
 							_label = newValue;
 							wc._setLabel();
 					}
@@ -62,7 +62,7 @@ function WebCanvas(width,height,colorset){
 				enumerable: true,
 				configurable: false
 			});
-			
+
 			this.className = "WC";
 			this.node = document.createElement('div');
 			this.node.className = "WC-node";
@@ -72,12 +72,12 @@ function WebCanvas(width,height,colorset){
 			this.error = ""; //최후 에러 메세지
 			this.width = width;
 			this.height = height;
-			
+
 			var _opacity = 1;
 			Object.defineProperty(this, 'opacity', {
 				get:function(){ return _opacity; },
 				set:function(wc){
-						return function(newValue){ 
+						return function(newValue){
 							if(isNaN(newValue)){return false}
 							_opacity = newValue;
 							wc._setOpacity();
@@ -92,10 +92,10 @@ function WebCanvas(width,height,colorset){
 			Object.defineProperty(this, 'hide', {
 				get:function(){ return _hide; },
 				set:function(wc){
-						return function(newValue){ 
+						return function(newValue){
 							if(isNaN(newValue)){return false}
 							_hide = !!newValue;
-							wc.node.dataset.wcHide = _hide?1:0; 
+							wc.node.dataset.wcHide = _hide?1:0;
 							return _hide;
 					}
 				}(this),
@@ -111,7 +111,7 @@ function WebCanvas(width,height,colorset){
 			this.context2d.disableStroke = 0; //stroke 사용금지
 			this.context2d.disableFill = 0; //strokFiil 사용금지
 			//this.context2d.opacity = 1; //레이어 투명도
-			
+
 			//-- config font
 			//this.context2d.font = "normal 200 10px/1 sans-serif "; // fontStyle  fontVariant fontVariant fontWeight fontSize"px"/lineHeight
 			this.context2d.fontStyle = "normal"; //normal,italic,oblique
@@ -121,9 +121,9 @@ function WebCanvas(width,height,colorset){
 			this.context2d.fontSize = 10; //px
 			this.context2d.lineheight = 1.2; // float number
 			this.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
-			
+
 			//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
-			
+
 			this._syncNode();
 			if(colorset){
 				this.configContext2d({"fillStyle":this.colorset2String(colorset)});
@@ -160,15 +160,15 @@ function WebCanvas(width,height,colorset){
 					this.modified();
 					//console.log(this.label,cmd);
 				}
-				
-				//-- 기본값 처리 
+
+				//-- 기본값 처리
 				try{
 					return this.context2d[cmd].apply(this.context2d,args);
 				}catch(e){
 					alert(e.message);
 					console.log(e);
 				}
-				
+
 			}else{
 				this.setError("지원되지 않는 메소드(1) : "+cmd+"("+args.join(',')+")");
 				return false;
@@ -199,7 +199,7 @@ function WebCanvas(width,height,colorset){
 			return false;
 		}
 		//-- deprecated, use setLabel();
-		,"setName":function(alt){ 
+		,"setName":function(alt){
 			return this.setLabel(alt);
 		}
 		,"_setLabel":function(){
@@ -230,7 +230,7 @@ function WebCanvas(width,height,colorset){
 			var twc = this.clone();
 			this.clear();
 			this.saveContext2d();
-			this.width = width; 
+			this.width = width;
 			this.height = height;
 			this.cmdContext2d("drawImage",twc, 0, 0, width, height);
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
@@ -238,7 +238,7 @@ function WebCanvas(width,height,colorset){
 			this.modified();
 			return true;
 		}
-		//-- 내용을 지우면서 리사이즈 한다.. 
+		//-- 내용을 지우면서 리사이즈 한다..
 		,"clearResize":function(width,height){
 			if(this.width == width && this.height == height){
 				this.saveContext2d();
@@ -249,7 +249,7 @@ function WebCanvas(width,height,colorset){
 				return true; //같은 너비,높이니깐 리사이즈 안함.
 			}
 			this.saveContext2d();
-			this.width = width; 
+			this.width = width;
 			this.height = height;
 			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this._syncNode();
@@ -264,6 +264,9 @@ function WebCanvas(width,height,colorset){
 		* 7 8 9
 		*/
 		,"adjustSize":function(width,height,controlPoint){
+			width = parseInt(width);
+			height = parseInt(height);
+			controlPoint = parseInt(controlPoint);
 			var twc = this.clone();
 			this.clear();
 			var x = 0, y=0;
@@ -288,11 +291,11 @@ function WebCanvas(width,height,colorset){
 				case 7:
 				case 8:
 				case 9: y = (width-this.width); break;
-			}			
-			
+			}
+
 			var context2dCfg = this.getConfigContext2d()
 			this.cmdContext2d("save");
-			this.width = width; 
+			this.width = width;
 			this.height = height;
 			this.cmdContext2d("drawImage",twc, x, y);
 			this.cmdContext2d("restore");
@@ -306,7 +309,7 @@ function WebCanvas(width,height,colorset){
 				//console.log("fill");
 				this.cmdContext2d("fillRect",0,0,this.width,this.height);
 			}else{
-				
+
 				this.cmdContext2d("clearRect",0,0,this.width,this.height);
 			}
 			return true;
@@ -356,18 +359,18 @@ function WebCanvas(width,height,colorset){
 				//패턴의 스타일을 설정한다.
 				// 라인 등의 그리기 툴과로 같이 사용해야 표시된다.
 				// type : repeat|repeat-x|repeat-y|no-repeat
-				
+
 				this.context2d.fillStyle = this.cmdContext2d("createPattern",cfg["patternImage"],cfg["patternType"]?cfg["patternType"]:"repeat");
 			}
 			//--- 폰트 설정
 			if(
-			  cfg["fontStyleVariantWeight"] != undefined 
-			|| cfg["fontStyle"] != undefined 
-			|| cfg["fontVariant"] != undefined 
-			|| cfg["fontWeight"] != undefined 
-			|| cfg["fontSize"] != undefined 
-			|| cfg["lineheight"] != undefined 
-			|| cfg["fontFamily"] != undefined 
+			  cfg["fontStyleVariantWeight"] != undefined
+			|| cfg["fontStyle"] != undefined
+			|| cfg["fontVariant"] != undefined
+			|| cfg["fontWeight"] != undefined
+			|| cfg["fontSize"] != undefined
+			|| cfg["lineheight"] != undefined
+			|| cfg["fontFamily"] != undefined
 			){
 				var t = [];
 				if(cfg["fontStyleVariantWeight"] && cfg["fontStyleVariantWeight"].lenth>0){
@@ -376,13 +379,13 @@ function WebCanvas(width,height,colorset){
 					t.push(this.context2d["fontStyle"]);
 					t.push(this.context2d["fontVariant"]);
 					t.push(this.context2d["fontWeight"]);
-					
+
 				}
 				t.push(this.context2d["fontSize"]+"px/"+this.context2d["lineheight"]);
 				t.push(this.context2d["fontFamily"]);
 				this.context2d.font = t.join(" ");
 			}
-			
+
 			return this.context2d;
 		}
 		/*
@@ -419,10 +422,10 @@ function WebCanvas(width,height,colorset){
 		// 인자의 webCanvas가 위에 그려진다.
 		,"merge":function(webCanvas,x0,y0,w0,h0){
 			var opacity = webCanvas.opacity!=undefined?webCanvas.opacity:1;
-			
+
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
-			this.saveContext2d();	
+			this.saveContext2d();
 			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":"source-over"});
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.restoreContext2d();
@@ -441,7 +444,7 @@ function WebCanvas(width,height,colorset){
 		// 인자의 webCanvas가 아래에 그려진다.
 		,"mergeTo":function(webCanvas,x0,y0,w0,h0){
 			var opacity = webCanvas.opacity!=undefined?webCanvas.opacity:1;
-			
+
 			var c = webCanvas.clone();
 			c.cmdContext2d("save");
 
@@ -449,7 +452,7 @@ function WebCanvas(width,height,colorset){
 
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
-			
+
 			c.drawImage(this, x0, y0,w0,h0);
 			//this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.copy(c);
@@ -598,11 +601,11 @@ function WebCanvas(width,height,colorset){
 			var maxWidth = -1;
 			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
 			var fontSize = this.context2d.fontSize;
-			
+
 			var texts = text.split(/\n/);
-			
+
 			var maxHeight = parseFloat(fontSize)*parseFloat(lineHeight)*texts.length;
-			
+
 			for(var i=0,m=texts.length;i<m;i++){
 				maxWidth = Math.max(maxWidth,this.cmdContext2d("measureText",texts[i]).width);
 			}
@@ -610,19 +613,19 @@ function WebCanvas(width,height,colorset){
 			for(var i=0,m=texts.length;i<m;i++){
 				minWidth = Math.min(maxWidth,this.cmdContext2d("measureText",texts[i]).width);
 			}
-			
+
 			return {"width":maxWidth,"maxWidth":maxWidth,"minWidth":minWidth,"height":maxHeight,"maxHeight":maxHeight};
 		}
 		//--- 이미지 넣기
-		//x0,y0,w0,h0 넣을 때 이미지, 
+		//x0,y0,w0,h0 넣을 때 이미지,
 		// x1,y1,w1,h1 넣는 이미지에 대한 crop및 resize
 		//풀 아규멘트일 경우 x0과 x1의 위치가 바뀌지만 헷갈리므로 여거서 처리
 		,"drawImage":function(img,x0,y0,w0,h0,x1,y1,w1,h1){
 			if(img){
 				if(img.nodeName == "IMG" && img.naturalWidth > 0){
-					
+
 				}else if(img.nodeName == "CANVAS" && img.width > 0){
-					
+
 				}else{
 					this.setError("이미지 로드에 문제가 있습니다.");
 					return false;
@@ -682,7 +685,7 @@ function WebCanvas(width,height,colorset){
 			//this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.opacity = (wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.hide = wcdo.hide;
-			
+
 			this.loadToDataURL(wcdo.dataURL,onload)
 			return true;
 		}
@@ -718,7 +721,7 @@ function WebCanvas(width,height,colorset){
 				return this.cmdContext2d("putImageData",imageData,x0,y0);
 			}
 			return this.cmdContext2d("putImageData",imageData,x0,y0,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
-			
+
 		}
 		*/
 		//--- 확대 설정
@@ -754,7 +757,7 @@ function WebCanvas(width,height,colorset){
 		,"rotate90To":function(deg){
 			var c = this.clone();
 			if(deg % 90 == 0){
-				this.cmdContext2d("save"); 
+				this.cmdContext2d("save");
 				switch(deg){
 					case 0 :
 						this.clear();
@@ -778,23 +781,23 @@ function WebCanvas(width,height,colorset){
 						this.clear();
 						this.cmdContext2d("rotate",deg * Math.PI / 180);
 						this.cmdContext2d("drawImage",c, -1*c.width, 0);
-						break;		
+						break;
 				}
 				//반향 되돌리기
 				this.cmdContext2d("rotate",-1*deg * Math.PI / 180 );
-				this.cmdContext2d("restore"); 
+				this.cmdContext2d("restore");
 				return true;
-			}			
+			}
 			this.setError( "WebCanvas.rotate90To() : not support degrees : "+deg);
 			return false;
-			
+
 		}
 		//--- 수직,수평 반전 (참고 소스 : http://jsfiddle.net/yong/ZJQX5/)
 		,"flip":function(flipH,flipV){
 			var c = this.clone();
 			var scaleH = flipH ? -1 : 1, // Set horizontal scale to -1 if flip horizontal
 			scaleV = flipV ? -1 : 1, // Set verical scale to -1 if flip vertical
-			posX = flipH ? this.width * -1 : 0, // Set x position to -100% if flip horizontal 
+			posX = flipH ? this.width * -1 : 0, // Set x position to -100% if flip horizontal
 			posY = flipV ? this.height * -1 : 0; // Set y position to -100% if flip vertical
 
 			this.cmdContext2d("save"); // Save the current state
@@ -806,7 +809,7 @@ function WebCanvas(width,height,colorset){
 		//--- 인버트
 		,"invert":function(){
 			var imageData = this.cmdContext2d('getImageData');
-			
+
 			for(var i=0,m=imageData.data.length;i<m;i+=4){
 				imageData.data[i] = 255 - imageData.data[i]
 				imageData.data[i+1] = 255 - imageData.data[i+1]
@@ -835,7 +838,7 @@ function WebCanvas(width,height,colorset){
 			this.x0 = x;
 			this.y0 = y;
 			this.brushing = 1;
-			
+
 			// var w2 = this.circleBrushR;
 			// var h2 = this.circleBrushR;
 			// console.log(x,y,w2);
@@ -882,7 +885,7 @@ function WebCanvas(width,height,colorset){
 			this.x0 = x;
 			this.y0 = y;
 			this.brushing = 1;
-			
+
 			var w2 = (this.brushWC.width)/2
 			var h2 = (this.brushWC.height)/2
 			//console.log(x,y);
@@ -919,7 +922,7 @@ function WebCanvas(width,height,colorset){
 		,"_dotsInLine":function(x0,y0,x1,y1){
 			var spacing = this.spacing;
 			var xys = [];
-			
+
 			if(x0==x1 && y0==y1){
 				return xys;
 			}
@@ -937,7 +940,7 @@ function WebCanvas(width,height,colorset){
 			this.brushLastLen -=spacing;
 			ci += spacing;
 			xys.push([x0,y0])
-			
+
 			while(ci<c && this.brushLastLen >= spacing){
 				var a1 = ci * sinA;
 				var b1 = ci * cosA;
@@ -948,11 +951,11 @@ function WebCanvas(width,height,colorset){
 				//console.log([x2,y2]);
 				ci += spacing;
 				this.lastLen -=spacing;
-				
+
 			}
 			//console.log(x0,y0,x2,y2,c2 );
 			return xys;
-			
+
 		}
 		,"circleWithGradient":function(x,y,r,colorStyle){
 			var rg = this.getCircleGradient(x,y,0,r,colorStyle)
@@ -965,7 +968,7 @@ function WebCanvas(width,height,colorset){
 		,"getRadialGradient":function(x0,y0,r0,x1,y1,r1,colorStyle){
 			var color0 = colorStyle.replace('rgb','rgba').replace(')',',1)');
 			var color1 = colorStyle.replace('rgb','rgba').replace(')',',0)');
-			
+
 			var rg = this.cmdContext2d("createRadialGradient",x0,y0,r0,x1,y1,r1);
 			rg.addColorStop(0,color0);
 			//rg.addColorStop(r0p,color0);
