@@ -1550,7 +1550,9 @@ var wc2 = (function(){
 		}
 		//-- 외부 URL지원용
 		,"converURL":function(url){
-			if(url.indexOf(document.location.protocol+'//'+document.location.hostname)!=0){ //같은 도메인이 아니면, 프록시 사용
+			if(url.indexOf('data:')===0){ //dataURL
+				return url;
+			}else if(url.indexOf(document.location.protocol+'//'+document.location.hostname)!=0){ //같은 도메인이 아니면, 프록시 사용
 				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);
 			}
 			return url;
