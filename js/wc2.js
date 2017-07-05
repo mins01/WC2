@@ -159,7 +159,21 @@ var wc2 = (function(){
 			$(this.filterPreviewWC).addClass("bg-grid");
 			var t = $("#filterCanvasBox");
 			t.html("").append(this.filterPreviewWC.node);
-
+			
+			//--- 저장 가능 이미지 타입 표시제한
+			if(!wc2Helper.isSupportedImageType('image/png')){
+				$(".image-type-png").hide();
+			}
+			if(!wc2Helper.isSupportedImageType('image/jpeg')){
+				$(".image-type-jpg").hide();
+			}
+			if(!wc2Helper.isSupportedImageType('image/gif')){
+				$(".image-type-gif").hide();
+			}
+			if(!wc2Helper.isSupportedImageType('image/webp')){
+				$(".image-type-webp").hide();
+			}
+			
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){

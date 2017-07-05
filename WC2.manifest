@@ -1,9 +1,10 @@
 CACHE MANIFEST
-# rv 20170605-#
+# rv 20170705-##
 
 
 CACHE:
 WC2.html
+manifest.json
 http://code.jquery.com/jquery-2.1.3.min.js
 http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
 http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css

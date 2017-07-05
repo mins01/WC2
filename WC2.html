@@ -1055,9 +1055,10 @@ Ciao
 											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0" maxlength="50"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
 												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson'); this.onblur()" onblur="wc2.btnFileSavePreview();">
-													<option value="png">.png</option>
-													<option value="jpg">.jpg (if supported)</option>
-													<option value="webp">.webp (if supported)</option>
+													<option value="png" class="image-type-png">.png</option>
+													<option value="jpg" class="image-type-jpg">.jpg</option>
+													<option value="gif" class="image-type-gif">.gif</option>
+													<option value="webp" class="image-type-webp">.webp</option>
 													<option value="wcbjson">.wcbjson</option>
 													<option disabled value="wcblzs">.wcblzs</option>
 												</select>
