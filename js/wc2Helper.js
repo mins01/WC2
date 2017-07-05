@@ -134,5 +134,21 @@ var wc2Helper = function(){
 			}
 			return colorset;
 		},
+		/**
+		 * 브라우저의 canvas.toDataURL 지원 이미지 타입 체크
+		 * @param  {[type]} type image/png 등
+		 * @return {[type]}      [description]
+		 */
+		"isSupportedImageType":function(mime){
+			var c  = document.createElement('canvas');
+			if(c.tagName != 'CANVAS'){
+				return false;
+			}
+			c.width = 1;
+			c.height = 1;
+			var quality = 0.1;
+			var du = c.toDataURL(mime,quality);
+			return du.indexOf(mime)!=-1;
+		}
 	}
 }();
