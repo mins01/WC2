@@ -162,16 +162,16 @@ var wc2 = (function(){
 			
 			//--- 저장 가능 이미지 타입 표시제한
 			if(!wc2Helper.isSupportedImageType('image/png')){
-				$(".image-type-png").hide();
+				$(".image-type-png").hide().prop('disabled',true);
 			}
 			if(!wc2Helper.isSupportedImageType('image/jpeg')){
-				$(".image-type-jpg").hide();
+				$(".image-type-jpg").hide().prop('disabled',true);
 			}
 			if(!wc2Helper.isSupportedImageType('image/gif')){
-				$(".image-type-gif").hide();
+				$(".image-type-gif").hide().prop('disabled',true);
 			}
 			if(!wc2Helper.isSupportedImageType('image/webp')){
-				$(".image-type-webp").hide();
+				$(".image-type-webp").hide().prop('disabled',true);
 			}
 			
 		}
