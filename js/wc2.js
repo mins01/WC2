@@ -83,6 +83,7 @@ var wc2 = (function(){
 			//this.hideFilterDetail();
 			this.setTool("brush");
 			this.loadSetting();
+			this.initAutoWcbLocalStorage();
 		}
 		,"initVar":function(){
 			//-- viewport 확대비율
@@ -1448,6 +1449,82 @@ var wc2 = (function(){
 		}
 		,"openWcbLocalStorage":function(){
 			var tempWcbs = localStorage.getItem("wc2.tempWcbs");
+			if(tempWcbs == null){
+				this.setError("No TempWcbs"); return false;
+			}
+			var tempWcbs = JSON.parse(tempWcbs);
+			if(!confirm("Open? "+tempWcbs.data.length+" Document.\nSaved Date : "+new Date(tempWcbs.mtime).toLocaleString())){
+				return false;
+			}
+			for(var i=0,m=tempWcbs.data.length;i<m;i++){
+				this.cmdWcb("open",tempWcbs.data[i]);
+			}
+			return true;
+		}
+		,"initAutoWcbLocalStorage":function(){
+			if(this.tmAutoWcbLocalStorage){
+				clearInterval(this.tmAutoWcbLocalStorage);
+			}
+			this.failCountAutoWcbLocalStorage = 0; //
+			this.tmAutoWcbLocalStorage = setInterval(function(){
+				wc2.actionAutoWcbLocalStorage();
+			},60*1000);
+			console.log("자동저장 : 인터벌 동작 시작");
+		}
+		/**
+		 * 자동저장용 인터벌
+		 * @return {[type]} [description]
+		 */
+		,"actionAutoWcbLocalStorage":function(){
+			//5회 초과 실패시 동작중이라도 강제로 자동 저장을 시도한다. (약 5분 이후 강제 저장되도록)
+			if((this.failCountAutoWcbLocalStorage > 5 || wc2Tool.isDown === 0) && this.wcbs.length > 0){
+				
+				console.log("자동저장 : 시작");
+				this.saveAutoWcbLocalStorage();
+				this.failCountAutoWcbLocalStorage = 0; //
+			}else{
+				this.failCountAutoWcbLocalStorage++;
+				console.log("자동저장 : 스킵 : "+this.failCountAutoWcbLocalStorage);
+			}
+		}
+		/**
+		 * 자동저장
+		 * @return {[type]} [description]
+		 */
+		,"saveAutoWcbLocalStorage":function(){
+			if(this.wcbs.length==0){
+				this.setError("No Wcbs"); return false;
+			}
+			// if(!confirm("임시 저장 하시겠습니까?")) return false;
+			var tempWcbs = {};
+			tempWcbs.mtime = (new Date).getTime();
+			tempWcbs.data = [];
+
+			for(var i=0,m=this.wcbs.length;i<m;i++){
+				if(this.wcbs[i].historyLog.length>1){
+					tempWcbs.data.push(this.wcbs[i].toWcbDataObject());
+				}else{
+					console.log('자동저장 : 최초 문서는 자동 저장 안함.')
+				}
+			}
+			var t = JSON.stringify(tempWcbs);
+			if(t.length>1024*1024*3){
+				// if(!confirm("Too Large Data. (bigger then 3MB)\nContinue?")){
+				// 	return false;
+				// }
+				this.setError("Fail Auto Save : BBBBig Size"); return false;
+			}
+			localStorage.setItem("wc2.tempAutoWcbs", t);
+			// alert("Save In Temporary OK");
+			this.setError("Success Auto Save");
+			return true;
+		}
+		/**
+		 * 자동저장 내용 불러오기
+		 * @return {[type]} [description]
+		 */
+		,"openAutoWcbLocalStorage":function(){
+			var tempWcbs = localStorage.getItem("wc2.tempAutoWcbs");
 			if(tempWcbs == null){
 				this.setError("No TempWcbs"); return false;
 			}
