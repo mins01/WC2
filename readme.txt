@@ -1,6 +1,8 @@
 ﻿WC2 (WebCanvas2)
 Multi Layer Image Editor for Canvas(HTML5)
 
+제작자 : mins01.lycos.co.kr@gmail.com , www.mins01.com
+
 # WC2 : http://www.mins01.com/WC2/WC2.html
 
 # WC (old) : http://www.mins01.com/web_work/web/WC/WC.html
