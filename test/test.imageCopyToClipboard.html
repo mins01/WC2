@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+2015-04-23 : 제작시작
+임의사용 금지.
+
+-->
+<html lang="ko"  >
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 뷰포트 -->
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
+	<title>test.imageCopyToClipboard</title>
+
+</head>
+<body>
+  <hr>
+  <div>
+	<img id="img_copy" src='http://www.mins01.com/WG2/down.php?mode=view&rel_path=%2F2017%2F08%2F20170804224112103.png' width="300">
+  </div>
+  <button type="button" onclick="copyMe(document.getElementById('img_copy'))">복사</button>
+  <hr>
+  <iframe width="600" height="300" id="iframe_1" src="about:blank"></iframe>
+  <script>
+  var d=document.getElementById("iframe_1").contentWindow.document;
+  d.designMode = "On"
+  document.getElementById("iframe_1").focus();
+  d.execCommand("inserthtml",false,"sadasdasdasdasd");
+
+  function copyMe(me){
+    console.log(me);
+
+    copyToClipboard(me.parentNode);
+
+  }
+  function copyToClipboard(element) {
+      element.contenteditable = true;
+      var doc = element.ownerDocument ;
+      if (window.getSelection) {
+          var selection = window.getSelection();
+          var range = doc.createRange();
+          range.selectNodeContents(element);
+          selection.removeAllRanges();
+          selection.addRange(range);
+      }else if (doc.body.createTextRange) {
+          var range = doc.body.createTextRange();
+          range.moveToElementText(element);
+          range.select();
+      }
+      doc.execCommand('copy');
+      element.contenteditable = false;
+
+  }
+
+  </script>
+</body>
+</html>
