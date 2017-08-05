@@ -18,10 +18,11 @@
 <body>
   <hr>
   <div>
-	<img id="img_copy" src='http://www.mins01.com/WG2/down.php?mode=view&rel_path=%2F2017%2F08%2F20170804224112103.png' width="300">
+	   <img id="img_copy" src='http://www.mins01.com/WG2/down.php?mode=view&rel_path=%2F2017%2F08%2F20170804224112103.png' width="300">
   </div>
   <button type="button" onclick="copyMe(document.getElementById('img_copy'))">복사</button>
   <hr>
+  <textarea style="width:600px;height300px" id="txtarea_1"  ></textarea>
   <iframe width="600" height="300" id="iframe_1" src="about:blank"></iframe>
   <script>
   var d=document.getElementById("iframe_1").contentWindow.document;
@@ -35,6 +36,7 @@
     copyToClipboard(me.parentNode);
 
   }
+  document.onpaste=pasteFromClipboard;
   function copyToClipboard(element) {
       element.contenteditable = true;
       var doc = element.ownerDocument ;
@@ -52,6 +54,32 @@
       doc.execCommand('copy');
       element.contenteditable = false;
 
+  }
+
+  function pasteFromClipboard(event,cb){
+    var data = event.dataTransfer.items;
+    for (var i = 0; i < data.length; i += 1) {
+      if ((data[i].kind == 'string') &&
+      (data[i].type.match('^text/plain'))) {
+        // This item is the target node
+        data[i].getAsString(function (s){
+          ev.target.appendChild(document.getElementById(s));
+        });
+      } else if ((data[i].kind == 'string') &&
+      (data[i].type.match('^text/html'))) {
+        // Drag data item is HTML
+        console.log("... Drop: HTML");
+      } else if ((data[i].kind == 'string') &&
+      (data[i].type.match('^text/uri-list'))) {
+        // Drag data item is URI
+        console.log("... Drop: URI");
+      } else if ((data[i].kind == 'file') &&
+      (data[i].type.match('^image/'))) {
+        // Drag data item is an image file
+        var f = data[i].getAsFile();//file<blob
+        console.log("... Drop: File ");
+      }
+    }
   }
 
   </script>

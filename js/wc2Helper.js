@@ -149,6 +149,37 @@ var wc2Helper = function(){
 			var quality = 0.1;
 			var du = c.toDataURL(mime,quality);
 			return du.indexOf(mime)!=-1;
-		}
+		},
+		/**
+		* 문자열과 DataURL 을 가져와서 콜백 함수를 호출한다.
+		* 마지막 item만 체크한다.
+		*/
+		"pasteFromClipboard":function(event,cb_string,cb_file){
+	    var items = event.clipboardData.items;
+			if(items.length ==0 ){
+				return;
+			}
+			var item = items[items.length-1];
+	    // for (var i = 0; i < items.length; i += 1) {
+	      if (item.kind == 'string') {
+	        // This item is the target node
+	        item.getAsString(function(cb_string,type){
+						return function(str){
+							cb_string(str,type);
+						}
+					}(cb_string,item.type));
+	      }if ((item.kind == 'file')) {
+	        // Drag items item is an image file
+	        var f = item.getAsFile();//file<blob
+					var fileReader = new FileReader();
+					fileReader.onload = function(cb_file,type){
+						return function(event){
+							cb_file(event.target.result,type);
+						}
+					}(cb_file,item.type);
+					fileReader.readAsDataURL(f);
+	      }
+	    // }
+	  }
 	}
 }();

@@ -84,6 +84,8 @@ var wc2 = (function(){
 			this.setTool("brush");
 			this.loadSetting();
 			this.initAutoWcbLocalStorage();
+			// 붙여넣기 열기 이벤트 처리
+			$(document).on("paste",function(event){ wc2.btnFileOpenPreviewImageFromPaste(event.originalEvent);});
 		}
 		,"initVar":function(){
 			//-- viewport 확대비율
@@ -160,7 +162,7 @@ var wc2 = (function(){
 			$(this.filterPreviewWC).addClass("bg-grid");
 			var t = $("#filterCanvasBox");
 			t.html("").append(this.filterPreviewWC.node);
-			
+
 			//--- 저장 가능 이미지 타입 표시제한
 			if(!wc2Helper.isSupportedImageType('image/png')){
 				$(".image-type-png").hide().prop('disabled',true);
@@ -174,7 +176,7 @@ var wc2 = (function(){
 			if(!wc2Helper.isSupportedImageType('image/webp')){
 				$(".image-type-webp").hide().prop('disabled',true);
 			}
-			
+
 		}
 		//--- 이벤트 초기화
 		,"initEvent":function(){
@@ -1114,10 +1116,31 @@ var wc2 = (function(){
 			}
 			preview.src = url;
 		}
-		,"btnFileOpenPreviewImage":function(el){
+		,"btnFileOpenPreviewImageFromPaste":function(event){
+			if($("form.wc-mdetail-file-open").css("display")=="none"){
+				return false;
+			}
+			event.stopPropagation();
+			event.preventDefault();
+			console.log(event);
+			wc2Helper.pasteFromClipboard(event,
+				function(str,type){
+					console.log("string",type,str);
+				},
+				function(dataURL,type){
+					// console.log("file",type,dataURL);
+					if(type.match('^image/')){ //이미지 형만
+						wc2.btnFileOpenPreviewImage(dataURL,'url')
+					}
+				}
+			)
+		}
+		,"btnFileOpenPreviewImage":function(el,el_Type){
 			var preview = document.getElementById('formMenuDetailFileOpenPreview');
 			preview.wcbdo = null;
-			if(el.type=="text" && el.value.length > 0){
+			if((el_Type=='url' || el_Type=='dataURL') && el.length > 0){
+				this.viewPreviewImageByWcbdoByURL(el);
+			}if(el.type=="text" && el.value.length > 0){
 				this.viewPreviewImageByWcbdoByURL(el.value);
 			}else if(el.type=="file"  && el.value.length > 0){
 				if(el.value.indexOf("wcbjson")!= -1){ //전용 파일
@@ -1478,7 +1501,7 @@ var wc2 = (function(){
 		,"actionAutoWcbLocalStorage":function(){
 			//5회 초과 실패시 동작중이라도 강제로 자동 저장을 시도한다. (약 5분 이후 강제 저장되도록)
 			if((this.failCountAutoWcbLocalStorage > 5 || wc2Tool.isDown === 0) && this.wcbs.length > 0){
-				
+
 				console.log("자동저장 : 시작");
 				this.saveAutoWcbLocalStorage();
 				this.failCountAutoWcbLocalStorage = 0; //

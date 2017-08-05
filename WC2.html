@@ -1019,7 +1019,7 @@ Ciao
 									<li class="list-group-item">
 										<div class="input-group">
 											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">URL/DataUrl</span>
-											<input type="text" class="form-control" name="url" spellcheck="false"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0"  onchange="wc2.btnFileOpenPreviewImage(this)"  >
+											<input type="text" class="form-control" name="url" spellcheck="false"  placeholder="Image URL..." onchange="wc2.btnFileOpenPreviewImage(this)"  >
 											<span class="input-group-btn">
 											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.url);">Load</button>
 											</span>
@@ -1027,10 +1027,19 @@ Ciao
 									</li>
 									<li class="list-group-item">
 										<div class="input-group">
-											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">in PC</span>
-											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson,.wcblzs" aria-describedby="formMenuDetailFileOpen-url-0" onchange="wc2.btnFileOpenPreviewImage(this)" >
+											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From PC</span>
+											<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson,.wcblzs" nchange="wc2.btnFileOpenPreviewImage(this)" >
 											<span class="input-group-btn">
 											<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
+											</span>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="input-group">
+											<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From Clipboard</span>
+											<input type="text" class="form-control" placeholder="on Paste. 붙여넣기 하세요."  disabled="disabled"  onpaste="wc2.btnFileOpenPreviewImageFromPaste(event)" onchange="this.value=''" onblur="this.value=''" >
+											<span class="input-group-btn">
+											<button class="btn btn-default" type="button" disabled="disabled">Load</button>
 											</span>
 										</div>
 									</li>
@@ -1054,7 +1063,7 @@ Ciao
 									<li class="list-group-item list-group-item-success">Setting File</li>
 									<li class="list-group-item">
 										<div class="input-group">
-											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." aria-describedby="formMenuDetailFileOpen-url-0" maxlength="50"  id="formMenuDetailFileSave-saveFileName" >
+											<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." axlength="50"  id="formMenuDetailFileSave-saveFileName" >
 											 <span class="input-group-addon">
 												<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson'); this.onblur()" onblur="wc2.btnFileSavePreview();">
 													<option value="png" class="image-type-png">.png</option>
@@ -1760,6 +1769,8 @@ Ciao
 		wc2.hideMenuDetail();
 		//wc2.showMenuDetail('image-resize');
 		//wc2.setTool("crop");
+		wc2.showMenuDetail('file-open');
+
 	});
 	</script>
 </html>
