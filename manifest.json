@@ -1,11 +1,13 @@
 {
   "short_name": "WC2",
   "name": "WebCanvas2",
+  "description": "Web Canvas 2",
+  "start_url": "./WC2.html",
   "icons": [
     {
       "src": "http://www.mins01.com/WC2/img/apple-touch-icon.png",
       "type": "image/png",
-      "sizes": "129x129"
+      "sizes": "72x72 96x96 128x128 256x256"
     }
   ],
   "start_url": "WC2.html",

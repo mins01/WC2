@@ -284,7 +284,7 @@ function WebCanvas(width,height,colorset){
 			switch(controlPoint){
 				case 0:
 				case 1:
-				case 2: y0 = 0; break;
+				case 2: y = 0; break;
 				case 3:
 				case 4:
 				case 5: y = (width-this.width)/2; break;
