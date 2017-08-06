@@ -313,7 +313,7 @@
 					</form>
 
 
-					<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')">
+					<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Image</div>
 							<div  class="panel-body">
@@ -343,7 +343,7 @@
 						</div>
 					</form>
 
-					<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" >
+					<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">text</div>
 							<div  class="panel-body">
@@ -474,7 +474,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')">
+					<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Transform Property</div>
 							<div  class="panel-body">
@@ -548,7 +548,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()">
+					<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Eraser</div>
 							<div  class="panel-body">
@@ -581,7 +581,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false">
+					<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush</div>
 								<table class="">
@@ -594,7 +594,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)">
+					<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 						<input type="hidden" name="imageSmoothingEnabled" value="1">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush Set1</div>
@@ -629,7 +629,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush2" id="formToolBrush2" action="javascript:void(0)" class="wc-tool wc-tool-brush2 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" data-disabled-load="1" onchange="wc2.syncBrush(this)">
+					<form name="formToolBrush2" id="formToolBrush2" action="javascript:void(0)" class="wc-tool wc-tool-brush2 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" data-disabled-load="1" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 						<input type="hidden" name="imageSmoothingEnabled" value="1">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush Set2</div>
@@ -664,7 +664,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush3" id="formToolBrush3" action="javascript:void(0)" class="wc-tool wc-tool-brush3 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange"  data-disabled-load="1" onchange="wc2.syncBrush(this)">
+					<form name="formToolBrush3" id="formToolBrush3" action="javascript:void(0)" class="wc-tool wc-tool-brush3 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange"  data-disabled-load="1" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 						<input type="hidden" name="imageSmoothingEnabled" value="1">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Brush Set3</div>
@@ -699,7 +699,7 @@ Ciao
 							</div>
 						</div>
 					</form>
-					<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();">
+					<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Pattern</div>
 							<div  class="panel-body">
@@ -805,7 +805,7 @@ Ciao
 					</form>
 
 					<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" >
+					<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 						<div class="panel panel-default">
 							<div  class="panel-heading">Color</div>
 							<div  class="panel-body">
@@ -1407,7 +1407,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterInvert" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
+				<form name="formMenuDetailLayerFilterInvert" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="invert">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Invert</div>
@@ -1426,7 +1426,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterColorize" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-colorize" onsubmit="wc2.cmdFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);" >
+				<form name="formMenuDetailLayerFilterColorize" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-colorize" onsubmit="wc2.cmdFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="colorize">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Colorize</div>
@@ -1457,7 +1457,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterGrayscale" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-grayscale" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
+				<form name="formMenuDetailLayerFilterGrayscale" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-grayscale" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
 					<!-- <input type="hidden" name="cmd" value="grayscale"> -->
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Grayscale</div>
@@ -1483,7 +1483,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterSharpen" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sharpen" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
+				<form name="formMenuDetailLayerFilterSharpen" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sharpen" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="sharpen">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">sharpen</div>
@@ -1502,7 +1502,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterBrightnessContrast" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.brightness.value,this.contrast.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.brightness.value,this.contrast.value);" >
+				<form name="formMenuDetailLayerFilterBrightnessContrast" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.brightness.value,this.contrast.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.brightness.value,this.contrast.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="brightness">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Brightness &amp; Contrast</div>
@@ -1529,7 +1529,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);" >
+				<form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="threshold">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">threshold</div>
@@ -1560,7 +1560,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterGaussianBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-gaussianblur" onsubmit="wc2.cmdFilter(this.cmd.value,this.diameter.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.diameter.value);" >
+				<form name="formMenuDetailLayerFilterGaussianBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-gaussianblur" onsubmit="wc2.cmdFilter(this.cmd.value,this.diameter.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.diameter.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="gaussianBlur">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">GaussianBlur</div>
@@ -1583,7 +1583,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterSobel" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sobel" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
+				<form name="formMenuDetailLayerFilterSobel" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sobel" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
 					<!-- <input type="hidden" name="cmd" value="sobel"> -->
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Sobel &amp; Laplace</div>
@@ -1608,7 +1608,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterAbove" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-above" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);" >
+				<form name="formMenuDetailLayerFilterAbove" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-above" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="above">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">Above</div>
@@ -1627,7 +1627,7 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterSistortSine" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-distortsine" onsubmit="wc2.cmdFilter(this.cmd.value,this.amount.value,this.yamount.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.amount.value,this.yamount.value);" >
+				<form name="formMenuDetailLayerFilterSistortSine" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-distortsine" onsubmit="wc2.cmdFilter(this.cmd.value,this.amount.value,this.yamount.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.amount.value,this.yamount.value);"  oninput="this.onchange()" >
 					<input type="hidden" name="cmd" value="distortSine">
 					<div class="panel panel-default wc2-panel" >
 						<div  class="panel-heading">DistortSine</div>
