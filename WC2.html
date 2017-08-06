@@ -336,7 +336,7 @@
 									</tr>
 									<tr>
 										<th>URL</th>
-										<td><input type="text" name="inputImageFile" style="width:90%" onchange="document.getElementById('imageNode').src=wc2.converURL(this.value)"></td>
+										<td><input type="text" name="inputImageFile" style="width:90%" placeHolder="URL/dataURL/clipboard" onpaste="wc2.onpasteFromClipboardForInput(event,function(){},function(dataURL,type,event){document.getElementById('imageNode').src=dataURL});" onchange="document.getElementById('imageNode').src=wc2.converURL(this.value)"></td>
 									</tr>
 								</table>
 							</div>

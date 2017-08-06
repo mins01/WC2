@@ -84,8 +84,6 @@ var wc2 = (function(){
 			this.setTool("brush");
 			this.loadSetting();
 			this.initAutoWcbLocalStorage();
-			// 붙여넣기 열기 이벤트 처리
-			$(document).on("paste",function(event){ wc2.btnFileOpenPreviewImageFromPaste(event.originalEvent);});
 		}
 		,"initVar":function(){
 			//-- viewport 확대비율
@@ -181,6 +179,9 @@ var wc2 = (function(){
 		//--- 이벤트 초기화
 		,"initEvent":function(){
 
+			// 붙여넣기 열기 이벤트 처리
+			$(document).on("paste",function(event){ wc2.btnFileOpenPreviewImageFromPaste(event.originalEvent);});
+
 			var onDown = function(event) {
 				if(event.target.tagname=="select"){
 					return true;
@@ -257,8 +258,8 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			$('body').on("selectstart", function(event){ return false; });
-			$('#contentArea').on("dragstart", function(event){ return false; });
+			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
+			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){
 				wc2.setToolByBtn(this);
@@ -428,6 +429,35 @@ var wc2 = (function(){
 				this._syncWcbInfo();
 			}
 
+		}
+		/**
+		 * onpaste 이벤트에 file 타입인 경우 dataURL로 변경해서 값을 넣도록 해준다.
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		,"onpasteFromClipboardForInput":function(event,cb_string,cb_file){
+			var event_target = event.target;
+			// console.log(event);
+			this.pasteFromClipboard(event,
+				function(str,type,event){
+					if(cb_string == null ){
+						return;
+					}
+					cb_string(str,type,event)
+				},
+				function(dataURL,type,event){
+					if(cb_file == null ){
+						return;
+					}
+					// console.log("file",type,dataURL);
+					if(type.match('^image/')){ //이미지 형만
+						event.stopPropagation();
+						event.preventDefault();
+						// event_target.value=dataURL;
+						cb_file(dataURL,type,event);
+					}
+				}
+			)
 		}
 		,"blobWcb":function(type,quality){
 			var toDataURLType = type;
@@ -1127,29 +1157,26 @@ var wc2 = (function(){
 			}
 			var item = items[items.length-1];
 			// for (var i = 0; i < items.length; i += 1) {
+				console.log(items);
 				if (item.kind == 'string') {
 					// This item is the target node
 					if(!item.type.match('^text/html')){
 						return;
 					}
-					event.stopPropagation();
-					event.preventDefault();
-					item.getAsString(function(cb_string,type){
+					item.getAsString(function(cb_string,type,from_event){
 						return function(str){
-							cb_string(str,type);
+							cb_string(str,type,from_event);
 						}
-					}(cb_string,item.type));
+					}(cb_string,item.type,event));
 				}if ((item.kind == 'file')) {
-					event.stopPropagation();
-					event.preventDefault();
 					// Drag items item is an image file
 					var f = item.getAsFile();//file<blob
 					var fileReader = new FileReader();
-					fileReader.onload = function(cb_file,type){
-						return function(event){
-							cb_file(event.target.result,type);
+					fileReader.onload = function(cb_file,type,from_event){
+						return function(evt){
+							cb_file(evt.target.result,type,from_event);
 						}
-					}(cb_file,item.type);
+					}(cb_file,item.type,event);
 					fileReader.readAsDataURL(f);
 				}
 			// }
@@ -1160,12 +1187,16 @@ var wc2 = (function(){
 			}
 			console.log(event);
 			this.pasteFromClipboard(event,
-				function(str,type){
+				function(str,type,event){
+					event.stopPropagation();
+					event.preventDefault();
 					console.log("string",type,str);
 				},
-				function(dataURL,type){
+				function(dataURL,type,event){
 					// console.log("file",type,dataURL);
 					if(type.match('^image/')){ //이미지 형만
+						event.stopPropagation();
+						event.preventDefault();
 						wc2.btnFileOpenPreviewImage(dataURL,'url')
 					}
 				}
