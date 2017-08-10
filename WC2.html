@@ -189,6 +189,7 @@
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sobel">Sobel &amp; Laplace</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-above">Above</a></li>
 											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-distortsine">DistortSine</a></li>
+											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-changeColorSet">ChangeColorSet</a></li>
 
 										</ul>
 								</li>
@@ -1655,6 +1656,40 @@ Ciao
 						</div>
 					</div>
 				</form>
+				<form name="formMenuDetailLayerFilterChangeColorSet" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-changeColorSet" onsubmit="wc2.cmdFilter(this.cmd.value,this.colorSet.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.colorSet.value);"  oninput="this.onchange()" >
+					<input type="hidden" name="cmd" value="changeColorSet">
+					<div class="panel panel-default wc2-panel" >
+						<div  class="panel-heading">ChangeColorSet</div>
+						<div  class="panel-body" >
+							<ul class="list-group ">
+								<li class="list-group-item">
+									<select class="form-control" name="colorSet" id="wc-mdetail-layer-filter-changeColorSet-colorSet">
+										<option value="color_1bit">color_1bit</option>
+									</select>
+									<script>
+									$(function(){
+										var t = document.getElementById('wc-mdetail-layer-filter-changeColorSet-colorSet');
+										$(t).html("");
+										for(var k in setColorSet.colorSets){
+											
+											$(t).append('<option value="'+k+'">'+k+'</option>')
+										}
+									})
+									</script>
+								</li>
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+								</li>
+								<li class="list-group-item">
+									<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+									<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
 		</article>
 		<!-- //메뉴 상세 부분 -->
 
@@ -1699,7 +1734,7 @@ Ciao
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
 
-
+	<script src="js/setColorSet.js"></script>
 
 	<!-- WC2 -->
 	<script src="js/class.WebCanvas.js"></script>

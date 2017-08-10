@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rv 20170806-###
+# rv 20170810-#
 
 
 CACHE:
@@ -41,6 +41,7 @@ pattern/pattern01.png
 pattern/pattern02.png
 img/favicon.ico
 img/apple-touch-icon.png
+js/setColorSet.js
 
 NETWORK:
 *

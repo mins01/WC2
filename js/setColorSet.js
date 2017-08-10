@@ -49,11 +49,11 @@ var setColorSet = {
 			throw new Error("not supported colorSet  '"+i_colorSet+"'");
 		}
 		
-		for(var i=0,m=imagedata.data.length;i<m;i+=4){
-			var c0 = imagedata.data[i];
-			var c1 = imagedata.data[i+1];
-			var c2 = imagedata.data[i+2];
-			var c3 = imagedata.data[i+3];
+		for(var i=0,m=imageData.data.length;i<m;i+=4){
+			var c0 = imageData.data[i];
+			var c1 = imageData.data[i+1];
+			var c2 = imageData.data[i+2];
+			var c3 = imageData.data[i+3];
 			var closestSet = this.getClosestColor(c0,c1,c2,colorSet);
 			toImageData.data[i] = closestSet[0];
 			toImageData.data[i+1] = closestSet[1];

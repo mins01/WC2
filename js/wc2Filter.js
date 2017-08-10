@@ -177,6 +177,11 @@ var wc2Filter = function(){
 			return this.convolute(imageData,
 				arr)
 		},
+		//--- 자체제작
+		"changeColorSet":function(imageData,colorSet){
+			return setColorSet.changeImageData(imageData,colorSet);
+		},
 	}
+
 
 }()
