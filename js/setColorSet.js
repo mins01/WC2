@@ -64,6 +64,20 @@ var setColorSet = {
 		return toImageData;
 		// 
 	},
+	"getColorSetFromImageData":function(imageData){
+		var colorSet = {};
+		for(var i=0,m=imageData.data.length;i<m;i+=4){
+			var c0 = imageData.data[i];
+			var c1 = imageData.data[i+1];
+			var c2 = imageData.data[i+2];
+			// var c3 = imageData.data[i+3];
+			if(!colorSet[c0+","+c1+","+c2+","]){
+				colorSet[c0+","+c1+","+c2+","]=[c0,c1,c2,0];
+			}
+			colorSet[c0+","+c1+","+c2+","][3]++;
+		}
+		return colorSet;
+	}
 	
 	
 }
