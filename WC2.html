@@ -175,24 +175,22 @@
 								<li class="divider"></li>
 								<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="layer-rename">Rename</a></li>
 								<li><a href="#" class="glyphicon glyphicon-save-file" onclick="wc2.cmdLayer('save')">Save</a></li>
-								<li class="divider"></li>
-								<li class="dropdown-submenu">
-									<a href="#" tabindex="-1" data-toggle="dropdown"><span  class="glyphicon glyphicon-flash"></span>Filter</a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-invert">Invert</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-grayscale">Grayscale</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness &amp; Contrast</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-colorize">Colorize</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-threshold">Threshold</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sharpen">Sharpen</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-gaussianblur">GaussianBlur</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sobel">Sobel &amp; Laplace</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-above">Above</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-distortsine">DistortSine</a></li>
-											<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-changeColorSet">ChangeColorSet</a></li>
-
-										</ul>
-								</li>
+						  </ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-invert">Invert</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-grayscale">Grayscale</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness &amp; Contrast</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-colorize">Colorize</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-threshold">Threshold</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sharpen">Sharpen</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-gaussianblur">GaussianBlur</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-sobel">Sobel &amp; Laplace</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-above">Above</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-distortsine">DistortSine</a></li>
+								<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-applyPalette">ApplyPalette</a></li>
 						  </ul>
 						</li>
 						<li class="dropdown">
@@ -1656,27 +1654,34 @@ Ciao
 						</div>
 					</div>
 				</form>
-				<form name="formMenuDetailLayerFilterChangeColorSet" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-changeColorSet" onsubmit="wc2.cmdFilter(this.cmd.value,this.colorSet.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.colorSet.value);"  oninput="this.onchange()" >
-					<input type="hidden" name="cmd" value="changeColorSet">
+				<form name="formMenuDetailLayerFilterApplyPalette" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-applyPalette" onsubmit="wc2.cmdFilter(this.cmd.value,this.palette.value,this.is_optimize.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.palette.value,this.is_optimize.value);"  oninput="this.onchange()" >
+					<input type="hidden" name="cmd" value="applyPalette">
 					<div class="panel panel-default wc2-panel" >
-						<div  class="panel-heading">ChangeColorSet</div>
+						<div  class="panel-heading">ApplyPalette</div>
 						<div  class="panel-body" >
 							<ul class="list-group ">
 								<li class="list-group-item">
-									<select class="form-control" name="colorSet" id="wc-mdetail-layer-filter-changeColorSet-colorSet">
+									<select class="form-control" name="palette" id="wc-mdetail-layer-filter-applyPalette-palette">
 										<option value="color_1bit">color_1bit</option>
 									</select>
 									<script>
 									$(function(){
-										var t = document.getElementById('wc-mdetail-layer-filter-changeColorSet-colorSet');
+										var t = document.getElementById('wc-mdetail-layer-filter-applyPalette-palette');
 										$(t).html("");
-										for(var k in setColorSet.colorSets){
-											
+										for(var k in colorPalette.palettes){
 											$(t).append('<option value="'+k+'">'+k+'</option>')
 										}
 									})
 									</script>
 								</li>
+								<li class="list-group-item">
+										<div class="form-inline">
+											<select class="form-control" name="is_optimize">
+												<option value="0">none</option>
+												<option value="1">optimize</option>
+											</select>
+										</div>
+									</li>
 								<li class="list-group-item">
 									<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
 									<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
@@ -1734,7 +1739,8 @@ Ciao
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
 
-	<script src="js/setColorSet.js"></script>
+	<script src="js/colorPalette.js"></script>
+	<script src="js/colorPalette.palettes.js"></script>
 
 	<!-- WC2 -->
 	<script src="js/class.WebCanvas.js"></script>

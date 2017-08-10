@@ -68,7 +68,7 @@ var wc2Filter = function(){
 				d[i+2] = Math.max(0,Math.min(255,d[i+2]+b));
 			}
 			return imageData;
-		},		
+		},
 		//--- convolute  (http://www.html5rocks.com/en/tutorials/canvas/imagefilters/)
 		"convolute":function(imageData, weights, opaque) {
 			var side = Math.round(Math.sqrt(weights.length));
@@ -177,9 +177,14 @@ var wc2Filter = function(){
 			return this.convolute(imageData,
 				arr)
 		},
-		//--- 자체제작
-		"changeColorSet":function(imageData,colorSet){
-			return setColorSet.changeImageData(imageData,colorSet);
+		//--- 파레트 제한 적용 : 자체제작
+		"applyPalette":function(imageData,palette,is_optimize){
+			if(is_optimize=='1'){
+				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
+				return colorPalette.applyPalette(imageData,opt_palette);
+			}else{
+				return colorPalette.applyPalette(imageData,palette);
+			}
 		},
 	}
 
