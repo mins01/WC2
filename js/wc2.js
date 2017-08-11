@@ -1473,7 +1473,7 @@ var wc2 = (function(){
 			}
 		}
 		*/
-		,"_cmdFilter":function(wc,cmd,arg1,arg2,arg3){
+		,"_cmdFilter":function(wc,cmd){
 			if(wc2Filter[cmd]==undefined){
 				this.setError("필터 "+cmd+"가 없습니다.");
 			}
@@ -1485,7 +1485,17 @@ var wc2 = (function(){
 			for(var i=2,m=arguments.length;i<m;i++){
 				args.push(arguments[i]);
 			}
-			wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
+			if(cmd=='applyPalette_cb'){//callback 처리한다.
+				args[3]=function(imageData){
+					wc.cmdContext2d('putImageData',imageData);
+				}
+				wc2Filter[cmd].apply(wc2Filter,args)
+
+			}else{
+				wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
+			}
+
+
 		}
 		,"cmdFilter":function(cmd,arg1,arg2,arg3){
 			if(!this.activeWcb){ this.setError( "wc2.cmdLayer() 활성화된 윈도우가 없습니다."); return; }
@@ -1521,9 +1531,11 @@ var wc2 = (function(){
 			if(this.cmdPreviewFilter.tm){
 				clearTimeout(this.cmdPreviewFilter.tm)
 			}
+
+
 			this.cmdPreviewFilter.tm = setTimeout(function(thisC){
 				return function(){
-				thisC._cmdFilter(thisC.filterPreviewWC,cmd,arg1,arg2,arg3);	
+				thisC._cmdFilter(thisC.filterPreviewWC,cmd,arg1,arg2,arg3);
 				}
 			}(this),0)
 		}

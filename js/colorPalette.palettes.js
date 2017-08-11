@@ -6,9 +6,31 @@
 		throw new Error("Fail : Required colorPalette");
 	}
 	//-- 2색
-	colorPalette.palettes['color_1bit'] = [[0,0,0],[255,255,255]]
+	colorPalette.palettes['white_black_1bit'] = [[0,0,0],[255,255,255]]
+	//grayscale 4색
+	var t = new Array(4),t2=256/4,t3;
+	for(var i=0,m=t.length;i<m;i++){
+		t3=i*t2;
+		t[i]=[t3,t3,t3];
+	}
+	colorPalette.palettes['grayscale_2bit'] = t;
+	//grayscale 16색
+	t = new Array(16),t2=256/16;
+	for(var i=0,m=t.length;i<m;i++){
+		t3=i*t2;
+		t[i]=[t3,t3,t3];
+	}
+	colorPalette.palettes['grayscale_4bit'] = t;
+	//grayscale 32색
+	t = new Array(32),t2=256/32;
+	for(var i=0,m=t.length;i<m;i++){
+		t3=i*t2;
+		t[i]=[t3,t3,t3];
+	}
+	colorPalette.palettes['grayscale_8bit'] = t;
+
 	//-- 4색
-	colorPalette.palettes['color_2bit'] = [[0,0,0],[64,64,64],[128,128,128],[255,255,255]]
+	colorPalette.palettes['color_2bit'] = [[0,0,0],[0, 255, 255],[255, 0, 255],[255,255,255]]
 	//-- 16색
 	colorPalette.palettes['color_4bit'] = [[0,0,0],
 	[255,255,255],

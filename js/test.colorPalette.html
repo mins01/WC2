@@ -76,11 +76,15 @@
 	function getPaletteFromImageData(colorLimit){
 		var palette = colorPalette.getPaletteFromImageData(imagedata,colorLimit);
 		//console.log('getPaletteFromImageData',palette);
-		var toImagedata = colorPalette.applyPalette(imagedata,palette);
+		// var toImagedata = colorPalette.applyPalette(imagedata,palette);
+		// ctx2getPaletteFromImageData.putImageData(toImagedata,0,0);
+		colorPalette.applyPaletteWithCallback(imagedata,palette,function(toImagedata){
 		ctx2getPaletteFromImageData.putImageData(toImagedata,0,0);	
+		});
+
 	}
 	getPaletteFromImageData(256);
-	
+
 
   </script>
 </body>

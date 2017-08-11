@@ -177,17 +177,34 @@ var wc2Filter = function(){
 			return this.convolute(imageData,
 				arr)
 		},
-		//--- 파레트 제한 적용 : 자체제작
-		"applyPalette":function(imageData,palette,is_optimize){
+		//--- 파레트 제한 적용 : 자체제작, 콜백으로 동작, 속도가 조금더 빠르다.
+		"applyPalette_cb":function(imageData,palette,is_optimize,cb){
 			if(is_optimize=='1'){
 				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
-				return colorPalette.applyPalette(imageData,opt_palette);
+				return colorPalette.applyPaletteWithCallback(imageData,opt_palette,cb);
 			}else if(is_optimize=='2'){
-				var opt_palette = colorPalette.getPaletteFromImageData(imageData,palette);
-				return colorPalette.applyPalette(imageData,opt_palette);
+				var opt_palette = colorPalette.getPaletteFromImageData(imageData,colorPalette.getPalette(palette).length);
+				return colorPalette.applyPaletteWithCallback(imageData,opt_palette,cb);
 			}else{
-				return colorPalette.applyPalette(imageData,palette);
+				return colorPalette.applyPaletteWithCallback(imageData,palette,cb);
 			}
+		},
+		//--- 파레트 제한 적용 : 자체제작
+		"applyPalette":function(imageData,palette,is_optimize,cb){
+			if(is_optimize=='1'){
+				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
+				return colorPalette.applyPalette(imageData,opt_palette,cb);
+			}else if(is_optimize=='2'){
+				var opt_palette = colorPalette.getPaletteFromImageData(imageData,colorPalette.getPalette(palette).length);
+				return colorPalette.applyPalette(imageData,opt_palette,cb);
+			}else{
+				return colorPalette.applyPalette(imageData,palette,cb);
+			}
+		},
+
+		//--- 컬러뎁스 제한 : 자체제작
+		"applyColorDepth":function(imageData,depth){
+			return colorPalette.applyColorDepth(imageData,depth);
 		},
 	}
 

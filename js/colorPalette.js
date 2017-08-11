@@ -42,17 +42,115 @@ var colorPalette = {
 		}
     return this.tmpCtx.createImageData(imageData);
   },
-	"applyPalette":function(imageData,i_palette){
+	"applyPaletteWithCallback":function(imageData,i_palette,callback){
+		let toImageData = this.createImageDataByImageData(imageData);
+
+		let palette = this.getPalette(i_palette);
+		let tmp_palette = new Array(16777216);
+		let key = 0,closestColor;
+
+		let fns = [];
+		for(var i=0,m=imageData.data.length;i<m;i+=10000){
+			fns.push(function(i,m,thisC){return function(){
+				for(;i<m;i+=4){
+					var c0 = imageData.data[i];
+					var c1 = imageData.data[i+1];
+					var c2 = imageData.data[i+2];
+					var c3 = imageData.data[i+3];
+					key = c0*65535+c1*256+c2;
+
+					if(tmp_palette[key]){
+						closestColor = tmp_palette[key];
+					}else{
+						tmp_palette[key] = closestColor = thisC.getClosestColor(c0,c1,c2,palette);
+					}
+
+					toImageData.data[i] = closestColor[0];
+					toImageData.data[i+1] = closestColor[1];
+					toImageData.data[i+2] = closestColor[2];
+					toImageData.data[i+3] = c3;
+				}
+			}}(i,i+10000-1,this))
+		}
+		console.log(fns);
+		let on_cnt = 0,cnt = fns.length;
+		let called_callback = 0;
+		let tm_fn = function(){
+			setTimeout(function(){
+				if(fns.length==0 && cnt==0){
+
+					return;
+				}
+				let fn = fns.pop();
+				on_cnt++;
+				if(on_cnt<2){
+					tm_fn()
+				}
+				if(fn) fn();
+				on_cnt--;
+				cnt--;
+				if(cnt==0) {
+					callback(toImageData)
+				}
+				if(on_cnt<2){
+					tm_fn()
+				}
+			})
+		}
+		tm_fn()
+		tm_fn();
+
+		return toImageData;
+		//
+	},
+	/**
+	 * depth 기준으로 색을 단편화 시킴.
+	 * @param  {[type]} imageData [description]
+	 * @param  {[type]} depth     2,3,4,5,6,7,8
+	 * @return {[type]}           [description]
+	 */
+	"applyColorDepth":function(imageData,depth){
+		depth = parseInt(depth);
+		let mnum = Math.round(256/depth);
 		var toImageData = this.createImageDataByImageData(imageData);
 
-		var palette = this.getPalette(i_palette);
+		let key = 0,closestColor;
 
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
 			var c0 = imageData.data[i];
 			var c1 = imageData.data[i+1];
 			var c2 = imageData.data[i+2];
 			var c3 = imageData.data[i+3];
-			var closestColor = this.getClosestColor(c0,c1,c2,palette);
+
+			toImageData.data[i] = c0 - (c0 % mnum);
+			toImageData.data[i+1] = c1 - (c1 % mnum);
+			toImageData.data[i+2] = c2 - (c2 % mnum);
+			toImageData.data[i+3] = c3;
+		}
+		// console.log(imagedata);
+		return toImageData;
+		//
+	},
+	"applyPalette":function(imageData,i_palette){
+		var toImageData = this.createImageDataByImageData(imageData);
+
+		let palette = this.getPalette(i_palette);
+		let tmp_palette = new Array(16777216);
+		let key = 0,closestColor;
+
+		for(var i=0,m=imageData.data.length;i<m;i+=4){
+			var c0 = imageData.data[i];
+			var c1 = imageData.data[i+1];
+			var c2 = imageData.data[i+2];
+			var c3 = imageData.data[i+3];
+			key = c0*65535+c1*256+c2;
+
+			if(tmp_palette[key]){
+				closestColor = tmp_palette[key];
+			}else{
+				tmp_palette[key] = closestColor = this.getClosestColor(c0,c1,c2,palette);
+			}
+
 			toImageData.data[i] = closestColor[0];
 			toImageData.data[i+1] = closestColor[1];
 			toImageData.data[i+2] = closestColor[2];
@@ -62,7 +160,7 @@ var colorPalette = {
 		return toImageData;
 		//
 	},
-	// 이미지에서 파레트를 가져온후 색상이 많은 순으로 제한한다.
+	// 이미지에서 파레트를 가져온후 색상이 많은 순으로 제한한다. (안 좋다, 쓰지 말라.)
 	"getPaletteFromImageData":function(imageData,limit){
 		var fPalette = {};
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
@@ -88,7 +186,7 @@ var colorPalette = {
 	// 이미지에서 파레트를 가져온후 다른 파레트를 기반으로 제한한다.
 	"getPaletteFromImageDataWithBasePalette":function(imageData,bPalette){
 		var palette = this.getPalette(bPalette);
-		
+
 		var fPalette = {};
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
 			var c0 = imageData.data[i];
