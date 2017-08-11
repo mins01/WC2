@@ -1518,7 +1518,14 @@ var wc2 = (function(){
 			this.filterPreviewWC.resize(w,h);
 			this.filterPreviewWC.copy(this.activeWcb.activeWebCanvas,0,0,w,h);
 			if(cmd=="reset") return;
-			this._cmdFilter(this.filterPreviewWC,cmd,arg1,arg2,arg3);
+			if(this.cmdPreviewFilter.tm){
+				clearTimeout(this.cmdPreviewFilter.tm)
+			}
+			this.cmdPreviewFilter.tm = setTimeout(function(thisC){
+				return function(){
+				thisC._cmdFilter(thisC.filterPreviewWC,cmd,arg1,arg2,arg3);	
+				}
+			}(this),0)
 		}
 		,"saveWcbLocalStorage":function(){
 			if(this.wcbs.length==0){
