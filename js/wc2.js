@@ -276,6 +276,10 @@ var wc2 = (function(){
 			//-- 단축키
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
 			Mousetrap.bind(['ctrl+shift+z','ctrl+y'], function(event) { wc2.cmdWcb("redo"); });
+			//-- 열린 패널창 숨기기용
+			Mousetrap.bind('esc', function(event) {
+				wc2.hideMenuDetail();
+			});
 			//-- 메뉴 부분 이벤트 처리용
 			$("#topMenu").on("click","a",function(event){
 				wc2.closeOnclickNavbar(event);
@@ -1065,17 +1069,18 @@ var wc2 = (function(){
 			return;
 		}
 		,"showMenuDetail":function(menu){
-			$("#menuDetailArea").show().find(".wc-mdetail").each(
+			$("#menuDetailArea").show().find(".wc-mdetail.show").each(
 				function(){
-					$(this).hide();
+					// $(this).hide();
+					$(this).removeClass('show');
 				}
 			)
-			var frms = $("#menuDetailArea").find(".wc-mdetail-"+menu)
-			frms.show();
+			var frms = $("#menuDetailArea").find(".wc-mdetail-"+menu).addClass('show');
+			frms.addClass('show')
 
 
 			if(menu.indexOf("layer-filter")==0){ //필터용 프리뷰
-				$(".wc-mdetail-layer-filter-preview").show();
+				$(".wc-mdetail-layer-filter-preview").addClass('show');
 			}
 
 

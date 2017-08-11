@@ -182,6 +182,9 @@ var wc2Filter = function(){
 			if(is_optimize=='1'){
 				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
 				return colorPalette.applyPalette(imageData,opt_palette);
+			}else if(is_optimize=='2'){
+				var opt_palette = colorPalette.getPaletteFromImageData(imageData,palette);
+				return colorPalette.applyPalette(imageData,opt_palette);
 			}else{
 				return colorPalette.applyPalette(imageData,palette);
 			}

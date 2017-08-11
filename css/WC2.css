@@ -261,7 +261,8 @@ position:fixed;top:52px;left:0;right:0;bottom:0;z-index:3;
 background-color:rgba(0,0,0,0.2);
 }
 #menuDetailArea .wc2-panel{margin:0 auto;min-width:200px; max-width:600px;}
-#menuDetailArea .wc-menudetail{}
+#menuDetailArea .wc-mdetail{display: none;}
+#menuDetailArea .wc-mdetail.show{display: block;}
 /* file-open 이미지 미리보기 */
 #formMenuDetailFileOpenPreview{max-width:90%;}
 

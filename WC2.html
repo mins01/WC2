@@ -118,7 +118,8 @@
 							<li><a href="#" class="glyphicon glyphicon-paste" onclick="wc2.openWcbLocalStorage()" ><span class="small-text">T</span>Temp Open</a></li>
 							<li class="divider"></li>
 							<li><a href="#" class="glyphicon glyphicon-paste" onclick="wc2.openAutoWcbLocalStorage()" ><span class="small-text">T</span>AutoSave Open</a></li>
-
+							<li class="divider"></li>
+							<li><a href="#" class="glyphicon glyphicon-exclamation-sign" onclick="if(confirm('Exit?')){ self.close()};return false" >Exit</a></li>
 
 						  </ul>
 						</li>
@@ -1669,7 +1670,7 @@ Ciao
 										var t = document.getElementById('wc-mdetail-layer-filter-applyPalette-palette');
 										$(t).html("");
 										for(var k in colorPalette.palettes){
-											$(t).append('<option value="'+k+'">'+k+'</option>')
+											$(t).append('<option value="'+k+'">'+k+' ('+colorPalette.palettes[k].length+' colors)</option>')
 										}
 									})
 									</script>
@@ -1678,7 +1679,8 @@ Ciao
 										<div class="form-inline">
 											<select class="form-control" name="is_optimize">
 												<option value="0">none</option>
-												<option value="1">optimize</option>
+												<option value="1">colorLimitByPalette</option>
+												<option value="2">optimize limit by palette color count</option>
 											</select>
 										</div>
 									</li>

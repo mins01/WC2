@@ -1,6 +1,13 @@
 var colorPalette = {
 	//색상세트들
 	"palettes":{},
+	"getPalette":function(paletteName){
+		var palette = (typeof paletteName == "string")?this.palettes[paletteName]:paletteName;
+		if(!palette || !palette[0]){
+			throw new Error("not supported palette '"+paletteName.toString()+"'");
+		}
+		return palette
+	},
 	//-- 가장 가까운색 찾기
 	"getClosestColor":function(r,g,b,palette){
 		var closestSet = null;
@@ -38,10 +45,7 @@ var colorPalette = {
 	"applyPalette":function(imageData,i_palette){
 		var toImageData = this.createImageDataByImageData(imageData);
 
-		var palette = (typeof i_palette == "string")?this.palettes[i_palette]:i_palette;
-		if(!palette || !palette[0]){
-			throw new Error("not supported palette  '"+i_palette.toString()+"'");
-		}
+		var palette = this.getPalette(i_palette);
 
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
 			var c0 = imageData.data[i];
@@ -58,7 +62,8 @@ var colorPalette = {
 		return toImageData;
 		//
 	},
-	"getPaletteFromImageData":function(imageData){
+	// 이미지에서 파레트를 가져온후 색상이 많은 순으로 제한한다.
+	"getPaletteFromImageData":function(imageData,limit){
 		var fPalette = {};
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
 			var c0 = imageData.data[i];
@@ -70,18 +75,20 @@ var colorPalette = {
 			}
 			fPalette[c0+","+c1+","+c2][3]++;
 		}
-		var rPalette=[]
-		for(var x in fPalette){
-			rPalette.push(fPalette[x].slice(0,3));
+		var rPalette = Object.values(fPalette);
+		rPalette.sort(function(a,b){return b[3]- a[3]})
+		rPalette.forEach(function(el,idx,arr){
+			el.splice(3,1);
+		})
+		if(limit){
+			rPalette.splice(limit,rPalette.length-limit);
 		}
 		return rPalette;
 	},
+	// 이미지에서 파레트를 가져온후 다른 파레트를 기반으로 제한한다.
 	"getPaletteFromImageDataWithBasePalette":function(imageData,bPalette){
-		var palette = (typeof bPalette == "string")?this.palettes[bPalette]:bPalette;
-		if(!palette || !palette[0]){
-			throw new Error("not supported bPalette  '"+bPalette.toString()+"'");
-		}
-
+		var palette = this.getPalette(bPalette);
+		
 		var fPalette = {};
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
 			var c0 = imageData.data[i];
