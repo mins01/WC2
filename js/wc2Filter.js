@@ -203,8 +203,8 @@ var wc2Filter = function(){
 		},
 
 		//--- 컬러뎁스 제한 : 자체제작
-		"applyColorDepth":function(imageData,depth){
-			return colorPalette.applyColorDepth(imageData,depth);
+		"applyColorDepth":function(imageData,depthR,depthG,depthB){
+			return colorPalette.applyColorDepth(imageData,depthR,depthG,depthB);
 		},
 	}
 

@@ -1485,16 +1485,16 @@ var wc2 = (function(){
 			for(var i=2,m=arguments.length;i<m;i++){
 				args.push(arguments[i]);
 			}
-			if(cmd=='applyPalette_cb'){//callback 처리한다.
-				args[3]=function(imageData){
-					wc.cmdContext2d('putImageData',imageData);
-				}
-				wc2Filter[cmd].apply(wc2Filter,args)
-
-			}else{
-				wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
-			}
-
+			// if(cmd=='applyPalette_cb'){//callback 처리한다.  //우선 콜백으로 하는건 사용안한다.
+			// 	args[3]=function(imageData){
+			// 		wc.cmdContext2d('putImageData',imageData);
+			// 	}
+			// 	wc2Filter[cmd].apply(wc2Filter,args)
+			//
+			// }else{
+			// 	wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
+			// }
+			wc.cmdContext2d('putImageData',wc2Filter[cmd].apply(wc2Filter,args));
 
 		}
 		,"cmdFilter":function(cmd,arg1,arg2,arg3){

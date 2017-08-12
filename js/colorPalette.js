@@ -106,25 +106,27 @@ var colorPalette = {
 	/**
 	 * depth 기준으로 색을 단편화 시킴.
 	 * @param  {[type]} imageData [description]
-	 * @param  {[type]} depth     2,3,4,5,6,7,8
+	 * @param  {[type]} depth     2,3,4,5,6,7,8~~
 	 * @return {[type]}           [description]
 	 */
-	"applyColorDepth":function(imageData,depth){
-		depth = parseInt(depth);
-		let mnum = Math.round(256/depth);
-		var toImageData = this.createImageDataByImageData(imageData);
-
-		let key = 0,closestColor;
+	"applyColorDepth":function(imageData,depthR,depthG,depthB){
+		depthR = parseInt(depthR);
+		depthG = parseInt(depthG);
+		depthB = parseInt(depthB);
+		let mnumR = Math.ceil(256/depthR);
+		let mnumG = Math.ceil(256/depthG);
+		let mnumB = Math.ceil(256/depthB);
+		let toImageData = this.createImageDataByImageData(imageData);
 
 		for(var i=0,m=imageData.data.length;i<m;i+=4){
-			var c0 = imageData.data[i];
-			var c1 = imageData.data[i+1];
-			var c2 = imageData.data[i+2];
-			var c3 = imageData.data[i+3];
+			let c0 = imageData.data[i];
+			let c1 = imageData.data[i+1];
+			let c2 = imageData.data[i+2];
+			let c3 = imageData.data[i+3];
 
-			toImageData.data[i] = c0 - (c0 % mnum);
-			toImageData.data[i+1] = c1 - (c1 % mnum);
-			toImageData.data[i+2] = c2 - (c2 % mnum);
+			toImageData.data[i] = Math.ceil(c0/mnumR)*mnumR;
+			toImageData.data[i+1] = Math.ceil(c1/mnumG)*mnumG;
+			toImageData.data[i+2] = Math.ceil(c2/mnumB)*mnumB;
 			toImageData.data[i+3] = c3;
 		}
 		// console.log(imagedata);
