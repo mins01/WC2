@@ -6,7 +6,7 @@
 		throw new Error("Fail : Required colorPalette");
 	}
 	//-- 2색
-	colorPalette.palettes['white_black_1bit'] = [[0,0,0],[255,255,255]]
+	colorPalette.palettes['black_white_1bit'] = [[0,0,0],[255,255,255]]
 	//grayscale 4색
 	var t = new Array(4),t2=256/4,t3;
 	for(var i=0,m=t.length;i<m;i++){

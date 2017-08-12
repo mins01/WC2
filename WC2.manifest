@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rv 20170812-##
+# rv 20170813-###
 
 
 CACHE:
@@ -43,6 +43,7 @@ img/favicon.ico
 img/apple-touch-icon.png
 js/colorPalette.js
 js/colorPalette.palettes.js
+node_modules/rgbquant/src/rgbquant.js
 
 NETWORK:
 *

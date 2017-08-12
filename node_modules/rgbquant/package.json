@@ -1,0 +1,77 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "rgbquant",
+        "scope": null,
+        "escapedName": "rgbquant",
+        "name": "rgbquant",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "E:\\homepage\\html\\WC2"
+    ]
+  ],
+  "_from": "rgbquant@latest",
+  "_id": "rgbquant@1.1.2",
+  "_inCache": true,
+  "_location": "/rgbquant",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "leeoniya",
+    "email": "leeoniya@gmail.com"
+  },
+  "_npmVersion": "2.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "rgbquant",
+    "scope": null,
+    "escapedName": "rgbquant",
+    "name": "rgbquant",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/rgbquant/-/rgbquant-1.1.2.tgz",
+  "_shasum": "d95e889a8fcb1e6c1a4fa2ccc8be3a41a2fcd185",
+  "_shrinkwrap": null,
+  "_spec": "rgbquant",
+  "_where": "E:\\homepage\\html\\WC2",
+  "author": {
+    "name": "Leon Sorokin",
+    "email": "leeoniya@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/leeoniya/RgbQuant.js/issues"
+  },
+  "dependencies": {},
+  "description": "color quantization lib",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "d95e889a8fcb1e6c1a4fa2ccc8be3a41a2fcd185",
+    "tarball": "https://registry.npmjs.org/rgbquant/-/rgbquant-1.1.2.tgz"
+  },
+  "gitHead": "a4067319ecd26260c2ed75fbc7518bca646cb13f",
+  "homepage": "http://o-0.me/RgbQuant/",
+  "main": "src/rgbquant.js",
+  "maintainers": [
+    {
+      "name": "leeoniya",
+      "email": "leeoniya@gmail.com"
+    }
+  ],
+  "name": "rgbquant",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leeoniya/RgbQuant.js.git"
+  },
+  "scripts": {},
+  "version": "1.1.2"
+}

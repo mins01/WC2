@@ -1,3 +1,8 @@
+/**
+ * 파레트 조작용
+ * depend regquant
+ * @type {Object}
+ */
 var colorPalette = {
 	//색상세트들
 	"palettes":{},
@@ -162,28 +167,30 @@ var colorPalette = {
 		return toImageData;
 		//
 	},
-	// 이미지에서 파레트를 가져온후 색상이 많은 순으로 제한한다. (안 좋다, 쓰지 말라.)
+	"getMedianCutPalette":function(imageData,colors){
+		let opts = {
+		    colors: colors,             // desired palette size
+		    method: 2,               // histogram method, 2: min-population threshold within subregions; 1: global top-population
+		    boxSize: [64,64],        // subregion dims (if method = 2)
+		    boxPxls: 2,              // min-population threshold (if method = 2)
+		    initColors: 4096,        // # of top-occurring colors  to start with (if method = 1)
+		    minHueCols: 0,           // # of colors per hue group to evaluate regardless of counts, to retain low-count hues
+		    dithKern: null,          // dithering kernel name, see available kernels in docs below
+		    dithDelta: 0,            // dithering threshhold (0-1) e.g: 0.05 will not dither colors with <= 5% difference
+		    dithSerp: false,         // enable serpentine pattern dithering
+		    palette: [],             // a predefined palette to start with in r,g,b tuple format: [[r,g,b],[r,g,b]...]
+		    reIndex: false,          // affects predefined palettes only. if true, allows compacting of sparsed palette once target palette size is reached. also enables palette sorting.
+		    useCache: true,          // enables caching for perf usually, but can reduce perf in some cases, like pre-def palettes
+		    cacheFreq: 10,           // min color occurance count needed to qualify for caching
+		    colorDist: "euclidean",  // method used to determine color distance, can also be "manhattan"
+		};
+		let q = new RgbQuant(opts);
+		q.sample(imageData);
+		return q.palette(true,true);
+	},
+	// @deprecated 이미지에서 파레트를 가져온후 색상이 많은 순으로 제한한다.   대신 getMedianCutPalette 이걸 써라.
 	"getPaletteFromImageData":function(imageData,limit){
-		var fPalette = {};
-		for(var i=0,m=imageData.data.length;i<m;i+=4){
-			var c0 = imageData.data[i];
-			var c1 = imageData.data[i+1];
-			var c2 = imageData.data[i+2];
-			// var c3 = imageData.data[i+3];
-			if(!fPalette[c0+","+c1+","+c2]){
-				fPalette[c0+","+c1+","+c2]=[c0,c1,c2,0];
-			}
-			fPalette[c0+","+c1+","+c2][3]++;
-		}
-		var rPalette = Object.values(fPalette);
-		rPalette.sort(function(a,b){return b[3]- a[3]})
-		rPalette.forEach(function(el,idx,arr){
-			el.splice(3,1);
-		})
-		if(limit){
-			rPalette.splice(limit,rPalette.length-limit);
-		}
-		return rPalette;
+		return this.getMedianCutPalette(imageData,limit);
 	},
 	// 이미지에서 파레트를 가져온후 다른 파레트를 기반으로 제한한다.
 	"getPaletteFromImageDataWithBasePalette":function(imageData,bPalette){

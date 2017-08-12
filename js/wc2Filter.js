@@ -183,7 +183,7 @@ var wc2Filter = function(){
 				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
 				return colorPalette.applyPaletteWithCallback(imageData,opt_palette,cb);
 			}else if(is_optimize=='2'){
-				var opt_palette = colorPalette.getPaletteFromImageData(imageData,colorPalette.getPalette(palette).length);
+				var opt_palette = colorPalette.getMedianCutPalette(imageData,colorPalette.getPalette(palette).length);
 				return colorPalette.applyPaletteWithCallback(imageData,opt_palette,cb);
 			}else{
 				return colorPalette.applyPaletteWithCallback(imageData,palette,cb);
@@ -195,7 +195,7 @@ var wc2Filter = function(){
 				var opt_palette = colorPalette.getPaletteFromImageDataWithBasePalette(imageData,palette);
 				return colorPalette.applyPalette(imageData,opt_palette,cb);
 			}else if(is_optimize=='2'){
-				var opt_palette = colorPalette.getPaletteFromImageData(imageData,colorPalette.getPalette(palette).length);
+				var opt_palette = colorPalette.getMedianCutPalette(imageData,colorPalette.getPalette(palette).length);
 				return colorPalette.applyPalette(imageData,opt_palette,cb);
 			}else{
 				return colorPalette.applyPalette(imageData,palette,cb);
