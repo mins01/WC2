@@ -14,5 +14,6 @@ var wc2PatternList = [
 	"pattern_mins01.png",
 	"pattern01.png",
 	"pattern02.png",
+	"pattern03.png",
 ];
 wc2PatternList.dir = "pattern"; // 이미지 경로

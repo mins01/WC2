@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rv 20170813-###
+# rv 20170813-#####
 
 
 CACHE:
@@ -39,6 +39,7 @@ http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/fonts/glyphicons-halflings-regula
 pattern/pattern_mins01.png
 pattern/pattern01.png
 pattern/pattern02.png
+pattern/pattern03.png
 img/favicon.ico
 img/apple-touch-icon.png
 js/colorPalette.js
