@@ -936,42 +936,41 @@ var wc2Tool = function(){
 			,"end":function(){
 
 				this.ing = 0;
-				this.wcb.shadowWebCanvas.clear();
-				//$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
+				//-- 쉐도우 캔퍼스 사용시
+				// this.wcb.shadowWebCanvas.clear();
+				//-- 바로 캔버스에 그릴 경우
 
 				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
-				/*
-				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-				this.wcb.shadowWebCanvas.saveContext2d();
-				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"copy"});
-				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-				this.wcb.shadowWebCanvas.restoreContext2d();
-				*/
-				this.wcb.shadowWebCanvas.clear();
+
 
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
-				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
-
+				//-- 쉐도우 캔퍼스 사용시
+				// this.wcb.shadowWebCanvas.clear();
+				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
+				//-- 바로 캔버스에 그릴 경우
+				this.wcb.activeWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
 				return true;
 			}
 			,"move":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				//wc2.brush4Brush.drawBrush(t.x,t.y);
-				this.wcb.shadowWebCanvas.drawBrush(t.x,t.y);
+				//-- 쉐도우 캔퍼스 사용시
+				// this.wcb.shadowWebCanvas.drawBrush(t.x,t.y);
+				//-- 바로 캔버스에 그릴 경우
+				this.wcb.activeWebCanvas.drawBrush(t.x,t.y);
+
 				return true;
 			}
 			,"up":function(event){
-				//wc2.brush4Brush.endBrush();
-				this.wcb.shadowWebCanvas.endBrush();
-				//this.wcb.activeWebCanvas.copyImageData(this.wcb.shadowWebCanvas);
-				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-				//console.log("up");
+				//-- 쉐도우 캔퍼스 사용시
+				// this.wcb.shadowWebCanvas.endBrush();
+				// this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//-- 바로 캔버스에 그릴 경우
+				this.wcb.activeWebCanvas.endBrush();
+
 				this.end();
 				return true;
 			}
