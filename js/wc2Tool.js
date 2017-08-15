@@ -147,8 +147,8 @@ var wc2Tool = function(){
 				wc2Tool.saveHistory();
 				return true;
 			}
-			,"reset":function(){ 
-				
+			,"reset":function(){
+
 				this.ing = false;
 				this.step = 0
 				if(this.wcb){
@@ -192,7 +192,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"up":function(event){
-				
+
 				this.predraw();
 				if(this.step == 2){
 					this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
@@ -263,7 +263,7 @@ var wc2Tool = function(){
 			,"lastLen":0
 			,"init":function(wcb){
 				//this.wcb = wcb;
-				//console.log("init");				
+				//console.log("init");
 				this.lastLen = 0;
 				this.brushIMG = wc2.eraserIMG;
 				return true;
@@ -276,12 +276,12 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				
+
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				this.wcb.shadowWebCanvas.configContext2d({"globalCompositeOperation":"destination-out"});
 				this.ing = 1;
-				
+
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
 				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,parseFloat(document.formToolEraser.brushSpacing.value));
@@ -304,7 +304,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
-				
+
 			}
 		}
 		//-- 사각형
@@ -401,7 +401,7 @@ var wc2Tool = function(){
 				//-- 정원 그리기
 				var xd = (this.x1 - this.x0)/2;
 				var yd = (this.y1 - this.y0)/2;
-				var r = Math.sqrt(xd*xd+yd*yd)*2;			
+				var r = Math.sqrt(xd*xd+yd*yd)*2;
 				this.wcb.shadowWebCanvas.circle(this.x0,this.y0,r);
 			}
 		}
@@ -422,6 +422,7 @@ var wc2Tool = function(){
 					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 					this._initXYWH();
 				}
+				this.predraw();
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
@@ -437,7 +438,7 @@ var wc2Tool = function(){
 				this.tf.sc.value = 1;
 				//this.deg = 0;
 				this.tf.deg.value = 0;
-				
+
 			}
 			,"end":function(){
 				return true;
@@ -446,12 +447,12 @@ var wc2Tool = function(){
 				var sc = parseFloat(this.tf.sc.value) + (deltaY/50);
 				sc = Math.min(100,Math.max(0.01,sc)).toFixed(2); //0.1 ~ 10 배까지 가능하도록
 				this.tf.sc.value = sc;
-				var w = this.dw * sc;
-				var h = this.dh * sc;
-				this.x0 += (this.w0-w)/2;
-				this.y0 += (this.h0-h)/2;
-				this.w0  = w;
-				this.h0  = h;
+				// var w = this.dw * sc;
+				// var h = this.dh * sc;
+				// this.x0 += (this.w0-w)/2;
+				// this.y0 += (this.h0-h)/2;
+				// this.w0  = w;
+				// this.h0  = h;
 			}
 			,"_rotate":function(deltaY){
 				var deg = parseFloat(this.tf.deg.value) -1*deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
@@ -476,6 +477,7 @@ var wc2Tool = function(){
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
+				console.log("init")
 				return true;
 			}
 			,"move":function(event){
@@ -500,7 +502,7 @@ var wc2Tool = function(){
 				var y0 = parseFloat(this.tf.y0.value)
 				var sc = parseFloat(this.tf.sc.value)
 				var deg = parseFloat(this.tf.deg.value)
-				
+
 				if(sc == 1 && deg == 0){
 					this.wcb.shadowWebCanvas.clear();
 					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas,x0,y0);
@@ -528,7 +530,7 @@ var wc2Tool = function(){
 					return this.reset();
 				}
 				return true;
-				
+
 			}
 			,"reset":function(){
 				//console.log("reset");
@@ -539,15 +541,15 @@ var wc2Tool = function(){
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-				
+
 				}
 				return true;
 			}
 			,"initPreview":function(){
-				if(this.ing ==1){
+				// if(this.ing ==1){
 					this._initXYWH();
 					this.predraw();
-				}
+				// }
 				return true;
 			}
 		}
@@ -570,13 +572,13 @@ var wc2Tool = function(){
 						toolImage.predraw()
 					}
 				}(this);
-				
+
 				if(this.ing ==0){
 					this.ing = 1;
 					this._initXYWH();
 					this.predraw();
 				}
-				
+
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
@@ -647,7 +649,7 @@ var wc2Tool = function(){
 				var y0 = parseFloat(this.tf.y0.value)
 				var sc = parseFloat(this.tf.sc.value)
 				var deg = parseFloat(this.tf.deg.value)
-				
+
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.dw)/2
 				var rotateCenterY = (this.dh)/2
@@ -666,7 +668,7 @@ var wc2Tool = function(){
 					//this.ing = 0;
 				}
 				return true;
-				
+
 			}
 			,"reset":function(type){
 				if(this.ing ==1){
@@ -704,13 +706,13 @@ var wc2Tool = function(){
 			,"init":function(wcb){
 				this.tf = document.formPropTransformProperty;
 				this.textNode  = document.getElementById('textareaText');
-				
+
 				if(this.ing ==0){
 					this._initXYWH();
 					this.predraw();
 				}
 				return true;
-			}			
+			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
 				var t = this.wcb.shadowWebCanvas.measureText(this.textNode.value)
 				this.dw = t.width; //기준 너비
@@ -767,7 +769,7 @@ var wc2Tool = function(){
 				var y0 = parseFloat(this.tf.y0.value)
 				var sc = parseFloat(this.tf.sc.value)
 				var deg = parseFloat(this.tf.deg.value)
-				
+
 				this.wcb.shadowWebCanvas.clear();
 				var rotateCenterX = (this.dw)/2
 				var rotateCenterY = (this.dh)/2
@@ -788,7 +790,7 @@ var wc2Tool = function(){
 					}
 				}
 				return true;
-				
+
 			}
 			,"reset":function(type){
 				if(this.ing ==1 && confirm("Not Confirm! Confirm OK?")){
@@ -797,7 +799,7 @@ var wc2Tool = function(){
 				if(this.wcb){
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
-				
+
 				}
 				return true;
 			}
@@ -835,7 +837,7 @@ var wc2Tool = function(){
 				this.y0 = t.y;
 				this.predraw();
 				return true;
-				
+
 			}
 			,"up":function(event){
 				if(!this.wcb){return false;}
@@ -851,8 +853,8 @@ var wc2Tool = function(){
 				$("#divPreviewColorSpuit").css("backgroundColor",this.colorStyle);
 				return true;
 			}
-			,"reset":function(){ 
-			
+			,"reset":function(){
+
 				return true;
 			}
 		} //-- end fn
@@ -916,8 +918,8 @@ var wc2Tool = function(){
 			,"confirm":function(){
 				var t = $(this.wcb.wcbMove).css("left","0px").css("top","0px");
 			}
-			,"reset":function(){ 
-			
+			,"reset":function(){
+
 				return true;
 			}
 		} //-- end fn
@@ -932,11 +934,11 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"end":function(){
-				
+
 				this.ing = 0;
 				this.wcb.shadowWebCanvas.clear();
 				//$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-				
+
 				wc2Tool.saveHistory();
 				return true;
 			}
@@ -949,13 +951,13 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.restoreContext2d();
 				*/
 				this.wcb.shadowWebCanvas.clear();
-				
+
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
 				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
 				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
-				
+
 				return true;
 			}
 			,"move":function(event){
@@ -984,13 +986,13 @@ var wc2Tool = function(){
 			,"left1":-1,"top1":-1
 			,"f":null
 			,"init":function(wcb){
-				// imageAreaSelect 
+				// imageAreaSelect
 				this.f = document.formToolCrop;
 				this.f.x.value = 0;
 				this.f.y.value = 0;
 				this.f.width.value = 0;
 				this.f.height.value = 0;
-				
+
 				if(this.wcb){
 					this.f.width.value = this.wcb.width;
 					this.f.height.value = this.wcb.height;
@@ -1007,7 +1009,7 @@ var wc2Tool = function(){
 
 					});
 				}
-				
+
 				//this.wcb = wcb;
 				return true;
 			}
@@ -1020,28 +1022,28 @@ var wc2Tool = function(){
 				this.f.y.value = y;
 				this.f.width.value = width;
 				this.f.height.value = height;
-				
+
 			}
 			,"end":function(){
 				return true;
 			}
 			,"mousewheel":function(event){
-				
+
 				return true;
 			}
 			,"down":function(event){
 				return true;
 			}
 			,"move":function(event){
-				
+
 				return true;
 			}
 			,"up":function(event){
-				
+
 				return true;
 			}
 			,"predraw":function(){
-				
+
 				return true;
 			}
 			,"confirm":function(){
@@ -1055,7 +1057,7 @@ var wc2Tool = function(){
 					wc2.cmdWcb("crop",x,y,width,height);
 				}
 			}
-			,"reset":function(reuseable){ 
+			,"reset":function(reuseable){
 				if(this.wcb){
 					if(reuseable){
 						$(this.wcb.outNode).imgAreaSelect({
@@ -1107,7 +1109,7 @@ var wc2Tool = function(){
 				var r = document.formToolPattern.width.value/2
 				var brushSpacing = document.formToolPattern.brushSpacing.value/2
 				shadowWebCanvas.beginCircleBrush(t.x,t.y,r,brushSpacing);
-				
+
 				return true;
 
 
@@ -1116,17 +1118,17 @@ var wc2Tool = function(){
 				shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 				shadowWebCanvas.saveContext2d();
 				shadowWebCanvas.configContext2d({"patternImage":document.getElementById("imagePattern"),"disableStroke":1});
-				
-				
+
+
 				this.ing = 1;
 				this.brushSpacing =  parseFloat(document.formToolPattern.brushSpacing.value);
 				this.w =  parseFloat(document.formToolPattern.width.value);
 				var w2
-				
+
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x0 = this.x1 = t.x;
 				this.y0 = this.y1 = t.y;
-				
+
 				var x = this.x0;
 				var y = this.y0;
 				shadowWebCanvas.circle(this.x0,this.x1,w2);
@@ -1136,16 +1138,16 @@ var wc2Tool = function(){
 
 
 				shadowWebCanvas.clear();
-				
+
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
 				// shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
 				shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
-				
+
 				return true;
 
-				
+
 				return true;
 			}
 			,"move":function(event){
@@ -1167,11 +1169,11 @@ var wc2Tool = function(){
 				this.end();
 				return true;
 			}
-			
+
 			,"predraw":function(){
 				return;
 				if(this.ing){
-					
+
 					var xys = this.dotsInLine(this.x0,this.y0,this.x1,this.y1,this.brushSpacing);
 					var w2 = this.w/2
 					var h2 = this.w/2

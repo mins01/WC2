@@ -199,10 +199,10 @@ var wc2 = (function(){
 
 
 				wc2.syncContext2dCfg(); //설정을 적용시킨다.
-				if(!wc2Tool.init(wc2.tool)){
-					alert(wc2Tool.error);
-					return false;
-				}
+				// if(!wc2Tool.init(wc2.tool)){
+				// 	alert(wc2Tool.error);
+				// 	return false;
+				// }
 
 				if(!wc2Tool.onDown(wc2.tool,event)){
 					wc2.setError( wc2Tool.error);
