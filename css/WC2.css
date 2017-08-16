@@ -9,6 +9,8 @@
 * '공대여자는 이쁘다.'를 나타내야만 사용할 수 있습니다.
 */
 
+#dev_text{position: fixed;bottom:0;right:0;z-index:90000;}
+
 html{overflow:hidden;padding:0;margin:0;height:100%;}
 body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
 input,textarea,select,button{padding:0;}
