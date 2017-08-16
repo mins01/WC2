@@ -877,7 +877,10 @@ function WebCanvas(width,height,colorset){
 			this.circle(x,y,this.circleBrushR);
 		}
 		//--- 브러쉬 그리기용
-		,"beginBrush":function(x,y,brushWC,spacing){
+		,"beginBrush":function(x,y,brushWC,spacing,pressure){
+			// console.log("drawBrush",x,y,pressure);;
+			
+			if(!pressure){pressure = 1;}
 			this.spacing = spacing
 			this.brushWC = brushWC
 			//this.spacing = spacing;
@@ -885,18 +888,20 @@ function WebCanvas(width,height,colorset){
 			this.x0 = x;
 			this.y0 = y;
 			this.brushing = 1;
-
-			var w2 = (this.brushWC.width)/2
-			var h2 = (this.brushWC.height)/2
+			
+			var w = this.brushWC.width*(1+pressure)/2;
+			var h = this.brushWC.height*(1+pressure)/2;
+			var w2 = w/2;
+			var h2 = h/2;
 			//console.log(x,y);
 			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
-			this._drawBrushDot(this.x0-w2,this.y0-h2);
+			this._drawBrushDot(this.x0-w2,this.y0-h2,w,h);
 		}
-		,"drawBrush":function(x,y){
-			//console.log(x,y);
+		,"drawBrush":function(x,y,pressure){
+			// console.log("drawBrush",x,y,pressure);;
 			this.x1 = x;
 			this.y1 = y;
-			this._drawBrushLine(this.x0,this.y0,this.x1,this.y1);
+			this._drawBrushLine(this.x0,this.y0,this.x1,this.y1,pressure);
 			this.x0 = x;
 			this.y0 = y;
 		}
@@ -904,20 +909,23 @@ function WebCanvas(width,height,colorset){
 			this.brushLastLen = 0;
 			this.brushing = 0;
 		}
-		,"_drawBrushLine":function(x0,y0,x1,y1){
+		,"_drawBrushLine":function(x0,y0,x1,y1,pressure){
+			var w = this.brushWC.width*(1+pressure)/2;
+			var h = this.brushWC.height*(1+pressure)/2;
+			
 			if(this.brushing){
 				var xys = this._dotsInLine(x0,y0,x1,y1);
-				var w2 = (this.brushWC.width)/2
-				var h2 = (this.brushWC.height)/2
+				var w2 = w/2
+				var h2 = h/2
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
-					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2);
+					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2,w,h);
 				}
 			}
 		}
-		,"_drawBrushDot":function(x,y){
-			this.drawImage(this.brushWC,x,y);
+		,"_drawBrushDot":function(x,y,w,h){
+			this.drawImage(this.brushWC,x,y,w,h);
 		}
 		,"_dotsInLine":function(x0,y0,x1,y1){
 			var spacing = this.spacing;

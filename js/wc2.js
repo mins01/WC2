@@ -29,6 +29,7 @@ var wc2 = (function(){
 		 ,"wcbTmpCnt":0
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
+		 ,"isPointer":false //포인터 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"brushIMG":null //브러쉬용
@@ -186,15 +187,18 @@ var wc2 = (function(){
 				if(event.target.tagname=="select"){
 					return true;
 				}
-				if(event.type=="touchstart"){
-					this.isTouch = true;
-				}else if(this.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
+				if(event.type.indexOf("pointer")===0){
+					wc2.isPointer = true;
+				}else if(event.type.indexOf("touch")===0){
+					wc2.isTouch = true;
+				}else if(wc2.isPointer || wc2.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
 					return true;
 				}
+				
 				document.activeElement.blur(); //텍스트박스등의 포커스를 없앤다.
 				event.bubble = false;
 				event.stopPropagation();
-				event.preventDefault(); //이벤트 취소시킨다.
+				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
 
 
 
@@ -219,16 +223,16 @@ var wc2 = (function(){
 				}
 				event.bubble = false;
 				event.stopPropagation();
-				event.preventDefault(); //이벤트 취소시킨다.
+				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				return false;
 			}
 			var onUp =  function(event) {
-				//console.log(event.type);
+				// console.log("onUp",event.type);
 				if(wc2.eventStep==0){ return ;} //down이벤트 후에만
 				event.bubble = false;
 				event.stopPropagation();
-				event.preventDefault(); //이벤트 취소시킨다.
+				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				if(!wc2Tool.onUp(wc2.tool,event)){
 					wc2.setError( wc2Tool.error,false);
@@ -236,16 +240,22 @@ var wc2 = (function(){
 				}
 				wc2.eventStep = 0;
 				wc2.isTouch = false;
+				wc2.isPointer = false;
 				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 				return false;
 			}
 
-			$(document).on( "touchstart", ".wcb-frame",onDown );
-			$(document).on( "touchmove", onMove );
-			$(document).on( "touchend", onUp );
-			$(document).on( "mousedown", ".wcb-frame",onDown );
-			$(document).on( "mousemove", onMove);
-			$(document).on( "mouseup", onUp);
+			// $(document).on( "touchstart", ".wcb-frame",onDown );
+			// $(document).on( "touchmove", onMove );
+			// $(document).on( "touchend", onUp );
+			// $(document).on( "mousedown", ".wcb-frame",onDown );
+			// $(document).on( "mousemove", onMove);
+			// $(document).on( "mouseup", onUp);
+			
+			$(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
+			$(document).on( "pointermove touchmove mousemove", onMove);
+			$(document).on( "pointerup touchend mouseup", onUp);
+			
 
 			//--- 휠 동작
 			$(document).on('mousewheel', ".wcb-frame", function(event) {

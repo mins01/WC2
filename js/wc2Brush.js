@@ -77,12 +77,12 @@ wc2Brush.prototype = function(){
 			//var y = Math.sqrt(r2-(x*x));
 			//var y = (x*x)/a
 			var y = -1*Math.abs(Math.sqrt(a*x));
-			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing);
+			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,1);
 			while((x+=this.spacing )<0 ){
 				//y = Math.sqrt(r2-(x*x));
 				y = -1*Math.abs(Math.sqrt(a*x));
 				
-				this.previewBrushWC.drawBrush(x+75,y+50);
+				this.previewBrushWC.drawBrush(x+75,y+50,1);
 			}
 			a *= -1;
 			while((x+=this.spacing )<=xlimit ){
@@ -90,7 +90,7 @@ wc2Brush.prototype = function(){
 				//y = Math.sqrt(r2-(x*x));
 				y = Math.abs(Math.sqrt(a*x));
 				
-				this.previewBrushWC.drawBrush(x+75,y+50);
+				this.previewBrushWC.drawBrush(x+75,y+50,1);
 			}
 			this.previewBrushWC.configContext2d({"fontSize":16,"lineHeight":1.2,"disableStroke":1,"textBaseline":"top"})
 			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";
