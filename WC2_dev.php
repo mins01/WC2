@@ -672,12 +672,6 @@ Ciao
 										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
 										</td>
 									</tr>
-									<tr>
-										<th>Pressure</th>
-										<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-										<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-										</td>
-									</tr>
 									<!-- <tr>
 										<th>Alpha</th>
 										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
@@ -711,12 +705,6 @@ Ciao
 									<tr>
 										<th>Spacing</th>
 										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
-										</td>
-									</tr>
-									<tr>
-										<th>Pressure</th>
-										<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-										<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 										</td>
 									</tr>
 									<!-- <tr>
@@ -1832,21 +1820,21 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	<script src="jquery/jquery-helper.js"></script>
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
-
-	<script src="js/colorPalette.js"></script>
-	<script src="js/colorPalette.palettes.js"></script>
+<? $t = time(); ?>
+	<script src="js/colorPalette.js?__=<?=$t?>"></script>
+	<script src="js/colorPalette.palettes.js?__=<?=$t?>"></script>
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
 
 	<!-- WC2 -->
-	<script src="js/class.WebCanvas.js"></script>
-	<script src="js/class.WebCanvasBundle.js"></script>
-	<script src="js/wc2.js"></script>
-	<script src="js/wc2Tool.js"></script>
-	<script src="js/wc2Brush.js"></script>
+	<script src="js/class.WebCanvas.js?__=<?=$t?>"></script>
+	<script src="js/class.WebCanvasBundle.js?__=<?=$t?>"></script>
+	<script src="js/wc2.js?__=<?=$t?>"></script>
+	<script src="js/wc2Tool.js?__=<?=$t?>"></script>
+	<script src="js/wc2Brush.js?__=<?=$t?>"></script>
 	<!-- <script src="js/wc2BrushList.js"></script> -->
-	<script src="js/wc2PatternList.js"></script>
-	<script src="js/wc2Filter.js"></script>
-	<script src="js/wc2Helper.js"></script>
+	<script src="js/wc2PatternList.js?__=<?=$t?>"></script>
+	<script src="js/wc2Filter.js?__=<?=$t?>"></script>
+	<script src="js/wc2Helper.js?__=<?=$t?>"></script>
 	<!-- -->
 
 
