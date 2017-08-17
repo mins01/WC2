@@ -80,6 +80,7 @@ var wc2 = (function(){
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
 			this.hideMenuDetail();
+			this.setTool("brush");
 			//this.hideFilterDetail();			
 			this.loadSetting();
 			this.initAutoWcbLocalStorage();

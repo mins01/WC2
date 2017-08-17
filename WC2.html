@@ -488,19 +488,19 @@ Ciao
 									<col width="">
 									<tr>
 										<th>X</th>
-										<td><input type="number" name="x0" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="x0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Y</th>
-										<td><input type="number" name="y0" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="y0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Sacle</th>
-										<td><input type="number" name="sc" value="0" step="0.01" style="width:90%"></td>
+										<td><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Rotate</th>
-										<td><input type="number" name="deg" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></td>
 									</tr>
 								</table>
 							</div>
@@ -643,7 +643,6 @@ Ciao
 									</tr>
 									<tr>
 										<th>Minimum<br />Pressure</th>
-										<td><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
 									</tr>
 									
 								</table>
@@ -1771,20 +1770,10 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
 		
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-	<script src="js/colorPalette.js?_t=1502934705"></script>
-	<script src="js/colorPalette.palettes.js?_t=1502934705"></script>
 	
 
 	<!-- WC2 -->
-	<script src="js/class.WebCanvas.js?_t=1502934705"></script>
-	<script src="js/class.WebCanvasBundle.js?_t=1502934705"></script>
-	<script src="js/wc2.js?_t=1502934705"></script>
-	<script src="js/wc2Tool.js?_t=1502934705"></script>
-	<script src="js/wc2Brush.js?_t=1502934705"></script>
 	<!-- <script src="js/wc2BrushList.js"></script> -->
-	<script src="js/wc2PatternList.js?_t=1502934705"></script>
-	<script src="js/wc2Filter.js?_t=1502934705"></script>
-	<script src="js/wc2Helper.js?_t=1502934705"></script>
 	<!-- -->
 
 
@@ -1810,7 +1799,9 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	});
 	*/
 	$(function() {
+		
 		wc2.init(); //초기화
+		// wc2Helper.attachTdRangeValueBox();
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');

@@ -643,7 +643,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Minimum<br />Pressure</th>
-										<td class="showRangeValue" data-val="asd"><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+										<td ><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
 									</tr>
 									
 								</table>
@@ -1813,7 +1813,7 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	$(function() {
 		
 		wc2.init(); //초기화
-		wc2Helper.attachTdRangeValueBox();
+		// wc2Helper.attachTdRangeValueBox();
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
