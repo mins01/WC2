@@ -29,7 +29,6 @@ var wc2 = (function(){
 		 ,"wcbTmpCnt":0
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
-		 ,"isPointer":false //포인터 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"brushIMG":null //브러쉬용
@@ -83,6 +82,7 @@ var wc2 = (function(){
 			this.hideMenuDetail();
 			//this.hideFilterDetail();
 			this.setTool("brush");
+			this.syncBrush(document.formToolBrush)
 			this.loadSetting();
 			this.initAutoWcbLocalStorage();
 		}
@@ -183,22 +183,21 @@ var wc2 = (function(){
 			// 붙여넣기 열기 이벤트 처리
 			$(document).on("paste",function(event){ wc2.btnFileOpenPreviewImageFromPaste(event.originalEvent);});
 
-			var onDown = function(event) {
-				if(event.target.tagname=="select"){
+			var onDown = function(evt) {
+				// evt = evt.originalEvent;
+				if(evt.target.tagname=="select"){
 					return true;
 				}
-				if(event.type.indexOf("pointer")===0){
-					wc2.isPointer = true;
-				}else if(event.type.indexOf("touch")===0){
+				if(evt.type.indexOf("pointer")===0 || evt.type.indexOf("touch")===0){
 					wc2.isTouch = true;
-				}else if(wc2.isPointer || wc2.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
+				}else if(wc2.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
 					return true;
 				}
-				
+
 				document.activeElement.blur(); //텍스트박스등의 포커스를 없앤다.
-				event.bubble = false;
-				event.stopPropagation();
-				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
+				evt.bubble = false;
+				evt.stopPropagation();
+				if(!wc2.isTouch) evt.preventDefault(); //이벤트 취소시킨다.
 
 
 
@@ -215,47 +214,80 @@ var wc2 = (function(){
 				wc2.eventStep = 1;
 				return false;
 			}
-			var onMove = function(event) {
+			var onMove = function(evt) {
+				// evt = evt.originalEvent;
 				//console.log(event.type);
-				if(!wc2Tool.onMove(wc2.tool,event)){
+				// $("#dev_text").text(":1"+evt.type+":"+evt.pointerType);
+				if(!wc2Tool.onMove(wc2.tool,evt)){
 					//wc2.setError( wc2Tool.error);
 					return ; //이벤트를 계속 시킨다.
 				}
-				event.bubble = false;
-				event.stopPropagation();
-				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
+				evt.bubble = false;
+				evt.stopPropagation();
+				if(!wc2.isTouch) evt.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
 				return false;
 			}
-			var onUp =  function(event) {
+			var onUp =  function(evt) {
+				// evt = evt.originalEvent;
 				// console.log("onUp",event.type);
+				// $("#dev_text").text(":1"+evt.type+":"+evt.pointerType);
 				if(wc2.eventStep==0){ return ;} //down이벤트 후에만
-				event.bubble = false;
-				event.stopPropagation();
-				if(!wc2.isTouch && !wc2.isPointer) event.preventDefault(); //이벤트 취소시킨다.
+				evt.bubble = false;
+				evt.stopPropagation();
+				if(!wc2.isTouch) evt.preventDefault(); //이벤트 취소시킨다.
 				// todo : context2D 설정 부분
-				if(!wc2Tool.onUp(wc2.tool,event)){
+				if(!wc2Tool.onUp(wc2.tool,evt)){
 					wc2.setError( wc2Tool.error,false);
 					return true;
 				}
 				wc2.eventStep = 0;
 				wc2.isTouch = false;
-				wc2.isPointer = false;
 				wc2._syncWcbInfo(); //수정된 내용 레이어 목록에 보여주기
 				return false;
 			}
 
+			var stopEvent = function(evt){
+				evt.preventDefault();
+				evt.stopPropagation();
+			}
+
+			var eventArea =  document.getElementById('tabsContent');
+			// var cbfn = function(evt){
+			// 	document.title = evt.x
+			// }
+			//
+			// document.addEventListener("pointermove", cbfn,false);
+			// document.addEventListener("selectstart", function(){return false;},false);
+			// return;
+			if(document.onpointerdown !== undefined){
+				$(eventArea).on( "pointerdown", ".wcb-frame",onDown );
+				$(eventArea).on( "pointermove", onMove );
+				$(eventArea).on( "pointerup", onUp );
+				eventArea.addEventListener("scroll", stopEvent, false);
+				eventArea.addEventListener("touchmove", stopEvent, false);
+				eventArea.addEventListener("mousewheel", stopEvent, false);
+			}else{
+				$(document).on( "touchstart", ".wcb-frame",onDown );
+				$(document).on( "touchmove", onMove );
+				$(document).on( "touchend", onUp );
+			}
+			// 	$(document).on( "pointerdown", ".wcb-frame",onDown );
+			// 	// $(document).on( "touchstart", ".wcb-frame",onDown );
+			// 	$(document).on( "pointermove", onMove );
+			// 	$(document).on( "pointerup", onUp );
 			// $(document).on( "touchstart", ".wcb-frame",onDown );
 			// $(document).on( "touchmove", onMove );
 			// $(document).on( "touchend", onUp );
-			// $(document).on( "mousedown", ".wcb-frame",onDown );
-			// $(document).on( "mousemove", onMove);
-			// $(document).on( "mouseup", onUp);
-			
-			$(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
-			$(document).on( "pointermove touchmove mousemove", onMove);
-			$(document).on( "pointerup touchend mouseup", onUp);
-			
+			$(document).on( "mousedown", ".wcb-frame",onDown );
+			$(document).on( "mousemove", onMove);
+			$(document).on( "mouseup", onUp);
+
+			// $(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
+			// // $(document).on( "pointermove touchmove mousemove", onMove);
+			// $(document).on( "pointermove mousemove", onMove);
+			// $(document).on( "pointerup touchend mouseup", onUp);
+
 
 			//--- 휠 동작
 			$(document).on('mousewheel', ".wcb-frame", function(event) {
@@ -268,8 +300,8 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
-			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
+			// $('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
+			// $('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){
 				wc2.setToolByBtn(this);
@@ -733,18 +765,27 @@ var wc2 = (function(){
 			var rect = target.getBoundingClientRect();
 			var scrollTop= Math.max(document.body.scrollTop,document.documentElement.scrollTop);
 			var scrollLeft= Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
-
+			if(evt.originalEvent){
+				evt = evt.originalEvent
+			}
 			var x = evt.clientX;
 			var y = evt.clientY;
-			if(evt.touches && evt.touches[0]){
+			if(evt.isPrimary && evt.isPrimary){
+				var x = evt.x;
+				var y = evt.y;
+			}else if(evt.touches && evt.touches[0]){
 				var touch = evt.touches[0];
 				var x = touch.X;
 				var y = touch.Y;
-			}else if(evt.originalEvent.touches && evt.originalEvent.touches[0]){
-				var touch = evt.originalEvent.touches[0];
-				var x = touch.clientX;
-				var y = touch.clientY;
+			}else{
+				var x = evt.x;
+				var y = evt.y;
 			}
+			// else if(evt.originalEvent.touches && evt.originalEvent.touches[0]){
+			// 	var touch = evt.originalEvent.touches[0];
+			// 	var x = touch.clientX;
+			// 	var y = touch.clientY;
+			// }
 
 			return {
 			  "x": x - rect.left + scrollTop,
@@ -1341,6 +1382,7 @@ var wc2 = (function(){
 			var colorStyle = "rgb(255,255,255)";
 			//this.brush4Eraser.colorStyle = strokeStyle;
 			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
+			this.brush4Eraser.disablePressure  = $(f).find("input[name='bushDisablePressure']:checked").val()=="1"?true:false;
 			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
 			this.brush4Eraser.previewBrush()
 		}
@@ -1360,6 +1402,7 @@ var wc2 = (function(){
 			//console.log(strokeStyle);
 			this.brush4Brush.colorStyle = strokeStyle;
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
+			this.brush4Brush.disablePressure  = $(f).find("input[name='bushDisablePressure']:checked").val()=="1"?true:false;
 			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);

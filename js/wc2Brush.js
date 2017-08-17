@@ -15,9 +15,10 @@ var wc2Brush = function(){
 }
 wc2Brush.prototype = function(){
 	return {
-		
+
 		"dir":"brush",//브러쉬 이미지 경로
 		"spacing":0, //선간격
+		"disablePressure":false, //압력감지 적용여부
 		"init":function(){
 			this.brushWC = WebCanvas(100,100)
 			this.previewBrushWC = WebCanvas(150,100)
@@ -67,7 +68,7 @@ wc2Brush.prototype = function(){
 			return this.brushWC.toDataURL();
 		}
 		//--포물선으로 선 미리보기를 보여준다.
-		,"previewBrush":function(){ 
+		,"previewBrush":function(){
 			this.previewBrushWC.clear();
 			var r = 20;
 			var xlimit = 60;
@@ -77,20 +78,29 @@ wc2Brush.prototype = function(){
 			//var y = Math.sqrt(r2-(x*x));
 			//var y = (x*x)/a
 			var y = -1*Math.abs(Math.sqrt(a*x));
-			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,1);
+
+			var gapPressure = this.spacing/xlimit;
+			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,0);
+			var pressure = gapPressure
+			if(this.disablePressure){
+				pressure = 1;
+				gapPressure = 0;
+			}
 			while((x+=this.spacing )<0 ){
 				//y = Math.sqrt(r2-(x*x));
 				y = -1*Math.abs(Math.sqrt(a*x));
-				
-				this.previewBrushWC.drawBrush(x+75,y+50,1);
+
+				this.previewBrushWC.drawBrush(x+75,y+50,pressure);
+				pressure+=gapPressure;
 			}
 			a *= -1;
 			while((x+=this.spacing )<=xlimit ){
 				//console.log(x);
 				//y = Math.sqrt(r2-(x*x));
 				y = Math.abs(Math.sqrt(a*x));
-				
-				this.previewBrushWC.drawBrush(x+75,y+50,1);
+
+				this.previewBrushWC.drawBrush(x+75,y+50,pressure);
+				pressure-=gapPressure;
 			}
 			this.previewBrushWC.configContext2d({"fontSize":16,"lineHeight":1.2,"disableStroke":1,"textBaseline":"top"})
 			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";

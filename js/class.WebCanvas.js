@@ -879,8 +879,8 @@ function WebCanvas(width,height,colorset){
 		//--- 브러쉬 그리기용
 		,"beginBrush":function(x,y,brushWC,spacing,pressure){
 			// console.log("drawBrush",x,y,pressure);;
-			
-			if(!pressure){pressure = 1;}
+
+			if(pressure==undefined){pressure = 1;}
 			this.spacing = spacing
 			this.brushWC = brushWC
 			//this.spacing = spacing;
@@ -888,9 +888,11 @@ function WebCanvas(width,height,colorset){
 			this.x0 = x;
 			this.y0 = y;
 			this.brushing = 1;
-			
-			var w = this.brushWC.width*(1+pressure)/2;
-			var h = this.brushWC.height*(1+pressure)/2;
+			this.lastPressure = pressure;
+
+			var multi = (1+9*pressure)/10;
+			var w = this.brushWC.width*multi;
+			var h = this.brushWC.height*multi;
 			var w2 = w/2;
 			var h2 = h/2;
 			//console.log(x,y);
@@ -898,6 +900,8 @@ function WebCanvas(width,height,colorset){
 			this._drawBrushDot(this.x0-w2,this.y0-h2,w,h);
 		}
 		,"drawBrush":function(x,y,pressure){
+			// $("#dev_text").text($("#dev_text").text()+":"+pressure);
+
 			// console.log("drawBrush",x,y,pressure);;
 			this.x1 = x;
 			this.y1 = y;
@@ -910,19 +914,28 @@ function WebCanvas(width,height,colorset){
 			this.brushing = 0;
 		}
 		,"_drawBrushLine":function(x0,y0,x1,y1,pressure){
-			var w = this.brushWC.width*(1+pressure)/2;
-			var h = this.brushWC.height*(1+pressure)/2;
-			
+
+			// $("#dev_text").text(w+":"+h+":"+pressure);
+			var multi,w,h,w2,h2;
 			if(this.brushing){
+
+
 				var xys = this._dotsInLine(x0,y0,x1,y1);
-				var w2 = w/2
-				var h2 = h/2
+				var gapPressure = (pressure-this.lastPressure)/xys.length
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
+					multi = (1+9*(this.lastPressure+gapPressure*i))/10;
+					// $("#dev_text").text(this.lastPressure+": "+pressure+": "+(gapPressure*i)+": "+gapPressure+": "+xys.length);
+
+					w = this.brushWC.width*multi;
+					h = this.brushWC.height*multi;
+					var w2 = w/2
+					var h2 = h/2
 					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2,w,h);
 				}
 			}
+			this.lastPressure = pressure;
 		}
 		,"_drawBrushDot":function(x,y,w,h){
 			this.drawImage(this.brushWC,x,y,w,h);
