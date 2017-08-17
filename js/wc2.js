@@ -218,9 +218,9 @@ var wc2 = (function(){
 				return false;
 			}
 			var onMove = function(evt) {
-				// evt = evt.originalEvent;
+				var evtorg = evt.originalEvent;
 				//console.log(event.type);
-				// $("#dev_text").text(":1"+evt.type+":"+evt.pointerType);
+				// $("#dev_text").text(":1"+evtorg.type+":"+evtorg.pointerType);
 				if(!wc2Tool.onMove(wc2.tool,evt)){
 					//wc2.setError( wc2Tool.error);
 					return ; //이벤트를 계속 시킨다.
@@ -271,9 +271,9 @@ var wc2 = (function(){
 				eventArea.addEventListener("touchmove", stopEvent, false);
 				eventArea.addEventListener("mousewheel", stopEvent, false);
 			}else{
-				$(document).on( "touchstart", ".wcb-frame",onDown );
-				$(document).on( "touchmove", onMove );
-				$(document).on( "touchend", onUp );
+				$(eventArea).on( "touchstart", ".wcb-frame",onDown );
+				$(eventArea).on( "touchmove", onMove );
+				$(eventArea).on( "touchend", onUp );
 			}
 			// 	$(document).on( "pointerdown", ".wcb-frame",onDown );
 			// 	// $(document).on( "touchstart", ".wcb-frame",onDown );
@@ -282,9 +282,9 @@ var wc2 = (function(){
 			// $(document).on( "touchstart", ".wcb-frame",onDown );
 			// $(document).on( "touchmove", onMove );
 			// $(document).on( "touchend", onUp );
-			$(document).on( "mousedown", ".wcb-frame",onDown );
-			$(document).on( "mousemove", onMove);
-			$(document).on( "mouseup", onUp);
+			$(eventArea).on( "mousedown", ".wcb-frame",onDown );
+			$(eventArea).on( "mousemove", onMove);
+			$(eventArea).on( "mouseup", onUp);
 
 			// $(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
 			// // $(document).on( "pointermove touchmove mousemove", onMove);

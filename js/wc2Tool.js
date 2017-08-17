@@ -42,20 +42,25 @@ var wc2Tool = function(){
 			return this[toolName].init();
 		}
 		,"onDown":function(toolName,event){
+			var evt = event.originalEvent?event.originalEvent:event;
+			// $("#dev_text").text(":1"+evt.type+":"+evt.pointerType);
 			this.isDown=1;
 			//에러는 init에서 이미 체크했다.
-			return this[toolName].down(event);
+			return this[toolName].down(evt);
 		}
 		,"onMove":function(toolName,event){
+			var evt = event.originalEvent?event.originalEvent:event;
 			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			//에러는 init에서 이미 체크했다.
-			return this[toolName].move(event);
+			return this[toolName].move(evt);
 		}
 		,"onUp":function(toolName,event){
+			var evt = event.originalEvent?event.originalEvent:event;
+			
 			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			this.isDown = 0;
 			//에러는 init에서 이미 체크했다.
-			return this[toolName].up(event);
+			return this[toolName].up(evt);
 		}
 		,"end":function(toolName){
 			//에러는 init에서 이미 체크했다.
@@ -80,8 +85,9 @@ var wc2Tool = function(){
 		}
 		,"onMouseWheel":function(toolName,event){ //여기만 mouse를 나타내는 이유는 다른것들은 터치 이벤트와 공통으로 사용하기 때문.
 			//에러는 init에서 이미 체크했다.
+			var evt = event.originalEvent?event.originalEvent:event;
 			if(!toolName || !this[toolName].mousewheel){ return false;}
-			return this[toolName].mousewheel(event);
+			return this[toolName].mousewheel(evt);
 		}
 		,"saveHistory":function(){
 			wc2.saveHistory("Tool."+this.lastToolName+":"+wc2.activeWcb.activeWebCanvas.label);
@@ -944,9 +950,11 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만		
+				// $("#dev_text").text(evt.pointerType+":"+pressure);
+				
 
-				// $("#dev_text").text(wc2.brush4Brush.disablePressure);
+				
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//-- 쉐도우 캔퍼스 사용시

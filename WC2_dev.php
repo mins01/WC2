@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<? $t = time(); ?>
 <!--
 2015-04-23 : 제작시작
 임의사용 금지.
@@ -69,8 +70,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=<?=$t?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=<?=$t?>" charset="utf-8" />
 	</head>
 	<body>
 		<div id="dev_text">
@@ -570,7 +571,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>R0</th>
-										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
+										<td><input   type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></td>
 									</tr>
 									<tr>
 										<th>alpha</th>
@@ -579,7 +580,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Spacing</th>
-										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
+										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  >
 										</td>
 									</tr>
 									<tr>
@@ -590,7 +591,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Minimum<br />Pressure</th>
-										<td><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+										<td><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
 									</tr>
 								</table>
 							</div>
@@ -619,11 +620,11 @@ Ciao
 									<col width="50%">
 									<tr>
 										<th>Size</th>
-										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
+										<td><input   type="range" min="1" max="50" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></td>
 									</tr>
 									<tr>
 										<th>R0</th>
-										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
+										<td><input   type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></td>
 									</tr>
 									<tr>
 										<th>brushAlpha</th>
@@ -632,7 +633,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Spacing</th>
-										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
+										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  >
 										</td>
 									</tr>
 									<tr>
@@ -643,7 +644,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Minimum<br />Pressure</th>
-										<td ><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+										<td ><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
 									</tr>
 									
 								</table>
@@ -1769,7 +1770,7 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	<script src="jquery/jquery-helper.js"></script>
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
-	<? $t = time(); ?>
+	
 	
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
 	<script src="js/colorPalette.js?_t=<?=$t?>"></script>
@@ -1813,7 +1814,7 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	$(function() {
 		
 		wc2.init(); //초기화
-		// wc2Helper.attachTdRangeValueBox();
+		wc2Helper.attachTdRangeValueBox();
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');

@@ -19,13 +19,13 @@ wc2Brush.prototype = function(){
 		"dir":"brush",//브러쉬 이미지 경로
 		"spacing":0, //선간격
 		"disablePressure":false, //압력감지 적용여부
-		"minimumPressure":0, //최소 압력값
+		"minimumPressure":0.1, //최소 압력값
 		"init":function(){
 			this.brushWC = WebCanvas(100,100)
 			this.previewBrushWC = WebCanvas(150,100)
 		}
 		,"calculatePressure":function(pressure){
-			if(disablePressure) return 1;
+			if(this.disablePressure) return 1;
 			return Math.min(this.minimumPressure+pressure,1)
 		}
 		,"image":function(image,width,height,colorStyle,globalAlpha){
