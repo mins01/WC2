@@ -149,6 +149,38 @@ var wc2Helper = function(){
 			var quality = 0.1;
 			var du = c.toDataURL(mime,quality);
 			return du.indexOf(mime)!=-1;
+		},
+		/**
+		 * input[type="Range"] 에 대해서 동작
+		 * @return {[type]} [description]
+		 */
+		"attachTdRangeValueBox":function(){
+			$("td>input[type='range']").parent().addClass('showRangeValue');
+
+
+			$("td.showRangeValue>input").each(function(idx,el){
+				$(el.parentNode).attr("data-val",el.value);
+				el._value = el.value;
+				
+				
+				var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
+				var inputSetter = descriptor.set;
+				
+				descriptor.set = function(val) {
+					Object.defineProperty(this, "value", {set:inputSetter});
+					this.value = val;
+					$(this.parentNode).attr("data-val",val);
+					Object.defineProperty(this, "value", descriptor);   
+					
+				}
+				
+				//Last add the new "value" descriptor to the $input element
+				Object.defineProperty(el, "value", descriptor);
+			})
+			$(document).on("input change","td.showRangeValue>input",function(evt){
+				$(this.parentNode).attr("data-val",this.value);
+			})
+			
 		}
 	}
 }();

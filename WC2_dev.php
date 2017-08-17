@@ -488,19 +488,19 @@ Ciao
 									<col width="">
 									<tr>
 										<th>X</th>
-										<td><input type="number" name="x0" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="x0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Y</th>
-										<td><input type="number" name="y0" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="y0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Sacle</th>
-										<td><input type="number" name="sc" value="0" step="0.01" style="width:90%"></td>
+										<td><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></td>
 									</tr>
 									<tr>
 										<th>Rotate</th>
-										<td><input type="number" name="deg" value="0" step="1" style="width:90%"></td>
+										<td><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></td>
 									</tr>
 								</table>
 							</div>
@@ -643,7 +643,7 @@ Ciao
 									</tr>
 									<tr>
 										<th>Minimum<br />Pressure</th>
-										<td><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+										<td class="showRangeValue" data-val="asd"><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
 									</tr>
 									
 								</table>
@@ -1811,7 +1811,9 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	});
 	*/
 	$(function() {
+		
 		wc2.init(); //초기화
+		wc2Helper.attachTdRangeValueBox();
 		//wc2.showMenuDetail('file-save');
 		//wc2.showMenuDetail('file-new');
 		//wc2.showMenuDetail('help-help');
