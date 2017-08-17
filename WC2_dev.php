@@ -588,6 +588,10 @@ Ciao
 										<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 										</td>
 									</tr>
+									<tr>
+										<th>Minimum<br />Pressure</th>
+										<td><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+									</tr>
 								</table>
 							</div>
 						</div>
@@ -637,85 +641,32 @@ Ciao
 										<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 										</td>
 									</tr>
-									<!-- <tr>
-										<th>Alpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
-										</td>
-									</tr> -->
+									<tr>
+										<th>Minimum<br />Pressure</th>
+										<td><input type="range"  min="0" max="1" value="0.1" step="0.1" name="brushMinimumPressure"  >
+									</tr>
+									
 								</table>
 							</div>
 						</div>
 					</form>
-					<form name="formToolBrush2" id="formToolBrush2" action="javascript:void(0)" class="wc-tool wc-tool-brush2 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" data-disabled-load="1" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
-						<input type="hidden" name="imageSmoothingEnabled" value="1">
-						<div class="panel panel-default">
-							<div  class="panel-heading">Brush Set2</div>
-							<div  class="panel-body">
-								<table class="">
-									<col width="50%">
-									<col width="50%">
-									<tr>
-										<th>Size</th>
-										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
-									</tr>
-									<tr>
-										<th>R0</th>
-										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
-									</tr>
-									<tr>
-										<th>brushAlpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
-										</td>
-									</tr>
-									<tr>
-										<th>Spacing</th>
-										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
-										</td>
-									</tr>
-									<!-- <tr>
-										<th>Alpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
-										</td>
-									</tr> -->
-								</table>
-							</div>
-						</div>
-					</form>
-					<form name="formToolBrush3" id="formToolBrush3" action="javascript:void(0)" class="wc-tool wc-tool-brush3 wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange"  data-disabled-load="1" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
-						<input type="hidden" name="imageSmoothingEnabled" value="1">
-						<div class="panel panel-default">
-							<div  class="panel-heading">Brush Set3</div>
-							<div  class="panel-body">
-								<table class="">
-									<col width="50%">
-									<col width="50%">
-									<tr>
-										<th>Size</th>
-										<td><input   type="range" min="1" max="50" size="5" step="0.1" name="brushWidth" maxlength="5" value="3" ></td>
-									</tr>
-									<tr>
-										<th>R0</th>
-										<td><input   type="range" min="0" max="1" step="0.1" name="r0p" value="0" ></td>
-									</tr>
-									<tr>
-										<th>brushAlpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
-										</td>
-									</tr>
-									<tr>
-										<th>Spacing</th>
-										<td><input type="range"  min="0.5" max="10" value="0.5" step="0.1" name="brushSpacing"  >
-										</td>
-									</tr>
-									<!-- <tr>
-										<th>Alpha</th>
-										<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
-										</td>
-									</tr> -->
-								</table>
-							</div>
-						</div>
-					</form>
+					<script>
+					//브러시 툴박스 설정
+					!function(){
+						var fcl = document.formToolBrush.cloneNode(true);
+						fcl.id +='2';
+						fcl.name +='2';
+						$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
+						$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
+						document.formToolBrush.parentNode.appendChild(fcl);
+						var fcl = document.formToolBrush.cloneNode(true);
+						fcl.id +='3';
+						fcl.name +='3';
+						$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
+						$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
+						document.formToolBrush.parentNode.appendChild(fcl);
+					}()
+					</script>
 					<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">
 						<div class="panel panel-default">
 							<div  class="panel-heading">Pattern</div>
@@ -1762,8 +1713,6 @@ Ciao
 
 
 
-
-
 	</div> <!-- <div id="container"> -->
 
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
@@ -1820,21 +1769,23 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	<script src="jquery/jquery-helper.js"></script>
 	<!-- http://touchpunch.furf.com/ -->
 	<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
-<? $t = time(); ?>
-	<script src="js/colorPalette.js?__=<?=$t?>"></script>
-	<script src="js/colorPalette.palettes.js?__=<?=$t?>"></script>
+	<? $t = time(); ?>
+	
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
+	<script src="js/colorPalette.js?_t=<?=$t?>"></script>
+	<script src="js/colorPalette.palettes.js?_t=<?=$t?>"></script>
+	
 
 	<!-- WC2 -->
-	<script src="js/class.WebCanvas.js?__=<?=$t?>"></script>
-	<script src="js/class.WebCanvasBundle.js?__=<?=$t?>"></script>
-	<script src="js/wc2.js?__=<?=$t?>"></script>
-	<script src="js/wc2Tool.js?__=<?=$t?>"></script>
-	<script src="js/wc2Brush.js?__=<?=$t?>"></script>
+	<script src="js/class.WebCanvas.js?_t=<?=$t?>"></script>
+	<script src="js/class.WebCanvasBundle.js?_t=<?=$t?>"></script>
+	<script src="js/wc2.js?_t=<?=$t?>"></script>
+	<script src="js/wc2Tool.js?_t=<?=$t?>"></script>
+	<script src="js/wc2Brush.js?_t=<?=$t?>"></script>
 	<!-- <script src="js/wc2BrushList.js"></script> -->
-	<script src="js/wc2PatternList.js?__=<?=$t?>"></script>
-	<script src="js/wc2Filter.js?__=<?=$t?>"></script>
-	<script src="js/wc2Helper.js?__=<?=$t?>"></script>
+	<script src="js/wc2PatternList.js?_t=<?=$t?>"></script>
+	<script src="js/wc2Filter.js?_t=<?=$t?>"></script>
+	<script src="js/wc2Helper.js?_t=<?=$t?>"></script>
 	<!-- -->
 
 

@@ -275,7 +275,7 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?Math.max(evt.pressure,wc2.brush4Eraser.disablePressure?1:0.01):1; //압력감지, 팬일 경우만
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Eraser.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 
 
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
@@ -290,7 +290,7 @@ var wc2Tool = function(){
 			}
 			,"move":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?Math.max(evt.pressure,wc2.brush4Eraser.disablePressure?1:0.01):1; //압력감지, 팬일 경우만
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Eraser.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 
 				this.wcb.shadowWebCanvas.drawBrush(t.x,t.y,pressure);
@@ -944,7 +944,7 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?Math.max(evt.pressure,wc2.brush4Brush.disablePressure?1:0.01):1; //압력감지, 팬일 경우만
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 
 				// $("#dev_text").text(wc2.brush4Brush.disablePressure);
 				this.ing = 1;
@@ -958,7 +958,7 @@ var wc2Tool = function(){
 			}
 			,"move":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?Math.max(evt.pressure,wc2.brush4Brush.disablePressure?1:0.01):1; //압력감지, 팬일 경우만
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 
 				// $("#dev_text").text(evt.pointerType+":"+evt.pressure+"-"+pressure+":"+wc2.brush4Brush.disablePressure);
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
