@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?
 $t = time();
+
 $isCLI = (php_sapi_name() == "cli");
+if(!$isCLI){
+	$tsync = '?_t='.$t;
+}else{
+	$tsync = '';
+}
 ?>
 <!--
 2015-04-23 : 제작시작
@@ -73,8 +79,8 @@ $isCLI = (php_sapi_name() == "cli");
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css<?=$tsync?>" charset="utf-8" />
 	</head>
 	<body>
 
@@ -1756,20 +1762,20 @@ $isCLI = (php_sapi_name() == "cli");
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js"></script>
-			<script src="js/colorPalette.palettes.js"></script>
+			<script src="js/colorPalette.js<?=$tsync?>"></script>
+			<script src="js/colorPalette.palettes.js<?=$tsync?>"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js"></script>
-			<script src="js/class.WebCanvasBundle.js"></script>
-			<script src="js/wc2.js"></script>
-			<script src="js/wc2Tool.js"></script>
-			<script src="js/wc2Brush.js"></script>
+			<script src="js/class.WebCanvas.js<?=$tsync?>"></script>
+			<script src="js/class.WebCanvasBundle.js<?=$tsync?>"></script>
+			<script src="js/wc2.js<?=$tsync?>"></script>
+			<script src="js/wc2Tool.js<?=$tsync?>"></script>
+			<script src="js/wc2Brush.js<?=$tsync?>"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js"></script>
-			<script src="js/wc2Filter.js"></script>
-			<script src="js/wc2Helper.js"></script>
+			<script src="js/wc2PatternList.js<?=$tsync?>"></script>
+			<script src="js/wc2Filter.js<?=$tsync?>"></script>
+			<script src="js/wc2Helper.js<?=$tsync?>"></script>
 			<!-- -->
 
 
