@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rv 20170819-###@@@@123123
+# rv 20170819-###@@@@123123123123
 
 
 CACHE:
@@ -35,7 +35,7 @@ js/wc2Brush.js
 js/wc2PatternList.js
 js/wc2Filter.js
 js/wc2Helper.js
-http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/fonts/glyphicons-halflings-regular.woff2
+http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/fonts/glyphiconas-halflings-regular.woff2
 pattern/pattern_mins01.png
 pattern/pattern01.png
 pattern/pattern02.png
