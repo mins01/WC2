@@ -262,7 +262,7 @@ var wc2 = (function(){
 				evt.stopPropagation();
 			}
 
-			var eventArea =  document.getElementById('tabsContent');
+			var eventArea =  document.getElementById('rootArea');
 			// var cbfn = function(evt){
 			// 	document.title = evt.x
 			// }
@@ -274,7 +274,7 @@ var wc2 = (function(){
 				$(eventArea).on( "pointerdown", ".wcb-frame",onDown );
 				$(eventArea).on( "pointermove", onMove );
 				$(eventArea).on( "pointerup", onUp );
-			}else if(document.onpointerdown !== undefined){
+			}else if(document.ontouchstart !== undefined){
 				$(eventArea).on( "touchstart", ".wcb-frame",onDown );
 				$(eventArea).on( "touchmove", onMove );
 				$(eventArea).on( "touchend", onUp );

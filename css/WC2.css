@@ -10,6 +10,7 @@
 */
 
 #dev_text{position: fixed;bottom:0;right:0;z-index:90000;}
+#rootArea{position: fixed;bottom:0;right:0;top:0;left:0;}
 
 html{overflow:hidden;padding:0;margin:0;height:100%;}
 body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
