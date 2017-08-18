@@ -352,8 +352,8 @@ cursor:pointer;
 /**
  * 유틸성
  */
-td.showRangeValue{position: relative;}
-td.showRangeValue::before{
+.showRangeValue{position: relative;}
+.showRangeValue::before{
 	content: attr(data-val);
 	position: absolute;top:0;left:0; right:0;bottom:0;
 	text-align: center;

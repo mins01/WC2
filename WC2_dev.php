@@ -287,12 +287,12 @@ if(!$isCLI){
 											<col width="50%">
 											<tr>
 												<th>line</th>
-												<td><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" >
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div>
 												</td>
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  >
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div>
 												</td>
 											</tr>
 											<tr>
@@ -343,7 +343,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  >
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div>
 												</td>
 											</tr>
 											<tr>
@@ -373,12 +373,12 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" >
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" ></div>
 												</td>
 											</tr>
 											<tr>
 												<th>size</th>
-												<td><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></td>
+												<td><div class="showRangeValue"><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
 											</tr>
 											<tr>
 												<th>font</th>
@@ -457,7 +457,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>line</th>
-												<td><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" >
+												<td><div class="showRangeValue"><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" ></div>
 												</td>
 											</tr>
 											<tr>
@@ -489,19 +489,19 @@ if(!$isCLI){
 											<col width="">
 											<tr>
 												<th>X</th>
-												<td><input type="range" name="x0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
+												<td><div class="showRangeValue"><input type="range" name="x0" value="0" min="-999" max="999" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Y</th>
-												<td><input type="range" name="y0" value="0" min="-999" max="999" step="1" style="width:90%"></td>
+												<td><div class="showRangeValue"><input type="range" name="y0" value="0" min="-999" max="999" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Sacle</th>
-												<td><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></td>
+												<td><div class="showRangeValue"><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Rotate</th>
-												<td><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></td>
+												<td><div class="showRangeValue"><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></div></td>
 											</tr>
 										</table>
 									</div>
@@ -566,21 +566,21 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Size</th>
-												<td><input type="range" min="1" max="50" value="5" size="5" name="brushWidth" >
+												<td><div class="showRangeValue"><input type="range" min="1" max="50" value="5" size="5" name="brushWidth" ></div>
 												</td>
 											</tr>
 											<tr>
 												<th>R0</th>
-												<td><input   type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  >
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div>
 												</td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  >
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
 												</td>
 											</tr>
 											<tr>
@@ -591,7 +591,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Minimum<br />Pressure</th>
-												<td><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
+												<td><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  ></div>
 												</tr>
 											</table>
 										</div>
@@ -620,20 +620,20 @@ if(!$isCLI){
 											<col width="50%">
 											<tr>
 												<th>Size</th>
-												<td><input   type="range" min="1" max="50" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></td>
+												<td><div class="showRangeValue"><input type="range" min="1" max="50" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>
-												<td><input   type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
 												<th>brushAlpha</th>
-												<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  >
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div>
 												</td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  >
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
 												</td>
 											</tr>
 											<tr>
@@ -644,7 +644,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Minimum<br />Pressure</th>
-												<td ><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
+												<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  ></div>
 												</tr>
 
 											</table>
@@ -680,16 +680,16 @@ if(!$isCLI){
 												</tr>
 												<tr>
 													<th>Size</th>
-													<td><input   type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></td>
+													<td><div class="showRangeValue"><input type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></div></td>
 												</tr>
 												<tr>
 													<th>alpha</th>
-													<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
+													<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  ></div>
 													</td>
 												</tr>
 												<tr>
 													<th>Spacing</th>
-													<td><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  >
+													<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  ></div>
 													</td>
 												</tr>
 											</table>
@@ -1416,16 +1416,22 @@ if(!$isCLI){
 											<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
 										</li>
 										<li class="list-group-item">
-											R : <span>0</span>
-											<input type="range" name="R" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
+											<div class="row">
+												<div class="col-xs-2">R</div>
+												<div class="col-xs-10"><div class="showRangeValue"><input type="range" name="R" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
 										</li>
 										<li class="list-group-item">
-											G : <span>0</span>
-											<input type="range" name="G" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
+											<div class="row">
+												<div class="col-xs-2">G</div>
+												<div class="col-xs-10"><div class="showRangeValue"><input type="range" name="G" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
 										</li>
 										<li class="list-group-item">
-											B : <span>0</span>
-											<input type="range" name="B" value="0" min="-255" max="255"   step="1" onchange="$(this).parent().find('span').first().html(this.value);">
+											<div class="row">
+												<div class="col-xs-2">B</div>
+												<div class="col-xs-10"><div class="showRangeValue"><input type="range" name="B" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
 										</li>
 										<li class="list-group-item">
 											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
@@ -1489,11 +1495,11 @@ if(!$isCLI){
 									<ul class="list-group ">
 										<li class="list-group-item">
 											Brightness : <span>0</span>
-											<input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01" onchange="$(this).parent().find('span').first().html(this.value);">
+											<div class="showRangeValue"><input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01" onchange="$(this).parent().find('span').first().html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											Contrast : <span>1</span>
-											<input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01" onchange="$(this).parent().find('span').first().html(this.value);">
+											<div class="showRangeValue"><input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01" onchange="$(this).parent().find('span').first().html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1516,15 +1522,15 @@ if(!$isCLI){
 									<ul class="list-group ">
 										<li class="list-group-item">
 											threshold : <span id="spanThreshold">128</span>
-											<input type="range" name="threshold" value="128" min="0" max="255" step="1" onchange="$('#spanThreshold').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="threshold" value="128" min="0" max="255" step="1" onchange="$('#spanThreshold').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											Low : <span id="spanThresholdLow">0</span>
-											<input type="range" name="thresholdLow" value="0" min="0" max="255" step="1" onchange="$('#spanThresholdLow').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="thresholdLow" value="0" min="0" max="255" step="1" onchange="$('#spanThresholdLow').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											Hight : <span id="spanThresholdHigh">255</span>
-											<input type="range" name="thresholdHigh" value="255" min="0" max="255" step="1" onchange="$('#spanThresholdHigh').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="thresholdHigh" value="255" min="0" max="255" step="1" onchange="$('#spanThresholdHigh').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1547,7 +1553,7 @@ if(!$isCLI){
 									<ul class="list-group ">
 										<li class="list-group-item">
 											diameter : <span id="spanDiameter">0</span>
-											<input type="range" name="diameter" value="0" min="0" max="128" step="0.1" onchange="$('#spanDiameter').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="diameter" value="0" min="0" max="128" step="0.1" onchange="$('#spanDiameter').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1614,11 +1620,11 @@ if(!$isCLI){
 									<ul class="list-group ">
 										<li class="list-group-item">
 											amount : <span id="spanAmount">0.5</span>
-											<input type="range" name="amount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanAmount').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="amount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanAmount').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											yamount : <span id="spanYamount">0.5</span>
-											<input type="range" name="yamount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanYamount').html(this.value);">
+											<div class="showRangeValue"><input type="range" name="yamount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanYamount').html(this.value);"></div>
 										</li>
 										<li class="list-group-item">
 											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
@@ -1685,7 +1691,7 @@ if(!$isCLI){
 											<div class="">
 												<div class="input-group">
 												  <span class="input-group-addon" ><div style="width:8em;display:inline-block">R : <span id="wc-mdetail-layer-filter-applyColorDepth-depth-r">2 depth</span></div></span>
-													<input type="range" class="form-control"  name="depthR" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-r"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()">
+													<div class="showRangeValue"><input type="range" class="form-control"  name="depthR" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-r"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()"></div>
 												</div>
 											</div>
 										</li>
@@ -1693,7 +1699,7 @@ if(!$isCLI){
 											<div class="">
 												<div class="input-group">
 												  <span class="input-group-addon" ><div style="width:8em;display:inline-block">G : <span id="wc-mdetail-layer-filter-applyColorDepth-depth-g">2 depth</span></div></span>
-													<input type="range" class="form-control"  name="depthG" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-g"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()">
+													<div class="showRangeValue"><input type="range" class="form-control"  name="depthG" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-g"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()"></div>
 												</div>
 											</div>
 										</li>
@@ -1701,7 +1707,7 @@ if(!$isCLI){
 											<div class="">
 												<div class="input-group">
 												  <span class="input-group-addon" ><div style="width:8em;display:inline-block">B : <span id="wc-mdetail-layer-filter-applyColorDepth-depth-b">2 depth</span></div></span>
-													<input type="range" class="form-control"  name="depthB" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-b"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()">
+													<div class="showRangeValue"><input type="range" class="form-control"  name="depthB" value="0" min="2" max="256"  data-target="#wc-mdetail-layer-filter-applyColorDepth-depth-b"  step="1" oninput="$($(this).attr('data-target')).text(this.value+' depth');" onchange="this.oninput()"></div>
 												</div>
 											</div>
 										</li>
