@@ -228,16 +228,9 @@ var wc2 = (function(){
 				var evt = event.originalEvent?event.originalEvent:event;
 				//console.log(event.type);
 				// $("#dev_text").text(":1"+evtorg.type+":"+evtorg.pointerType);
-				if('getCoalescedEvents' in evt){
-					var evts = evt.getCoalescedEvents()
-					for(var i=0,m=evts.length;i<m;i++){
-						wc2Tool.onMove(wc2.tool,evts[i]);
-					}
-				}else{
-					if(!wc2Tool.onMove(wc2.tool,evt)){
-						//wc2.setError( wc2Tool.error);
-						return ; //이벤트를 계속 시킨다.
-					}
+				if(!wc2Tool.onMove(wc2.tool,evt)){
+					//wc2.setError( wc2Tool.error);
+					return ; //이벤트를 계속 시킨다.
 				}
 
 				evt.bubble = false;
@@ -299,20 +292,6 @@ var wc2 = (function(){
 			eventArea.addEventListener("scroll", stopEvent, false);
 			eventArea.addEventListener("touchmove", stopEvent, false);
 			eventArea.addEventListener("mousewheel", stopEvent, false);
-			// 	$(document).on( "pointerdown", ".wcb-frame",onDown );
-			// 	// $(document).on( "touchstart", ".wcb-frame",onDown );
-			// 	$(document).on( "pointermove", onMove );
-			// 	$(document).on( "pointerup", onUp );
-			// $(document).on( "touchstart", ".wcb-frame",onDown );
-			// $(document).on( "touchmove", onMove );
-			// $(document).on( "touchend", onUp );
-
-
-			// $(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
-			// // $(document).on( "pointermove touchmove mousemove", onMove);
-			// $(document).on( "pointermove mousemove", onMove);
-			// $(document).on( "pointerup touchend mouseup", onUp);
-
 
 			//--- 휠 동작
 			$(document).on('mousewheel', ".wcb-frame", function(event) {
@@ -328,7 +307,7 @@ var wc2 = (function(){
 			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
 			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
 			// 입룻랙 제거용
-			$(document).on("pointerdown touchstart mousedown ","input", stopEvent);
+			// $(document).on("touchstart ","input", stopEvent);
 
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){

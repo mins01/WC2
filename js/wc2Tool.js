@@ -56,7 +56,7 @@ var wc2Tool = function(){
 		}
 		,"onUp":function(toolName,event){
 			var evt = event.originalEvent?event.originalEvent:event;
-			
+
 			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			this.isDown = 0;
 			//에러는 init에서 이미 체크했다.
@@ -243,11 +243,18 @@ var wc2Tool = function(){
 				//console.log("down");
 				return true;
 			}
-			,"move":function(event){
+			,"_move":function(event){
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.pos.push([t.x,t.y])
 				this.predraw();
 				//console.log("move");
+				return true;
+			}
+			,"move":function(event){
+				var evts = ('getCoalescedEvents' in event)?event.getCoalescedEvents():[event];
+				for(var i=0,m=evts.length;i<m;i++){
+					this._move(evts[i]);
+				}
 				return true;
 			}
 			,"up":function(event){
@@ -294,12 +301,18 @@ var wc2Tool = function(){
 
 				return true;
 			}
-			,"move":function(event){
-				var evt = event.originalEvent?event.originalEvent:event;
+			,"_move":function(event){
 				var pressure = (evt.pointerType=='pen')?wc2.brush4Eraser.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 
 				this.wcb.shadowWebCanvas.drawBrush(t.x,t.y,pressure);
+				return true;
+			}
+			,"move":function(event){
+				var evts = ('getCoalescedEvents' in event)?event.getCoalescedEvents():[event];
+				for(var i=0,m=evts.length;i<m;i++){
+					this._move(evts[i]);
+				}
 				return true;
 			}
 			,"up":function(event){
@@ -950,11 +963,11 @@ var wc2Tool = function(){
 			}
 			,"down":function(event){
 				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만		
+				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
 				// $("#dev_text").text(evt.pointerType+":"+pressure);
-				
 
-				
+
+
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//-- 쉐도우 캔퍼스 사용시
@@ -964,17 +977,22 @@ var wc2Tool = function(){
 				this.wcb.activeWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing,pressure);
 				return true;
 			}
-			,"move":function(event){
-				var evt = event.originalEvent?event.originalEvent:event;
-				var pressure = (evt.pointerType=='pen')?wc2.brush4Brush.calculatePressure(evt.pressure):1; //압력감지, 팬일 경우만
-
+			,"_move":function(event){
+				var pressure = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressure(event.pressure):1; //압력감지, 팬일 경우만
 				// $("#dev_text").text(evt.pointerType+":"+evt.pressure+"-"+pressure+":"+wc2.brush4Brush.disablePressure);
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//-- 쉐도우 캔퍼스 사용시
 				// this.wcb.shadowWebCanvas.drawBrush(t.x,t.y);
 				//-- 바로 캔버스에 그릴 경우
+				//--
 				this.wcb.activeWebCanvas.drawBrush(t.x,t.y,pressure);
-
+				return true;
+			}
+			,"move":function(event){
+				var evts = ('getCoalescedEvents' in event)?event.getCoalescedEvents():[event];
+				for(var i=0,m=evts.length;i<m;i++){
+					this._move(evts[i]);
+				}
 				return true;
 			}
 			,"up":function(event){
