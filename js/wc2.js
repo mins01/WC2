@@ -266,8 +266,13 @@ var wc2 = (function(){
 			}
 
 			var stopEvent = function(evt){
-				evt.preventDefault();
+				var evt = evt.originalEvent?evt.originalEvent:evt;
 				evt.stopPropagation();
+				if(event.type.indexOf("pointer")===0){
+				}else{
+					evt.preventDefault();
+				}
+				return false;
 			}
 
 			var eventArea =  document.getElementById('rootArea');
@@ -322,6 +327,9 @@ var wc2 = (function(){
 			// 드래그 방지용
 			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
 			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
+			// 입룻랙 제거용
+			$(document).on("pointerdown touchstart mousedown ","input", stopEvent);
+
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){
 				wc2.setToolByBtn(this);

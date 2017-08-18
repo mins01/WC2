@@ -9,10 +9,11 @@
 * '공대여자는 이쁘다.'를 나타내야만 사용할 수 있습니다.
 */
 
+
 #dev_text{position: fixed;bottom:0;right:0;z-index:90000;}
 #rootArea{position: fixed;bottom:0;right:0;top:0;left:0;}
 
-html{overflow:hidden;padding:0;margin:0;height:100%;}
+html{overflow:hidden;padding:0;margin:0;height:100%;touch-action: manipulation;}
 body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
 input,textarea,select,button{padding:0;}
 .navbar{padding-bottom:0px;}
@@ -32,6 +33,15 @@ input,textarea,select,button{padding:0;}
 select[disabled]{ background-color:#ccc; opacity:0.3}
 
 .not-active{pointer-events:none;}
+
+/**
+ * 상단 네비
+ * @type {[type]}
+ */
+#top-navbar {
+    max-height: 600px;
+}
+
 
 /* jquery-ui 와 충돌 회피 (이미지 사용관련)*/
 .ui-widget-header .ui-state-default {
@@ -130,7 +140,7 @@ margin-right:2px;
 }
 #propLayerList[data-wc2-preview="2"] .WC-node{
 display:none;
-	
+
 }
 
 #propLayerList li{ cursor:pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
@@ -148,7 +158,7 @@ display:none;
 @media (max-width: 768px) {
 	/* 툴 버튼을 작은 버튼으로 변경 */
 	#toolPanel{width:30px; min-width:26px}
-	#toolPanel .btn{   
+	#toolPanel .btn{
 			padding: 1px 5px;
 		  font-size: 12px;
 		  line-height: 1.5;
@@ -186,7 +196,7 @@ div.wc-viewImage img.wc-viewImage{ border:4px inset #abc;}
 
 
 #tabs{position:absolute;left;top:0;left:0;right:0;bottom:0;}
-#tabsContent{ 
+#tabsContent{
 overflow:hidden;
 border: 1px solid #ccc;
 background-color:#eee;
@@ -215,7 +225,7 @@ position: absolute;
 
 /* wcb */
 .WCB{box-shadow: 0px 1px 3px rgba(0,0,0,0.5);}
-.wcb-frame { 
+.wcb-frame {
 position: absolute;
 top: 0;
 right: 0;
@@ -229,7 +239,7 @@ box-sizing: border-box;
 .wcb-frame .WCB{ margin:0 auto;}
 .ui-dialog .wcb-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 
-.wcb-move { 
+.wcb-move {
 position: absolute;
 top: 0;
 right: 0;
@@ -242,7 +252,7 @@ box-sizing: border-box;
 .border-top-width:30px;
 padding-top: 30px;
 
-}		
+}
 
 .wcb-zoom{
 z-index: 3;
@@ -278,7 +288,7 @@ background-color:rgba(0,0,0,0.2);
 /* 지우개 */
 #formToolEraserCanvasBox{ background-color:rgba(0,0,0,0.6)}
 
-/* imageAreaSelect . fix crush bootstrap */ 
+/* imageAreaSelect . fix crush bootstrap */
 .imgareaselect-outer {box-sizing: content-box;}
 
 /* 브러쉬 */
@@ -316,7 +326,7 @@ cursor:pointer;
 	font-family: 'Glyphicons Halflings';
 	margin-left:5px;
 }
-.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{ 
+.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{
 	display:none;
 	content: "\e105";
  }
@@ -328,14 +338,14 @@ cursor:pointer;
 @media (max-width: 768px) {
 	/* 툴 버튼을 작은 버튼으로 변경 */
 	.wc-prop-layer-info .eye{
-		position: static; 
+		position: static;
 		padding-right:5px;
 		display:inline;
 	}
-	.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{ 
+	.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{
 		display:inline;
 	}
-	
+
 }
 
 
@@ -348,4 +358,4 @@ td.showRangeValue::before{
 	position: absolute;top:0;left:0; right:0;bottom:0;
 	text-align: center;
 	pointer-events: none;
-}	
+}

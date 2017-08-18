@@ -181,9 +181,9 @@ if(!$isCLI){
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Layer <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')">Add</a></li>
-										<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')">Remove</a></li>
+										<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="confirm('remove Layer?')?wc2.cmdLayer('remove'):'';">Remove</a></li>
 										<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')">Duplicate</a></li>
-										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')">MergeDown</a></li>
+										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')? wc2.cmdLayer('mergeDown')">MergeDown</a></li>
 										<li><a href="#" class="glyphicon glyphicon-erase" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
 										<li class="divider"></li>
 										<li><a href="#" class="glyphicon glyphicon-eye-close" onclick="wc2.cmdLayer('toggleHide');return false;">Toggle Hide</a></li>
@@ -811,13 +811,13 @@ if(!$isCLI){
 											<div  class="panel-body">
 												<div class="panel-body btn-group-xs" role="group">
 													<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
-													<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
+													<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="confirm('remove Layer?')?wc2.cmdLayer('remove'):''" ></button>
 													<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
 													<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
 												</div>
 												<div class="panel-body btn-group-xs" role="group">
 													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')" title="Duplicate"></button>
-													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')"  title="MergeDown"></button>
+													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')?wc2.cmdLayer('mergeDown'):''"  title="MergeDown"></button>
 													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-erase" onclick="wc2.cmdLayer('clear')"  title="Clear"></button>
 													<select name="layerOpacity"  class="btn btn-default btn-sm" style="width:5em" onchange="wc2.cmdLayer('opacity',this.value)">
 														<option value="1">100%</option>
