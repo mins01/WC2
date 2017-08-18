@@ -1019,54 +1019,25 @@ var wc2 = (function(){
 			return this._viewImage(url);
 		}
 		,"_viewImage":function(url){
-			var div = document.createElement('div');
-			div.className = "wc-viewImage";
+			var a = document.createElement('a');
+			a.className = "wc-viewImage";
+			a.onclick=function(){
+				return confirm("download image? ("+this.download+")");
+			}
 			var img = new Image();
-			img.title = wc2.activeWcb.name;
+			a.download = img.title = wc2.activeWcb.name+".png";
 			img.className ="wc-viewImage bg-grid";
-			$(div).append(img);
+			$(a).append(img);
 			$(img).bind("load",function(event){
-				var rect = document.body.getBoundingClientRect();
-				$( this ).parent().dialog({"resizable":true,"draggable":true,
-					"position": { my: "center top" , at: "center top", of: "#contentArea" },
-					"width":Math.min(this.naturalWidth + 100,rect.width - 50),
-					"height":Math.min(this.naturalHeight + 100,rect.height - 50),
-					"maxWidth":rect.width - 50,
-					"maxHeight":rect.height - 50,
-					"modal":true,
-					"title":wc2.activeWcb.name+" (view)",
-					"close": function( event, ui ) {
-						$(this).dialog('destroy').remove();
-					},
-				});
-				$( this ).parent().append("<div>"+this.naturalWidth+"x"+this.naturalHeight+"</div>");
+				var t = this.getAttribute("src").replace(/^data:.*;base64,/,'');
+				var size = new Intl.NumberFormat().format(atob(t).length);
+				$("#wc-mdetail-file-view-title").text(this.title)
+				$("#wc-mdetail-file-view-info").text(size+" Byte / "+this.naturalWidth+" x "+this.naturalHeight+" (px)")
+				$("#wc-mdetail-file-view-image").html(this.parentNode)
+				wc2.showMenuDetail("file-view");
 			})
-			img.src = url;
-		}
-		,"_viewImage_bak":function(url){
-			var div = document.createElement('div');
-			div.className = "wc-viewImage";
-			var img = new Image();
-			img.title = wc2.activeWcb.name;
-			img.className ="wc-viewImage bg-grid";
-			$(div).append(img);
-			$(img).bind("load",function(event){
-				var rect = document.body.getBoundingClientRect();
-				$( this ).parent().dialog({"resizable":true,"draggable":true,
-					"position": { my: "center top" , at: "center top", of: "#contentArea" },
-					"width":Math.min(this.naturalWidth + 100,rect.width - 50),
-					"height":Math.min(this.naturalHeight + 100,rect.height - 50),
-					"maxWidth":rect.width - 50,
-					"maxHeight":rect.height - 50,
-					"modal":true,
-					"title":wc2.activeWcb.name+" (view)",
-					"close": function( event, ui ) {
-						$(this).dialog('destroy').remove();
-					},
-				});
-				$( this ).parent().append("<div>"+this.naturalWidth+"x"+this.naturalHeight+"</div>");
-			})
-			img.src = url;
+
+			a.href = img.src = url;
 		}
 		//--- 색상관련
 		,"initColorPalette":function(){

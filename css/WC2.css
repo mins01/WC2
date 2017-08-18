@@ -13,6 +13,8 @@
 #dev_text{position: fixed;bottom:0;right:0;z-index:90000;}
 #rootArea{position: fixed;bottom:0;right:0;top:0;left:0;}
 
+
+
 html{overflow:hidden;padding:0;margin:0;height:100%;touch-action: manipulation;}
 body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
 input,textarea,select,button{padding:0;}
@@ -169,8 +171,12 @@ display:none;
 }
 
 
-div.wc-viewImage{text-align:center;padding:5px; }
-div.wc-viewImage img.wc-viewImage{ border:4px inset #abc;}
+a.wc-viewImage{text-align:center;padding:5px;overflow: auto;display: block;}
+a.wc-viewImage img.wc-viewImage{ box-shadow: 3px 3px 3px rgba(0,0,0,0.5);}
+
+@media (max-width: 768px) {
+	a.wc-viewImage img.wc-viewImage{ max-width:98%; border:0px inset #abc;}
+}
 
 /* 이미지 툴용 prop */
 #imageNode{max-width:100%;}
@@ -188,10 +194,10 @@ div.wc-viewImage img.wc-viewImage{ border:4px inset #abc;}
 	right: 0px;
 }
 @media (min-width: 768px) {
-#contentArea{
-	left: 95px;
-	right: 207px;
-}
+	#contentArea{
+		left: 95px;
+		right: 207px;
+	}
 }
 
 
@@ -359,3 +365,5 @@ cursor:pointer;
 	text-align: center;
 	pointer-events: none;
 }
+
+.no-padding{padding:0 !important;}

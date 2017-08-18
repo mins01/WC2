@@ -82,7 +82,7 @@ if(!$isCLI){
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./css/WC2.css<?=$tsync?>" charset="utf-8" />
 	</head>
-	<body>
+	<body spellcheck="false">
 
 			<div id="dev_text">
 
@@ -1082,6 +1082,21 @@ if(!$isCLI){
 				                <!-- <button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button> -->
 				              </li>
 
+				            </ul>
+				        </div>
+				      </div>
+				    </form>
+						<form name="formMenuDetailFileView" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-view">
+				      <div class="panel panel-default wc2-panel" >
+				        <div  class="panel-heading">View Image</div>
+				        <div  class="panel-body">
+				            <ul class="list-group">
+											<li class="list-group-item list-group-item-info" id="wc-mdetail-file-view-title"></li>
+											<li class="list-group-item list-group-item-info" id="wc-mdetail-file-view-info"></li>
+				              <li class="list-group-item no-padding" id="wc-mdetail-file-view-image"></li>
+				              <li class="list-group-item text-center">
+				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+				              </li>
 				            </ul>
 				        </div>
 				      </div>
