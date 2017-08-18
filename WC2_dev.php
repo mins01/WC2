@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<? 
-$t = time(); 
+<?
+$t = time();
 $isCLI = (php_sapi_name() == "cli");
 ?>
 <!--
@@ -73,11 +73,11 @@ $isCLI = (php_sapi_name() == "cli");
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=<?=$t?>" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=<?=$t?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css" charset="utf-8" />
 	</head>
 	<body>
-		
+
 			<div id="dev_text">
 
 			</div>
@@ -305,7 +305,7 @@ $isCLI = (php_sapi_name() == "cli");
 													<td>
 														<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-														
+
 													</td>
 												</tr>
 												<tr>
@@ -313,7 +313,7 @@ $isCLI = (php_sapi_name() == "cli");
 													<td>
 														<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-														
+
 													</td>
 												</tr>
 											</tbody>
@@ -321,8 +321,8 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-							
-							
+
+
 							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
@@ -352,7 +352,7 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-							
+
 							<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">text</div>
@@ -466,10 +466,10 @@ $isCLI = (php_sapi_name() == "cli");
 												<td>
 													<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-													
+
 												</td>
 											</tr>
-											
+
 										</table>
 									</div>
 								</div>
@@ -524,7 +524,7 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-							
+
 							<form name="formToolSpuit" action="javascript:void(0)" class="wc-tool wc-tool-spuit" onsubmit="return false">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Spuit</div>
@@ -640,7 +640,7 @@ $isCLI = (php_sapi_name() == "cli");
 												<th>Minimum<br />Pressure</th>
 												<td ><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
 												</tr>
-												
+
 											</table>
 										</div>
 									</div>
@@ -688,9 +688,9 @@ $isCLI = (php_sapi_name() == "cli");
 												</tr>
 											</table>
 											<div id="toolPatternList">
-												
+
 											</div>
-											
+
 										</div>
 									</div>
 								</form>
@@ -751,7 +751,7 @@ $isCLI = (php_sapi_name() == "cli");
 										</div>
 									</div>
 								</form>
-								
+
 								<form name="formMove" action="javascript:void(0)" class="wc-tool wc-tool-move" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Move</div>
@@ -766,7 +766,7 @@ $isCLI = (php_sapi_name() == "cli");
 										</div>
 									</div>
 								</form>
-								
+
 								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
 								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 									<div class="panel panel-default">
@@ -791,9 +791,9 @@ $isCLI = (php_sapi_name() == "cli");
 										</div>
 									</div>
 								</form>
-								
-								
-								
+
+
+
 								<form name="formPropHidden" action="javascript:void(0)" class="wc-tool wc-tool-line2" onsubmit="return false">
 									테스트용 폼. 보이면 안된다.
 								</form>
@@ -879,7 +879,7 @@ $isCLI = (php_sapi_name() == "cli");
 						</div>
 					</article>
 				</div> <!-- <div id="rootArea"> -->
-				
+
 
 				<!-- 이 속의 내용은 안보여준다. 노드를 복사해서 사용할려고 만든것이다.-->
 				<article id="hiddenArea" >
@@ -1726,7 +1726,7 @@ $isCLI = (php_sapi_name() == "cli");
 			<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 			<!-- jquery-ui -->
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-			
+
 			<!-- spectrum on jquery https://bgrins.github.io/spectrum/ -->
 			<script src="jquery/spectrum.js"></script>
 			<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script> -->
@@ -1753,23 +1753,23 @@ $isCLI = (php_sapi_name() == "cli");
 			<script src="jquery/jquery-helper.js"></script>
 			<!-- http://touchpunch.furf.com/ -->
 			<!-- <script src="jquery/jquery.ui.touch-punch.min.js"></script> -->
-			
-			
+
+
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=<?=$t?>"></script>
-			<script src="js/colorPalette.palettes.js?_t=<?=$t?>"></script>
-			
+			<script src="js/colorPalette.js"></script>
+			<script src="js/colorPalette.palettes.js"></script>
+
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=<?=$t?>"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=<?=$t?>"></script>
-			<script src="js/wc2.js?_t=<?=$t?>"></script>
-			<script src="js/wc2Tool.js?_t=<?=$t?>"></script>
-			<script src="js/wc2Brush.js?_t=<?=$t?>"></script>
+			<script src="js/class.WebCanvas.js"></script>
+			<script src="js/class.WebCanvasBundle.js"></script>
+			<script src="js/wc2.js"></script>
+			<script src="js/wc2Tool.js"></script>
+			<script src="js/wc2Brush.js"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=<?=$t?>"></script>
-			<script src="js/wc2Filter.js?_t=<?=$t?>"></script>
-			<script src="js/wc2Helper.js?_t=<?=$t?>"></script>
+			<script src="js/wc2PatternList.js"></script>
+			<script src="js/wc2Filter.js"></script>
+			<script src="js/wc2Helper.js"></script>
 			<!-- -->
 
 
@@ -1795,7 +1795,7 @@ $isCLI = (php_sapi_name() == "cli");
 			});
 			*/
 			$(function() {
-				
+
 				wc2.init(); //초기화
 				wc2Helper.attachTdRangeValueBox();
 				//wc2.showMenuDetail('file-save');

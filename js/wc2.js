@@ -82,10 +82,10 @@ var wc2 = (function(){
 			//this.cmdWcb("new",300,300);
 			this.hideMenuDetail();
 			this.setTool("brush");
-			//this.hideFilterDetail();			
+			//this.hideFilterDetail();
 			this.loadSetting();
 			this.initAutoWcbLocalStorage();
-			
+
 			// this.setTool("brush");
 			// this.syncBrush(document.formToolBrush)
 			$("button[data-wc-tool='brush']").trigger("click");
@@ -224,14 +224,22 @@ var wc2 = (function(){
 				wc2.eventStep = 1;
 				return false;
 			}
-			var onMove = function(evt) {
-				var evtorg = evt.originalEvent;
+			var onMove = function(event) {
+				var evt = event.originalEvent?event.originalEvent:event;
 				//console.log(event.type);
 				// $("#dev_text").text(":1"+evtorg.type+":"+evtorg.pointerType);
-				if(!wc2Tool.onMove(wc2.tool,evt)){
-					//wc2.setError( wc2Tool.error);
-					return ; //이벤트를 계속 시킨다.
+				if('getCoalescedEvents' in evt){
+					var evts = evt.getCoalescedEvents()
+					for(var i=0,m=evts.length;i<m;i++){
+						wc2Tool.onMove(wc2.tool,evts[i]);
+					}
+				}else{
+					if(!wc2Tool.onMove(wc2.tool,evt)){
+						//wc2.setError( wc2Tool.error);
+						return ; //이벤트를 계속 시킨다.
+					}
 				}
+
 				evt.bubble = false;
 				evt.stopPropagation();
 				if(!wc2.isTouch) evt.preventDefault(); //이벤트 취소시킨다.
@@ -281,7 +289,7 @@ var wc2 = (function(){
 			}else{
 				$(eventArea).on( "mousedown", ".wcb-frame",onDown );
 				$(eventArea).on( "mousemove", onMove);
-				$(eventArea).on( "mouseup", onUp);				
+				$(eventArea).on( "mouseup", onUp);
 			}
 			eventArea.addEventListener("scroll", stopEvent, false);
 			eventArea.addEventListener("touchmove", stopEvent, false);
