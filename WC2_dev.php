@@ -77,7 +77,7 @@ $isCLI = (php_sapi_name() == "cli");
 		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=<?=$t?>" charset="utf-8" />
 	</head>
 	<body>
-		<div id="rootArea">
+		
 			<div id="dev_text">
 
 			</div>
@@ -303,17 +303,17 @@ $isCLI = (php_sapi_name() == "cli");
 												<tr>
 													<th>use-line</th>
 													<td>
-													<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
+														<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+														<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+														
 													</td>
 												</tr>
 												<tr>
 													<th>use-fill</th>
 													<td>
-													<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
+														<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+														<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+														
 													</td>
 												</tr>
 											</tbody>
@@ -321,8 +321,8 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-
-
+							
+							
 							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
@@ -352,7 +352,7 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-
+							
 							<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">text</div>
@@ -362,17 +362,7 @@ $isCLI = (php_sapi_name() == "cli");
 											<col width="">
 											<tr>
 												<th colspan="2" >
-													<textarea name="textareaText" cols="10" rows="4" wrap="hard" id="textareaText" style="width:95%">안녕하세요.
-		HELLO!
-		你好
-		おはようございます
-		สวัสดีครับ
-		Selamat pagi!
-		Xin Chao
-		Guten Morgen
-		Bonjour
-		Ciao
-		</textarea>
+													<textarea name="textareaText" cols="10" rows="4" wrap="hard" id="textareaText" style="width:95%">안녕하세요.</textarea>
 												</th>
 											</tr>
 											<tr>
@@ -387,22 +377,22 @@ $isCLI = (php_sapi_name() == "cli");
 											<tr>
 												<th>font</th>
 												<td><select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" onchange="this.form.textareaText.style.fontFamily=this.value" >
-														<option value="default">시스템글꼴</option>
-														<optgroup label="한글">
-															<option value="'돋움',dotum,Helvetica,AppleGothic,sans-serif" selected="selected">'돋움',dotum,Helvetica,AppleGothic,sans-serif</option>
-															<option value="'바탕',batang,Georgia,Arial">'바탕',batang,Georgia,Arial</option>
-															<option value="'궁서',Gungsuh,Viner Hand ITC,Arial">'궁서',Gungsuh,Viner Hand ITC,Arial</option>
-														</optgroup>
-														<optgroup label="영어">
-															<option value="Helvetica,dotum,AppleGothic,sans-serif">Helvetica,dotum,AppleGothic,sans-serif</option>
-															<option value="Georgia,batang,Arial">Georgia,batang,Arial</option>
-															<option value="Viner Hand ITC,Gungsuh,Arial">Viner Hand ITC,Gungsuh,Arial</option>
-														</optgroup>
-														<optgroup label="기타">
-															<option value="Webdings">Webdings</option>
-															<option value="WingDings">WingDings</option>
-														</optgroup>
-														</select></td>
+													<option value="default">시스템글꼴</option>
+													<optgroup label="한글">
+														<option value="'돋움',dotum,Helvetica,AppleGothic,sans-serif" selected="selected">'돋움',dotum,Helvetica,AppleGothic,sans-serif</option>
+														<option value="'바탕',batang,Georgia,Arial">'바탕',batang,Georgia,Arial</option>
+														<option value="'궁서',Gungsuh,Viner Hand ITC,Arial">'궁서',Gungsuh,Viner Hand ITC,Arial</option>
+													</optgroup>
+													<optgroup label="영어">
+														<option value="Helvetica,dotum,AppleGothic,sans-serif">Helvetica,dotum,AppleGothic,sans-serif</option>
+														<option value="Georgia,batang,Arial">Georgia,batang,Arial</option>
+														<option value="Viner Hand ITC,Gungsuh,Arial">Viner Hand ITC,Gungsuh,Arial</option>
+													</optgroup>
+													<optgroup label="기타">
+														<option value="Webdings">Webdings</option>
+														<option value="WingDings">WingDings</option>
+													</optgroup>
+												</select></td>
 											</tr>
 											<tr>
 												<th colspan="2">
@@ -414,32 +404,32 @@ $isCLI = (php_sapi_name() == "cli");
 														<button class="btn btn-default glyphicon " value="end" title="end : Align to the end edge of the text (right side in left-to-right text, left side in right-to-left text)."  onclick="clickBtnTextAlign(this)">E</button>
 													</div>
 													<input type="hidden" name="textAlign">
-														<script>
-															function clickBtnTextAlign(btn){
-																btn.form.textAlign.value = btn.value;
-																$(btn.parentNode).find("button.btn").each(
-																	function(idx,el){
-																		$(this).removeClass("active");
-																	}
-																);
-																$(btn).addClass("active");
-																if(btn.onchange) btn.onchange();
-																btn.blur();
+													<script>
+													function clickBtnTextAlign(btn){
+														btn.form.textAlign.value = btn.value;
+														$(btn.parentNode).find("button.btn").each(
+															function(idx,el){
+																$(this).removeClass("active");
 															}
-														</script>
+														);
+														$(btn).addClass("active");
+														if(btn.onchange) btn.onchange();
+														btn.blur();
+													}
+													</script>
 												</th>
 											</tr>
 											<tr>
 												<th>baseline</th>
 												<td>
-											<select name="textBaseline" style="width:90%">
+													<select name="textBaseline" style="width:90%">
 														<option  value="top" selected="selected">top</option>
 														<option value="hanging">hanging</option>
 														<option value="middle">middle</option>
 														<option value="alphabetic">alphabetic</option>
 														<option value="ideographic">ideographic</option>
 														<option value="bottom">bottom</option>
-														</select>
+													</select>
 												</td>
 											</tr>
 											<tr>
@@ -467,19 +457,19 @@ $isCLI = (php_sapi_name() == "cli");
 											<tr>
 												<th>use-line</th>
 												<td>
-												<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-												<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
 											<tr>
 												<th>use-fill</th>
 												<td>
-												<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-												<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
+													<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													
 												</td>
 											</tr>
-
+											
 										</table>
 									</div>
 								</div>
@@ -534,7 +524,7 @@ $isCLI = (php_sapi_name() == "cli");
 									</div>
 								</div>
 							</form>
-
+							
 							<form name="formToolSpuit" action="javascript:void(0)" class="wc-tool wc-tool-spuit" onsubmit="return false">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Spuit</div>
@@ -590,20 +580,20 @@ $isCLI = (php_sapi_name() == "cli");
 											<tr>
 												<th>Pressure</th>
 												<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-												<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
 											<tr>
 												<th>Minimum<br />Pressure</th>
 												<td><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
-											</tr>
-										</table>
+												</tr>
+											</table>
+										</div>
 									</div>
-								</div>
-							</form>
-							<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Brush</div>
+								</form>
+								<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Brush</div>
 										<table class="">
 											<col width="50%">
 											<col width="50%">
@@ -643,183 +633,183 @@ $isCLI = (php_sapi_name() == "cli");
 											<tr>
 												<th>Pressure</th>
 												<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-												<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
 											<tr>
 												<th>Minimum<br />Pressure</th>
 												<td ><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  >
-											</tr>
-											
-										</table>
-									</div>
-								</div>
-							</form>
-							<script>
-							//브러시 툴박스 설정
-							!function(){
-								var fcl = document.formToolBrush.cloneNode(true);
-								fcl.id +='2';
-								fcl.name +='2';
-								$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
-								$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
-								document.formToolBrush.parentNode.appendChild(fcl);
-								var fcl = document.formToolBrush.cloneNode(true);
-								fcl.id +='3';
-								fcl.name +='3';
-								$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
-								$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
-								document.formToolBrush.parentNode.appendChild(fcl);
-							}()
-							</script>
-							<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Pattern</div>
-									<div  class="panel-body">
-										<table class="">
-											<col width="50%">
-											<col width="50%">
-											<tr class="bg-grid" >
-												<th colspan="2" height="100" id="formToolPatternCanvasBox" align="center" ><img id="imagePattern" src="img/bg.gif"></th>
-											</tr>
-											<tr>
-												<th>Size</th>
-												<td><input   type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></td>
-											</tr>
-											<tr>
-												<th>alpha</th>
-												<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
-												</td>
-											</tr>
-											<tr>
-												<th>Spacing</th>
-												<td><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  >
-												</td>
-											</tr>
-										</table>
-										<div id="toolPatternList">
-
+												</tr>
+												
+											</table>
 										</div>
-
 									</div>
-								</div>
-							</form>
-							<form name="formToolCrop" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Crop</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th>X</th>
-												<th><input type="text" class="form-control readonly" name="x" value="0" readonly></th>
-											</tr>
-											<tr>
-												<th>Y</th>
-												<th><input type="text" class="form-control readonly" name="y" value="0" readonly></th>
-											</tr>
-											<tr>
-												<th>Width</th>
-												<th><input type="text" class="form-control readonly" name="width" value="0" readonly></th>
-											</tr>
-											<tr>
-												<th>Height</th>
-												<th><input type="text" class="form-control readonly" name="height" value="0" readonly></th>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</form>
-							<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform " onsubmit="return false">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Confirm/Init</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> confirm</button></th>
-												<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ban-circle" onclick="wc2.cmdTool('initPreview')"  type="button"> init</button></th>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</form>
-							<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Confirm/Reset</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> confirm</button></th>
-												<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ban-circle" onclick="wc2.cmdTool('reset')"  type="button"> reset</button></th>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</form>
-
-							<form name="formMove" action="javascript:void(0)" class="wc-tool wc-tool-move" onsubmit="return false">
-								<div class="panel panel-default">
-									<div  class="panel-heading">Move</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th colspan="2"><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> center</button></th>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</form>
-
-							<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-							<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
-								<div class="panel panel-default">
-									<div  class="panel-heading">Color</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="40%">
-											<col width="20%">
-											<col width="40%">
-											<tr>
-												<th>Line</th>
-												<th></th>
-												<th>Fill</th>
-											</tr>
-											<tr>
-												<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
-												</th>
-												<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
-												<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</form>
-
-
-
-							<form name="formPropHidden" action="javascript:void(0)" class="wc-tool wc-tool-line2" onsubmit="return false">
-								테스트용 폼. 보이면 안된다.
-							</form>
-							<hr class="soften">
-							<form name="formPropLayer" action="javascript:void(0)" onsubmit="return false">
-								<div style="min-height:50px" >
+								</form>
+								<script>
+								//브러시 툴박스 설정
+								!function(){
+									var fcl = document.formToolBrush.cloneNode(true);
+									fcl.id +='2';
+									fcl.name +='2';
+									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
+									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
+									document.formToolBrush.parentNode.appendChild(fcl);
+									var fcl = document.formToolBrush.cloneNode(true);
+									fcl.id +='3';
+									fcl.name +='3';
+									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
+									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
+									document.formToolBrush.parentNode.appendChild(fcl);
+								}()
+								</script>
+								<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">
 									<div class="panel panel-default">
-										<div  class="panel-heading">Layer</div>
+										<div  class="panel-heading">Pattern</div>
 										<div  class="panel-body">
-											<div class="panel-body btn-group-xs" role="group">
+											<table class="">
+												<col width="50%">
+												<col width="50%">
+												<tr class="bg-grid" >
+													<th colspan="2" height="100" id="formToolPatternCanvasBox" align="center" ><img id="imagePattern" src="img/bg.gif"></th>
+												</tr>
+												<tr>
+													<th>Size</th>
+													<td><input   type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></td>
+												</tr>
+												<tr>
+													<th>alpha</th>
+													<td><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  >
+													</td>
+												</tr>
+												<tr>
+													<th>Spacing</th>
+													<td><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  >
+													</td>
+												</tr>
+											</table>
+											<div id="toolPatternList">
+												
+											</div>
+											
+										</div>
+									</div>
+								</form>
+								<form name="formToolCrop" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Crop</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="50%">
+												<col width="50%">
+												<tr>
+													<th>X</th>
+													<th><input type="text" class="form-control readonly" name="x" value="0" readonly></th>
+												</tr>
+												<tr>
+													<th>Y</th>
+													<th><input type="text" class="form-control readonly" name="y" value="0" readonly></th>
+												</tr>
+												<tr>
+													<th>Width</th>
+													<th><input type="text" class="form-control readonly" name="width" value="0" readonly></th>
+												</tr>
+												<tr>
+													<th>Height</th>
+													<th><input type="text" class="form-control readonly" name="height" value="0" readonly></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform " onsubmit="return false">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Confirm/Init</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="50%">
+												<col width="50%">
+												<tr>
+													<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> confirm</button></th>
+													<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ban-circle" onclick="wc2.cmdTool('initPreview')"  type="button"> init</button></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
+								<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Confirm/Reset</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="50%">
+												<col width="50%">
+												<tr>
+													<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> confirm</button></th>
+													<th><button class="btn btn-default btn-sm  glyphicon glyphicon-ban-circle" onclick="wc2.cmdTool('reset')"  type="button"> reset</button></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
+								
+								<form name="formMove" action="javascript:void(0)" class="wc-tool wc-tool-move" onsubmit="return false">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Move</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="50%">
+												<col width="50%">
+												<tr>
+													<th colspan="2"><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> center</button></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
+								
+								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
+								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
+									<div class="panel panel-default">
+										<div  class="panel-heading">Color</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="40%">
+												<col width="20%">
+												<col width="40%">
+												<tr>
+													<th>Line</th>
+													<th></th>
+													<th>Fill</th>
+												</tr>
+												<tr>
+													<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
+													</th>
+													<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
+													<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
+								
+								
+								
+								<form name="formPropHidden" action="javascript:void(0)" class="wc-tool wc-tool-line2" onsubmit="return false">
+									테스트용 폼. 보이면 안된다.
+								</form>
+								<hr class="soften">
+								<form name="formPropLayer" action="javascript:void(0)" onsubmit="return false">
+									<div style="min-height:50px" >
+										<div class="panel panel-default">
+											<div  class="panel-heading">Layer</div>
+											<div  class="panel-body">
+												<div class="panel-body btn-group-xs" role="group">
 													<button type="button" class="btn btn-default glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')"></button>
 													<button type="button" class="btn btn-default glyphicon glyphicon-minus-sign" onclick="wc2.cmdLayer('remove')" ></button>
 													<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-up" onclick="wc2.cmdLayer('moveUp')"></button>
 													<button type="button" class="btn btn-default glyphicon glyphicon-circle-arrow-down"  onclick="wc2.cmdLayer('moveDown')"></button>
-											</div>
-											<div class="panel-body btn-group-xs" role="group">
+												</div>
+												<div class="panel-body btn-group-xs" role="group">
 													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')" title="Duplicate"></button>
 													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-arrow-down" onclick="wc2.cmdLayer('mergeDown')"  title="MergeDown"></button>
 													<button type="button" class="btn btn-default btn-sm glyphicon glyphicon-erase" onclick="wc2.cmdLayer('clear')"  title="Clear"></button>
@@ -836,60 +826,60 @@ $isCLI = (php_sapi_name() == "cli");
 														<option value="0.1">10%</option>
 														<option value="0.0">0%</option>
 													</select>
+												</div>
+												<div class="panel-body btn-group-xs" role="group">
+													<label><input type="checkbox" name="layerNotHide" value="1" onchange="wc2.cmdLayer('hide',!this.checked)">Show</label>
+												</div>
+												<div class="wc2-prop-list ">
+													<ul class="list-group overflow-scrolly" id="propLayerList">
+														<li class="list-group-item wc-prop-layer wc-prop-layer-empty">#EMPTY#</li>
+													</ul>
+												</div>
 											</div>
-											<div class="panel-body btn-group-xs" role="group">
-												<label><input type="checkbox" name="layerNotHide" value="1" onchange="wc2.cmdLayer('hide',!this.checked)">Show</label>
-											</div>
+										</div>
+									</div>
+								</form>
+								<hr class="soften">
+								<div style="min-height:50px" >
+									<div class="panel panel-default">
+										<div  class="panel-heading">History</div>
+										<div  class="panel-body">
 											<div class="wc2-prop-list ">
-												<ul class="list-group overflow-scrolly" id="propLayerList">
-													<li class="list-group-item wc-prop-layer wc-prop-layer-empty">#EMPTY#</li>
+												<ul class="list-group overflow-scrolly" id="propHistoryList">
+													<li class="list-group-item  wc-prop-history wc-prop-history-empty">#EMPTY#</li>
 												</ul>
 											</div>
 										</div>
 									</div>
 								</div>
-							</form>
-							<hr class="soften">
-							<div style="min-height:50px" >
-								<div class="panel panel-default">
-									<div  class="panel-heading">History</div>
-									<div  class="panel-body">
-										<div class="wc2-prop-list ">
-											<ul class="list-group overflow-scrolly" id="propHistoryList">
-												<li class="list-group-item  wc-prop-history wc-prop-history-empty">#EMPTY#</li>
-											</ul>
-										</div>
-									</div>
-								</div>
 							</div>
+						</aside>
+
+
+				<div id="rootArea">
+					<article id="contentArea" >
+						<div id="tabs">
+							<table style="width:100%;height:100%; table-layout:fixed">
+							<tr>
+								<td height="10">
+									<ul id="tabsTitle">
+									<li style="float:right"><a href="#tabs-1" onclick="$('#btn_new').trigger('click');return false" title="quick new file" id="btnQuickNewFile">+</a></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td height="*" style="height:100%">
+									<div id="tabsContent">
+									<!-- 이곳에 WebCanvasBundle 기반의 tabFrame이 추가된다. -->
+									<div id="tabs-1" style="text-align:center; padding:10px;">New or Open</div>
+									</div>
+								</td>
+							</tr>
+							</table>
 						</div>
-					</div>
-				</aside>
-
-
-
-				<article id="contentArea" >
-					<div id="tabs">
-						<table style="width:100%;height:100%; table-layout:fixed">
-						<tr>
-							<td height="10">
-								<ul id="tabsTitle">
-								<li style="float:right"><a href="#tabs-1" onclick="$('#btn_new').trigger('click');return false" title="quick new file" id="btnQuickNewFile">+</a></li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
-							<td height="*" style="height:100%">
-								<div id="tabsContent">
-								<!-- 이곳에 WebCanvasBundle 기반의 tabFrame이 추가된다. -->
-								<div id="tabs-1" style="text-align:center; padding:10px;">New or Open</div>
-								</div>
-							</td>
-						</tr>
-						</table>
-					</div>
-				</article>
-
+					</article>
+				</div> <!-- <div id="rootArea"> -->
+				
 
 				<!-- 이 속의 내용은 안보여준다. 노드를 복사해서 사용할려고 만든것이다.-->
 				<article id="hiddenArea" >
@@ -1736,28 +1726,7 @@ $isCLI = (php_sapi_name() == "cli");
 			<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 			<!-- jquery-ui -->
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-
-		<!-- <script>
-		var cbfn = function(evt){
-			document.title = evt.x
-			evt.preventDefault();
-			evt.stopPropagation();
-			return false;
-		}
-		var stopEvent = function(evt){
-			evt.preventDefault();
-			evt.stopPropagation();
-		}
-		var dd = document.getElementById('tabsContent');
-		dd.addEventListener("pointermove", cbfn,false);
-
-		dd.addEventListener("scroll", stopEvent, false);
-		dd.addEventListener("touchmove", stopEvent, false);
-		dd.addEventListener("mousewheel", stopEvent, false);
-
-		</script> -->
-
+			
 			<!-- spectrum on jquery https://bgrins.github.io/spectrum/ -->
 			<script src="jquery/spectrum.js"></script>
 			<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script> -->
@@ -1866,6 +1835,5 @@ $isCLI = (php_sapi_name() == "cli");
 
 			});
 			</script>
-		</div> <!-- <div id="rootArea"> -->
 	</body>
 </html>
