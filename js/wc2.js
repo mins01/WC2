@@ -759,12 +759,12 @@ var wc2 = (function(){
 			return this.tool;
 		}
 		,"setToolByBtn":function(btn){
-
-			if(!$(btn).attr("wc-tool")){
+			btn.blur();
+			if(!$(btn).attr("data-wc-tool")){
 				this.setError( "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.");
 				return false;
 			}
-			var tool = $(btn).attr("wc-tool");
+			var tool = $(btn).attr("data-wc-tool");
 			return this.setTool(tool);
 		}
 		//--- target에 대한 마우스 클릭 위치
