@@ -14,7 +14,7 @@ if(!$isCLI){
 임의사용 금지.
 
 -->
-<html lang="ko" <? if($isCLI): ?>manifest="WC2.manifest"<? endif; ?>>
+<html lang="ko" <? if($isCLI): ?>manifest="WC2.appcache.php"<? endif; ?>>
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -54,11 +54,11 @@ if(!$isCLI){
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 		<!-- 드롭다운 메뉴 확장용 CSS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/css/dropdowns-enhancement.css -->
 		<link rel="stylesheet" href="./bootstrap/css/dropdowns-enhancement.css">
@@ -1832,6 +1832,17 @@ if(!$isCLI){
 			});
 			*/
 			$(function() {
+
+				if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+					// Browser downloaded a new app cache.
+					if (confirm('A new version of this site is available. Load it?')) {
+						console.log("앱캐시 갱신 질문")
+						window.location.reload(true);
+					}
+				} else {
+					console.log("앱캐시 변경내역 없음.")
+					// Manifest didn't changed. Nothing new to server.
+				}
 
 				wc2.init(); //초기화
 				wc2Helper.attachTdRangeValueBox();
