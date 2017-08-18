@@ -181,15 +181,6 @@ var wc2Helper = function(){
 				$(this.parentNode).attr("data-val",this.value);
 			})
 
-		},
-		"appCacheClear":function(){
-			try{
-				var appCache = window.applicationCache;	
-			}catch(e){
-				console.log(e);
-			}
-
-
 		}
 	}
 }();
