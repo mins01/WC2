@@ -320,7 +320,7 @@ var wc2 = (function(){
 
 			//-- 레이어 쪽
 			$("#propLayerList").on("click","li",function(event){
-				wc2.cmdLayer("select",this.dataset.wcbIndex)
+				wc2.cmdLayer("select",$(this).attr("data-wcb-index"));
 			});
 			//-- 단축키
 			Mousetrap.bind('ctrl+z', function(event) { wc2.cmdWcb("undo"); });
@@ -332,7 +332,7 @@ var wc2 = (function(){
 			//-- 메뉴 부분 이벤트 처리용
 			$("#topMenu").on("click","a",function(event){
 				wc2.closeOnclickNavbar(event);
-				if(event.target.dataset.wcMenu){
+				if($(event.target).attr("data-wc-menu")){
 					wc2.btnShowMenuDetail(event.target);
 				}
 				return;
@@ -733,7 +733,7 @@ var wc2 = (function(){
 			}
 			//this.tool = wc2Tool[tool];
 			this.tool = tool;
-			this.tabsContent.dataset.wcTool = tool
+			$(this.tabsContent).attr("data-wc-tool",tool);
 			this.showPropPanel();
 			this.syncContext2dCfg(); //설정을 적용시킨다.
 
@@ -760,11 +760,11 @@ var wc2 = (function(){
 		}
 		,"setToolByBtn":function(btn){
 
-			if(!btn.dataset || !btn.dataset.wcTool){
+			if(!$(btn).attr("wc-tool")){
 				this.setError( "wc2.setToolByBtn() : 필수 애트리뷰트가 없습니다.");
 				return false;
 			}
-			var tool = btn.dataset.wcTool;
+			var tool = $(btn).attr("wc-tool");
 			return this.setTool(tool);
 		}
 		//--- target에 대한 마우스 클릭 위치
@@ -839,7 +839,7 @@ var wc2 = (function(){
 			}else{
 				var usePreviewImageAtLayerInfo = this.getUsePreviewImageAtLayerInfo();
 				$("#propLayerList .wc-prop-layer-empty").hide();
-				$("#propLayerList")[0].dataset.wc2Preview = usePreviewImageAtLayerInfo;
+				$("#propLayerList").attr("data-wc2-preview",usePreviewImageAtLayerInfo);
 
 				var wcb = this.activeWcb;
 				//-- 제목 싱크
@@ -876,9 +876,10 @@ var wc2 = (function(){
 					var oc = wcb.webCanvases[i];
 					var li = lis[tmpli_i];
 					$(li).show();
-					li.dataset.wcbActive = oc.dataset.wcbActive;
-					li.dataset.wcbIndex = oc.dataset.wcbIndex;
-					li.dataset.wcHide = oc.node.dataset.wcHide;
+					$(li).attr("data-wcb-active",$(oc).attr("data-wcb-active"))
+							.attr("data-wcb-index",$(oc).attr("data-wcb-index"))
+							.attr("data-wcb-hide",$(oc).attr("data-wcb-hide"));
+
 					li.title = oc.label;
 					//설정을 체크 하고 히스토리를 참고해서 히스토리가 변경된것만 갱신한다.
 					if(usePreviewImageAtLayerInfo==1){
@@ -1042,6 +1043,31 @@ var wc2 = (function(){
 			})
 			img.src = url;
 		}
+		,"_viewImage_bak":function(url){
+			var div = document.createElement('div');
+			div.className = "wc-viewImage";
+			var img = new Image();
+			img.title = wc2.activeWcb.name;
+			img.className ="wc-viewImage bg-grid";
+			$(div).append(img);
+			$(img).bind("load",function(event){
+				var rect = document.body.getBoundingClientRect();
+				$( this ).parent().dialog({"resizable":true,"draggable":true,
+					"position": { my: "center top" , at: "center top", of: "#contentArea" },
+					"width":Math.min(this.naturalWidth + 100,rect.width - 50),
+					"height":Math.min(this.naturalHeight + 100,rect.height - 50),
+					"maxWidth":rect.width - 50,
+					"maxHeight":rect.height - 50,
+					"modal":true,
+					"title":wc2.activeWcb.name+" (view)",
+					"close": function( event, ui ) {
+						$(this).dialog('destroy').remove();
+					},
+				});
+				$( this ).parent().append("<div>"+this.naturalWidth+"x"+this.naturalHeight+"</div>");
+			})
+			img.src = url;
+		}
 		//--- 색상관련
 		,"initColorPalette":function(){
 			this.strokeStyle = document.getElementById('strokeStyle');
@@ -1168,7 +1194,7 @@ var wc2 = (function(){
 		}
 		//-- UI 메뉴용
 		,"btnShowMenuDetail":function(menuBtn){
-			return this.showMenuDetail(menuBtn.dataset.wcMenu)
+			return this.showMenuDetail($(menuBtn).attr("data-wc-menu"));
 		}
 		,"loadAjax":function(url,success){
 			$.ajax(
@@ -1451,7 +1477,7 @@ var wc2 = (function(){
 		,"closeOnclickNavbar":function(event){
 			var ta = event.target;
 			if(ta.tagName=='A'){
-				if(!!ta.onclick|| ta.getAttribute("href").length>4||ta.dataset.wcMenu){
+				if(!!ta.onclick|| $(ta).attr("href").length>4||$(ta).attr("data-wc-menu")){
 					wc2.closeNavbar();
 				}
 			}
@@ -1504,37 +1530,6 @@ var wc2 = (function(){
 		,"btnFileSaveCallback":function(win,wc2){
 
 		}
-		//-------- 필터 부분
-		/*
-		,"btnShowFilterDetail":function(menuBtn){
-			return this.showFilterDetail(menuBtn.dataset.wcMenu)
-		}
-		,"hideFilterDetail":function(){
-			$("#filterDetailArea").hide()
-			return true;
-		}
-		,"showFilterDetail":function(menu){
-			$("#FilterDetailArea").show().find(".wc-fdetail").each(
-				function(){
-					$(this).hide();
-				}
-			)
-			var t = $("#menuDetailArea").find(".wc-fdetail-"+menu)
-			t.show();
-
-			if(this.activeWcb){
-				switch(menu){
-					case "invert":t[0].saveFileName.value = this.activeWcb.name;break;
-					case "image-rename":t[0].renameName.value = this.activeWcb.name;break;
-					case "layer-rename":t[0].renameName.value = this.activeWcb.activeWebCanvas.label;break;
-					case "image-adjustSize":
-					case "image-resize":t[0].width.defaultValue = t[0].width.value = this.activeWcb.width;
-												t[0].height.defaultValue = t[0].height.value = this.activeWcb.height;
-					break;
-				}
-			}
-		}
-		*/
 		,"_cmdFilter":function(wc,cmd){
 			if(wc2Filter[cmd]==undefined){
 				this.setError("필터 "+cmd+"가 없습니다.");

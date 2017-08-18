@@ -45,7 +45,7 @@ function WebCanvasBundle(width,height,colorset){
 			Object.defineProperty(this, 'name', {
 				get:function(){ return _name; },
 				set:function(wcb){
-						return function(newValue){ 
+						return function(newValue){
 							_name = newValue;
 							wcb._setName();
 					}
@@ -53,7 +53,7 @@ function WebCanvasBundle(width,height,colorset){
 				enumerable: true,
 				configurable: false
 			});
-			
+
 			this.tempCounter = 0
 			this.historyLog = [];
 			this.historyIdx = -1; //-1로 초기화
@@ -64,7 +64,7 @@ function WebCanvasBundle(width,height,colorset){
 			return this.error;
 		}
 		,"_setName":function(){
-			this.node.dataset.wcbName = this.name;
+			this.node.setAttribute('data-wcb-name',this.name);
 			return this.name;
 		}
 		,"setName":function(name){
@@ -149,7 +149,7 @@ function WebCanvasBundle(width,height,colorset){
 			//this.node.style.width = (this.width)+'px';this.node.style.height = (this.height)+'px';
 			//this.outNode.style.width = (this.width)+'px';this.outNode.style.height = (this.height)+'px';
 			this._resizeNode(this.width,this.height);
-			
+
 			this.outNode.style.width = this.width*this.zoom+'px';
 			this.outNode.style.height = this.height*this.zoom+'px';
 		}
@@ -163,16 +163,12 @@ function WebCanvasBundle(width,height,colorset){
 				//var zIndex = (m-i)*10
 				var zIndex = i*10
 				this.webCanvases[i].node.style.zIndex = zIndex;
-				this.webCanvases[i].dataset.wcbIndex = i;
-				this.webCanvases[i].dataset.wcbActive = 0;
-				
+				this.webCanvases[i].setAttribute('data-wcb-index',i);
+				this.webCanvases[i].setAttribute('data-wcb-active',0);
+
 			}
-			this.activeWebCanvas.dataset.wcbActive = 1;
-			//this.shadowWebCanvas.node.style.zIndex = this.activeWebCanvas.dataset.wcbIndex*10+5;
-			//console.log(this.shadowWebCanvas.node.innerHTML);
+			this.activeWebCanvas.setAttribute('data-wcb-active',1);
 			this.activeWebCanvas.node.appendChild(this.shadowWebCanvas.node);
-			//this.activeWebCanvas.node.appendChild(this.shadowWebCanvas);
-			//console.log(this.shadowWebCanvas.node.innerHTML);
 			this.setZoom();
 			return true;
 		}
@@ -186,8 +182,8 @@ function WebCanvasBundle(width,height,colorset){
 			var oldMtime = 0;
 			if(this.historyLog[this.historyIdx].data.skip == 0){ //이미 전레이어 정보가 들어가 있다.
 				//console.log("리세이브 스킵");
-				return false; 
-			} 
+				return false;
+			}
 			this.historyLog[this.historyIdx].data = this.getDataForHistory(oldMtime);
 			//console.log("히스토리 재저장",oldMtime);
 			return true;
@@ -233,7 +229,7 @@ function WebCanvasBundle(width,height,colorset){
 			var historyData = this.historyLog[++this.historyIdx];
 			this.loadHistory(historyData)
 			return true;
-			
+
 		}
 		,"getDataForHistory":function(oldMtime){
 			var data = [];
@@ -245,7 +241,7 @@ function WebCanvasBundle(width,height,colorset){
 					//console.log("PUSH : "+this.webCanvases[i].label);
 				}else{
 					data.push(this.webCanvases[i].getDataForHistory(true));
-					data.skip++; 
+					data.skip++;
 					//console.log("SKIP : "+this.webCanvases[i].label);
 				}
 			}
@@ -272,7 +268,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"removeWebCanvas":function(){
 			return this.removeWebCanvasByIndex(this.getIndexAcviceWebCanvas());
 		}
-		,"_removeWebCanvas":function(idx){	
+		,"_removeWebCanvas":function(idx){
 			if(this.webCanvases.length == 1){
 				this.setError( "WebCanvasBundle.removeWebCanvas(): 마지막 요소는 삭제할 수 없습니다.");
 				return false
@@ -281,9 +277,9 @@ function WebCanvasBundle(width,height,colorset){
 			if(this.webCanvases[idx].node.parentNode){
 				this.webCanvases[idx].node.parentNode.removeChild(this.webCanvases[idx].node); //IE때문에 삭제시 여기서 node에서도 빼버린다.
 			}
-			
+
 			this.webCanvases.splice(idx,1);
-			
+
 			if(idx == actIdx){
 				var idx2 = Math.max(idx-1,0);
 				this.setActiveWebCanvasByIndex(idx2);
@@ -502,7 +498,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"toDataURL":function(type,encoderOptions){
 			var useEncoderOptions = false;
 
-			
+
 			if(type && type.toLowerCase){
 				type = type.toLowerCase()
 			}
@@ -567,7 +563,7 @@ function WebCanvasBundle(width,height,colorset){
 			c.resize(100,Math.round(this.height*100/this.width));
 			//var preview = c.toWcDataObject("image/jpeg",0.1); //미리보기는 jpg 로 한다.(용량 적어지겠다... 얼마 차이 안나네))
 			var preview = c.toWcDataObject(); //얼마 차이 안나네. 투명 부분도 있으니 png로 한다. (나중에 압축도 생각해보자.)
-			
+
 			if(this.webCanvases[0].getDataForHistory ==undefined){this.setError("해당 메소드는 지원되지 않습니다.");return false;}
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				data.push(this.webCanvases[i].toWcDataObject());

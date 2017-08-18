@@ -95,7 +95,7 @@ function WebCanvas(width,height,colorset){
 						return function(newValue){
 							if(isNaN(newValue)){return false}
 							_hide = !!newValue;
-							wc.node.dataset.wcHide = _hide?1:0;
+							wc.node.setAttribute('data-wc-hide',_hide?1:0);
 							return _hide;
 					}
 				}(this),
@@ -203,7 +203,7 @@ function WebCanvas(width,height,colorset){
 			return this.setLabel(alt);
 		}
 		,"_setLabel":function(){
-			this.canvas.dataset.wcLabel = this.label;
+			this.canvas.setAttribute('data-wc-label',this.label);
 			this.modified();
 			return this.label;
 		}
