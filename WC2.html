@@ -4,7 +4,7 @@
 임의사용 금지.
 
 -->
-<html lang="ko" manifest="xxWC2.manifest!">
+<html lang="ko" manifest="WC2.manifest">
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -69,8 +69,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1502944290" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1502944290" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1503039050" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1503039050" charset="utf-8" />
 	</head>
 	<body>
 		<div id="dev_text">
@@ -1335,6 +1335,18 @@ Ciao
 												<option value="2">Not Use (Fast)</option>
 											</select>
 										</div>
+										<div class="form-inline">
+											<span>select Input device : </span>
+											<select  class="form-control"  name="usePointerType">
+												<option value="ALL">ALL</option>
+												<option value="mouse">mouse</option>
+												<option value="pen">pen</option>
+												<option value="touch">touch</option>
+											</select>
+										</div>
+										<div>
+											(for PointerEvent chrome 55+)
+										</div>
 									</li>
 									<li class="list-group-item list-group-item-success">change viewport content sacle for Mobile-Device</li>
 									<li class="list-group-item" >
@@ -1350,8 +1362,6 @@ Ciao
 											</select>
 											<br>Tested by Mobile Chrome 41.0.2272.96
 										</div>
-									</li>
-									<li class="list-group-item" >
 										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
@@ -1772,20 +1782,20 @@ dd.addEventListener("mousewheel", stopEvent, false);
 	
 	
 	<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-	<script src="js/colorPalette.js?_t=1502944290"></script>
-	<script src="js/colorPalette.palettes.js?_t=1502944290"></script>
+	<script src="js/colorPalette.js?_t=1503039050"></script>
+	<script src="js/colorPalette.palettes.js?_t=1503039050"></script>
 	
 
 	<!-- WC2 -->
-	<script src="js/class.WebCanvas.js?_t=1502944290"></script>
-	<script src="js/class.WebCanvasBundle.js?_t=1502944290"></script>
-	<script src="js/wc2.js?_t=1502944290"></script>
-	<script src="js/wc2Tool.js?_t=1502944290"></script>
-	<script src="js/wc2Brush.js?_t=1502944290"></script>
+	<script src="js/class.WebCanvas.js?_t=1503039050"></script>
+	<script src="js/class.WebCanvasBundle.js?_t=1503039050"></script>
+	<script src="js/wc2.js?_t=1503039050"></script>
+	<script src="js/wc2Tool.js?_t=1503039050"></script>
+	<script src="js/wc2Brush.js?_t=1503039050"></script>
 	<!-- <script src="js/wc2BrushList.js"></script> -->
-	<script src="js/wc2PatternList.js?_t=1502944290"></script>
-	<script src="js/wc2Filter.js?_t=1502944290"></script>
-	<script src="js/wc2Helper.js?_t=1502944290"></script>
+	<script src="js/wc2PatternList.js?_t=1503039050"></script>
+	<script src="js/wc2Filter.js?_t=1503039050"></script>
+	<script src="js/wc2Helper.js?_t=1503039050"></script>
 	<!-- -->
 
 

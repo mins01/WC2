@@ -30,6 +30,7 @@ var wc2 = (function(){
 		 ,"isDown":false //마우스 등이 눌려져있는가?
 		 ,"isTouch":false //터치 이벤트로 동작중인가?
 		 ,"usePreviewImageAtLayerInfo":0 //미리보기 이미지 사용하는가?
+		 ,"usePointerType":'ALL' //사용할 포인터 타입
 		 ,"brushSpacing":1 //브러쉬 간격
 		 ,"brushIMG":null //브러쉬용
 		 ,"brush4Brush":null
@@ -186,20 +187,26 @@ var wc2 = (function(){
 			// 붙여넣기 열기 이벤트 처리
 			$(document).on("paste",function(event){ wc2.btnFileOpenPreviewImageFromPaste(event.originalEvent);});
 
-			var onDown = function(evt) {
-				// evt = evt.originalEvent;
-				if(evt.target.tagname=="select"){
+			var onDown = function(event) {
+				var evt = event.originalEvent?event.originalEvent:event;
+				if(event.target.tagname=="select"){
 					return true;
 				}
-				if(evt.type.indexOf("pointer")===0 || evt.type.indexOf("touch")===0){
+				if(event.type.indexOf("pointer")===0){
+					if(wc2.usePointerType != 'ALL' && wc2.usePointerType != evt.pointerType){
+						console.log('지원되지 않는 입력장치 : '+wc2.usePointerType+"!="+evt.pointerType);
+						return true;
+					}
+					wc2.isTouch = true;
+				}else if(event.type.indexOf("touch")===0){
 					wc2.isTouch = true;
 				}else if(wc2.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
 					return true;
 				}
 
 				document.activeElement.blur(); //텍스트박스등의 포커스를 없앤다.
-				evt.bubble = false;
-				evt.stopPropagation();
+				event.bubble = false;
+				event.stopPropagation();
 				if(!wc2.isTouch) evt.preventDefault(); //이벤트 취소시킨다.
 
 
@@ -267,14 +274,18 @@ var wc2 = (function(){
 				$(eventArea).on( "pointerdown", ".wcb-frame",onDown );
 				$(eventArea).on( "pointermove", onMove );
 				$(eventArea).on( "pointerup", onUp );
-				eventArea.addEventListener("scroll", stopEvent, false);
-				eventArea.addEventListener("touchmove", stopEvent, false);
-				eventArea.addEventListener("mousewheel", stopEvent, false);
-			}else{
+			}else if(document.onpointerdown !== undefined){
 				$(eventArea).on( "touchstart", ".wcb-frame",onDown );
 				$(eventArea).on( "touchmove", onMove );
 				$(eventArea).on( "touchend", onUp );
+			}else{
+				$(eventArea).on( "mousedown", ".wcb-frame",onDown );
+				$(eventArea).on( "mousemove", onMove);
+				$(eventArea).on( "mouseup", onUp);				
 			}
+			eventArea.addEventListener("scroll", stopEvent, false);
+			eventArea.addEventListener("touchmove", stopEvent, false);
+			eventArea.addEventListener("mousewheel", stopEvent, false);
 			// 	$(document).on( "pointerdown", ".wcb-frame",onDown );
 			// 	// $(document).on( "touchstart", ".wcb-frame",onDown );
 			// 	$(document).on( "pointermove", onMove );
@@ -282,9 +293,7 @@ var wc2 = (function(){
 			// $(document).on( "touchstart", ".wcb-frame",onDown );
 			// $(document).on( "touchmove", onMove );
 			// $(document).on( "touchend", onUp );
-			$(eventArea).on( "mousedown", ".wcb-frame",onDown );
-			$(eventArea).on( "mousemove", onMove);
-			$(eventArea).on( "mouseup", onUp);
+
 
 			// $(document).on( "pointerdown touchstart mousedown", ".wcb-frame",onDown );
 			// // $(document).on( "pointermove touchmove mousemove", onMove);
@@ -303,8 +312,8 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			// $('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
-			// $('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
+			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
+			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
 			// 툴 panel
 			$("#toolPanel").on("click",".btn[data-wc-tool]", function(event){
 				wc2.setToolByBtn(this);

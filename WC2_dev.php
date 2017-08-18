@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<? $t = time(); ?>
+<? 
+$t = time(); 
+$isCLI = (php_sapi_name() == "cli");
+?>
 <!--
 2015-04-23 : 제작시작
 임의사용 금지.
 
 -->
-<html lang="ko" manifest="xxWC2.manifest!">
+<html lang="ko" <? if($isCLI): ?>manifest="WC2.manifest"<? endif; ?>>
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -1336,6 +1339,18 @@ Ciao
 												<option value="2">Not Use (Fast)</option>
 											</select>
 										</div>
+										<div class="form-inline">
+											<span>select Input device : </span>
+											<select  class="form-control"  name="usePointerType">
+												<option value="ALL">ALL</option>
+												<option value="mouse">mouse</option>
+												<option value="pen">pen</option>
+												<option value="touch">touch</option>
+											</select>
+										</div>
+										<div>
+											(for PointerEvent chrome 55+)
+										</div>
 									</li>
 									<li class="list-group-item list-group-item-success">change viewport content sacle for Mobile-Device</li>
 									<li class="list-group-item" >
@@ -1351,8 +1366,6 @@ Ciao
 											</select>
 											<br>Tested by Mobile Chrome 41.0.2272.96
 										</div>
-									</li>
-									<li class="list-group-item" >
 										<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
 										<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
