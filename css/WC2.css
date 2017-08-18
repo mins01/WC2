@@ -36,14 +36,6 @@ select[disabled]{ background-color:#ccc; opacity:0.3}
 
 .not-active{pointer-events:none;}
 
-/**
- * 상단 네비
- * @type {[type]}
- */
-#top-navbar {
-    max-height: 600px;
-}
-
 
 /* jquery-ui 와 충돌 회피 (이미지 사용관련)*/
 .ui-widget-header .ui-state-default {
