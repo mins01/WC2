@@ -198,6 +198,9 @@ var wc2 = (function(){
 						return true;
 					}
 					wc2.isTouch = true;
+					if(wc2.tool=='crop'){
+						return true; //imageAreaSelect 의 pointerEvent 미지원 때문에
+					}
 				}else if(event.type.indexOf("touch")===0){
 					wc2.isTouch = true;
 				}else if(wc2.isTouch){ //터치 이벤트 중에 마우스 다운 이벤트 발생시 흘러내린다
@@ -280,18 +283,18 @@ var wc2 = (function(){
 				$(eventArea).on( "pointerdown", ".wcb-frame",onDown );
 				$(eventArea).on( "pointermove", onMove );
 				$(eventArea).on( "pointerup", onUp );
-			}else if(document.ontouchstart !== undefined){
+			}
+			if(document.ontouchstart !== undefined){
 				$(eventArea).on( "touchstart", ".wcb-frame",onDown );
 				$(eventArea).on( "touchmove", onMove );
 				$(eventArea).on( "touchend", onUp );
-			}else{
-				$(eventArea).on( "mousedown", ".wcb-frame",onDown );
-				$(eventArea).on( "mousemove", onMove);
-				$(eventArea).on( "mouseup", onUp);
 			}
-			eventArea.addEventListener("scroll", stopEvent, false);
-			eventArea.addEventListener("touchmove", stopEvent, false);
-			eventArea.addEventListener("mousewheel", stopEvent, false);
+			$(eventArea).on( "mousedown", ".wcb-frame",onDown );
+			$(eventArea).on( "mousemove", onMove);
+			$(eventArea).on( "mouseup", onUp);
+			// eventArea.addEventListener("scroll", stopEvent, false);
+			// eventArea.addEventListener("touchmove", stopEvent, false);
+			// eventArea.addEventListener("mousewheel", stopEvent, false);
 
 			//--- 휠 동작
 			$(document).on('mousewheel', ".wcb-frame", function(event) {
