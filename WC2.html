@@ -173,7 +173,7 @@
 										<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')">Add</a></li>
 										<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="confirm('remove Layer?')?wc2.cmdLayer('remove'):'';">Remove</a></li>
 										<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')">Duplicate</a></li>
-										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')? wc2.cmdLayer('mergeDown'):''">MergeDown</a></li>
+										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')?wc2.cmdLayer('mergeDown'):'';">MergeDown</a></li>
 										<li><a href="#" class="glyphicon glyphicon-erase" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
 										<li class="divider"></li>
 										<li><a href="#" class="glyphicon glyphicon-eye-close" onclick="wc2.cmdLayer('toggleHide');return false;">Toggle Hide</a></li>
@@ -587,7 +587,7 @@
 										</div>
 									</div>
 								</form>
-								<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
+							<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Brush</div>
 										<table class="">
@@ -598,7 +598,6 @@
 											</tr>
 										</table>
 									</div>
-								</div>
 							</form>
 							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
@@ -640,26 +639,23 @@
 											</table>
 										</div>
 									</div>
-								</div>
 								</form>
 								<script>
-									//<!--
-									//브러시 툴박스 설정
-									!function(){
-										var fcl = document.formToolBrush.cloneNode(true);
-										fcl.id +='2';
-										fcl.name +='2';
-										$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
-										$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
-										document.formToolBrush.parentNode.appendChild(fcl);
-										var fcl = document.formToolBrush.cloneNode(true);
-										fcl.id +='3';
-										fcl.name +='3';
-										$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
-										$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
-										document.formToolBrush.parentNode.appendChild(fcl);
-									}()
-									//-->
+								//브러시 툴박스 설정
+								!function(){
+									var fcl = document.formToolBrush.cloneNode(true);
+									fcl.id +='2';
+									fcl.name +='2';
+									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
+									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
+									document.formToolBrush.parentNode.appendChild(fcl);
+									var fcl = document.formToolBrush.cloneNode(true);
+									fcl.id +='3';
+									fcl.name +='3';
+									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
+									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
+									document.formToolBrush.parentNode.appendChild(fcl);
+								}()
 								</script>
 								<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">
 									<div class="panel panel-default">
@@ -852,7 +848,8 @@
 									</div>
 								</div>
 							</div>
-						</aside>
+						</div>
+				</aside>
 
 
 				<div id="rootArea">
@@ -1224,7 +1221,7 @@
 				        </div>
 				      </div>
 				    </form>
-				    <form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)";>
+				    <form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)">
 				      <div class="panel panel-default wc2-panel" >
 				        <div  class="panel-heading">Canvas Resize (Adjust Size)</div>
 				        <div  class="panel-body">
@@ -1329,7 +1326,7 @@
 				        </div>
 				      </div>
 				    </form>
-				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="";>
+				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="">
 				      <div class="panel panel-default wc2-panel" >
 				        <div  class="panel-heading">Preferences</div>
 				        <div  class="panel-body">

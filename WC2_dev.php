@@ -858,7 +858,8 @@ if(!$isCLI){
 									</div>
 								</div>
 							</div>
-						</aside>
+						</div>
+				</aside>
 
 
 				<div id="rootArea">
