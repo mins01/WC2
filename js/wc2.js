@@ -786,9 +786,9 @@ var wc2 = (function(){
 			}
 			var x = evt.clientX;
 			var y = evt.clientY;
-			if(evt.isPrimary && evt.isPrimary){
-				var x = evt.x;
-				var y = evt.y;
+			if(evt.isPrimary ){
+				var x = evt.clientX;
+				var y = evt.clientY;
 			}else if(evt.touches && evt.touches[0]){
 				var touch = evt.touches[0];
 				var x = touch.X;
@@ -802,6 +802,7 @@ var wc2 = (function(){
 			// 	var x = touch.clientX;
 			// 	var y = touch.clientY;
 			// }
+			// console.log(evt.x,evt.clientX)
 
 			return {
 			  "x": x - rect.left + scrollTop,
@@ -810,6 +811,7 @@ var wc2 = (function(){
 		}
 		,"getOffsetXY":function(evt,target,zoom){ //지금인 이 메소드 쓰지 않는다 추후 생각해보자.
 			var xy = this.getMousePos(evt,target);
+			// console.log(xy)
 			return { "x":xy.x/zoom,"y":xy.y/zoom};
 		}
 		,"showPropPanel":function(){
@@ -1798,6 +1800,9 @@ var wc2 = (function(){
 				url = './util/proxy/proxy.php?URL='+encodeURIComponent(url);
 			}
 			return url;
+		}
+		,"dev_text":function(text){
+			$("#dev_text").text(text);
 		}
 	};
 })();

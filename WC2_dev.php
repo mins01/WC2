@@ -183,7 +183,7 @@ if(!$isCLI){
 										<li><a href="#layer-add" class="glyphicon glyphicon-plus-sign" onclick="wc2.cmdLayer('new')">Add</a></li>
 										<li><a href="#layer-remove" class="glyphicon glyphicon-minus-sign" onclick="confirm('remove Layer?')?wc2.cmdLayer('remove'):'';">Remove</a></li>
 										<li><a href="#" class="glyphicon glyphicon-duplicate" onclick="wc2.cmdLayer('duplicate')">Duplicate</a></li>
-										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')? wc2.cmdLayer('mergeDown')">MergeDown</a></li>
+										<li><a href="#" class="glyphicon glyphicon-arrow-down" onclick="confirm('merge-down Layer?')?wc2.cmdLayer('mergeDown'):'';">MergeDown</a></li>
 										<li><a href="#" class="glyphicon glyphicon-erase" onclick="wc2.cmdLayer('clear');return false;">Clear</a></li>
 										<li class="divider"></li>
 										<li><a href="#" class="glyphicon glyphicon-eye-close" onclick="wc2.cmdLayer('toggleHide');return false;">Toggle Hide</a></li>
@@ -597,7 +597,7 @@ if(!$isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
+							<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Brush</div>
 										<table class="">
@@ -608,7 +608,6 @@ if(!$isCLI){
 											</tr>
 										</table>
 									</div>
-								</div>
 							</form>
 							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
@@ -1231,7 +1230,7 @@ if(!$isCLI){
 				        </div>
 				      </div>
 				    </form>
-				    <form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)";>
+				    <form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)">
 				      <div class="panel panel-default wc2-panel" >
 				        <div  class="panel-heading">Canvas Resize (Adjust Size)</div>
 				        <div  class="panel-body">
@@ -1336,7 +1335,7 @@ if(!$isCLI){
 				        </div>
 				      </div>
 				    </form>
-				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="";>
+				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="">
 				      <div class="panel panel-default wc2-panel" >
 				        <div  class="panel-heading">Preferences</div>
 				        <div  class="panel-body">
