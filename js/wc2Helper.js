@@ -171,8 +171,9 @@ var wc2Helper = function(){
 					Object.defineProperty(this, "value", descriptor);
 				}
 				Object.defineProperty(el, "value", descriptor);
-				
+
 				//-- 추가 버튼 붙이기
+				el.tm = null;
 				var div = document.createElement('div');
 				div.className="div-btn-dec";
 				var btn = document.createElement('button');
@@ -186,16 +187,21 @@ var wc2Helper = function(){
 						$(el).trigger('input');
 					}
 				}(el);
-				$(btn).on("pointerdown mousedown",function(){
-					this.actFn();
-					this.tm = setInterval(this.actFn,200)
-				});
-				$(btn).on("pointerup mouseup",function(){
-					if(this.tm){
-						clearInterval(this.tm)
-						$(this).trigger('change');
+				$(btn).on("pointerdown mousedown",function(el){
+					return function(evt){
+						if(el.tm){ clearInterval(el.tm) }
+						this.actFn();
+						el.tm = setInterval(this.actFn,200)
+						return false;
 					}
-				})
+				}(el));
+				$(btn).on("pointerup mouseup pointerout mouseout",function(el){
+					return function(evt){
+						if(el.tm){ clearInterval(el.tm) }
+						$(this).trigger('change');
+						return false
+					}
+				}(el))
 				// $(btn).text('-')
 				$(el.parentNode).prepend(div);
 				//-- 추가 버튼 붙이기
@@ -212,20 +218,25 @@ var wc2Helper = function(){
 						$(el).trigger('input');
 					}
 				}(el);
-				$(btn).on("pointerdown mousedown",function(){
-					this.actFn();
-					this.tm = setInterval(this.actFn,200)
-				});
-				$(btn).on("pointerup mouseup",function(){
-					if(this.tm){
-						clearInterval(this.tm)
-						$(this).trigger('change');
+				$(btn).on("pointerdown mousedown",function(el){
+					return function(evt){
+						if(el.tm){ clearInterval(el.tm) }
+						this.actFn();
+						el.tm = setInterval(this.actFn,200)
+						return false;
 					}
-				})
+				}(el));
+				$(btn).on("pointerup mouseup pointerout mouseout",function(el){
+					return function(evt){
+						if(el.tm){ clearInterval(el.tm) }
+						$(this).trigger('change');
+						return false
+					}
+				}(el))
 				// $(btn).text('-')
 				$(el.parentNode).append(div);
-				
-				
+
+
 			})
 			$(document).on("input change",".showRangeValue>input",function(evt){
 				$(this.parentNode).attr("data-val",this.value);
