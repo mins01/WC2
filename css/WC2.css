@@ -214,6 +214,7 @@ position: absolute;
 }
 /* 툴 설정 부분 */
 #propPanel .wc-tool table{width:100%; table-layout:fixed;}
+#propPanel .wc-tool th{font-size:12px}
 
 /* 커서 정의부 */
 #tabsContent{ cursor:crosshair; }
@@ -350,12 +351,26 @@ cursor:pointer;
 /**
  * 유틸성
  */
-.showRangeValue{position: relative;}
+.showRangeValue{position: relative; padding:0 13px;}
 .showRangeValue::before{
 	content: attr(data-val);
 	position: absolute;top:0;left:0; right:0;bottom:0;
 	text-align: center;
 	pointer-events: none;
 }
+.showRangeValue .div-btn-dec{
+	position: absolute;top:0;left:0;bottom:0;
+}
+.showRangeValue .div-btn-inc{
+	position: absolute;top:0;right:0;bottom:0;
+}
+.showRangeValue .btn-dec,
+.showRangeValue .btn-inc{
+	font-size:12px;
+	border-radius: 50%;
+	background-color: transparent;
+	border-width:0;
+}
+
 
 .no-padding{padding:0 !important;}

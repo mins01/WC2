@@ -162,20 +162,70 @@ var wc2Helper = function(){
 				$(el.parentNode).attr("data-val",el.value);
 				el._value = el.value;
 
-
 				var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 				var inputSetter = descriptor.set;
-
 				descriptor.set = function(val) {
 					Object.defineProperty(this, "value", {set:inputSetter});
 					this.value = val;
 					$(this.parentNode).attr("data-val",val);
 					Object.defineProperty(this, "value", descriptor);
-
 				}
-
-				//Last add the new "value" descriptor to the $input element
 				Object.defineProperty(el, "value", descriptor);
+				
+				//-- 추가 버튼 붙이기
+				var div = document.createElement('div');
+				div.className="div-btn-dec";
+				var btn = document.createElement('button');
+				div.appendChild(btn);
+				btn.type="button";
+				btn.className="btn-dec glyphicon glyphicon-minus-sign";
+				btn.actFn = function(el){
+					return function(){
+						var step = !el.step?1:parseFloat(el.step);
+						el.value = (parseFloat(el.value)-step).toFixed(2);
+						$(el).trigger('input');
+					}
+				}(el);
+				$(btn).on("pointerdown mousedown",function(){
+					this.actFn();
+					this.tm = setInterval(this.actFn,200)
+				});
+				$(btn).on("pointerup mouseup",function(){
+					if(this.tm){
+						clearInterval(this.tm)
+						$(this).trigger('change');
+					}
+				})
+				// $(btn).text('-')
+				$(el.parentNode).prepend(div);
+				//-- 추가 버튼 붙이기
+				var div = document.createElement('div');
+				div.className="div-btn-inc";
+				var btn = document.createElement('button');
+				div.appendChild(btn);
+				btn.type="button";
+				btn.className="btn-inc glyphicon glyphicon-plus-sign";
+				btn.actFn = function(el){
+					return function(){
+						var step = !el.step?1:parseFloat(el.step);
+						el.value = (parseFloat(el.value)+step).toFixed(2);
+						$(el).trigger('input');
+					}
+				}(el);
+				$(btn).on("pointerdown mousedown",function(){
+					this.actFn();
+					this.tm = setInterval(this.actFn,200)
+				});
+				$(btn).on("pointerup mouseup",function(){
+					if(this.tm){
+						clearInterval(this.tm)
+						$(this).trigger('change');
+					}
+				})
+				// $(btn).text('-')
+				$(el.parentNode).append(div);
+				
+				
 			})
 			$(document).on("input change",".showRangeValue>input",function(evt){
 				$(this.parentNode).attr("data-val",this.value);
