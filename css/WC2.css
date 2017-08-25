@@ -234,7 +234,11 @@ width: 100%;
 height: 100%;
 box-sizing: border-box;
 }
-
+.wcb-box {
+width: 100000px;
+margin-left: 50%;
+transform: translateX(-50%);
+}
 .wcb-frame .WCB{}
 .ui-dialog .wcb-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 
