@@ -235,7 +235,7 @@ height: 100%;
 box-sizing: border-box;
 }
 
-.wcb-frame .WCB{ margin:0 auto;}
+.wcb-frame .WCB{}
 .ui-dialog .wcb-bottom{position:absolute;bottom:0px ;left:0;right:0;padding:2px 2px 0 2px; border-top:2px dotted #fff; background-color:rgba(204,204,204,0.8)}
 
 .wcb-move {
