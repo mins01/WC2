@@ -354,9 +354,6 @@ function WebCanvas(width,height,colorset){
 						case "boolean": this.context2d[x] = !!cfg[x];break;
 						default: this.context2d[x] = cfg[x];
 					}
-					if(x=='filter' && cfg[x]!='none'){
-						console.log(this.context2d[x],x,cfg[x])
-					}
 				}
 			}
 			if(cfg["patternImage"]){
