@@ -1397,8 +1397,12 @@ var wc2 = (function(){
 			var colorStyle = "rgb(255,255,255)";
 			//this.brush4Eraser.colorStyle = strokeStyle;
 			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
-			this.brush4Eraser.disablePressure  = $(f).find("input[name='bushDisablePressure']:checked").val()=="1"?true:false;
-			this.brush4Eraser.minimumPressure  = parseFloat(f.brushMinimumPressure.value);
+			this.brush4Eraser.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
+			this.brush4Eraser.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
+
+			this.brush4Eraser.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
+			this.brush4Eraser.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
+
 			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
 			this.brush4Eraser.previewBrush()
 		}
@@ -1418,8 +1422,12 @@ var wc2 = (function(){
 			//console.log(strokeStyle);
 			this.brush4Brush.colorStyle = strokeStyle;
 			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
-			this.brush4Brush.disablePressure  = $(f).find("input[name='bushDisablePressure']:checked").val()=="1"?true:false;
-			this.brush4Brush.minimumPressure  = parseFloat(f.brushMinimumPressure.value);
+			this.brush4Brush.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
+			this.brush4Brush.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
+
+			this.brush4Brush.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
+			this.brush4Brush.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
+
 			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
 			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);

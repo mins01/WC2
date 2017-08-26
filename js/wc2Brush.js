@@ -18,15 +18,22 @@ wc2Brush.prototype = function(){
 
 		"dir":"brush",//브러쉬 이미지 경로
 		"spacing":0, //선간격
-		"disablePressure":false, //압력감지 적용여부
-		"minimumPressure":0.1, //최소 압력값
+		"disablePressureDiameter":false, //압력감지 지름 적용여부
+		"minimumPressureDiameter":0.1, //알파 최소 압력값
+		"disablePressureAlpha":false, //압력감지 알파 적용여부
+		"minimumPressureAlpha":0.1, //알파 최소 압력값
 		"init":function(){
 			this.brushWC = WebCanvas(100,100)
 			this.previewBrushWC = WebCanvas(150,100)
 		}
-		,"calculatePressure":function(pressure){
-			if(this.disablePressure) return 1;
-			return Math.min(this.minimumPressure+pressure,1)
+
+		,"calculatePressureDimeter":function(pressure){
+			if(this.disablePressureDiameter) return 1;
+			return Math.min(this.minimumPressureDiameter+pressure,1)
+		}
+		,"calculatePressureAlpha":function(pressure){
+			if(this.disablePressureAlpha) return 1;
+			return Math.min(this.minimumPressureAlpha+pressure,1)
 		}
 		,"image":function(image,width,height,colorStyle,globalAlpha){
 			this.brushWC.clearResize(width,height);
@@ -84,19 +91,27 @@ wc2Brush.prototype = function(){
 			//var y = (x*x)/a
 			var y = -1*Math.abs(Math.sqrt(a*x));
 
-			var gapPressure = this.spacing/xlimit;
-			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,this.minimumPressure);
-			var pressure = gapPressure
-			if(this.disablePressure){
-				pressure = 1;
-				gapPressure = 0;
+			var pressureDimeter , pressureAlpha  , gapPressureDimeter , gapPressureAlpha;
+			pressureDimeter = pressureAlpha  = gapPressureDimeter = gapPressureAlpha = this.spacing/xlimit;
+			if(this.disablePressureDiameter){
+				pressureDimeter = 1;
+				gapPressureDimeter = 0;
 			}
+			if(this.disablePressureAlpha){
+				pressureAlpha = 1;
+				gapPressureAlpha = 0;
+			}
+			console.log(this.disablePressureAlpha,pressureAlpha)
+
+			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,this.minimumPressureDiameter,this.minimumPressureAlpha);
+
 			while((x+=this.spacing )<0 ){
 				//y = Math.sqrt(r2-(x*x));
 				y = -1*Math.abs(Math.sqrt(a*x));
 
-				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressure,pressure));
-				pressure+=gapPressure;
+				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
+				pressureDimeter+=gapPressureDimeter;
+				pressureAlpha+=gapPressureAlpha;
 			}
 			a *= -1;
 			while((x+=this.spacing )<=xlimit ){
@@ -104,8 +119,9 @@ wc2Brush.prototype = function(){
 				//y = Math.sqrt(r2-(x*x));
 				y = Math.abs(Math.sqrt(a*x));
 
-				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressure,pressure));
-				pressure-=gapPressure;
+				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
+				pressureDimeter-=gapPressureDimeter;
+				pressureAlpha-=gapPressureAlpha;
 			}
 			this.previewBrushWC.configContext2d({"fontSize":16,"lineHeight":1.2,"disableStroke":1,"textBaseline":"top"})
 			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";

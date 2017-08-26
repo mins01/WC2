@@ -565,28 +565,43 @@
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
 											</tr>
-											<tr>
-												<th>Pressure</th>
-												<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-												</td>
-											</tr>
-											<tr>
-												<th>Minimum<br />Pressure</th>
-												<td><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  ></div>
-												</tr>
-											</table>
-										</div>
+										</table>
 									</div>
-								</form>
+									<div  class="panel-heading">Pressure</div>
+									<div  class="panel-body">
+										<table class="">
+											<col width="50%">
+											<col width="50%">
+											<tr>
+												<th>Diameter</th>
+												<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<label><input type="radio" value="1" name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+												</td>
+											</tr>
+											<tr>
+												<th>Minimum<br />Diameter</th>
+												<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressureDiameter"  ></div></td>
+											</tr>
+											<tr>
+												<th>Alpha</th>
+												<td><label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<label><input type="radio" value="1" name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+												</td>
+											</tr>
+											<tr>
+												<th>Minimum<br />Alpha</th>
+												<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressureAlpha"  ></div></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</form>
 							<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Brush</div>
@@ -602,7 +617,7 @@
 							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
 								<div class="panel panel-default">
-									<div  class="panel-heading">Brush Set1</div>
+									<div  class="panel-heading">Brush Set%d</div>
 									<div  class="panel-body">
 										<table class="">
 											<col width="50%">
@@ -625,17 +640,33 @@
 												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
 												</td>
 											</tr>
-											<tr>
-												<th>Pressure</th>
-												<td><label><input type="radio" value="0" checked name="bushDisablePressure"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="bushDisablePressure"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-												</td>
-											</tr>
-											<tr>
-												<th>Minimum<br />Pressure</th>
-												<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressure"  ></div>
+											</table>
+										</div>
+										<div  class="panel-heading">Pressure%d</div>
+										<div  class="panel-body">
+											<table class="">
+												<col width="50%">
+												<col width="50%">
+												<tr>
+													<th>Diameter</th>
+													<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+														<label><input type="radio" value="1" name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													</td>
 												</tr>
-
+												<tr>
+													<th>Minimum<br />Diameter</th>
+													<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressureDiameter"  ></div></td>
+												</tr>
+												<tr>
+													<th>Alpha</th>
+													<td><label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+														<label><input type="radio" value="1" name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ban-circle"></span></label>
+													</td>
+												</tr>
+												<tr>
+													<th>Minimum<br />Alpha</th>
+													<td ><div class="showRangeValue"><input type="range"  min="0" max="1" value="0.1" step="0.01" name="brushMinimumPressureAlpha"  ></div></td>
+												</tr>
 											</table>
 										</div>
 									</div>
@@ -643,18 +674,29 @@
 								<script>
 								//브러시 툴박스 설정
 								!function(){
+
 									var fcl = document.formToolBrush.cloneNode(true);
 									fcl.id +='2';
 									fcl.name +='2';
-									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'2');
+									$(fcl).find('.panel-heading').each(function(){
+										$(this).text($(this).text().replace("%d",2))
+									});
 									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush2');
 									document.formToolBrush.parentNode.appendChild(fcl);
 									var fcl = document.formToolBrush.cloneNode(true);
 									fcl.id +='3';
 									fcl.name +='3';
-									$(fcl).find('.panel-heading').text($(fcl).find('.panel-heading').text()+'3');
+									$(fcl).find('.panel-heading').each(function(){
+										$(this).text($(this).text().replace("%d",3))
+									});
 									$(fcl).removeClass('wc-tool-brush').addClass('wc-tool-brush3');
 									document.formToolBrush.parentNode.appendChild(fcl);
+
+									var fcl = document.formToolBrush;
+									$(fcl).find('.panel-heading').each(function(){
+										$(this).text($(this).text().replace("%d",1))
+									});
+
 								}()
 								</script>
 								<form name="formToolPattern" action="javascript:void(0)" class="wc-tool wc-tool-pattern" onsubmit="this.onchange();return false" onchange="wc2.syncBrush();"  oninput="this.onchange()">

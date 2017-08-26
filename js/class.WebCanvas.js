@@ -877,10 +877,11 @@ function WebCanvas(width,height,colorset){
 			this.circle(x,y,this.circleBrushR);
 		}
 		//--- 브러쉬 그리기용
-		,"beginBrush":function(x,y,brushWC,spacing,pressure){
+		,"beginBrush":function(x,y,brushWC,spacing,pressureDimeter,pressureAlpha){
 			// console.log("drawBrush",x,y,pressure);;
 
-			if(pressure==undefined){pressure = 1;}
+			if(pressureDimeter==undefined){pressureDimeter = 1;}
+			if(pressureAlpha==undefined){pressureAlpha = 1;}
 			this.spacing = spacing
 			this.brushWC = brushWC
 			//this.spacing = spacing;
@@ -888,24 +889,27 @@ function WebCanvas(width,height,colorset){
 			this.x0 = x;
 			this.y0 = y;
 			this.brushing = 1;
-			this.lastPressure = pressure;
+			this.lastPressureDimeter = pressureDimeter;
+			this.lastPressureAlpha = pressureAlpha;
 
-			var multi = (1+9*pressure)/10;
-			var w = this.brushWC.width*multi;
-			var h = this.brushWC.height*multi;
+			var multiDimeter = (1+9*pressureDimeter)/10;
+			var multiAlpha = (1+9*pressureAlpha)/10;
+			var w = this.brushWC.width*multiDimeter;
+			var h = this.brushWC.height*multiDimeter;
 			var w2 = w/2;
 			var h2 = h/2;
 			//console.log(x,y);
 			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
+			this.saveContext2d();
+			this.context2d.globalAlpha = multiAlpha
 			this._drawBrushDot(this.x0-w2,this.y0-h2,w,h);
+			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 		}
-		,"drawBrush":function(x,y,pressure){
-			// $("#dev_text").text($("#dev_text").text()+":"+pressure);
-
-			// console.log("drawBrush",x,y,pressure);;
+		,"drawBrush":function(x,y,pressureDimeter,pressureAlpha){
+			// console.log(pressureAlpha)
 			this.x1 = x;
 			this.y1 = y;
-			this._drawBrushLine(this.x0,this.y0,this.x1,this.y1,pressure);
+			this._drawBrushLine(this.x0,this.y0,this.x1,this.y1,pressureDimeter,pressureAlpha);
 			this.x0 = x;
 			this.y0 = y;
 		}
@@ -913,32 +917,38 @@ function WebCanvas(width,height,colorset){
 			this.brushLastLen = 0;
 			this.brushing = 0;
 		}
-		,"_drawBrushLine":function(x0,y0,x1,y1,pressure){
+		,"_drawBrushLine":function(x0,y0,x1,y1,pressureDimeter,pressureAlpha){
 
 			// $("#dev_text").text(w+":"+h+":"+pressure);
-			var multi,w,h,w2,h2;
+			var multiDimeter,multiAlpha,w,h,w2,h2;
+			this.saveContext2d();
 			if(this.brushing){
-
-
 				var xys = this._dotsInLine(x0,y0,x1,y1);
-				var gapPressure = (pressure-this.lastPressure)/xys.length
+				var gapPressureDimeter = (pressureDimeter-this.lastPressureDimeter)/xys.length
+				var gapPressureAlpha = (pressureAlpha-this.lastPressureAlpha)/xys.length
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
 				for(var i=0,m=xys.length;i<m;i++){
-					multi = (1+9*(this.lastPressure+gapPressure*i))/10;
+					multiDimeter = (1+9*(this.lastPressureDimeter+gapPressureDimeter*i))/10;
+					multiAlpha = (1+9*(this.lastPressureAlpha+gapPressureAlpha*i))/10;
 					// $("#dev_text").text(this.lastPressure+": "+pressure+": "+(gapPressure*i)+": "+gapPressure+": "+xys.length);
 
-					w = this.brushWC.width*multi;
-					h = this.brushWC.height*multi;
+					w = this.brushWC.width*multiDimeter;
+					h = this.brushWC.height*multiDimeter;
 					var w2 = w/2
 					var h2 = h/2
+					this.context2d.globalAlpha = multiAlpha;
 					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2,w,h);
 				}
 			}
-			this.lastPressure = pressure;
+			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this.lastPressureDimeter = pressureDimeter;
+			this.lastPressureAlpha = pressureAlpha;
 		}
-		,"_drawBrushDot":function(x,y,w,h){
+		,"_drawBrushDot":function(x,y,w,h,alpha){
+			var tmp = this.context2d.globalAlpha;
 			this.drawImage(this.brushWC,x,y,w,h);
+			this.context2d.globalAlpha = tmp;
 		}
 		,"_dotsInLine":function(x0,y0,x1,y1){
 			var spacing = this.spacing;

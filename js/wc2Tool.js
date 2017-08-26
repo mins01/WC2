@@ -287,8 +287,8 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				var pressure = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressure(event.pressure):1; //압력감지, 팬일 경우만
-
+				var pressureDimeter = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressureDimeter(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureAlpha = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressureAlpha(event.pressure):1; //압력감지, 팬일 경우만
 
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
@@ -296,15 +296,16 @@ var wc2Tool = function(){
 				this.ing = 1;
 
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
-				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,wc2.brush4Eraser.spacing,pressure);
+				this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Eraser.brushWC,wc2.brush4Eraser.spacing,pressureDimeter,pressureAlpha);
 
 				return true;
 			}
 			,"_move":function(event){
-				var pressure = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressure(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureDimeter = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressureDimeter(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureAlpha = (event.pointerType=='pen')?wc2.brush4Eraser.calculatePressureAlpha(event.pressure):1; //압력감지, 팬일 경우만
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 
-				this.wcb.shadowWebCanvas.drawBrush(t.x,t.y,pressure);
+				this.wcb.shadowWebCanvas.drawBrush(t.x,t.y,pressureDimeter,pressureAlpha);
 				return true;
 			}
 			,"move":function(event){
@@ -961,7 +962,9 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				var pressure = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressure(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureDimeter = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressureDimeter(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureAlpha = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressureAlpha(event.pressure):1; //압력감지, 팬일 경우만
+
 				// $("#dev_text").text(evt.pointerType+":"+pressure);
 
 				this.ing = 1;
@@ -970,18 +973,20 @@ var wc2Tool = function(){
 				// this.wcb.shadowWebCanvas.clear();
 				// this.wcb.shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing);
 				//-- 바로 캔버스에 그릴 경우
-				this.wcb.activeWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing,pressure);
+				this.wcb.activeWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing,pressureDimeter,pressureAlpha);
 				return true;
 			}
 			,"_move":function(event){
-				var pressure = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressure(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureDimeter = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressureDimeter(event.pressure):1; //압력감지, 팬일 경우만
+				var pressureAlpha = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressureAlpha(event.pressure):1; //압력감지, 팬일 경우만
+
 				// $("#dev_text").text(evt.pointerType+":"+evt.pressure+"-"+pressure+":"+wc2.brush4Brush.disablePressure);
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				//-- 쉐도우 캔퍼스 사용시
 				// this.wcb.shadowWebCanvas.drawBrush(t.x,t.y);
 				//-- 바로 캔버스에 그릴 경우
 				//--
-				this.wcb.activeWebCanvas.drawBrush(t.x,t.y,pressure);
+				this.wcb.activeWebCanvas.drawBrush(t.x,t.y,pressureDimeter,pressureAlpha);
 				return true;
 			}
 			,"move":function(event){
@@ -1121,7 +1126,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				var pressure = event.pointerType=='pen'?event.pressure:1; //압력감지, 팬일 경우만
+				// var pressureDimeter = (event.pointerType=='pen')?wc2.brush4Brush.calculatePressureDimeter(event.pressure):1; //압력감지, 팬일 경우만
 				var shadowWebCanvas = this.wcb.shadowWebCanvas;
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				//this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
@@ -1172,7 +1177,7 @@ var wc2Tool = function(){
 				//wc2.brush4Brush.beginBrush(this.wcb.shadowWebCanvas,t.x,t.y);
 				// shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,parseFloat(document.formToolBrush.brushSpacing.value));
 
-				shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing,pressure);
+				shadowWebCanvas.beginBrush(t.x,t.y,wc2.brush4Brush.brushWC,wc2.brush4Brush.spacing,1);
 
 				return true;
 			}
