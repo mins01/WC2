@@ -85,11 +85,13 @@ wc2Brush.prototype = function(){
 			var r = 20;
 			var xlimit = 60;
 			var r2 = (r*r);
-			var a = -1*r;
+			var a = -1*r*0.5;
 			var x = -1*xlimit;
+			var left = 75,top=50;
+
 			//var y = Math.sqrt(r2-(x*x));
 			//var y = (x*x)/a
-			var y = -1*Math.abs(Math.sqrt(a*x));
+			var y = 0;
 
 			var pressureDimeter , pressureAlpha  , gapPressureDimeter , gapPressureAlpha;
 			pressureDimeter = pressureAlpha  = gapPressureDimeter = gapPressureAlpha = this.spacing/xlimit;
@@ -101,15 +103,16 @@ wc2Brush.prototype = function(){
 				pressureAlpha = 1;
 				gapPressureAlpha = 0;
 			}
-			console.log(this.disablePressureAlpha,pressureAlpha)
-
-			this.previewBrushWC.beginBrush(x+75,y+50,this.brushWC,this.spacing,this.minimumPressureDiameter,this.minimumPressureAlpha);
+			y = -1*Math.abs(Math.sqrt(a*x));
+			this.previewBrushWC.beginBrush(x+left,y+top,this.brushWC,this.spacing,this.minimumPressureDiameter,this.minimumPressureAlpha);
 
 			while((x+=this.spacing )<0 ){
 				//y = Math.sqrt(r2-(x*x));
 				y = -1*Math.abs(Math.sqrt(a*x));
+				// y= -1*(4*x*x*x+3*x*x+2*x);
+				// console.log(y);
 
-				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
+				this.previewBrushWC.drawBrush(x+left,y+top,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
 				pressureDimeter+=gapPressureDimeter;
 				pressureAlpha+=gapPressureAlpha;
 			}
@@ -119,13 +122,20 @@ wc2Brush.prototype = function(){
 				//y = Math.sqrt(r2-(x*x));
 				y = Math.abs(Math.sqrt(a*x));
 
-				this.previewBrushWC.drawBrush(x+75,y+50,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
+				this.previewBrushWC.drawBrush(x+left,y+top,Math.max(this.minimumPressureDiameter,pressureDimeter),Math.max(this.minimumPressureAlpha,pressureAlpha));
 				pressureDimeter-=gapPressureDimeter;
 				pressureAlpha-=gapPressureAlpha;
 			}
-			this.previewBrushWC.configContext2d({"fontSize":16,"lineHeight":1.2,"disableStroke":1,"textBaseline":"top"})
+			this.previewBrushWC.saveContext2d();
+			this.previewBrushWC.configContext2d({"fontSize":14,"fontWeight":"bold","lineHeight":1.2,"disableStroke":1,"textBaseline":"top","fillStyle":"#fff","filter":"drop-shadow(0px 0px 5px white)"})
 			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";
-			this.previewBrushWC.text(txt,0,40)
+			this.previewBrushWC.text(txt,1,31)
+
+			this.previewBrushWC.configContext2d({"fillStyle":"#000"})
+			var txt = "Size:"+this.brushWC.width+"\n"+"Alpha:"+this.brushWC.context2d.globalAlpha.toFixed(2)+"\nSpacing:"+this.spacing+"\n";
+			this.previewBrushWC.text(txt,0,30)
+
+			this.previewBrushWC.restoreContext2d();
 			/*
 			this.previewBrushWC.beginBrush(20,20,this.brushWC,this.spacing);
 			this.previewBrushWC.drawBrush(110,80);
@@ -134,4 +144,10 @@ wc2Brush.prototype = function(){
 			this.previewBrushWC.endBrush();
 		}
 	}
+
+
+
+
+
+
 }();

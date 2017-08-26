@@ -295,6 +295,8 @@ background-color:rgba(0,0,0,0.2);
 .imgareaselect-outer {box-sizing: content-box;}
 
 /* 브러쉬 */
+#formToolBrushCanvasBox {overflow: hidden;height:80px}
+#formToolBrushCanvasBox .WC{margin:0 auto; display: block;margin-top:-10px;}
 #formToolBrushCanvasBox .WC-node{display:inline-block;}
 #toolBrushList img
 ,#toolBrushList input{width:34px;height:34px;

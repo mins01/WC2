@@ -615,13 +615,16 @@ if(!$isCLI){
 							<form name="formToolBrushFormCanvasBox" id="formToolBrushFormCanvasBox" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-tool-brush2 wc-tool-brush3 " onsubmit="this.onchange();return false"  oninput="this.onchange()">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Brush</div>
-										<table class="">
+										<div class="panel-body">
+											<div colspan="2" class="bg-grid"  height="100" id="formToolBrushCanvasBox" ></div>
+										</div>
+										<!-- <table class="">
 											<col width="50%">
 											<col width="50%">
 											<tr class="bg-grid" >
 												<th colspan="2" height="100" id="formToolBrushCanvasBox" align="center" ></th>
 											</tr>
-										</table>
+										</table> -->
 									</div>
 							</form>
 							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">

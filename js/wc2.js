@@ -69,6 +69,7 @@ var wc2 = (function(){
 								"fontWeight": "normal", //normal,bold,bolder,lighter,100~900 //폰트가 지원되야함.
 								"fontStyleVariantWeight": "", //fontStyle + fontVariant + fontWeight
 								"fontFamily": "sans-serif", // font-name
+								"filter":"none", // 지원 안되는 브라우저가 많다.(크롬 52이상 필요)
 								}
 		,"useOnbeforeunloadForDocument":true //저장안하고 나갈때 경고 사용여부
 		 //--- 초기화

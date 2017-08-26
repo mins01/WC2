@@ -343,6 +343,7 @@ function WebCanvas(width,height,colorset){
 		,"configContext2d":function(cfg){
 			if(cfg != undefined){
 				for(var x in cfg){
+
 					if(this.context2d[x] === undefined){
 						continue;
 					}else if(typeof this.context2d[x] == "function"){
@@ -352,6 +353,9 @@ function WebCanvas(width,height,colorset){
 						case "number": this.context2d[x] = parseFloat(cfg[x]);break;
 						case "boolean": this.context2d[x] = !!cfg[x];break;
 						default: this.context2d[x] = cfg[x];
+					}
+					if(x=='filter' && cfg[x]!='none'){
+						console.log(this.context2d[x],x,cfg[x])
 					}
 				}
 			}
