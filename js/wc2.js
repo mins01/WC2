@@ -1095,11 +1095,11 @@ var wc2 = (function(){
 			$(".colorPalette").on("dblclick",".sp-sat", function (e) {
 				e.stopPropagation();
 				e.preventDefault();
-				$(this).parents(".sp-container").find(".sp-choose").click();
+				$(this).parents(".sp-container").find(".sp-choose").trigger("click")
 			});
 			return true;
 		}
-		,"excangeColor":function(){
+		,"exchangeColor":function(){
 			var c0 = this.strokeStyle.value;
 			var c1 = this.fillStyle.value;
 			this.setStrokeColor(c1);

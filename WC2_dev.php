@@ -283,8 +283,8 @@ if(!$isCLI){
 									<div  class="panel-heading">Line</div>
 									<div  class="panel-body">
 										<table class="">
-											<col width="50%">
-											<col width="50%">
+											<col width="100">
+											<col>
 											<tr>
 												<th>line</th>
 												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div>
@@ -559,8 +559,8 @@ if(!$isCLI){
 									<div  class="panel-heading">Eraser</div>
 									<div  class="panel-body">
 										<table class="">
-											<col width="50%">
-											<col width="50%">
+											<col width="60">
+											<col width="">
 											<tr class="bg-grid" >
 												<th colspan="2" height="100" id="formToolEraserCanvasBox" align="center" ></th>
 											</tr>
@@ -574,7 +574,7 @@ if(!$isCLI){
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>alpha</th>
+												<th>Alpha</th>
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
@@ -586,8 +586,8 @@ if(!$isCLI){
 									<div  class="panel-heading">Pressure</div>
 									<div  class="panel-body">
 										<table class="">
-											<col width="50%">
-											<col width="50%">
+											<col width="60">
+											<col width="">
 											<tr>
 												<th>Diameter</th>
 												<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
@@ -633,8 +633,8 @@ if(!$isCLI){
 									<div  class="panel-heading">Brush Set%d</div>
 									<div  class="panel-body">
 										<table class="">
-											<col width="50%">
-											<col width="50%">
+											<col width="60">
+											<col width="">
 											<tr>
 												<th>Size</th>
 												<td><div class="showRangeValue"><input type="range" min="1" max="50" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
@@ -644,7 +644,7 @@ if(!$isCLI){
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>brushAlpha</th>
+												<th>Alpha</th>
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div>
 												</td>
 											</tr>
@@ -658,8 +658,8 @@ if(!$isCLI){
 										<div  class="panel-heading">Pressure%d</div>
 										<div  class="panel-body">
 											<table class="">
-												<col width="50%">
-												<col width="50%">
+												<col width="60">
+												<col width="">
 												<tr>
 													<th>Diameter</th>
 													<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
@@ -717,8 +717,8 @@ if(!$isCLI){
 										<div  class="panel-heading">Pattern</div>
 										<div  class="panel-body">
 											<table class="">
-												<col width="50%">
-												<col width="50%">
+												<col width="60">
+												<col width="">
 												<tr class="bg-grid" >
 													<th colspan="2" height="100" id="formToolPatternCanvasBox" align="center" ><img id="imagePattern" src="img/bg.gif"></th>
 												</tr>
@@ -749,8 +749,8 @@ if(!$isCLI){
 										<div  class="panel-heading">Crop</div>
 										<div  class="panel-body">
 											<table class="" style="width:100%">
-												<col width="50%">
-												<col width="50%">
+												<col width="60">
+												<col width="">
 												<tr>
 													<th>X</th>
 													<th><input type="text" class="form-control readonly" name="x" value="0" readonly></th>
@@ -834,7 +834,7 @@ if(!$isCLI){
 												<tr>
 													<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
 													</th>
-													<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.excangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
+													<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.exchangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
 													<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
 												</tr>
 											</table>
