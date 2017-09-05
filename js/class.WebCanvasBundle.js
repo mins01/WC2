@@ -79,6 +79,10 @@ function WebCanvasBundle(width,height,colorset){
 			this.outNode.className = "WCB-box";
 			this.node = document.createElement('div');
 			this.node.className = "WCB";
+			this.nodeGuide = document.createElement('div');
+			this.nodeGuide.setAttribute('data-guide',0);
+			this.nodeGuide.className="WCB-guide";
+			this.node.appendChild(this.nodeGuide)
 			this.outNode.appendChild(this.node);
 			this.node.wcb = this;
 			this.shadowWebCanvas = WebCanvas(this.width,this.height);
@@ -91,6 +95,25 @@ function WebCanvasBundle(width,height,colorset){
 			//this.context2dCfg = JSON.parse( JSON.stringify( this.shadowWebCanvas.initContext2dCfg ) );
 			this.name="WCB";
 			this.setZoom(1);
+			this.guideLine(0)
+
+		}
+		//가이드 설정
+		,"guideLine":function(n){
+			if(n==undefined){
+
+			}else{
+				n = parseInt(n)
+				console.log(n);
+				var n2 = n/2;
+				var px = Math.ceil(n/256)+'px'
+				var px2 = (Math.ceil(n/256)+1)+'px'
+				// this.nodeGuide.style.backgroundImage = "linear-gradient(0deg,transparent "+(n2-1)+"px,#999 "+(n2-1)+"px,#999 "+(n2+1)+"px,transparent "+(n2+1)+"px ),linear-gradient(90deg,transparent "+(n2-1)+"px,#999 "+n2+"px,transparent "+(n2+1)+"px )"
+				this.nodeGuide.style.backgroundImage = "linear-gradient(0deg,transparent "+(n2-1)+"px,#999 "+(n2-1)+"px,#999 "+(n2+1)+"px,transparent "+(n2+1)+"px ),linear-gradient(90deg,transparent "+(n2-1)+"px,#999 "+(n2-1)+"px,#999 "+(n2+1)+"px,transparent "+(n2+1)+"px )"
+				// this.nodeGuide.style.backgroundImage = "linear-gradient(0deg,transparent calc(50% - "+px+"),#999  calc(50% - "+px+"),#999 calc(50% + "+px+") ,transparent calc(50% + "+px2+") ),linear-gradient(90deg,transparent calc(50% - "+px+"),#999  50%,transparent calc(50% + "+px+"))"
+				this.nodeGuide.style.backgroundSize=n+"px "+n+"px";
+			}
+			return parseInt(this.nodeGuide.style.backgroundSize);
 
 		}
 		//-- 이미지 객체에서 읽어온다.

@@ -174,6 +174,8 @@ if(!$isCLI){
 											<li><a href="#" onclick="wc2.cmdWcb('flip',true,true);return false;" class="glyphicon glyphicon-object-align-vertical">+ <span  class="glyphicon glyphicon-object-align-horizontal"></span>Vertical+Horizontal</a></li>
 											</ul>
 										</li>
+										<li class="divider"></li>
+										<li><a href="#" class="glyphicon glyphicon-th" data-wc-menu="image-guideLine">guideLinee</a></li>
 									</ul>
 								</li>
 
@@ -1381,6 +1383,45 @@ if(!$isCLI){
 				        </div>
 				      </div>
 				    </form>
+						<form name="formMenuDetailGuideLine" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-guideLine" oninput="wc2.cmdWcb('guideLine',this.width.value);" onsubmit="this.oninput();wc2.hideMenuDetail();return false;">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Guide Line</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">setting</li>
+											<li class="list-group-item text-center" >
+												<div class="row">
+													<div class="col-xs-3"><label>width/height</label></div>
+													<div class="col-xs-9"><div class="showRangeValue" data-val="128"><input type="range" name="width" value="0" min="0" max="1000" step="1"></div></div>
+												</div>
+											</li>
+											<li class="list-group-item  text-center">
+												<div class="row">
+													<div class="col-xs-3"><label>sample</label></div>
+													<div class="col-xs-9 text-center">
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='4';this.form.oninput()">4px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='5';this.form.oninput()">5px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='7';this.form.oninput()">7px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='10';this.form.oninput()">10px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='20';this.form.oninput()">20px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='30';this.form.oninput()">30px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='40';this.form.oninput()">40px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='50';this.form.oninput()">50px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='100';this.form.oninput()">100px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='150';this.form.oninput()">150px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='200';this.form.oninput()">200px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='250';this.form.oninput()">250px</button>
+														<button type="button" class="btn btn-xs btn-default" onclick="this.form.width.value='300';this.form.oninput()">300px</button>
+													</div>
+												</div>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Confirm</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
 				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="">
 				      <div class="panel panel-default wc2-panel" >
 				        <div  class="panel-heading">Preferences</div>

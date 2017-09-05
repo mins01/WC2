@@ -484,6 +484,9 @@ var wc2 = (function(){
 				case "upload":
 					this.uploadWcb(arg1,arg2,arg3);
 				break;
+				case "guideLine":
+					this.activeWcb.guideLine(arg1);
+				break;
 				default:
 				this.setError("지원되지 않는 메소드");
 				break;
@@ -1148,6 +1151,9 @@ var wc2 = (function(){
 
 			if(menu.indexOf("layer-filter")==0){ //필터용 프리뷰
 				$(".wc-mdetail-layer-filter-preview").addClass('show');
+			}
+			if(menu.indexOf("image-guideLine")==0){ //필터용 프리뷰
+				document.formMenuDetailGuideLine.width.value = this.activeWcb.guideLine();
 			}
 
 
