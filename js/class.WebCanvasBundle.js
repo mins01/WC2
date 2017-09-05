@@ -104,7 +104,6 @@ function WebCanvasBundle(width,height,colorset){
 
 			}else{
 				n = parseInt(n)
-				console.log(n);
 				var n2 = n/2;
 				var px = Math.ceil(n/256)+'px'
 				var px2 = (Math.ceil(n/256)+1)+'px'
