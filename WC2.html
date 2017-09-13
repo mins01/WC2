@@ -566,12 +566,16 @@
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>Alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div></td>
+												<th>BrushAlpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
 												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
+											</tr>
+											<tr>
+												<th>Alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
 											</tr>
 										</table>
 									</div>
@@ -619,7 +623,7 @@
 										</table> -->
 									</div>
 							</form>
-							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
+							<form name="formToolBrush" id="formToolBrush" data-withActiveWebCanvas="1" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.oninput();return false"  data-shown="onchange"   onchange="this.oninput();" oninput="wc2.syncBrush(this)">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Brush Set%d</div>
@@ -636,14 +640,16 @@
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>Alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div>
-												</td>
+												<th>BrushAlpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
+											</tr>
+											<tr>
+												<th>Alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
 											</tr>
 											</table>
 										</div>

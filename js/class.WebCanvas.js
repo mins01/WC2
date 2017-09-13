@@ -342,8 +342,11 @@ function WebCanvas(width,height,colorset){
 		}
 		,"configContext2d":function(cfg){
 			if(cfg != undefined){
-				for(var x in cfg){
 
+				for(var x in cfg){
+					// if(x=='globalAlpha' && cfg[x]!=1 && this.canvas.width > 150) {
+					// 	console.log(x,cfg[x])
+					// }
 					if(this.context2d[x] === undefined){
 						continue;
 					}else if(typeof this.context2d[x] == "function"){
@@ -901,10 +904,10 @@ function WebCanvas(width,height,colorset){
 			var h2 = h/2;
 			//console.log(x,y);
 			//this.drawImage(this.brushWC,this.x0-w2,this.y0-h2);
-			this.saveContext2d();
-			this.context2d.globalAlpha = multiAlpha
+			var globalAlpha = this.context2d.globalAlpha
+			this.context2d.globalAlpha = globalAlpha*multiAlpha
 			this._drawBrushDot(this.x0-w2,this.y0-h2,w,h);
-			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			this.context2d.globalAlpha = globalAlpha;
 		}
 		,"drawBrush":function(x,y,pressureDimeter,pressureAlpha){
 			// console.log(pressureAlpha)
@@ -922,13 +925,14 @@ function WebCanvas(width,height,colorset){
 
 			// $("#dev_text").text(w+":"+h+":"+pressure);
 			var multiDimeter,multiAlpha,w,h,w2,h2;
-			this.saveContext2d();
+			// this.saveContext2d();
 			if(this.brushing){
 				var xys = this._dotsInLine(x0,y0,x1,y1);
 				var gapPressureDimeter = (pressureDimeter-this.lastPressureDimeter)/xys.length
 				var gapPressureAlpha = (pressureAlpha-this.lastPressureAlpha)/xys.length
 				//console.log(xys);
 				//var colorStyle = "rgb(230, 195, 236)";
+				var globalAlpha = this.context2d.globalAlpha
 				for(var i=0,m=xys.length;i<m;i++){
 					multiDimeter = (1+9*(this.lastPressureDimeter+gapPressureDimeter*i))/10;
 					multiAlpha = (1+9*(this.lastPressureAlpha+gapPressureAlpha*i))/10;
@@ -938,11 +942,12 @@ function WebCanvas(width,height,colorset){
 					h = this.brushWC.height*multiDimeter;
 					var w2 = w/2
 					var h2 = h/2
-					this.context2d.globalAlpha = multiAlpha;
+					this.context2d.globalAlpha = globalAlpha*multiAlpha;
 					this._drawBrushDot(xys[i][0]-w2,xys[i][1]-h2,w,h);
 				}
+				this.context2d.globalAlpha = globalAlpha;
 			}
-			this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
+			// this.restoreContext2d(); //버그인지 font의 설정값이 초기화되기에 재설정한다.
 			this.lastPressureDimeter = pressureDimeter;
 			this.lastPressureAlpha = pressureAlpha;
 		}

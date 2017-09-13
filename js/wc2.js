@@ -834,14 +834,19 @@ var wc2 = (function(){
 			if(!this.activeWcb){return;}
 			var className = "form.wc-tool-"+this.tool;
 			this.activeWcb.configContext2d(this.defaultContext2dCfg); //기본값으로 덮어 씌운다.
+			var cfg = {}
+			var withActiveWebCanvas = false;
 			$("#propPanel "+className).each(
 				function(){
-					var cfg = $(this).serializeObject();
-					//console.log(this.name);
-					//console.log(cfg);
-					wc2.activeWcb.configContext2d(cfg);
+					var cfg2 = $(this).serializeObject();
+					cfg = Object.assign(cfg,cfg2);
+					// console.log(this.name,cfg);
+					if($(this).attr('data-withActiveWebCanvas')=='1'){
+						withActiveWebCanvas = true;
+					}
 				}
 			)
+			wc2.activeWcb.configContext2d(cfg,withActiveWebCanvas);
 
 		}
 		//--- 레이어 관련

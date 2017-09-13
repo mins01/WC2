@@ -456,9 +456,9 @@ function WebCanvasBundle(width,height,colorset){
 		/**
 		* 활성화된 웹캔버스에 환경설정을 한다.
 		*/
-		,"configContext2d":function(context2dCfg){
+		,"configContext2d":function(context2dCfg,withActiveWebCanvas){
 			this.context2dCfg = context2dCfg;
-			this._syncContext2d();
+			this._syncContext2d(withActiveWebCanvas);
 		}
 		,"_syncContext2d":function(withActiveWebCanvas){
 			//기본적으로 shadowWebCanvas 만 설정한다.
