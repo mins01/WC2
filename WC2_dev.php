@@ -101,10 +101,24 @@ if(!$isCLI){
 						  </button>
 
 						<button type="button" class="navbar-toggle  glyphicon glyphicon-list-alt" title="Setting"
-						data-toggle="collapse" data-target="#propPanel"></button>
+						data-toggle="show" data-target="#propPanel"></button>
+						<script>
+						$(function(){
+							$("[data-toggle='show'][data-target]").on('click',function(){
+								var $dataTarget = $($(this).attr('data-target'));
+								$dataTarget.each(function(){
+									if($(this).hasClass('show')){
+										$(this).removeClass('show')
+									}else{
+										$(this).addClass('show')
+									}
+								})
+							})
+						});
+						</script>
 
 						<button type="button" class="navbar-toggle  glyphicon glyphicon-pencil" title="Tool"
-						data-toggle="collapse" data-target="#toolPanel" aria-expanded="true"></button>
+						data-toggle="show" data-target="#toolPanel" aria-expanded="true"></button>
 
 						<button type="button" class="navbar-toggle glyphicon glyphicon-fullscreen" title="FullScreen" onclick="wc2.toggleFullScreen();" ></button>
 
@@ -248,7 +262,7 @@ if(!$isCLI){
 				</header>
 
 
-				<aside id="toolPanel" class="wc2-panel collapse in" aria-expanded="true">
+				<aside id="toolPanel" class="wc2-panel show" aria-expanded="true">
 					<div class="panel panel-default">
 						<div class="panel-heading">Tool</div>
 						<div class="panel-body">
@@ -276,7 +290,7 @@ if(!$isCLI){
 						</div>
 					</div>
 				</aside>
-				<aside id="propPanel"  class="wc2-panel collapse" aria-expanded="false" >
+				<aside id="propPanel"  class="wc2-panel " aria-expanded="false" >
 					<div class="panel panel-default">
 						<div class="panel-heading">Property</div>
 						<div class="panel-body">
@@ -576,16 +590,12 @@ if(!$isCLI){
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>BrushAlpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div></td>
+												<th>Alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
 												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
-											</tr>
-											<tr>
-												<th>Alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
 											</tr>
 										</table>
 									</div>
@@ -633,7 +643,7 @@ if(!$isCLI){
 										</table> -->
 									</div>
 							</form>
-							<form name="formToolBrush" id="formToolBrush" data-withActiveWebCanvas="1" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.oninput();return false"  data-shown="onchange"   onchange="this.oninput();" oninput="wc2.syncBrush(this)">
+							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Brush Set%d</div>
@@ -650,16 +660,14 @@ if(!$isCLI){
 												<td><div class="showRangeValue"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
 											</tr>
 											<tr>
-												<th>BrushAlpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div></td>
+												<th>Alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div>
+												</td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
-											</tr>
-											<tr>
-												<th>Alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
+												</td>
 											</tr>
 											</table>
 										</div>
@@ -950,7 +958,7 @@ if(!$isCLI){
 							</div>
 						</div>
 						<select class="btn btn-default wcb-zoom">
-							<option value="1">Zoom</option>
+							<option value="1" disabled>Zoom</option>
 							<option value="0.1">10%</option>
 							<option value="0.2">20%</option>
 							<option value="0.3">30%</option>
@@ -1850,7 +1858,7 @@ if(!$isCLI){
 			</div> <!-- <div id="container"> -->
 
 			<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 			<!-- 드롭다운 메뉴 확장용 JS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/js/dropdowns-enhancement.js -->
 			<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 			<!-- jquery-ui -->

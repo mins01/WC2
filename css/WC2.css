@@ -122,8 +122,8 @@ button.no-glyphicon{font-size:14px;width:40px; font-weight:bold;}
 #propPanel tbody:last-child tr:last-child td{border-bottom-width:0;}
 #propPanel th{text-align:center;max-width:100px;}
 #propPanel td{text-align:center;}
-@media (max-width: 768px) {
-	#propPanel{width:240px;}
+@media (max-width: 767px) {
+	#propPanel{width:50%; min-width: 240px; display: none}
 }
 
 
@@ -154,9 +154,9 @@ display:none;
 	#toolPanel{display:block;visibility: visible;}
 	#propPanel{display:block;visibility: visible;}
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	/* 툴 버튼을 작은 버튼으로 변경 */
-	#toolPanel{width:30px; min-width:26px}
+	#toolPanel{width:30px; min-width:26px; display: none}
 	#toolPanel .btn{
 			padding: 1px 5px;
 		  font-size: 12px;
