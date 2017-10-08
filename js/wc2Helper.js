@@ -121,13 +121,13 @@ var wc2Helper = function(){
 			if(string.indexOf('#')==0){ //#RRGGBB 형식
 				var colorset = [];
 				if(string.length == 3){
-					var t = string.substr(0,1);colorset.push(parseInt(t+t,16));
 					var t = string.substr(1,1);colorset.push(parseInt(t+t,16));
 					var t = string.substr(2,1);colorset.push(parseInt(t+t,16));
+					var t = string.substr(3,1);colorset.push(parseInt(t+t,16));
 				}else{
-					var t = string.substr(0,2);colorset.push(parseInt(t,16));
-					var t = string.substr(2,2);colorset.push(parseInt(t,16));
+					var t = string.substr(1,2);colorset.push(parseInt(t,16));
 					var t = string.substr(3,2);colorset.push(parseInt(t,16));
+					var t = string.substr(4,2);colorset.push(parseInt(t,16));
 				}
 			}else if(string.toLowerCase().indexOf('rgb')==0){
 				var colorset = string.replace(/[^\d,]/g,'').split(',');

@@ -711,6 +711,120 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
+		//--- 집중선
+		,"concentratedLine":{
+			"wcb":null
+			,"ctx":null
+			,"deg":0//회전관련(각도)
+			,"ing":0
+			,"f":null
+			,"init":function(wcb){
+				this.f = document.formPropConcentratedLine;
+				this.f2 = document.formPropConcentratedLineColorStops;
+				this.ctx = this.wcb.shadowWebCanvas.context2d;
+				if(this.ing ==0){
+					this.ing = 1;
+					this._initXYWH();
+					this.predraw();
+				}
+
+				return true;
+			}
+			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
+				this.f.x.min = -2*this.wcb.width
+				this.f.x.max = 2*this.wcb.width
+				this.f.x.value = this.wcb.width/2
+
+				this.f.y.min = -2*this.wcb.height
+				this.f.y.max = 2*this.wcb.height
+				this.f.y.value = this.wcb.height/2
+
+				this.f.r.min = 1
+				this.f.r.max = Math.round(Math.sqrt(Math.pow(this.wcb.width,2)+Math.pow(this.wcb.height,2)))*2
+				this.f.r.value = this.f.r.max/4
+
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				//this.ing = 1;
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.f.x.value = t.x
+				this.f.y.value = t.y
+				this.predraw();
+				return true;
+			}
+			,"move":function(event){
+				this.down(event);
+				return true;
+			}
+			,"up":function(event){
+				this.predraw();
+				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				//console.log("up");
+				this.end();
+				return true;
+			}
+			,"predraw":function(){
+				// ctx.lineWidth = parseFloat(f.lineWidth.value);
+				var x = parseFloat(this.f.x.value);
+				var y = parseFloat(this.f.y.value);
+				var multi = parseFloat(this.f.multi.value);
+				var r = parseFloat(this.f.r.value);
+				// var strokeStyle = null;
+
+
+
+				var colorset = wc2Helper.string2Colorset(this.ctx.strokeStyle);
+				// console.log(this.ctx.strokeStyle,colorset);
+				// colorset2String
+				console.log(colorset);
+
+				var addColorStops = []
+
+				addColorStops.push([this.f2.colorStops_pos1.value,wc2Helper.colorset2String([colorset[0],colorset[1],colorset[2],this.f2.colorStops_opacity1.value])]);
+				addColorStops.push([this.f2.colorStops_pos2.value,wc2Helper.colorset2String([colorset[0],colorset[1],colorset[2],this.f2.colorStops_opacity2.value])]);
+				addColorStops.push([this.f2.colorStops_pos3.value,wc2Helper.colorset2String([colorset[0],colorset[1],colorset[2],this.f2.colorStops_opacity3.value])]);
+				addColorStops.push([this.f2.colorStops_pos4.value,wc2Helper.colorset2String([colorset[0],colorset[1],colorset[2],this.f2.colorStops_opacity4.value])]);
+
+
+		    var strokeStyle = ConcentratedLine.createRadialGradient(this.ctx,addColorStops);
+
+				ConcentratedLine.radial(this.ctx,x,y,multi,r,strokeStyle);
+			}
+			,"confirm":function(noQ){
+				if(noQ || confirm("OK?")){
+					this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+					wc2Tool.saveHistory();
+					//this.ing = 0;
+				}
+				return true;
+
+			}
+			,"reset":function(type){
+				if(this.ing ==1){
+					if(confirm("Not Confirm! Confirm OK?")){
+						var r = this.confirm(true);
+						this.end;
+						return r;
+					}else{
+						this.ing = 0;
+						if(this.wcb){
+							this.wcb.shadowWebCanvas.clear();
+						}
+					}
+				}
+				return true;
+			}
+			,"initPreview":function(){
+				if(this.ing ==1){
+					this._initXYWH();
+					this.predraw();
+				}
+				return true;
+			}
+		} //-- end fn
 		//--- 텍스트
 		,"text":{
 			"wcb":null

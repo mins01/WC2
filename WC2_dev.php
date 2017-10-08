@@ -283,6 +283,7 @@ if(!$isCLI){
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
 							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
+							<button class="btn btn-default glyphicon glyphicon-flash" data-wc-tool="concentratedLine"  type="button" title="ConcentratedLine"></button>
 
 							<hr class="soften">
 							<button class="btn btn-default glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');" type="button" title="Undo"></button>
@@ -303,13 +304,11 @@ if(!$isCLI){
 											<col>
 											<tr>
 												<th>line</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>line-join</th>
@@ -327,7 +326,6 @@ if(!$isCLI){
 													<td>
 														<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
 													</td>
 												</tr>
 												<tr>
@@ -335,7 +333,6 @@ if(!$isCLI){
 													<td>
 														<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
 													</td>
 												</tr>
 											</tbody>
@@ -359,8 +356,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>in PC</th>
@@ -369,6 +365,75 @@ if(!$isCLI){
 											<tr>
 												<th>URL</th>
 												<td><input type="text" name="inputImageFile" style="width:90%" placeHolder="URL/dataURL/clipboard" onpaste="wc2.onpasteFromClipboardForInput(event,function(){},function(dataURL,type,event){document.getElementById('imageNode').src=dataURL});" onchange="document.getElementById('imageNode').src=wc2.converURL(this.value)"></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</form>
+
+							<form name="formPropConcentratedLine" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLine" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+								<div class="panel panel-default">
+									<div  class="panel-heading">concentratedLine</div>
+									<div  class="panel-body">
+										<table class="" style="width:100%">
+											<col width="60">
+											<col width="">
+											<tr>
+												<th>alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td></td>
+											</tr>
+											<tr>
+												<th>lineWidth</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="3" step="1" name="lineWidth"  ></div></td>
+											</tr>
+											<tr>
+												<th>X</th>
+												<td><div class="showRangeValue"><input type="range" min="-1000" max="1000" value="0" step="1" name="x"  ></div></td>
+											</tr>
+											<tr>
+												<th>Y</th>
+												<td><div class="showRangeValue"><input type="range" min="-1000" max="1000" value="0" step="1" name="y"  ></div></td>
+											</tr>
+											<tr>
+												<th>multi</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="1000" value="150" step="1" name="multi"  ></div></td>
+											</tr>
+											<tr>
+												<th>R</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="1" step="1" name="r"  ></div></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</form>
+							<form name="formPropConcentratedLineColorStops" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLine" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+								<div class="panel panel-default">
+									<div  class="panel-heading">colorStops</div>
+									<div  class="panel-body">
+										<table class="" style="width:100%">
+											<col width="50%">
+											<col width="">
+											<thead class="dev_ColorStops">
+												<tr>
+													<th>position</th>
+													<th>opacity</th>
+												</tr>
+											</thead>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_pos1"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_opacity1"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.2" step="0.01" name="colorStops_pos2"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_opacity2"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.8" step="0.01" name="colorStops_pos3"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.8" step="0.01" name="colorStops_opacity3"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="colorStops_pos4"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="colorStops_opacity4"  ></div></td>
 											</tr>
 										</table>
 									</div>
@@ -389,8 +454,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" ></div></td>
 											</tr>
 											<tr>
 												<th>size</th>
@@ -473,8 +537,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>line</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>use-line</th>
@@ -488,7 +551,6 @@ if(!$isCLI){
 												<td>
 													<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-
 												</td>
 											</tr>
 
@@ -582,8 +644,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Size</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="50" value="5" size="5" name="brushWidth" ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="1" max="50" value="5" size="5" name="brushWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>
@@ -606,7 +667,8 @@ if(!$isCLI){
 											<col width="">
 											<tr>
 												<th>Diameter</th>
-												<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+												<td>
+													<label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 													<label><input type="radio" value="1" name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
@@ -616,7 +678,8 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Alpha</th>
-												<td><label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+												<td>
+													<label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 													<label><input type="radio" value="1" name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
@@ -661,13 +724,11 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Alpha</th>
-												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="brushGlobalAlpha"  ></div></td>
 											</tr>
 											<tr>
 												<th>Spacing</th>
-												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div>
-												</td>
+												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
 											</tr>
 											</table>
 										</div>
@@ -678,7 +739,8 @@ if(!$isCLI){
 												<col width="">
 												<tr>
 													<th>Diameter</th>
-													<td><label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<td>
+														<label><input type="radio" value="0" checked name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="brushDisablePressureDiameter"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 													</td>
 												</tr>
@@ -688,7 +750,8 @@ if(!$isCLI){
 												</tr>
 												<tr>
 													<th>Alpha</th>
-													<td><label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
+													<td>
+														<label><input type="radio" value="0" checked name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ok-circle"></span></label>
 														<label><input type="radio" value="1" name="brushDisablePressureAlpha"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 													</td>
 												</tr>
@@ -744,13 +807,11 @@ if(!$isCLI){
 												</tr>
 												<tr>
 													<th>alpha</th>
-													<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  ></div>
-													</td>
+													<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.5" step="0.01" name="globalAlpha"  ></div></td>
 												</tr>
 												<tr>
 													<th>Spacing</th>
-													<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  ></div>
-													</td>
+													<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="1" step="0.1" name="brushSpacing"  ></div></td>
 												</tr>
 											</table>
 											<div id="toolPatternList">
@@ -787,7 +848,7 @@ if(!$isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform " onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLine " onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
@@ -834,7 +895,7 @@ if(!$isCLI){
 								</form>
 
 								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
+								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLine  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 									<div class="panel panel-default">
 										<div  class="panel-heading">Color</div>
 										<div  class="panel-body">
@@ -1895,6 +1956,7 @@ if(!$isCLI){
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
 			<script src="js/colorPalette.js<?=$tsync?>"></script>
 			<script src="js/colorPalette.palettes.js<?=$tsync?>"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js<?=$tsync?>"></script>
 
 
 			<!-- WC2 -->
