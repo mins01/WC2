@@ -100,6 +100,31 @@ button.no-glyphicon{font-size:14px;width:40px; font-weight:bold;}
   font-size: 0.5em;
 }
 
+.icon-wc-tool-concentratedLineLinear{width:14px;height:14px; position: relative !important;;left:0;top:0;  overflow: hidden; transform: rotate(45deg); margin-top:1px}
+.icon-wc-tool-concentratedLineLinear .line{border-top: 1px solid black; position: absolute; width:14px;top:4px; }
+.icon-wc-tool-concentratedLineLinear .line:nth-child(1){top:2px}
+.icon-wc-tool-concentratedLineLinear .line:nth-child(2){top:4px}
+.icon-wc-tool-concentratedLineLinear .line:nth-child(3){top:6px}
+.icon-wc-tool-concentratedLineLinear .line:nth-child(4){top:8px}
+.icon-wc-tool-concentratedLineLinear .line:nth-child(5){top:10px}
+.icon-wc-tool-concentratedLineLinear .line:nth-child(6){top:12px}
+
+
+
+.icon-wc-tool-concentratedLineRadial{width:14px;height:14px; margin-top:1px; position: relative !important;;left:0;top:0;  overflow: hidden; }
+.icon-wc-tool-concentratedLineRadial .line{position: absolute; width:14px;height: 14px;}
+.icon-wc-tool-concentratedLineRadial .line::before{border-top: 1px solid black; display: block;margin-top:7px; content: " "}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(1){transform: rotate(0deg)}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(2){transform: rotate(30deg)}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(3){transform: rotate(60deg)}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(4){transform: rotate(90deg)}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(5){transform: rotate(120deg)}
+.icon-wc-tool-concentratedLineRadial .line:nth-child(6){transform: rotate(150deg)}
+
+
+
+
+
 
 .wc2-panel{z-index:2}
 

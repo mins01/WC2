@@ -283,7 +283,16 @@ if(!$isCLI){
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
 							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
-							<button class="btn btn-default glyphicon glyphicon-flash" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial"></button>
+							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial">
+								<div class="icon-wc-tool-concentratedLineRadial  glyphicon no-glyphicon">
+									<div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+								</div>
+							</button>
+							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="concentratedLineLinear"  type="button" title="ConcentratedLineLinear">
+								<div class="icon-wc-tool-concentratedLineLinear  glyphicon no-glyphicon">
+									<div class="line">&nbsp;</div><div class="line">&nbsp;</div><div class="line">&nbsp;</div><div class="line">&nbsp;</div><div class="line">&nbsp;</div><div class="line">&nbsp;</div><div class="line">&nbsp;</div>
+								</div>
+							</button>
 
 							<hr class="soften">
 							<button class="btn btn-default glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');" type="button" title="Undo"></button>
@@ -399,8 +408,8 @@ if(!$isCLI){
 												<td><div class="showRangeValue"><input type="range" min="1" max="1000" value="150" step="1" name="multi"  ></div></td>
 											</tr>
 											<tr>
-												<th>R</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="1" step="1" name="r"  ></div></td>
+												<th>lineLength</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="1" step="1" name="lineLength"  ></div></td>
 											</tr>
 										</table>
 									</div>
@@ -439,6 +448,83 @@ if(!$isCLI){
 									</div>
 								</div>
 							</form>
+							<form name="formPropConcentratedLineLinear" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLineLinear" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+								<div class="panel panel-default">
+									<div  class="panel-heading">concentratedLineLinear</div>
+									<div  class="panel-body">
+										<table class="" style="width:100%">
+											<col width="60">
+											<col width="">
+											<tr>
+												<th>alpha</th>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td></td>
+											</tr>
+											<tr>
+												<th>lineWidth</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="3" step="1" name="lineWidth"  ></div></td>
+											</tr>
+											<tr>
+												<th>X</th>
+												<td><div class="showRangeValue"><input type="range" min="-1000" max="1000" value="0" step="0" name="x"  ></div></td>
+											</tr>
+											<tr>
+												<th>Y</th>
+												<td><div class="showRangeValue"><input type="range" min="-1000" max="1000" value="0" step="0" name="y"  ></div></td>
+											</tr>
+											<tr>
+												<th>multi</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="1000" value="150" step="1" name="multi"  ></div></td>
+											</tr>
+											<tr>
+												<th>lineLength</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="10000" value="1000" step="1" name="lineLength"  ></div></td>
+											</tr>
+											<tr>
+												<th>gapY</th>
+												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="10" step="1" name="gapY"  ></div></td>
+											</tr>
+											<tr>
+												<th>deg</th>
+												<td><div class="showRangeValue"><input type="range" min="-360" max="360" value="45" step="1" name="deg"  ></div></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</form>
+							<form name="formPropConcentratedLineLinearColorStops" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLineLinear" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+								<div class="panel panel-default">
+									<div  class="panel-heading">colorStops</div>
+									<div  class="panel-body">
+										<table class="" style="width:100%">
+											<col width="50%">
+											<col width="">
+											<thead class="dev_ColorStops">
+												<tr>
+													<th>position</th>
+													<th>opacity</th>
+												</tr>
+											</thead>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_pos1"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_opacity1"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.2" step="0.01" name="colorStops_pos2"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0" step="0.01" name="colorStops_opacity2"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.8" step="0.01" name="colorStops_pos3"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="0.8" step="0.01" name="colorStops_opacity3"  ></div></td>
+											</tr>
+											<tr>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="colorStops_pos4"  ></div></td>
+												<td><div class="showRangeValue"><input type="range" min="0" max="1" value="1" step="0.01" name="colorStops_opacity4"  ></div></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</form>
+
 
 							<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 								<div class="panel panel-default">
@@ -848,7 +934,7 @@ if(!$isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial " onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
@@ -895,7 +981,7 @@ if(!$isCLI){
 								</form>
 
 								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLineRadial  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
+								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 									<div class="panel panel-default">
 										<div  class="panel-heading">Color</div>
 										<div  class="panel-body">
