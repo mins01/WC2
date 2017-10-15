@@ -712,15 +712,15 @@ var wc2Tool = function(){
 			}
 		} //-- end fn
 		//--- 집중선
-		,"concentratedLine":{
+		,"concentratedLineRadial":{
 			"wcb":null
 			,"ctx":null
 			,"deg":0//회전관련(각도)
 			,"ing":0
 			,"f":null
 			,"init":function(wcb){
-				this.f = document.formPropConcentratedLine;
-				this.f2 = document.formPropConcentratedLineColorStops;
+				this.f = document.formPropConcentratedLineRadial;
+				this.f2 = document.formPropConcentratedLineRadialColorStops;
 				this.ctx = this.wcb.shadowWebCanvas.context2d;
 				if(this.ing ==0){
 					this.ing = 1;

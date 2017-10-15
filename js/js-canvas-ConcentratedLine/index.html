@@ -21,7 +21,7 @@
     <h3><a href="https://github.com/mins01/js-canvas-ConcentratedLine/" target="_blank">https://github.com/mins01/js-canvas-ConcentratedLine/</a></h3>
     <div class="row">
       <div class="col-lg-6">
-        <canvas width="500" height="300" id="canvas" style="border:3px dotted #abc;"></canvas>
+        <canvas width="500" height="300" id="canvas_radial" style="border:3px dotted #abc;"></canvas>
       </div>
       <div class="col-lg-6">
         <form name="form_radial" class=" input-group-sm" onsubmit="submit_form_radial(this);return false;" oninput="this.onsubmit()">
@@ -46,8 +46,8 @@
             <input type="number" min="1" max="1000" class="form-control" name="multi" value="150">
           </div>
           <div class="input-group  input-group-sm">
-            <span class="input-group-addon" style="width:80px">r</span>
-            <input type="number" min="-1000" max="1000" class="form-control" name="r" value="300">
+            <span class="input-group-addon" style="width:80px">lineLength</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="lineLength" value="300">
           </div>
           <hr>
           <div>
@@ -63,6 +63,11 @@
             </div>
             <div class="input-group  input-group-sm def-addColorStops">
               <span class="input-group-addon" style="width:120px">addColorStops</span>
+              <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="0.8">
+              <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,1)">
+            </div>
+            <div class="input-group  input-group-sm def-addColorStops">
+              <span class="input-group-addon" style="width:120px">addColorStops</span>
               <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="1">
               <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,1)">
             </div>
@@ -72,18 +77,93 @@
           </div>
           <hr>
           <div class="text-right">
-            <button class="btn btn-primary btn-sm">적용</button>
+            <button  class="btn btn-primary btn-sm">적용</button>
           </div>
         </form>
       </div>
     </div>
+    <hr />
+    <div class="row">
+      <div class="col-lg-6">
+        <canvas width="500" height="300" id="canvas_linear" style="border:3px dotted #abc;"></canvas>
+      </div>
+      <div class="col-lg-6">
+        <form name="form_linear" class=" input-group-sm" onsubmit="submit_form_linear(this);return false;" oninput="this.onsubmit()">
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">Method</span>
+            <div class="form-control">ConcentratedLine.linear(ctx,x,y,multi,lineLength,gapY,deg,strokeStyle)</div>
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">lineWidth</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="lineWidth" value="3">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">x</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="x" value="0">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">y</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="y" value="300">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">multi</span>
+            <input type="number" min="1" max="1000" class="form-control" name="multi" value="150">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">lineLength</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="lineLength" value="1000">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">gapY</span>
+            <input type="number" min="-1000" max="1000" class="form-control" name="gapY" value="10">
+          </div>
+          <div class="input-group  input-group-sm">
+            <span class="input-group-addon" style="width:80px">deg</span>
+            <input type="number" min="-360" max="360" class="form-control" name="deg" value="-45">
+          </div>
+          <hr>
+          <div>
+            <div class="input-group  input-group-sm">
+              <span class="input-group-addon" style="width:120px">addColorStops</span>
+              <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="0">
+              <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,1)">
+            </div>
+            <div class="input-group  input-group-sm">
+              <span class="input-group-addon" style="width:120px">addColorStops</span>
+              <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="0.2">
+              <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,0)">
+            </div>
+            <div class="input-group  input-group-sm def-addColorStops">
+              <span class="input-group-addon" style="width:120px">addColorStops</span>
+              <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="0.8">
+              <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,1)">
+            </div>
+            <div class="input-group  input-group-sm def-addColorStops">
+              <span class="input-group-addon" style="width:120px">addColorStops</span>
+              <input type="number" min="0" max="1" step="0.01" class="form-control" name="addColorStops_pos" value="1">
+              <input type="text" class="form-control" name="addColorStops_val" value="rgba(0,0,0,1)">
+            </div>
+          </div>
+          <div class="text-right">
+            <button type="button" class="btn btn-info btn-sm" onclick="copy_input_colorstop()">+</button>
+          </div>
+          <hr>
+          <div class="text-right">
+            <button  class="btn btn-primary btn-sm">적용</button>
+          </div>
 
+        </form>
+      </div>
+    </div>
 
   </div>
   <script>
-  var canvas = document.getElementById('canvas');
-  var ctx = canvas.getContext('2d');
-  ctx.lineWidth = 3
+  var canvas_radial = document.getElementById('canvas_radial');
+  var ctx_radial = canvas_radial.getContext('2d');
+  ctx_radial.lineWidth = 3
+  var canvas_linear = document.getElementById('canvas_linear');
+  var ctx_linear = canvas_linear.getContext('2d');
+  ctx_linear.lineWidth = 3
   function copy_input_colorstop(){
     var ta = document.querySelector(".def-addColorStops");
     var p = ta.parentNode;
@@ -91,26 +171,50 @@
   }
 
   function submit_form_radial(f){
-    ctx.lineWidth = parseFloat(f.lineWidth.value);
+    ctx_radial.lineWidth = parseFloat(f.lineWidth.value);
     var x = parseFloat(f.x.value);
     var y = parseFloat(f.y.value);
     var multi = parseFloat(f.multi.value);
-    var r = parseFloat(f.r.value);
+    var lineLength = parseFloat(f.lineLength.value);
     var addColorStops = []
     for(var i=0,m=f.addColorStops_val.length;i<m;i++){
       addColorStops.push([f.addColorStops_pos[i].value,f.addColorStops_val[i].value]);
     }
 
-    var strokeStyle = ConcentratedLine.createRadialGradient(ctx,addColorStops);
+    var strokeStyle = ConcentratedLine.createRadialGradient(ctx_radial,addColorStops);
     // grd.addColorStop(0,"rgba(0,0,0,0)");
     // grd.addColorStop(0.3,"rgba(0,0,0,0)");
     // grd.addColorStop(1,"rgba(0,0,0,1)");
     // var grd = ctx.createRadialGradient(0,0,0,canvas.width,canvas.height,r);
     // ctx.strokeStyle=grd;
-    ConcentratedLine.radial(ctx,x,y,multi,r,strokeStyle);
+    ConcentratedLine.radial(ctx_radial,x,y,multi,lineLength,strokeStyle);
   }
    submit_form_radial(document.form_radial)
-
+  function submit_form_linear(f){
+    ctx_linear.lineWidth = parseFloat(f.lineWidth.value);
+    var x = parseFloat(f.x.value);
+    var y = parseFloat(f.y.value);
+    var multi = parseFloat(f.multi.value);
+    var lineLength = parseFloat(f.lineLength.value);
+    var gapY = parseFloat(f.gapY.value);
+    var deg = parseFloat(f.deg.value);
+    var addColorStops = []
+    for(var i=0,m=f.addColorStops_val.length;i<m;i++){
+      addColorStops.push([f.addColorStops_pos[i].value,f.addColorStops_val[i].value]);
+    }
+  
+    var strokeStyle = ConcentratedLine.createLinearGradient(ctx_linear,addColorStops);
+    // grd.addColorStop(0,"rgba(0,0,0,0)");
+    // grd.addColorStop(0.3,"rgba(0,0,0,0)");
+    // grd.addColorStop(1,"rgba(0,0,0,1)");
+    // var grd = ctx_linear.createRadialGradient(0,0,0,canvas.width,canvas.height,r);
+    // ctx_linear.strokeStyle=grd;
+    // var gapY = 10;
+    // var lineLength = r;
+    // var deg = 0;
+    ConcentratedLine.linear(ctx_linear,x,y,multi,lineLength,gapY,deg,strokeStyle);
+  }
+  submit_form_linear(document.form_linear)
 
   </script>
 

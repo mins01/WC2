@@ -283,7 +283,7 @@ if(!$isCLI){
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
 							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
-							<button class="btn btn-default glyphicon glyphicon-flash" data-wc-tool="concentratedLine"  type="button" title="ConcentratedLine"></button>
+							<button class="btn btn-default glyphicon glyphicon-flash" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial"></button>
 
 							<hr class="soften">
 							<button class="btn btn-default glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');" type="button" title="Undo"></button>
@@ -371,9 +371,9 @@ if(!$isCLI){
 								</div>
 							</form>
 
-							<form name="formPropConcentratedLine" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLine" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+							<form name="formPropConcentratedLineRadial" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLineRadial" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
-									<div  class="panel-heading">concentratedLine</div>
+									<div  class="panel-heading">concentratedLineRadial</div>
 									<div  class="panel-body">
 										<table class="" style="width:100%">
 											<col width="60">
@@ -406,7 +406,7 @@ if(!$isCLI){
 									</div>
 								</div>
 							</form>
-							<form name="formPropConcentratedLineColorStops" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLine" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+							<form name="formPropConcentratedLineRadialColorStops" action="javascript:void(0)" class="wc-tool wc-tool-concentratedLineRadial" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">colorStops</div>
 									<div  class="panel-body">
@@ -848,7 +848,7 @@ if(!$isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLine " onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial " onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
@@ -895,7 +895,7 @@ if(!$isCLI){
 								</form>
 
 								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLine  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
+								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLineRadial  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 									<div class="panel panel-default">
 										<div  class="panel-heading">Color</div>
 										<div  class="panel-body">
