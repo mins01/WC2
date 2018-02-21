@@ -174,9 +174,9 @@ var wc2 = (function(){
 			if(!wc2Helper.isSupportedImageType('image/jpeg')){
 				$(".image-type-jpg").hide().prop('disabled',true);
 			}
-			if(!wc2Helper.isSupportedImageType('image/gif')){
-				$(".image-type-gif").hide().prop('disabled',true);
-			}
+			// if(!wc2Helper.isSupportedImageType('image/gif')){
+			// 	$(".image-type-gif").hide().prop('disabled',true);
+			// }
 			if(!wc2Helper.isSupportedImageType('image/webp')){
 				$(".image-type-webp").hide().prop('disabled',true);
 			}
@@ -525,13 +525,30 @@ var wc2 = (function(){
 				}
 			)
 		}
-		,"blobWcb":function(type,quality){
+		,"blobWcb":function(type,quality,cb){
 			var toDataURLType = type;
-			if(type == "wcblzs"){
-				toDataURLType = "wcbjson";
-				var dataURL = this.activeWcb.toWcbDataJson();
-			}else{
-				var dataURL = this.activeWcb.toDataURL(toDataURLType,quality);
+			switch(type){
+				case 'wcblzs':
+					toDataURLType = "wcbjson";
+					var dataURL = this.activeWcb.toWcbDataJson();
+				break;
+				case 'gif':
+					if(!cb){
+						this.setError("blobWcb()에서 gif 적용시 콜백함수가 필수입니다."); return null;
+					}
+					console.log("blobWcb GIF");
+					var c = wc2.activeWcb.mergeAll();
+					wc2Helper.convertGif(c,10,function(cb){
+						return function(blob){
+							var size = blob.size;
+							cb(blob);
+						};
+					}(cb))
+					return null;
+				break;
+				default:
+					var dataURL = this.activeWcb.toDataURL(toDataURLType,quality);
+				break;
 			}
 
 			if(dataURL === false){
@@ -540,51 +557,65 @@ var wc2 = (function(){
 			}
 			if(type == "wcblzs"){ //압축한다.
 				var blob = new Blob([ LZString.compressToUint8Array(dataURL)], {type: "application/octet-stream"});
-
 			}else{
 				var blob = wc2Helper.dataURL2Blob(dataURL);
 			}
-			return blob;
+			if(cb){
+				cb(blob)
+			}else{
+				return blob;	
+			}
+			
 		}
 		,"saveWcb":function(filename,type,quality){
-			var blob = this.blobWcb(type,quality);
-			return wc2Helper.saveAs( blob,filename);
+			var cb = function(filename){
+				return function(blob){
+					return wc2Helper.saveAs( blob,filename);	
+				}
+			}(filename);
+			var blob = this.blobWcb(type,quality,cb);
+			// return 
 		}
 		,"uploadWcb":function(filename,type,quality){
-			var blob = this.blobWcb(type,quality);
-			var formdata = new FormData();
-			formdata.append("upf[]", blob, filename);
-			$.ajax({
-				url: this.uploadURL,
-				processData: false,
-				contentType: false,
-				//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-				dataType :"jsonp",
-				data: formdata,
-				type: 'POST',
-				success: function(wcb){return function(result){
-					if(!result || !result[0]){
-						alert("잘못된 업로드 결과");
-						return false;
-					}
-					var r = result[0];
-					if(r['error_msg'] !=''){
-						alert("Error :"+r['error_msg']);
-						return false;
-					}
-					wc2.cmdWcb("active",wcb);
-					if(r['save_name'] != r['basename']){ //이름이 바껴서 저장된 경우
-						var n = r['basename'].replace(/\.[^\.]*$/,''); //확장자 제거
-						wc2.cmdWcb("rename",n);
-						console.log("rename by upload");
-					}
-					if(confirm("Success Upload.\nView Image?")){
-						//wc2.viewImageURL(r["previewurl"]);
-						wc2.viewImageURL(r["downurl"]);
-					}
-					return true;
-				}}(this.activeWcb)
-            });
+			
+			var cb = function(filename,type,quality,thisC){
+				return function(blob){
+					var formdata = new FormData();
+					formdata.append("upf[]", blob, filename);
+					$.ajax({
+						url: thisC.uploadURL,
+						processData: false,
+						contentType: false,
+						//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+						dataType :"jsonp",
+						data: formdata,
+						type: 'POST',
+						success: function(wcb){return function(result){
+							if(!result || !result[0]){
+								alert("잘못된 업로드 결과");
+								return false;
+							}
+							var r = result[0];
+							if(r['error_msg'] !=''){
+								alert("Error :"+r['error_msg']);
+								return false;
+							}
+							wc2.cmdWcb("active",wcb);
+							if(r['save_name'] != r['basename']){ //이름이 바껴서 저장된 경우
+								var n = r['basename'].replace(/\.[^\.]*$/,''); //확장자 제거
+								wc2.cmdWcb("rename",n);
+								console.log("rename by upload");
+							}
+							if(confirm("Success Upload.\nView Image?")){
+								//wc2.viewImageURL(r["previewurl"]);
+								wc2.viewImageURL(r["downurl"]);
+							}
+							return true;
+						}}(thisC.activeWcb)
+					});
+				}
+			}(filename,type,quality,this)
+			this.blobWcb(type,quality,cb);
 			return true;
 		}
 		,"saveLayer":function(){
@@ -1323,7 +1354,7 @@ var wc2 = (function(){
 			var saveFileQuality = form.saveFileQuality.value
 			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
 		}
-		,"getDataurlForFileSavePreview":function(){
+		,"_btnFileSavePreview":function(cb){
 			var form = document.formMenuDetailFileSave
 			if(!wc2.activeWcb){
 				this.setError( "wc2.viewImage() : 활성화된 윈도우가 없음");
@@ -1336,19 +1367,48 @@ var wc2 = (function(){
 			}
 
 			var saveFileQuality = form.saveFileQuality.value
-			return wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);
+			
+			if(saveFileType=='gif'){
+				console.log("preview GIF");
+				var c = wc2.activeWcb.mergeAll();
+				wc2Helper.convertGif(c,10,function(cb,saveFileType){
+					return function(blob){
+						var size = blob.size;
+						wc2Helper.blobToDataURL(blob,function(dataUrl){
+							cb(dataUrl,saveFileType,size)	
+						})
+						
+					};
+				}(cb,saveFileType))
+				
+			}else{
+				var dataurl = wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);	
+				var t = dataurl.replace(/^data:.*;base64,/,'');
+				var size = window.atob(t).length;
+				cb(dataurl,saveFileType,size);
+			}
+			
+			return ;
 		}
 		,"btnFileSavePreview":function(){
-			var dataurl = this.getDataurlForFileSavePreview();
-			if(!dataurl){
-				$("#formMenuDetailFileSave-preview").prop("src",'about:blank')
-				$("#formMenuDetailFileSave-preview-size").text('- Byte');
-				return false;
+			function cb(dataurl,type,size){
+				var size = new Intl.NumberFormat().format(size);
+				if(!dataurl){
+					$("#formMenuDetailFileSave-preview").prop("src",'about:blank')
+					$("#formMenuDetailFileSave-preview-size").text('- Byte');
+					return false;
+				}
+				// var t = dataurl.replace(/^data:.*;base64,/,'');
+				$("#formMenuDetailFileSave-preview").prop("src",dataurl)
+				// var size = new Intl.NumberFormat().format(window.atob(t).length);
+				if(type!='wcbjson' && type!='wcblzs' ){
+					$("#formMenuDetailFileSave-preview-size").text(size+' Byte');		
+				}else{
+					$("#formMenuDetailFileSave-preview-size").text('- Byte');		
+				}
+				
 			}
-			var t = dataurl.replace(/^data:.*;base64,/,'');
-			$("#formMenuDetailFileSave-preview").prop("src",dataurl)
-			var size = new Intl.NumberFormat().format(window.atob(t).length);
-			$("#formMenuDetailFileSave-preview-size").text(size+' Byte');
+			this._btnFileSavePreview(cb);
 		}
 		,"btnFileUpload":function(form){
 			var saveFileName = form.saveFileName.value

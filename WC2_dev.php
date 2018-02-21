@@ -2033,6 +2033,8 @@ if(!$isCLI){
 			<script src="etcmodule/lz-string.min.js"></script>
 			<!-- https://github.com/kig/canvasfilters -->
 			<script src="etcmodule/filters.js"></script>
+			<!-- https://github.com/jnordberg/gif.js -->
+			<script src="etcmodule/gif/gif.js"></script>
 
 			<script src="jquery/jquery-helper.js"></script>
 			<!-- http://touchpunch.furf.com/ -->
@@ -2055,6 +2057,9 @@ if(!$isCLI){
 			<script src="js/wc2PatternList.js<?=$tsync?>"></script>
 			<script src="js/wc2Filter.js<?=$tsync?>"></script>
 			<script src="js/wc2Helper.js<?=$tsync?>"></script>
+			<script>
+					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
+			</script>
 			<!-- -->
 
 
