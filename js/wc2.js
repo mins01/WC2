@@ -1080,10 +1080,8 @@ var wc2 = (function(){
 			img.className ="wc-viewImage bg-grid";
 			$(a).append(img);
 			$(img).bind("load",function(event){
-				var t = this.getAttribute("src").replace(/^data:.*;base64,/,'');
-				var size = new Intl.NumberFormat().format(atob(t).length);
 				$("#wc-mdetail-file-view-title").text(this.title)
-				$("#wc-mdetail-file-view-info").text(size+" Byte / "+this.naturalWidth+" x "+this.naturalHeight+" (px)")
+				$("#wc-mdetail-file-view-info").text(this.naturalWidth+" x "+this.naturalHeight+" (px)")
 				$("#wc-mdetail-file-view-image").html(this.parentNode)
 				wc2.showMenuDetail("file-view");
 			})
@@ -1354,6 +1352,15 @@ var wc2 = (function(){
 			var saveFileQuality = form.saveFileQuality.value
 			return this.cmdWcb("save",saveFileName,saveFileType,saveFileQuality);
 		}
+		,"getDataurlForFileSavePreview":function(cb){
+			var form = document.formMenuDetailFileSave
+			var saveFileType = form.saveFileType.value
+			if(saveFileType=='gif'){
+				alert("getDataurlForFileSavePreview() : Not Support GIF");
+				return null;
+			}
+			return this._btnFileSavePreview(cb);
+		}
 		,"_btnFileSavePreview":function(cb){
 			var form = document.formMenuDetailFileSave
 			if(!wc2.activeWcb){
@@ -1385,6 +1392,9 @@ var wc2 = (function(){
 				var dataurl = wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);	
 				var t = dataurl.replace(/^data:.*;base64,/,'');
 				var size = window.atob(t).length;
+				if(!cb){
+					return dataurl
+				}
 				cb(dataurl,saveFileType,size);
 			}
 			
