@@ -55,7 +55,7 @@ var wc2Helper = function(){
 			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
-
+					
 					(function(file,callback,readType){
 						var fileReader = new FileReader();
 						fileReader.onload = function (event) {
@@ -76,8 +76,8 @@ var wc2Helper = function(){
 			var parts = dataURL.split(",");
 			var contentType = parts[0].split(":")[1];
 			var bin = atob( parts[1] ),
-				len = bin.length,
-				arr = new Uint8Array(len);
+			len = bin.length,
+			arr = new Uint8Array(len);
 			for (var i=0; i<len; i++ ) {
 				arr[i] = bin.charCodeAt(i);
 			}
@@ -86,8 +86,8 @@ var wc2Helper = function(){
 		//-- 바이너리를 blob으로
 		"bin2Blob":function(bin, type) {
 			var bin = atob( dataURL.split(',')[1] ),
-				len = bin.length,
-				arr = new Uint8Array(len);
+			len = bin.length,
+			arr = new Uint8Array(len);
 			for (var i=0; i<len; i++ ) {
 				arr[i] = bin.charCodeAt(i);
 			}
@@ -105,7 +105,7 @@ var wc2Helper = function(){
 		//--- base64 denode (http://ecmanaut.blogspot.kr/2006/07/encoding-decoding-utf8-in-javascript.html)
 		//--- btoa 를 바로 사용하면 한글 지원에 문제가 있어서
 		"b64_to_utf8":function(str) {
-			 return decodeURIComponent(escape(window.atob(str)));
+			return decodeURIComponent(escape(window.atob(str)));
 		},
 		//-- [r,g,b,a] 를 rgba(r,g,b,a) 문자열로
 		"colorset2String":function(colorset){
@@ -135,10 +135,10 @@ var wc2Helper = function(){
 			return colorset;
 		},
 		/**
-		 * 브라우저의 canvas.toDataURL 지원 이미지 타입 체크
-		 * @param  {[type]} type image/png 등
-		 * @return {[type]}      [description]
-		 */
+		* 브라우저의 canvas.toDataURL 지원 이미지 타입 체크
+		* @param  {[type]} type image/png 등
+		* @return {[type]}      [description]
+		*/
 		"isSupportedImageType":function(mime){
 			var c  = document.createElement('canvas');
 			if(c.tagName != 'CANVAS'){
@@ -151,17 +151,17 @@ var wc2Helper = function(){
 			return du.indexOf(mime)!=-1;
 		},
 		/**
-		 * input[type="Range"] 에 대해서 동작
-		 * @return {[type]} [description]
-		 */
+		* input[type="Range"] 에 대해서 동작
+		* @return {[type]} [description]
+		*/
 		"attachTdRangeValueBox":function(){
 			// $(".div-range>input[type='range']").parent().addClass('showRangeValue');
-
-
+			
+			
 			$(".showRangeValue>input").each(function(idx,el){
 				$(el.parentNode).attr("data-val",el.value);
 				el._value = el.value;
-
+				
 				var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 				var inputSetter = descriptor.set;
 				descriptor.set = function(val) {
@@ -171,7 +171,7 @@ var wc2Helper = function(){
 					Object.defineProperty(this, "value", descriptor);
 				}
 				Object.defineProperty(el, "value", descriptor);
-
+				
 				//-- 추가 버튼 붙이기
 				el.tm = null;
 				var div = document.createElement('div');
@@ -235,13 +235,58 @@ var wc2Helper = function(){
 				}(el))
 				// $(btn).text('-')
 				$(el.parentNode).append(div);
-
-
+				
+				
 			})
 			$(document).on("input change",".showRangeValue>input",function(evt){
 				$(this.parentNode).attr("data-val",this.value);
 			})
-
+			
+		},
+		"convertGif_workerScript":'../etcmodule/gif/gif.worker.js',
+		/**
+		* GIF변환
+		* @param  {[type]}   imgObject [description]
+		* @param  {[type]}   quality   [description]
+		* @param  {Function} cb        [description]
+		* @return {[type]}             [description]
+		*/
+		"convertGif":function(imgObject,quality,cb){
+			var gif = new GIF({
+				repeat : -1,
+				workers: 2,
+				quality: quality?quality:10,
+				workerScript : wc2Helper.convertGif_workerScript,
+				background : '#fff'
+			});
+			gif.addFrame(imgObject);
+			gif.on('finished', function(cb){
+				return function(blob) {
+					console.log("convertGif : finished");
+					console.log("size : "+blob.size+" byte");
+					//window.open(URL.createObjectURL(blob));
+					cb(blob)
+				}
+			}(cb)
+		);
+		gif.render();
+		return gif;
+	},
+	//**dataURL to blob**
+	"dataURLtoBlob":function(dataurl) {
+		var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+		while(n--){
+			u8arr[n] = bstr.charCodeAt(n);
 		}
+		return new Blob([u8arr], {type:mime});
+	},
+	//**blob to dataURL**
+	"blobToDataURL":function(blob, callback){
+		var a = new FileReader();
+		a.onload = function(e) {callback(e.target.result);}
+		a.readAsDataURL(blob);
 	}
+	
+}
 }();

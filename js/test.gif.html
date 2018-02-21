@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>gif 테스트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<!-- Jquery : not support < IE9-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="../etcmodule/gif/gif.js"></script>
+	<script src="../etcmodule/FileSaver.js"></script>
+
+
+	<meta property="og:title" content="{{타이틀}}">
+		<meta property="og:description" content="{{타이틀}}">
+		<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+		<meta property="og:image:width" content="190">
+		<meta property="og:image:height" content="70" />
+		<meta property="og:site_name" content="공대여자 홈" />
+		<meta property="og:type" content="website">
+	
+	<!-- //meta og -->	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<script>
+	var canv0 = null, img0 =null;
+	var context2d0 = null;
+	$(function(){
+		canv0 = $('#canv0').get(0);
+		img0 = $('#img0').get(0);
+		canv0.width = img0.naturalWidth;
+		canv0.height = img0.naturalHeight;
+		context2d0 = canv0.getContext('2d');
+		copyImg2Canv()
+		for(var i=1,m=1000000000;i<m;i*=10){
+			convertGif(i);
+		}
+	})
+	
+	function copyImg2Canv(){
+		context2d0.drawImage(img0,0,0);
+	}
+	
+	function convertGif(i_quality){
+		var gif = new GIF({
+			repeat : -1,
+			workers: 2,
+			quality: i_quality?i_quality:10,
+			workerScript : '../etcmodule/gif/gif.worker.js',
+			background : '#fff'
+		});
+		
+		gif.addFrame(canv0);
+		
+		gif.on('finished', function(i_quality){
+			return function(blob) {
+				// saveAs(blob, 'test.gif');
+				$('#img1').prop('src',URL.createObjectURL(blob));
+				$('#size1').val(blob.size+'Byte');
+				//window.open(URL.createObjectURL(blob));
+				$("#result_div").append("<div class='bg-info col-xs-3 text-center'><img src='"+URL.createObjectURL(blob)+"' /><div>["+i_quality+"]"+blob.size+" Byte</div></div>");
+				
+			}
+		}(i_quality));
+		
+		gif.render();
+	}
+	</script>
+	<style>
+	.in-br1{outline: 1px dotted red;}
+	</style>
+	</head>
+<body>
+	<div class="container">
+		<h1>제목</h1>
+		<form>
+			img0<br />
+			<img id='img0' class="in-br1" src='../img/Fotolia_110632460_S_copyright-1.jpg' /><br />
+			canv0<br />
+			<canvas id='canv0' class="in-br1" width="128" height="128" ></canvas>
+			<br />
+			img1<br />
+			<img id='img1' class="in-br1" src='' />
+			<input id="size1" type="text"   />
+			
+			<br />
+			<hr />
+			<button type="button" onclick="copyImg2Canv()" >캔버스로 복사</button>
+			<input name="i_quality" type="number" min="1" max="30000" value="1" />
+			<button type="button" onclick="convertGif(this.form.i_quality.value)">캔버스를 GIF로 저장</button>
+		</form>
+		<hr />
+		<div id="result_div">
+			
+		</div>
+	</div>
+</body>
+</html>
