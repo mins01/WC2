@@ -21,6 +21,7 @@ etcmodule/FileSaver.js
 etcmodule/filters.js
 etcmodule/lz-string.min.js
 etcmodule/mousetrap.min.js
+etcmodule/gif/gif.js
 img/bg.gif
 jquery/jquery.mousewheel.js
 jquery/jquery-dateFormat.min.js
