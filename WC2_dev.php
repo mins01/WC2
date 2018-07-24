@@ -313,7 +313,7 @@ if(!$isCLI){
 											<col>
 											<tr>
 												<th>line</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div></td>
+												<td><div class="showRangeValue" data-unit="px"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>alpha</th>
@@ -730,7 +730,7 @@ if(!$isCLI){
 											</tr>
 											<tr>
 												<th>Size</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="50" value="5" size="5" name="brushWidth" ></div></td>
+												<td><div class="showRangeValue" data-unit="px"><input type="range" min="1" max="100" value="5" size="5" name="brushWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>
@@ -802,7 +802,7 @@ if(!$isCLI){
 											<col width="">
 											<tr>
 												<th>Size</th>
-												<td><div class="showRangeValue"><input type="range" min="1" max="100" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
+												<td><div class="showRangeValue" data-unit="px"><input type="range" min="1" max="100" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>

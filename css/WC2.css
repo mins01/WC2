@@ -394,6 +394,9 @@ cursor:pointer;
 	text-align: center;
 	pointer-events: none;
 }
+.showRangeValue[data-unit]::before{
+	content: attr(data-val)attr(data-unit);
+}
 .showRangeValue .div-btn-dec{
 	position: absolute;top:0;left:0;bottom:0;
 }
