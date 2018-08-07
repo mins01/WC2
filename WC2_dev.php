@@ -3,7 +3,7 @@
 $t = time();
 
 $isCLI = (php_sapi_name() == "cli");
-if(!$isCLI){
+if($isCLI){
 	$tsync = '?_t='.$t;
 }else{
 	$tsync = '';
