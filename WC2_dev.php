@@ -1283,9 +1283,9 @@ if($isCLI){
 				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
 				              </li>
 				              <li class="list-group-item">
-				                <div id="formMenuDetailFileSave-preview-size">0 KB</div>
-				                <div  style="max-height:200px;overflow:auto;padding:10px;background-color:#ccc;">
-				                <img class="bg-grid" src="about:blank" id="formMenuDetailFileSave-preview" />
+				                <span id="formMenuDetailFileSave-preview-size">0 KB</span> , <span id="formMenuDetailFileSave-preview-widthHeight">*x*</span>
+				                <div  style="overflow:auto;padding:10px;background-color:#ccc;">
+				                	<img class="bg-grid" style="max-width:100%;max-height:100%;" src="about:blank" id="formMenuDetailFileSave-preview" onload="$('#formMenuDetailFileSave-preview-widthHeight').text(this.naturalWidth+'x'+this.naturalHeight)" onerror="$('#formMenuDetailFileSave-preview-widthHeight').text('*x*')" />
 				                </div>
 				                <!-- <button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button> -->
 				              </li>
