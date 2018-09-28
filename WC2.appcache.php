@@ -18,7 +18,7 @@ header('Content-Type: text/cache-manifest');
 
 $cont = file_get_contents('WC2.appcache');
 
-$t_m_ = filemtime('./');
+$t_m_ = filemtime('./WC2_dev.php');
 $t_m_js = filemtime('./js');
 $t_m_css = filemtime('./css');
 $r = "#".date('Y-m-d H:i:s,',$t_m_).date('Y-m-d H:i:s,',$t_m_js).date('Y-m-d H:i:s,',$t_m_css);
