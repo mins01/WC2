@@ -383,6 +383,32 @@ cursor:pointer;
 
 }
 
+/**
+ * 스포이드 관련
+ * @type {[type]}
+ */
+#divSelectedColorSpuit{
+	border-radius: 5px;
+	width:125px;height: 50%;
+	border:1px solid rgba(255,255,255,0.2);
+	margin:12px auto auto auto;
+	background-color: #fff;
+	box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);
+	font-size:8px; text-align: center;
+	display: flex ;
+	justify-content: center;  /* 가로 중앙 */
+	align-items: center; /* 세로 중앙 */
+	font-weight: bold;
+	text-shadow:#fff -1px -1px 1px , #fff -1px 1px 1px, #fff 1px 1px 1px, #fff 1px -1px 1px;
+}
+#divPreviewColorSpuit{
+	border-radius: 5px;
+	width:150px;height: 50px;
+	border:1px solid rgba(255,255,255,0.2);
+	margin:0 auto;
+	background-color: #fff;
+	box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);
+}
 
 /**
  * 유틸성

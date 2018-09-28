@@ -1076,6 +1076,7 @@ var wc2Tool = function(){
 				if(!this.wcb){return false;}
 				this.move(event);
 				$("#divSelectedColorSpuit").css("backgroundColor",this.colorStyle);
+				$("#divSelectedColorSpuit").text(this.colorStyle)
 				return true;
 			}
 			,"move":function(event){
@@ -1091,13 +1092,13 @@ var wc2Tool = function(){
 				if(!this.wcb){return false;}
 				this.predraw();
 				this.end();
+				wc2.setSpuitColorTo('stroke');
 				return true;
 			}
 			,"predraw":function(){
 				var colorset = this.wcb.pickupColor(this.x0,this.y0);
 				this.colorStyle = this.wcb.shadowWebCanvas.colorset2String(colorset);
 				if(this.colorStyle=== false){return true;}
-				//console.log(colorset,this.colorStyle);
 				$("#divPreviewColorSpuit").css("backgroundColor",this.colorStyle);
 				return true;
 			}

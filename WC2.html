@@ -4,7 +4,7 @@
 임의사용 금지.
 
 -->
-<html lang="ko" manifest="WC2.appcache.php?_t=1537412175">
+<html lang="ko" manifest="WC2.appcache.php?_t=1538111804">
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -69,8 +69,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1537412175" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1537412175" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1538111804" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1538111804" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -688,24 +688,15 @@
 							<form name="formToolSpuit" action="javascript:void(0)" class="wc-tool wc-tool-spuit" onsubmit="return false">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Spuit</div>
-									<div  class="panel-body">
-										<table class="">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th>Selected</th>
-												<th>Preview</th>
-											</tr>
-											<tr class="bg-grid">
-												<th ><div style="width:50px;height:50px; border:2px outset #999; background-color:#000000; margin:0 auto;" id="divSelectedColorSpuit"></div></th>
-												<th ><div style="width:50px;height:50px; border:2px outset #999; background-color:#000000;  margin:0 auto;" id="divPreviewColorSpuit"></div></th>
-											</tr>
-											<tr>
-												<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button></th>
-												<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button></th>
-											</tr>
-										</table>
+									<div  class="panel-body bg-grid">
+										<div id="divPreviewColorSpuit"><div id="divSelectedColorSpuit"></div></div>
 									</div>
+									<ul class="list-group">
+								    <li class="list-group-item">
+											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button>
+											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button>
+										</li>
+								  </ul>
 								</div>
 							</form>
 							<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()"  oninput="this.onchange()">
@@ -2032,21 +2023,21 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1537412175"></script>
-			<script src="js/colorPalette.palettes.js?_t=1537412175"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1537412175"></script>
+			<script src="js/colorPalette.js?_t=1538111804"></script>
+			<script src="js/colorPalette.palettes.js?_t=1538111804"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1538111804"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1537412175"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1537412175"></script>
-			<script src="js/wc2.js?_t=1537412175"></script>
-			<script src="js/wc2Tool.js?_t=1537412175"></script>
-			<script src="js/wc2Brush.js?_t=1537412175"></script>
+			<script src="js/class.WebCanvas.js?_t=1538111804"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1538111804"></script>
+			<script src="js/wc2.js?_t=1538111804"></script>
+			<script src="js/wc2Tool.js?_t=1538111804"></script>
+			<script src="js/wc2Brush.js?_t=1538111804"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1537412175"></script>
-			<script src="js/wc2Filter.js?_t=1537412175"></script>
-			<script src="js/wc2Helper.js?_t=1537412175"></script>
+			<script src="js/wc2PatternList.js?_t=1538111804"></script>
+			<script src="js/wc2Filter.js?_t=1538111804"></script>
+			<script src="js/wc2Helper.js?_t=1538111804"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>

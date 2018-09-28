@@ -698,24 +698,15 @@ if($isCLI){
 							<form name="formToolSpuit" action="javascript:void(0)" class="wc-tool wc-tool-spuit" onsubmit="return false">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Spuit</div>
-									<div  class="panel-body">
-										<table class="">
-											<col width="50%">
-											<col width="50%">
-											<tr>
-												<th>Selected</th>
-												<th>Preview</th>
-											</tr>
-											<tr class="bg-grid">
-												<th ><div style="width:50px;height:50px; border:2px outset #999; background-color:#000000; margin:0 auto;" id="divSelectedColorSpuit"></div></th>
-												<th ><div style="width:50px;height:50px; border:2px outset #999; background-color:#000000;  margin:0 auto;" id="divPreviewColorSpuit"></div></th>
-											</tr>
-											<tr>
-												<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button></th>
-												<th><button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button></th>
-											</tr>
-										</table>
+									<div  class="panel-body bg-grid">
+										<div id="divPreviewColorSpuit"><div id="divSelectedColorSpuit"></div></div>
 									</div>
+									<ul class="list-group">
+								    <li class="list-group-item">
+											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button>
+											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button>
+										</li>
+								  </ul>
 								</div>
 							</form>
 							<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()"  oninput="this.onchange()">
