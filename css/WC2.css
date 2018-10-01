@@ -19,6 +19,7 @@ html{overflow:hidden;padding:0;margin:0;height:100%;touch-action: manipulation;}
 body { padding-top: 50px;height:100%;width:100%; padding:0; margin:0;  font-family: 'dotum',arial,sans-serif; position:fixed; top:0;left:0;right:0;bottom:0;overflow:hidden}
 input,textarea,select,button{padding:0;}
 .navbar{padding-bottom:0px;}
+.navbar-toggle{line-height: 1em;}
 .navbar-brand img{width:50px;height:20px;}
 .nav .glyphicon::before {margin-right:0.5em}
 .glyphicon{ font-family: 'dotum',arial,sans-serif,'Glyphicons Halflings';} /* 폰트 재정의 */

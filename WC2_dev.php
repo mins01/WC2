@@ -100,8 +100,7 @@ if($isCLI){
 							<span class="icon-bar"></span>
 						  </button>
 
-						<button type="button" class="navbar-toggle  glyphicon glyphicon-list-alt" title="Setting"
-						data-toggle="show" data-target="#propPanel"></button>
+						<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
 						<script>
 						$(function(){
 							$("[data-toggle='show'][data-target]").on('click',function(){
@@ -117,10 +116,9 @@ if($isCLI){
 						});
 						</script>
 
-						<button type="button" class="navbar-toggle  glyphicon glyphicon-pencil" title="Tool"
-						data-toggle="show" data-target="#toolPanel" aria-expanded="true"></button>
+						<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 
-						<button type="button" class="navbar-toggle glyphicon glyphicon-fullscreen" title="FullScreen" onclick="wc2.toggleFullScreen();" ></button>
+						<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" onclick="setTimeout(function(){$(wc2.fillStyle).spectrum('toggle');},0 )" >🎨</button>
 						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" onclick="setTimeout(function(){$(wc2.strokeStyle).spectrum('toggle');},0 )" >🎨</button>
 						
