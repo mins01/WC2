@@ -1469,6 +1469,9 @@ var wc2 = (function(){
 
 			$(this.strokeStyle).spectrum("set",this.strokeStyle.value);
 			$(this.fillStyle).spectrum("set",this.fillStyle.value);
+			
+			$('.bg-strokeStyle').css("backgroundColor",this.strokeStyle.value);
+			$('.bg-fillStyle').css("backgroundColor",this.fillStyle.value);
 
 			this.saveSetting(document.getElementById("formToolColor"),"change");
 		}

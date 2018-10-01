@@ -121,6 +121,9 @@ if($isCLI){
 						data-toggle="show" data-target="#toolPanel" aria-expanded="true"></button>
 
 						<button type="button" class="navbar-toggle glyphicon glyphicon-fullscreen" title="FullScreen" onclick="wc2.toggleFullScreen();" ></button>
+						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" onclick="setTimeout(function(){$(wc2.fillStyle).spectrum('toggle');},0 )" >🎨</button>
+						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" onclick="setTimeout(function(){$(wc2.strokeStyle).spectrum('toggle');},0 )" >🎨</button>
+						
 
 						<!--
 						<a class="navbar-brand" href="http://mins01.com" target="_blank">
