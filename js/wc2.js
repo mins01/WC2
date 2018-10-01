@@ -853,11 +853,15 @@ var wc2 = (function(){
 			var className = ".wc-tool-"+this.tool;
 			$("#propPanel .wc-tool").hide();
 			$("#propPanel "+className).show();
+			$("#propPanel .wc-tool-ALWAYS").show();
 			this.syncPropPanel();
 		}
 		,"syncPropPanel":function(){ //현재 보이는 것중 onchange 가 있으면 실행시킨다.
 			var className = ".wc-tool-"+this.tool;
 			$("#propPanel "+className+"[data-shown='onchange']").each(function(){
+				this.onchange();
+			});
+			$("#propPanel .wc-tool-ALWAYS[data-shown='onchange']").each(function(){
 				this.onchange();
 			});
 		}
@@ -867,7 +871,7 @@ var wc2 = (function(){
 			this.activeWcb.configContext2d(this.defaultContext2dCfg); //기본값으로 덮어 씌운다.
 			var cfg = {}
 			var withActiveWebCanvas = false;
-			$("#propPanel "+className).each(
+			$("#propPanel "+className+" , #propPanel .wc-tool-ALWAYS").each(
 				function(){
 					var cfg2 = $(this).serializeObject();
 					cfg = Object.assign(cfg,cfg2);

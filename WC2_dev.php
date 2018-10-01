@@ -653,11 +653,11 @@ if($isCLI){
 											<col width="">
 											<tr>
 												<th>X</th>
-												<td><div class="showRangeValue"><input type="range" name="x0" value="0" min="-999" max="999" step="1" style="width:90%"></div></td>
+												<td><div class="showRangeValue"><input type="range" name="x0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Y</th>
-												<td><div class="showRangeValue"><input type="range" name="y0" value="0" min="-999" max="999" step="1" style="width:90%"></div></td>
+												<td><div class="showRangeValue"><input type="range" name="y0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Sacle</th>
@@ -972,7 +972,7 @@ if($isCLI){
 								</form>
 
 								<!-- wc-save-setting  를 사용하지 않는다. wc2.syncColor();에서 처리된다. -->
-								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-line  wc-tool-curve wc-tool-pen wc-tool-rect  wc-tool-circle wc-tool-text wc-tool-spuit wc-tool-brush  wc-tool-brush2 wc-tool-brush3 wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear  " onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
+								<form name="formToolColor" id="formToolColor" action="javascript:void(0)" class="wc-tool wc-tool-ALWAYS" onsubmit="return false" onchange="wc2.syncColor();" oninput="this.onchange()" >
 									<div class="panel panel-default">
 										<div  class="panel-heading">Color</div>
 										<div  class="panel-body">
