@@ -362,12 +362,16 @@ cursor:pointer;
 	font-family: 'Glyphicons Halflings';
 	margin-left:5px;
 }
-.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{
+.wc-prop-layer-info[data-wc-hide="0"] > .eye::before{
 	display:none;
 	content: "\e105";
  }
-.wc-prop-layer-info[data-wc-hide="1"] .eye::before{
+.wc-prop-layer-info[data-wc-hide="1"] > .eye{
+	background-color: rgba(0,0,0,0.3); 
+}
+.wc-prop-layer-info[data-wc-hide="1"] > .eye::before{
 	content: "\e106";
+	
 }
 
 
@@ -377,6 +381,9 @@ cursor:pointer;
 		position: static;
 		padding-right:5px;
 		display:inline;
+	}
+	.wc-prop-layer-info[data-wc-hide="1"] > .eye{
+		background-color:transparent;
 	}
 	.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{
 		display:inline;

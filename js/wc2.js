@@ -915,7 +915,7 @@ var wc2 = (function(){
 					li.className="list-group-item wc-prop-layer wc-prop-layer-info";
 					li.wc = WebCanvas(width,height);
 					li.appendChild(li.wc.node);
-					li.spanEye =  document.createElement("span");
+					li.spanEye =  document.createElement("div");
 					li.spanEye.className="eye"
 					li.appendChild(li.spanEye);
 					li.span =  document.createElement("span");
@@ -933,7 +933,7 @@ var wc2 = (function(){
 					$(li).show();
 					$(li).attr("data-wcb-active",$(oc).attr("data-wcb-active"))
 							.attr("data-wcb-index",$(oc).attr("data-wcb-index"))
-							.attr("data-wcb-hide",$(oc).attr("data-wcb-hide"));
+							.attr("data-wc-hide",oc.hide?"1":"0");
 
 					li.title = oc.label;
 					//설정을 체크 하고 히스토리를 참고해서 히스토리가 변경된것만 갱신한다.
@@ -944,7 +944,7 @@ var wc2 = (function(){
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							//li.wc.setOpacity(oc.opacity);
 							li.wc.opacity = oc.opacity;
-							li.wc.hide = oc.hide;
+							// li.wc.hide = oc.hide;
 							li.wc.node.style.marginTop = marginTop+"px";
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
 						//console.log("pre 갱신",li.wc.label);
