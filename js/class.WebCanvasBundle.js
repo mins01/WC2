@@ -324,7 +324,7 @@ function WebCanvasBundle(width,height,colorset){
 		,"addDuplicateWebCanvas":function(){
 			var c = this.activeWebCanvas.clone();
 			c.className = "WC";
-			c.setLabel(this.activeWebCanvas.alt+"-copy");
+			c.setLabel(this.activeWebCanvas.getAttribute('data-wc-label')+"-copy");
 			return this._addWebCanvas(c);
 		}
 		,"mergeDown":function(){
