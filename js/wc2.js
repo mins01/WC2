@@ -917,14 +917,17 @@ var wc2 = (function(){
 					li.appendChild(li.wc.node);
 					li.spanEye =  document.createElement("div");
 					li.spanEye.className="eye"
-					li.spanEye.style.width=width+'px';
-					li.spanEye.style.height=height+'px';
+					// li.spanEye.style.width=width+'px';
+					// li.spanEye.style.height=height+'px';
 					li.appendChild(li.spanEye);
 					li.span =  document.createElement("span");
 					li.appendChild(li.span);
 
 					propLayerList.append(li);
 				}
+				$(propLayerList).find('.eye').css('width',width+'px');
+				$(propLayerList).find('.eye').css('height',height+'px');
+				
 				var lis = $("#propLayerList .wc-prop-layer-info");
 				lis.hide(); //우선 모두 숨긴다.
 				var tmpli_i = 0;
@@ -947,7 +950,7 @@ var wc2 = (function(){
 							//li.wc.setOpacity(oc.opacity);
 							li.wc.opacity = oc.opacity;
 							// li.wc.hide = oc.hide;
-							li.wc.node.style.marginTop = marginTop+"px";
+							// li.wc.node.style.marginTop = marginTop+"px";
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
 						//console.log("pre 갱신",li.wc.label);
 					}
