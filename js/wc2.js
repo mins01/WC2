@@ -917,6 +917,8 @@ var wc2 = (function(){
 					li.appendChild(li.wc.node);
 					li.spanEye =  document.createElement("div");
 					li.spanEye.className="eye"
+					li.spanEye.style.width=width+'px';
+					li.spanEye.style.height=height+'px';
 					li.appendChild(li.spanEye);
 					li.span =  document.createElement("span");
 					li.appendChild(li.span);
