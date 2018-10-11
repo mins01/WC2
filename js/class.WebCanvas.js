@@ -77,12 +77,13 @@ function WebCanvas(width,height,colorset){
 			this.width = width;
 			this.height = height;
 			var _opacity = 1;
-			Object.defineProperty(this, 'opacity', {
+			Object.defineProperty(this, "opacity", {
 				get:function(){ return _opacity; },
 				set:function(wc){
 						return function(newValue){
+							newValue = parseFloat(newValue);
 							if(isNaN(newValue)){return false}
-							_opacity = parseInt(newValue);
+							_opacity = newValue;
 							wc._setOpacity();
 							return _opacity;
 					}
