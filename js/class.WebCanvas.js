@@ -66,18 +66,7 @@ function WebCanvas(width,height,colorset){
 				enumerable: true,
 				configurable: false
 			});
-			var _mixBlendMode = "";
-			Object.defineProperty(this, 'mixBlendMode', {
-				get:function(){ return _mixBlendMode; },
-				set:function(wc){
-						return function(newValue){
-							_mixBlendMode = newValue;
-							wc.setMixBlendMode(newValue);
-					}
-				}(this),
-				enumerable: true,
-				configurable: false
-			});
+
 			this.className = "WC";
 			this.node = document.createElement('div');
 			this.node.className = "WC-node";
@@ -87,7 +76,6 @@ function WebCanvas(width,height,colorset){
 			this.error = ""; //최후 에러 메세지
 			this.width = width;
 			this.height = height;
-			this.mixBlendMode = 'normal';
 			var _opacity = 1;
 			Object.defineProperty(this, 'opacity', {
 				get:function(){ return _opacity; },
@@ -138,6 +126,27 @@ function WebCanvas(width,height,colorset){
 			this.context2d.fontFamily = "sans-serif"; // font-name. ','로 다중으로 설정 가능
 
 			//fontStyle(normal,italic,oblique), textWidth, fontSize/lineHeight fontFamily
+
+			var _mixBlendMode = "";
+			Object.defineProperty(this, 'mixBlendMode', {
+				get:function(){ return _mixBlendMode; },
+				get:function(wc){
+						return function(){
+							return wc.context2d.mixBlendMode;
+					}
+				}(this),
+				set:function(wc){
+						return function(newValue){
+							wc.context2d.mixBlendMode = newValue;
+							_mixBlendMode = newValue;
+							wc._setMixBlendMode(newValue);
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+
+			this.mixBlendMode = 'normal';
 
 			this._syncNode();
 			if(colorset){
@@ -206,7 +215,7 @@ function WebCanvas(width,height,colorset){
 			}
 		}
 		//--- mixBlendMode
-		,"setMixBlendMode":function(mode){
+		,"_setMixBlendMode":function(mode){
 			this.node.style.mixBlendMode = mode;
 		}
 		//--- 색상 변환용
@@ -449,7 +458,9 @@ function WebCanvas(width,height,colorset){
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
 			this.saveContext2d();
-			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":"source-over"});
+			var gco = webCanvas.mixBlendMode=='normal'?"source-over":webCanvas.mixBlendMode;
+			console.log(gco) //작업중
+			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":gco});
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.restoreContext2d();
 			return this;
@@ -457,7 +468,8 @@ function WebCanvas(width,height,colorset){
 		// 인자의 webCanvas가 위에 그려진다.
 		,"mergeWithoutOpacity":function(webCanvas,x0,y0,w0,h0){
 			this.saveContext2d();
-			this.configContext2d({"globalAlpha": 1 , "globalCompositeOperation":"source-over"});
+			var gco = webCanvas.mixBlendMode=='normal'?"source-over":webCanvas.mixBlendMode;
+			this.configContext2d({"globalAlpha": 1 , "globalCompositeOperation":gco});
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
 			this.drawImage(webCanvas, x0, y0,w0,h0);
@@ -470,8 +482,8 @@ function WebCanvas(width,height,colorset){
 
 			var c = webCanvas.clone();
 			c.cmdContext2d("save");
-
-			c.configContext2d({"globalAlpha":c.context2d.globalAlpha *= opacity , "globalCompositeOperation":"source-over"});
+			var gco = this.mixBlendMode=='normal'?"source-over":this.mixBlendMode;
+			c.configContext2d({"globalAlpha":c.context2d.globalAlpha *= opacity , "globalCompositeOperation":gco});
 
 			if(isNaN(x0)){x0 = 0;}
 			if(isNaN(y0)){y0 = 0;}
@@ -680,7 +692,7 @@ function WebCanvas(width,height,colorset){
 		}
 		//--- 히스토리,undo용 데이터
 		,"getDataForHistory":function(emptyImageData){
-				return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"imageData":emptyImageData?null:this.cmdContext2d("getImageData"),"mtime":this.mtime};
+				return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"imageData":emptyImageData?null:this.cmdContext2d("getImageData"),"mixBlendMode":this.mixBlendMode,"mtime":this.mtime};
 		}
 		,"putDataForHistory":function(data){
 			this.resize(data.width,data.height);
@@ -693,6 +705,8 @@ function WebCanvas(width,height,colorset){
 				//console.log(this.label+":imageData");
 				this.cmdContext2d("putImageData",data.imageData,0,0);
 			}
+			this.mixBlendMode = data.mixBlendMode;
+			
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
 			return true;

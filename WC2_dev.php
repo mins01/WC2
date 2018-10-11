@@ -1034,6 +1034,24 @@ if($isCLI){
 												</div>
 												<div class="panel-body btn-group-xs" role="group">
 													<label><input type="checkbox" name="layerNotHide" value="1" onchange="wc2.cmdLayer('hide',!this.checked)">Show</label>
+													<select name="layerMixBlendMode"  class="btn btn-default btn-sm" style="width:6em" onchange="wc2.cmdLayer('mixBlendMode',this.value)">
+														<option value="normal">normal</option>
+														<option value="multiply">multiply</option>
+														<option value="screen">screen</option>
+														<option value="overlay">overlay</option>
+														<option value="darken">darken</option>
+														<option value="lighten">lighten</option>
+														<option value="color-dodge">color-dodge</option>
+														<option value="color-burn">color-burn</option>
+														<option value="hard-light">hard-light</option>
+														<option value="soft-light">soft-light</option>
+														<option value="difference">difference</option>
+														<option value="exclusion">exclusion</option>
+														<option value="hue">hue</option>
+														<option value="saturation">saturation</option>
+														<option value="color">color</option>
+														<option value="luminosity">luminosity</option>
+													</select>
 												</div>
 												<div class="wc2-prop-list ">
 													<ul class="list-group overflow-scrolly" id="propLayerList">

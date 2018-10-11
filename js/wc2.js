@@ -949,6 +949,7 @@ var wc2 = (function(){
 							li.wc.drawImage(oc,0,0,li.wc.width,li.wc.height);
 							//li.wc.setOpacity(oc.opacity);
 							li.wc.opacity = oc.opacity;
+							// li.wc.mixBlendMode = oc.mixBlendMode;
 							// li.wc.hide = oc.hide;
 							// li.wc.node.style.marginTop = marginTop+"px";
 						//}catch(e){li.wc.node.className="glyphicon glyphicon-sunglasses";}
@@ -983,6 +984,8 @@ var wc2 = (function(){
 		,"_syncWcInfo":function(){
 			if(this.activeWcb && this.activeWcb.activeWebCanvas){
 				document.formPropLayer.layerOpacity.value = this.activeWcb.activeWebCanvas.opacity;
+				document.formPropLayer.layerMixBlendMode.value = this.activeWcb.activeWebCanvas.mixBlendMode;
+				
 				document.formPropLayer.layerNotHide.checked = !this.activeWcb.activeWebCanvas.hide;
 
 			}
@@ -1018,6 +1021,7 @@ var wc2 = (function(){
 				case "moveDown":
 					this.resaveHistory();
 					history = this.activeWcb.moveDownWebCanvasByIndex();break;
+				case "mixBlendMode":history = this.activeWcb.activeWebCanvas.mixBlendMode = arg1;break;
 				case "opacity":history = this.activeWcb.activeWebCanvas.setOpacity(arg1);break;
 				case "hide":this.activeWcb.activeWebCanvas.hide = arg1;break;
 				case "toggleHide":this.activeWcb.activeWebCanvas.hide = !this.activeWcb.activeWebCanvas.hide;break;
