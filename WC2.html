@@ -4,7 +4,7 @@
 임의사용 금지.
 
 -->
-<html lang="ko" manifest="WC2.appcache.php?_t=1538633252">
+<html lang="ko" manifest="WC2.appcache.php?_t=1539250238">
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -69,8 +69,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1538633252" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1538633252" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1539250238" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1539250238" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -1024,6 +1024,24 @@
 												</div>
 												<div class="panel-body btn-group-xs" role="group">
 													<label><input type="checkbox" name="layerNotHide" value="1" onchange="wc2.cmdLayer('hide',!this.checked)">Show</label>
+													<select name="layerMixBlendMode"  class="btn btn-default btn-sm" style="width:6em" onchange="wc2.cmdLayer('mixBlendMode',this.value)">
+														<option value="normal">normal</option>
+														<option value="multiply">multiply</option>
+														<option value="screen">screen</option>
+														<option value="overlay">overlay</option>
+														<option value="darken">darken</option>
+														<option value="lighten">lighten</option>
+														<option value="color-dodge">color-dodge</option>
+														<option value="color-burn">color-burn</option>
+														<option value="hard-light">hard-light</option>
+														<option value="soft-light">soft-light</option>
+														<option value="difference">difference</option>
+														<option value="exclusion">exclusion</option>
+														<option value="hue">hue</option>
+														<option value="saturation">saturation</option>
+														<option value="color">color</option>
+														<option value="luminosity">luminosity</option>
+													</select>
 												</div>
 												<div class="wc2-prop-list ">
 													<ul class="list-group overflow-scrolly" id="propLayerList">
@@ -2024,21 +2042,21 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1538633252"></script>
-			<script src="js/colorPalette.palettes.js?_t=1538633252"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1538633252"></script>
+			<script src="js/colorPalette.js?_t=1539250238"></script>
+			<script src="js/colorPalette.palettes.js?_t=1539250238"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1539250238"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1538633252"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1538633252"></script>
-			<script src="js/wc2.js?_t=1538633252"></script>
-			<script src="js/wc2Tool.js?_t=1538633252"></script>
-			<script src="js/wc2Brush.js?_t=1538633252"></script>
+			<script src="js/class.WebCanvas.js?_t=1539250238"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1539250238"></script>
+			<script src="js/wc2.js?_t=1539250238"></script>
+			<script src="js/wc2Tool.js?_t=1539250238"></script>
+			<script src="js/wc2Brush.js?_t=1539250238"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1538633252"></script>
-			<script src="js/wc2Filter.js?_t=1538633252"></script>
-			<script src="js/wc2Helper.js?_t=1538633252"></script>
+			<script src="js/wc2PatternList.js?_t=1539250238"></script>
+			<script src="js/wc2Filter.js?_t=1539250238"></script>
+			<script src="js/wc2Helper.js?_t=1539250238"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
