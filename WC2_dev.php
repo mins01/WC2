@@ -121,7 +121,7 @@ if($isCLI){
 						<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" onclick="setTimeout(function(){$(wc2.fillStyle).spectrum('toggle');},0 )" >🎨</button>
 						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" onclick="setTimeout(function(){$(wc2.strokeStyle).spectrum('toggle');},0 )" >🎨</button>
-						
+
 
 						<!--
 						<a class="navbar-brand" href="http://mins01.com" target="_blank">
@@ -784,7 +784,7 @@ if($isCLI){
 										</table> -->
 									</div>
 							</form>
-							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()">
+							<form name="formToolBrush" id="formToolBrush" action="javascript:void(0)" class="wc-tool wc-tool-brush wc-save-setting" onsubmit="this.onchange();return false"  data-shown="onchange" onchange="wc2.syncBrush(this)"  oninput="this.onchange()" data-withActiveWebCanvas="1">
 								<input type="hidden" name="imageSmoothingEnabled" value="1">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Brush Set%d</div>
@@ -807,6 +807,29 @@ if($isCLI){
 											<tr>
 												<th>Spacing</th>
 												<td><div class="showRangeValue"><input type="range"  min="0.5" max="10" value="0.5" step="0.01" name="brushSpacing"  ></div></td>
+											</tr>
+											<tr>
+												<th>Composite</th>
+												<td>
+													<select name="globalCompositeOperation"  class="btn btn-default btn-sm" style="width:6em">
+														<option value="source-over">normal</option>
+														<option value="multiply">multiply</option>
+														<option value="screen">screen</option>
+														<option value="overlay">overlay</option>
+														<option value="darken">darken</option>
+														<option value="lighten">lighten</option>
+														<option value="color-dodge">color-dodge</option>
+														<option value="color-burn">color-burn</option>
+														<option value="hard-light">hard-light</option>
+														<option value="soft-light">soft-light</option>
+														<option value="difference">difference</option>
+														<option value="exclusion">exclusion</option>
+														<option value="hue">hue</option>
+														<option value="saturation">saturation</option>
+														<option value="color">color</option>
+														<option value="luminosity">luminosity</option>
+													</select>
+												</td>
 											</tr>
 											</table>
 										</div>

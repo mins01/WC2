@@ -453,7 +453,6 @@ function WebCanvas(width,height,colorset){
 			if(isNaN(y0)){y0 = 0;}
 			this.saveContext2d();
 			var gco = webCanvas.mixBlendMode=='normal'?"source-over":webCanvas.mixBlendMode;
-			console.log(gco) //작업중
 			this.configContext2d({"globalAlpha":opacity , "globalCompositeOperation":gco});
 			this.drawImage(webCanvas, x0, y0,w0,h0);
 			this.restoreContext2d();

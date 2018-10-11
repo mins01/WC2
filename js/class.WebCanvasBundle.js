@@ -466,10 +466,6 @@ function WebCanvasBundle(width,height,colorset){
 				this.activeWebCanvas.configContext2d(this.context2dCfg);
 			}
 			this.shadowWebCanvas.configContext2d(this.context2dCfg);
-			//this.shadowWebCanvas.configContext2d({"globalAlpha":this.activeWebCanvas.opacity});
-			//this.shadowWebCanvas.setOpacity(this.activeWebCanvas.opacity);
-			//this.shadowWebCanvas.setOpacity(1);
-
 		}
 		/**
 		* 웹캔버스 순서 관련
