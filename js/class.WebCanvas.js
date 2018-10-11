@@ -43,6 +43,10 @@ function WebCanvas(width,height,colorset){
 		,"context2d":null//"getContext('2d');
 		,"initContext2dCfg":{}
 		,"saveContext2dCfg":[]
+		,"mixBlendMode":"normal" //CSS 모드 https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode
+		// normal,multiply,screen,overlay,darken,lighten,color-dodge,color-burn,hard-light,soft-light,difference,exclusion,hue,saturation,color,luminosity
+		// context2D.globalCompositeOperation에 대응하며 normal은 source-over 로 동작
+		
 		//== 추가 메소드
 		//---context2d 메소드 호출용
 		,"init":function(width,height,colorset){
@@ -62,7 +66,18 @@ function WebCanvas(width,height,colorset){
 				enumerable: true,
 				configurable: false
 			});
-
+			var _mixBlendMode = "";
+			Object.defineProperty(this, 'mixBlendMode', {
+				get:function(){ return _mixBlendMode; },
+				set:function(wc){
+						return function(newValue){
+							_mixBlendMode = newValue;
+							wc.setMixBlendMode(newValue);
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
 			this.className = "WC";
 			this.node = document.createElement('div');
 			this.node.className = "WC-node";
@@ -72,7 +87,7 @@ function WebCanvas(width,height,colorset){
 			this.error = ""; //최후 에러 메세지
 			this.width = width;
 			this.height = height;
-
+			this.mixBlendMode = 'normal';
 			var _opacity = 1;
 			Object.defineProperty(this, 'opacity', {
 				get:function(){ return _opacity; },
@@ -189,6 +204,10 @@ function WebCanvas(width,height,colorset){
 					if(args[2]==undefined) args[2] = 0;
 				break;
 			}
+		}
+		//--- mixBlendMode
+		,"setMixBlendMode":function(mode){
+			this.node.style.mixBlendMode = mode;
 		}
 		//--- 색상 변환용
 		,"colorset2String":function(colorset){
