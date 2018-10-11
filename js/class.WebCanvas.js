@@ -46,7 +46,7 @@ function WebCanvas(width,height,colorset){
 		,"mixBlendMode":"normal" //CSS 모드 https://developer.mozilla.org/ko/docs/Web/CSS/mix-blend-mode
 		// normal,multiply,screen,overlay,darken,lighten,color-dodge,color-burn,hard-light,soft-light,difference,exclusion,hue,saturation,color,luminosity
 		// context2D.globalCompositeOperation에 대응하며 normal은 source-over 로 동작
-		
+
 		//== 추가 메소드
 		//---context2d 메소드 호출용
 		,"init":function(width,height,colorset){
@@ -82,7 +82,7 @@ function WebCanvas(width,height,colorset){
 				set:function(wc){
 						return function(newValue){
 							if(isNaN(newValue)){return false}
-							_opacity = newValue;
+							_opacity = parseInt(newValue);
 							wc._setOpacity();
 							return _opacity;
 					}
@@ -130,14 +130,8 @@ function WebCanvas(width,height,colorset){
 			var _mixBlendMode = "";
 			Object.defineProperty(this, 'mixBlendMode', {
 				get:function(){ return _mixBlendMode; },
-				get:function(wc){
-						return function(){
-							return wc.context2d.mixBlendMode;
-					}
-				}(this),
 				set:function(wc){
 						return function(newValue){
-							wc.context2d.mixBlendMode = newValue;
 							_mixBlendMode = newValue;
 							wc._setMixBlendMode(newValue);
 					}
@@ -443,7 +437,7 @@ function WebCanvas(width,height,colorset){
 		,"setZoom":function(){
 		}
 		,"setOpacity":function(opacity){
-			this.opacity = parseFloat(opacity);
+			this.opacity = opacity;
 			return this.opacity;
 		}
 		,"_setOpacity":function(){
@@ -706,14 +700,14 @@ function WebCanvas(width,height,colorset){
 				this.cmdContext2d("putImageData",data.imageData,0,0);
 			}
 			this.mixBlendMode = data.mixBlendMode;
-			
+
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
 			return true;
 		}
 		//--- 파일용 데이터
 		,"toWcDataObject":function(type,quality){
-			return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"dataURL":this.toDataURL(type,quality)};
+			return {"width":this.width,"height":this.height,"opacity":this.opacity,"hide":this.hide,"label":this.label,"mixBlendMode":this.mixBlendMode,"dataURL":this.toDataURL(type,quality)};
 		}
 		,"putWcDataObject":function(wcdo,onload){
 			//this.setLabel(wcdo.label);
@@ -722,6 +716,7 @@ function WebCanvas(width,height,colorset){
 			//this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.opacity = (wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.hide = wcdo.hide;
+			this.mixBlendMode = wcdo.mixBlendMode;
 
 			this.loadToDataURL(wcdo.dataURL,onload)
 			return true;
