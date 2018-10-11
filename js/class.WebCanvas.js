@@ -699,7 +699,7 @@ function WebCanvas(width,height,colorset){
 				//console.log(this.label+":imageData");
 				this.cmdContext2d("putImageData",data.imageData,0,0);
 			}
-			this.mixBlendMode = data.mixBlendMode;
+			this.mixBlendMode = data.mixBlendMode?data.mixBlendMode:"normal";
 
 			this.mtime = data.mtime; //수정시간을 덮어 씌움.(과거에있던 데이터니깐)
 			//console.log(this.label,"수정시간 덮음",this.mtime);
@@ -716,7 +716,7 @@ function WebCanvas(width,height,colorset){
 			//this.setOpacity(wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.opacity = (wcdo.opacity!=undefined?wcdo.opacity:1);
 			this.hide = wcdo.hide;
-			this.mixBlendMode = wcdo.mixBlendMode;
+			this.mixBlendMode = wcdo.mixBlendMode?wcdo.mixBlendMode:"normal";
 
 			this.loadToDataURL(wcdo.dataURL,onload)
 			return true;
