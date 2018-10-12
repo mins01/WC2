@@ -287,11 +287,15 @@ padding-top: 30px;
 
 }
 
-.wcb-zoom{
+.wcb-zoom-box{
 z-index: 3;
 position: absolute;
 left: 2px;
 bottom: 2px;
+}
+input.wcb-zoom[type="number"]{
+	border-width: 0;background: transparent;
+	text-align: right;
 }
 
 .ui-widget-header {
@@ -441,8 +445,19 @@ cursor:pointer;
 .showRangeValue .btn-inc{
 	font-size:12px;
 	border-radius: 50%;
-	background-color: transparent;
+	background-color: #000;color:#fff;
 	border-width:0;
+	width:12px;height:12px;line-height: 1em;
+}
+.showRangeValue .btn-dec::before{
+	content: "-";
+	line-height: 1em;
+	vertical-align: top;
+}
+.showRangeValue .btn-inc::before{
+	content: "+";
+	line-height: 1em;
+	vertical-align: top;
 }
 
 

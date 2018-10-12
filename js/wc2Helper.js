@@ -179,7 +179,8 @@ var wc2Helper = function(){
 				var btn = document.createElement('button');
 				div.appendChild(btn);
 				btn.type="button";
-				btn.className="btn-dec glyphicon glyphicon-minus-sign";
+				// btn.className="btn-dec glyphicon glyphicon-minus-sign";
+				btn.className="btn-dec";
 				btn.actFn = function(el){
 					return function(){
 						var step = !el.step?1:parseFloat(el.step);
@@ -210,7 +211,8 @@ var wc2Helper = function(){
 				var btn = document.createElement('button');
 				div.appendChild(btn);
 				btn.type="button";
-				btn.className="btn-inc glyphicon glyphicon-plus-sign";
+				// btn.className="btn-inc glyphicon glyphicon-plus-sign";
+				btn.className="btn-inc";
 				btn.actFn = function(el){
 					return function(){
 						var step = !el.step?1:parseFloat(el.step);
