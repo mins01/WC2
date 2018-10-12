@@ -14,7 +14,7 @@ if($isCLI){
 임의사용 금지.
 
 -->
-<html lang="ko" <? if($isCLI): ?>manifest="WC2.appcache.php<?=$tsync?>"<? endif; ?>>  
+<html lang="ko" <? if($isCLI): ?>manifest="WC2.appcache.php<?=$tsync?>"<? endif; ?>>   
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
