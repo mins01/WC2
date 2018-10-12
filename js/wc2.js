@@ -660,14 +660,20 @@ var wc2 = (function(){
 			//$(wcb.wcbMove).append(wcb.node);
 			$(wcb.wcbBox).append(wcb.outNode);
 
-			$(wcb.tabFrame).on("change",".wcb-zoom",
+			// $(wcb.tabFrame).on("change",".wcb-zoom",
+			// 	function(wcb){
+			// 		return function(event){
+			// 			wcb.setZoom(this.value);
+			// 		}
+			// 	}(wcb)
+			// );
+			$(wcb.tabFrame).on("change input",".wcb-zoom",
 				function(wcb){
 					return function(event){
-						wcb.setZoom(this.value);
+						wcb.setZoom(parseInt(this.value)/100);
 					}
 				}(wcb)
 			);
-
 			this.wcbs.push(wcb);
 
 			$( "#tabsTitle" ).append(wcb.tabTitleLi);
