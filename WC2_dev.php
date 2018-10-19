@@ -2126,16 +2126,21 @@ if($isCLI){
 			*/
 			$(function() {
 
-				if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-					// Browser downloaded a new app cache.
-					if (confirm('A new version of this site is available. Load it?')) {
-						console.log("앱캐시 갱신 질문")
-						window.location.reload(true);
+				try{
+					if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+						// Browser downloaded a new app cache.
+						if (confirm('A new version of this site is available. Load it?')) {
+							console.log("앱캐시 갱신 질문")
+							window.location.reload(true);
+						}
+					} else {
+						console.log("앱캐시 변경내역 없음.")
+						// Manifest didn't changed. Nothing new to server.
 					}
-				} else {
-					console.log("앱캐시 변경내역 없음.")
-					// Manifest didn't changed. Nothing new to server.
+				}catch(e){
+					console.warn("applicationCache is not supported.")
 				}
+				
 
 				wc2.init(); //초기화
 				wc2Helper.attachTdRangeValueBox();
