@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?
+exit("APP cache 포기로 HTML에서 바로 수정한다.")
 $t = time();
 
 $isCLI = (php_sapi_name() == "cli");
