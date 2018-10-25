@@ -157,6 +157,10 @@ function WebCanvasBundle(width,height,colorset){
 				}
 				this.webCanvases[i].putWcDataObject(wcbdo.data[i],callback);
 			}
+			if(wcbdo.selectedLayerIndex != undefined){
+				this.setActiveWebCanvasByIndex(wcbdo.selectedLayerIndex);
+			}
+			
 			return this;
 		}
 		,"setLabel":function(label){
@@ -586,7 +590,8 @@ function WebCanvasBundle(width,height,colorset){
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				data.push(this.webCanvases[i].toWcDataObject());
 			}
-			return {"dataType":"wcb","name":this.name,"width":this.width,"height":this.height,"preview":preview,"data":data};
+			var selectedLayerIndex = this.webCanvases.indexOf(this.activeWebCanvas);
+			return {"dataType":"wcb","name":this.name,"width":this.width,"height":this.height , "selectedLayerIndex":selectedLayerIndex,"preview":preview,"data":data};
 		}
 		,"clear":function(){
 			var r = this.execWebCanvases("clear",{})

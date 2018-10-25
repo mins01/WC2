@@ -416,7 +416,7 @@ var wc2 = (function(){
 										//console.log("end");
 									}
 								}(cmd)); //URL에서 읽어온다.
-					}else if(arg1.dataType && arg1.dataType=="wcb"){ //wcbdo 을 읽어드렸다.
+					}else if(arg1.dataType && arg1.dataType=="wcb"){ //wcbdo (wcb Data Object) 을 읽어드렸다.
 						var wcb = this.newWcbByWcbdo(arg1,
 								function(cmd){
 									return function(wcb){
@@ -425,7 +425,7 @@ var wc2 = (function(){
 								}(cmd)
 							);
 						sync = false;
-					}else if(arg1.wcbdo){ //wcb.json 을 읽어드렸다.
+					}else if(arg1.wcbdo){ //wcb.json 을 읽어드렸다. // 이거 사용안되는 듯
 						var wcb = this.newWcbByWcbdo(arg1.wcbdo,
 								function(cmd){
 									return function(wcb){
