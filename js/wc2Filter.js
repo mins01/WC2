@@ -212,8 +212,8 @@ var wc2Filter = function(){
 			canvas.width = imageData.width;
 			canvas.height = imageData.height;
 			var canvas2 = document.createElement('canvas');
-			var w = imageData.width/pixelSize;
-			var h = imageData.height/pixelSize;
+			var w = Math.ceil(imageData.width/pixelSize);
+			var h = Math.ceil(imageData.height/pixelSize);
 			canvas2.width = w;
 			canvas2.height = h;			
 			var ctx = canvas.getContext('2d');
@@ -221,6 +221,7 @@ var wc2Filter = function(){
 			ctx.putImageData(imageData, 0, 0);
 			ctx2.drawImage(canvas,0,0,w,h);
 			ctx.imageSmoothingEnabled = false;
+			if(ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = "low";
 			canvas.width = imageData.width;
 			canvas.height = imageData.height;			
 			ctx.drawImage(canvas2, 0, 0, w, h, 0, 0, canvas.width, canvas.height)
