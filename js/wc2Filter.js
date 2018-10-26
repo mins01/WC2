@@ -206,6 +206,27 @@ var wc2Filter = function(){
 		"applyColorDepth":function(imageData,depthR,depthG,depthB){
 			return colorPalette.applyColorDepth(imageData,depthR,depthG,depthB);
 		},
+		//--- 픽셀레이트 : 자체제작
+		"pixelate":function(imageData,pixelSize){
+			var canvas = document.createElement('canvas');
+			canvas.width = imageData.width;
+			canvas.height = imageData.height;
+			var canvas2 = document.createElement('canvas');
+			var w = imageData.width/pixelSize;
+			var h = imageData.height/pixelSize;
+			canvas2.width = w;
+			canvas2.height = h;			
+			var ctx = canvas.getContext('2d');
+			var ctx2 = canvas2.getContext('2d');
+			ctx.putImageData(imageData, 0, 0);
+			ctx2.drawImage(canvas,0,0,w,h);
+			ctx.imageSmoothingEnabled = false;
+			canvas.width = imageData.width;
+			canvas.height = imageData.height;			
+			ctx.drawImage(canvas2, 0, 0, w, h, 0, 0, canvas.width, canvas.height)
+			ctx.imageSmoothingEnabled = true;
+			return ctx.getImageData(0,0,canvas.width, canvas.height);
+		}
 	}
 
 
