@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?
-exit("APP cache 포기로 HTML에서 바로 수정한다.")
+// exit("APP cache 포기로 HTML에서 바로 수정한다.") // JS 캐시 등의 이유로 계속 쓴다. 모바일에서 새로고침 하기가 힘들다.
 $t = time();
 
 $isCLI = (php_sapi_name() == "cli");
@@ -15,7 +15,7 @@ if($isCLI){
 임의사용 금지.
 
 -->
-<html lang="ko" <? if($isCLI): ?>manifest="WC2.appcache.php<?=$tsync?>"<? endif; ?>>   
+<html lang="ko" >   
 	<head>
 		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
@@ -76,8 +76,8 @@ if($isCLI){
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
 		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
@@ -91,15 +91,15 @@ if($isCLI){
 			<div id="container">
 				<header>
 					<nav id="topMenu" class="navbar navbar-default navbar-fixed-top">
-					  <div class="container-fluid">
+						<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<div class="navbar-header">
-						  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar">
 							<span class="sr-only">Toggle navigation</span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
-						  </button>
+							</button>
 
 						<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
 						<script>
@@ -135,8 +135,8 @@ if($isCLI){
 						<div class="collapse navbar-collapse" id="top-navbar" onclick="/*wc2.closeOnclickNavbar(event)*/">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
-								  <ul class="dropdown-menu" role="menu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">File <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
 									<li><a href="#" class="glyphicon glyphicon-file" data-wc-menu="file-new" >New</a></li>
 									<li><a href="#" class="glyphicon glyphicon-folder-open" data-wc-menu="file-open">Open</a></li>
 									<li><a href="#" class="glyphicon glyphicon-save-file" data-wc-menu="file-save" onclick="wc2.btnFileSavePreview();">Save / <span class="glyphicon glyphicon-cloud-upload not-active"> </span>Upload</a></li>
@@ -151,22 +151,22 @@ if($isCLI){
 									<li class="divider"></li>
 									<li><a href="#" class="glyphicon glyphicon-exclamation-sign" onclick="if(confirm('Exit?')){ self.close()};return false" >Exit</a></li>
 
-								  </ul>
+									</ul>
 								</li>
 								<li class="dropdown">
-								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
-								  <ul class="dropdown-menu" role="menu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
 									<li><a href="#" class="glyphicon glyphicon-chevron-left" onclick="wc2.cmdWcb('undo');">Undo</a></li>
 									<li><a href="#" class="glyphicon glyphicon-chevron-right" onclick="wc2.cmdWcb('redo');">Redo</a></li>
 									<li class="divider"></li>
 									<li><a href="#" class="glyphicon glyphicon-wrench" data-wc-menu="edit-preferences">Preferences</a></li>
 									<li class="divider"></li>
 									<li><a href="#" class="glyphicon glyphicon-fullscreen" onclick="wc2.toggleFullScreen();">FullScreen</a></li>
-								  </ul>
+									</ul>
 								</li>
 
 								<li class="dropdown">
-								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Image <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Image <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#" class="glyphicon glyphicon-refresh" onclick="wc2.cmdWcb('clear');return false;">Clear</a></li>
 										<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="image-rename">Rename</a></li>
@@ -208,12 +208,13 @@ if($isCLI){
 										<li class="divider"></li>
 										<li><a href="#" class="glyphicon glyphicon-info-sign"  data-wc-menu="layer-rename">Rename</a></li>
 										<li><a href="#" class="glyphicon glyphicon-save-file" onclick="wc2.cmdLayer('save')">Save</a></li>
-								  </ul>
+									</ul>
 								</li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-invert">Invert</a></li>
+										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-pixelate">Pixelate</a></li>
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-grayscale">Grayscale</a></li>
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-brightness">Brightness &amp; Contrast</a></li>
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-colorize">Colorize</a></li>
@@ -225,7 +226,7 @@ if($isCLI){
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-distortsine">DistortSine</a></li>
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-applyPalette">ApplyPalette</a></li>
 										<li><a href="#" class="glyphicon glyphicon-flash"  data-wc-menu="layer-filter-applyColorDepth">ApplyColorDepth</a></li>
-								  </ul>
+									</ul>
 								</li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Automation <span class="caret"></span></a>
@@ -247,8 +248,8 @@ if($isCLI){
 										</li>
 									</ul>
 								</li>
-						  </ul>
-						  <ul class="nav navbar-nav navbar-right">
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
@@ -259,7 +260,7 @@ if($isCLI){
 							</li>
 						 </ul>
 						</div><!-- /.navbar-collapse -->
-					  </div><!-- /.container-fluid -->
+						</div><!-- /.container-fluid -->
 					</nav>
 				</header>
 
@@ -704,11 +705,11 @@ if($isCLI){
 										<div id="divPreviewColorSpuit"><div id="divSelectedColorSpuit"></div></div>
 									</div>
 									<ul class="list-group">
-								    <li class="list-group-item">
+										<li class="list-group-item">
 											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('stroke')">set<br>line color</button>
 											<button class="btn btn-default btn-sm" onclick="wc2.setSpuitColorTo('fill')">set<br>fill color</button>
 										</li>
-								  </ul>
+									</ul>
 								</div>
 							</form>
 							<form name="formToolEraser" id="formToolEraser"  action="javascript:void(0)" class="wc-tool wc-tool-eraser wc-save-setting" onsubmit="return false" onchange="wc2.syncEraser()"  oninput="this.onchange()">
@@ -1172,419 +1173,419 @@ if($isCLI){
 
 				<!-- 메뉴 상세 부분 -->
 				<article id="menuDetailArea" class="overflow-scrolly" >
-				    <script>
-				    function newImage(w,h){
-				    var f = document.formMenuDetailFileNew;
-				      f.width.value = w;
-				      f.height.value = h;
-				      $(f.width).trigger('change');
-				      $(f.height).trigger('change');
-				      $('#btn_new').trigger('click');
-				    }
-				    </script>
-				    <form name="formMenuDetailFileNew"  id="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new wc-save-setting" >
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">New File</div>
-				        <div  class="panel-body">
-				            <ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
-				              <li class="list-group-item list-group-item-success">Manual</li>
-				              <li class="list-group-item">
-				                <div class="form-inline">
-				                  <input class="form-control" type="number" name="width" maxlength="6" min="1" max="99999" value="300" placeholder="width.."> X
-				                  <input class="form-control" type="number" name="height" maxlength="6" min="1" max="99999" value="300" placeholder="height..">
-				                  <button  type="button" id="btn_new" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);wc2.hideMenuDetail();" >New</button>
-				                  <button  type="button" class="btn btn-default glyphicon glyphicon-remove-circle"  onclick="wc2.hideMenuDetail();" >Close</button>
-				                </div>
-				              </li>
-				              <li class="list-group-item list-group-item-success">Rect</li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(100,100);false;">100x100</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(200,200);false;">200x200</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(300,300);false;">300x300</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(400,400);false;">400x400</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(500,500);false;">500x500</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(600,600);false;">600x600</a></li>
-				              <li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
+						<script>
+						function newImage(w,h){
+						var f = document.formMenuDetailFileNew;
+							f.width.value = w;
+							f.height.value = h;
+							$(f.width).trigger('change');
+							$(f.height).trigger('change');
+							$('#btn_new').trigger('click');
+						}
+						</script>
+						<form name="formMenuDetailFileNew"  id="formMenuDetailFileNew" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-new wc-save-setting" >
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">New File</div>
+								<div  class="panel-body">
+										<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
+											<li class="list-group-item list-group-item-success">Manual</li>
+											<li class="list-group-item">
+												<div class="form-inline">
+													<input class="form-control" type="number" name="width" maxlength="6" min="1" max="99999" value="300" placeholder="width.."> X
+													<input class="form-control" type="number" name="height" maxlength="6" min="1" max="99999" value="300" placeholder="height..">
+													<button  type="button" id="btn_new" class="btn btn-default glyphicon glyphicon-file" onclick="wc2.cmdWcb('new',this.form.width.value,this.form.height.value);wc2.hideMenuDetail();" >New</button>
+													<button  type="button" class="btn btn-default glyphicon glyphicon-remove-circle"  onclick="wc2.hideMenuDetail();" >Close</button>
+												</div>
+											</li>
+											<li class="list-group-item list-group-item-success">Rect</li>
+											<li class="list-group-item"><a href="#" onclick="newImage(100,100);false;">100x100</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(200,200);false;">200x200</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(300,300);false;">300x300</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(400,400);false;">400x400</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(500,500);false;">500x500</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(600,600);false;">600x600</a></li>
+											<li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
 
 
-				              <li class="list-group-item list-group-item-success">3:4</li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(640,480);return false;">640x480 (VGA)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(800,600);return false;">800x600 (SVGA)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(1024,768);return false;">1024x768 (XGA)</a></li>
-				              <li class="list-group-item list-group-item-success">16:9</li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(1360,768);return false;">1360x768 (HD)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(1600,900);return false;">1600x900 (HD+)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(1920,1080);return false;">1920x1080 (FHD)</a></li>
-				              <li class="list-group-item list-group-item-success">Smart Phone</li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(320,480);return false;">320x480 (iphone3)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(480,800);return false;">480x800 (galaxyS1)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(640,960);return false;">640x960 (iphone4)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(640,1136);return false;">640x1136 (iphone5)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(720,1280);return false;">720x1280 (galaxyS3)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(800,1280);return false;">800x1280 (galaxynote1)</a></li>
-				              <li class="list-group-item"><a href="#" onclick="newImage(1080,1920);return false;">1080x1920 (galaxynote3)</a></li>
-				              <li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
-				            </ul>
+											<li class="list-group-item list-group-item-success">3:4</li>
+											<li class="list-group-item"><a href="#" onclick="newImage(640,480);return false;">640x480 (VGA)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(800,600);return false;">800x600 (SVGA)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(1024,768);return false;">1024x768 (XGA)</a></li>
+											<li class="list-group-item list-group-item-success">16:9</li>
+											<li class="list-group-item"><a href="#" onclick="newImage(1360,768);return false;">1360x768 (HD)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(1600,900);return false;">1600x900 (HD+)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(1920,1080);return false;">1920x1080 (FHD)</a></li>
+											<li class="list-group-item list-group-item-success">Smart Phone</li>
+											<li class="list-group-item"><a href="#" onclick="newImage(320,480);return false;">320x480 (iphone3)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(480,800);return false;">480x800 (galaxyS1)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(640,960);return false;">640x960 (iphone4)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(640,1136);return false;">640x1136 (iphone5)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(720,1280);return false;">720x1280 (galaxyS3)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(800,1280);return false;">800x1280 (galaxynote1)</a></li>
+											<li class="list-group-item"><a href="#" onclick="newImage(1080,1920);return false;">1080x1920 (galaxynote3)</a></li>
+											<li class="list-group-item"><a href="#" class="btn btn-default glyphicon glyphicon-remove-circle" onclick="return false;"> Close</a></li>
+										</ul>
 
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailFileOpen" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-open" onreset="wc2.hideMenuDetail();">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">File Open</div>
-				        <div  class="panel-body">
-				            <ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
-				              <li class="list-group-item list-group-item-success">Select File</li>
-				              <li class="list-group-item">
-				                <div class="input-group">
-				                  <span class="input-group-addon" id="formMenuDetailFileOpen-url-0">URL/DataUrl</span>
-				                  <input type="text" class="form-control" name="url" spellcheck="false"  placeholder="Image URL..." onchange="wc2.btnFileOpenPreviewImage(this)"  >
-				                  <span class="input-group-btn">
-				                  <button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.url);">Load</button>
-				                  </span>
-				                </div>
-				              </li>
-				              <li class="list-group-item">
-				                <div class="input-group">
-				                  <span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From PC</span>
-				                  <input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson,.wcblzs" nchange="wc2.btnFileOpenPreviewImage(this)" >
-				                  <span class="input-group-btn">
-				                  <button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
-				                  </span>
-				                </div>
-				              </li>
-				              <li class="list-group-item">
-				                <div class="input-group">
-				                  <span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From Clipboard</span>
-				                  <input type="text" class="form-control" placeholder="on Paste. 붙여넣기 하세요."  disabled="disabled"  onpaste="wc2.btnFileOpenPreviewImageFromPaste(event)" onchange="this.value=''" onblur="this.value=''" >
-				                  <span class="input-group-btn">
-				                  <button class="btn btn-default" type="button" disabled="disabled">Load</button>
-				                  </span>
-				                </div>
-				              </li>
-				              <li class="list-group-item">
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset" onclick="wc2.cmdWcb('open',document.getElementById('formMenuDetailFileOpenPreview'));"> Open</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="reset"> Cancel</button>
-				              </li>
-				              <li class="list-group-item list-group-item-success">PreView</li>
-				              <li class="list-group-item">
-				                <img id="formMenuDetailFileOpenPreview" src="img/bg.gif" class="bg-grid" />
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailFileSave" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-save">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">File Save</div>
-				        <div  class="panel-body">
-				            <ul class="list-group">
-				              <li class="list-group-item list-group-item-success">Setting File</li>
-				              <li class="list-group-item">
-				                <div class="input-group">
-				                  <input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." axlength="50"  id="formMenuDetailFileSave-saveFileName" >
-				                   <span class="input-group-addon">
-				                    <select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson'); this.onblur()" onblur="wc2.btnFileSavePreview();">
-				                      <option value="png" class="image-type-png">.png</option>
-				                      <option value="jpg" class="image-type-jpg">.jpg</option>
-				                      <option value="gif" class="image-type-gif">.gif</option>
-				                      <option value="webp" class="image-type-webp">.webp</option>
-				                      <option value="wcbjson">.wcbjson</option>
-				                      <option disabled value="wcblzs">.wcblzs</option>
-				                    </select>
-				                    <select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality" onchange="this.onblur();" onblur="wc2.btnFileSavePreview();">
-				                      <option value="1">100%</option>
-				                      <option value="0.9">90%</option>
-				                      <option value="0.8">80%</option>
-				                      <option value="0.7">70%</option>
-				                      <option value="0.6">60%</option>
-				                      <option value="0.5">50%</option>
-				                      <option value="0.4">40%</option>
-				                      <option value="0.3">30%</option>
-				                      <option value="0.2">20%</option>
-				                      <option value="0.1">10%</option>
-				                    </select>
-				                  </span>
-				                </div>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailFileOpen" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-open" onreset="wc2.hideMenuDetail();">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">File Open</div>
+								<div  class="panel-body">
+										<ul class="list-group " onclick="return wc2.btnHideMenuDetail(event,'a'); ">
+											<li class="list-group-item list-group-item-success">Select File</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">URL/DataUrl</span>
+													<input type="text" class="form-control" name="url" spellcheck="false"  placeholder="Image URL..." onchange="wc2.btnFileOpenPreviewImage(this)"  >
+													<span class="input-group-btn">
+													<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.url);">Load</button>
+													</span>
+												</div>
+											</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From PC</span>
+													<input type="file" class="form-control" name="fileInPC"  placeholder="Image URL..." accept="image/*,.wcbjson,.wcblzs" onchange="wc2.btnFileOpenPreviewImage(this)" >
+													<span class="input-group-btn">
+													<button class="btn btn-default" type="button" onclick="wc2.btnFileOpenPreviewImage(this.form.fileInPC);">Load</button>
+													</span>
+												</div>
+											</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">From Clipboard</span>
+													<input type="text" class="form-control" placeholder="on Paste. 붙여넣기 하세요."  disabled="disabled"  onpaste="wc2.btnFileOpenPreviewImageFromPaste(event)" onchange="this.value=''" onblur="this.value=''" >
+													<span class="input-group-btn">
+													<button class="btn btn-default" type="button" disabled="disabled">Load</button>
+													</span>
+												</div>
+											</li>
+											<li class="list-group-item">
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="reset" onclick="wc2.cmdWcb('open',document.getElementById('formMenuDetailFileOpenPreview'));"> Open</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="reset"> Cancel</button>
+											</li>
+											<li class="list-group-item list-group-item-success">PreView</li>
+											<li class="list-group-item">
+												<img id="formMenuDetailFileOpenPreview" src="img/bg.gif" class="bg-grid" />
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailFileSave" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-save">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">File Save</div>
+								<div  class="panel-body">
+										<ul class="list-group">
+											<li class="list-group-item list-group-item-success">Setting File</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<input type="text" class="form-control" name="saveFileName"  placeholder="Image URL..." axlength="50"  id="formMenuDetailFileSave-saveFileName" >
+													 <span class="input-group-addon">
+														<select name="saveFileType" style="width:5em" onchange="this.form.saveFileQuality.disabled = (this.value == 'png'||this.value == 'wcbjson'); this.onblur()" onblur="wc2.btnFileSavePreview();">
+															<option value="png" class="image-type-png">.png</option>
+															<option value="jpg" class="image-type-jpg">.jpg</option>
+															<option value="gif" class="image-type-gif">.gif</option>
+															<option value="webp" class="image-type-webp">.webp</option>
+															<option value="wcbjson">.wcbjson</option>
+															<option disabled value="wcblzs">.wcblzs</option>
+														</select>
+														<select name="saveFileQuality" style="width:5em" disabled class="disabled" title="quality" onchange="this.onblur();" onblur="wc2.btnFileSavePreview();">
+															<option value="1">100%</option>
+															<option value="0.9">90%</option>
+															<option value="0.8">80%</option>
+															<option value="0.7">70%</option>
+															<option value="0.6">60%</option>
+															<option value="0.5">50%</option>
+															<option value="0.4">40%</option>
+															<option value="0.3">30%</option>
+															<option value="0.2">20%</option>
+															<option value="0.1">10%</option>
+														</select>
+													</span>
+												</div>
 
-				              </li>
+											</li>
 
-				              <li class="list-group-item text-danger hide">
-				                <strong>webp</strong> is supported by only Chrome.<br>
-				                <strong>jpg</strong> is not supported by old browser.<br>
-				                <strong>wcbjson</strong> : support multi-Layer.(json file) <br>
-				                <strong>wcblzs</strong> wcbjson is compressed by <a href="http://pieroxy.net/blog/pages/lz-string/index.html" target="_blank">LZ-String</a> <br>(wcblzs is binary file, reduce 7~9% then wcbjson ) <br>
-				                Recommend using the latest version browser.<br>
-				                The upload file will not be overwritten. Instead stored under a new name.
-				              </li>
+											<li class="list-group-item text-danger hide">
+												<strong>webp</strong> is supported by only Chrome.<br>
+												<strong>jpg</strong> is not supported by old browser.<br>
+												<strong>wcbjson</strong> : support multi-Layer.(json file) <br>
+												<strong>wcblzs</strong> wcbjson is compressed by <a href="http://pieroxy.net/blog/pages/lz-string/index.html" target="_blank">LZ-String</a> <br>(wcblzs is binary file, reduce 7~9% then wcbjson ) <br>
+												Recommend using the latest version browser.<br>
+												The upload file will not be overwritten. Instead stored under a new name.
+											</li>
 
-				              <li class="list-group-item">
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In Local Disk</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload In Web</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-picture hide" id="btnFileSaveCallback" type="button" onclick="wc2.btnFileSaveCallback(this.form);wc2.hideMenuDetail();"> Save Callback</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				              <li class="list-group-item">
-				                <span id="formMenuDetailFileSave-preview-size">0 KB</span> , <span id="formMenuDetailFileSave-preview-widthHeight">*x*</span>
-				                <div  style="overflow:auto;padding:10px;background-color:#ccc;">
-				                	<img class="bg-grid" style="max-width:100%;max-height:100%;" src="about:blank" id="formMenuDetailFileSave-preview" onload="$('#formMenuDetailFileSave-preview-widthHeight').text(this.naturalWidth+'x'+this.naturalHeight)" onerror="$('#formMenuDetailFileSave-preview-widthHeight').text('*x*')" />
-				                </div>
-				                <!-- <button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button> -->
-				              </li>
+											<li class="list-group-item">
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-floppy-save" type="button" onclick="wc2.btnFileSave(this.form);wc2.hideMenuDetail();"> Save In Local Disk</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-cloud-upload" type="button" onclick="wc2.btnFileUpload(this.form);wc2.hideMenuDetail();"> Upload In Web</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-picture hide" id="btnFileSaveCallback" type="button" onclick="wc2.btnFileSaveCallback(this.form);wc2.hideMenuDetail();"> Save Callback</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+											<li class="list-group-item">
+												<span id="formMenuDetailFileSave-preview-size">0 KB</span> , <span id="formMenuDetailFileSave-preview-widthHeight">*x*</span>
+												<div  style="overflow:auto;padding:10px;background-color:#ccc;">
+													<img class="bg-grid" style="max-width:100%;max-height:100%;" src="about:blank" id="formMenuDetailFileSave-preview" onload="$('#formMenuDetailFileSave-preview-widthHeight').text(this.naturalWidth+'x'+this.naturalHeight)" onerror="$('#formMenuDetailFileSave-preview-widthHeight').text('*x*')" />
+												</div>
+												<!-- <button class="btn btn-default btn-sm  glyphicon glyphicon-picture" type="button" onclick="wc2.btnFileSavePreview(this.form);return false;"> Preview</button> -->
+											</li>
 
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
+										</ul>
+								</div>
+							</div>
+						</form>
 						<form name="formMenuDetailFileView" action="javascript:void(0)" class="wc-mdetail wc-mdetail-file-view">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">View Image</div>
-				        <div  class="panel-body">
-				            <ul class="list-group">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">View Image</div>
+								<div  class="panel-body">
+										<ul class="list-group">
 											<li class="list-group-item list-group-item-info" id="wc-mdetail-file-view-title"></li>
 											<li class="list-group-item list-group-item-info" id="wc-mdetail-file-view-info"></li>
-				              <li class="list-group-item no-padding" id="wc-mdetail-file-view-image"></li>
-				              <li class="list-group-item text-center">
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailHelpHelp" action="javascript:void(0)" class="wc-mdetail wc-mdetail-help-help">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Help</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">Hello!</li>
-				              <li class="list-group-item" style="text-align:left">
-				                <h3>Tested Browsers</h3>
-				                <ul>
-				                  <li>Chrome :42.0.2311.135</li>
-				                  <li>FireFox : 33.0</li>
-				                  <li>IE : 11.0.9600.17728 (11.0.18)</li>
-				                </ul>
-				              </li>
-				              <li class="list-group-item"  style="text-align:left">
-				                <h3>Info</h3>
-				                <ul>
-				                  <li>공대여자 : <a href="http://www.mins01.com/" target="_blank">Homepage</a></li>
-				                  <li>URL : <a href="http://www.mins01.com/WC2/WC2.html" target="_blank">http://www.mins01.com/WC2/WC2.html</a></li>
-				                  <li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
-				                  <li>readme : <a href="readme.txt" target="_blank">readme.txt</a></li>
-				                  <li>"공대여자는 이쁘다."</li>
-				                  <li>계속 수정중.</li>
-				                </ul>
-				              </li>
-				              <li class="list-group-item text-danger">
-				                <strong>webp</strong> is supported by only Chrome.<br>
-				                <strong>jpg</strong> is not supported by old browser.<br>
-				                <strong>jcbjson</strong> is multi-layer file. (Json)<br>
-				                Recommend using the latest version browser.
-				              </li>
-				              <li class="list-group-item">
-				                <div>
-				                  <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
-				                </div>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailImageRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-rename" onsubmit="wc2.cmdWcb('rename',this.renameName.value);wc2.hideMenuDetail();">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Image Rename</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">name</li>
-				              <li class="list-group-item" style="text-align:left">
-				                <div class="input-group">
-				                  <span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
-				                  <input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
-				                </div>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Rename</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-layer-rename" onsubmit="wc2.cmdLayer('rename',this.renameName.value);wc2.hideMenuDetail();">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Layer Rename</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">name</li>
-				              <li class="list-group-item" style="text-align:left">
-				                <div class="input-group">
-				                  <span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
-				                  <input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
-				                </div>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Rename</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailImageResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.width.value,this.height.value);wc2.hideMenuDetail();return false;">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Image Resize (Scale Image)</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">setting</li>
-				              <li class="list-group-item" style="text-align:left">
-				                <div class="row">
-				                  <div class="col-lg-6">
-				                    <div class="input-group">
-				                      <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-resize-horizontal"></span>
-				                        width
-				                      </span>
-				                      <input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange();"
-				                      onchange="if(this.form.sameProportion.checked){
-				                        if(isNaN(this.form.width.value)){return false;}
-				                        this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
-				                      }"
-				                      >
-				                    </div>
-				                  </div>
-				                  <div class="col-lg-6">
-				                    <div class="input-group">
-				                      <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-resize-vertical"></span>
-				                        height
-				                      </span>
-				                      <input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
-				                        if(isNaN(this.form.height.value)){return false;}
-				                        this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
-				                      }">
-				                    </div>
-				                  </div>
-				                </div>
-				              </li>
-				              <li class="list-group-item checkbox" >
-				                <label><input type="checkbox" checked name="sameProportion" value="1" >same proportion</label>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Canvas Resize (Adjust Size)</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">setting</li>
-				              <li class="list-group-item" style="text-align:left">
-				                <div class="row">
-				                  <div class="col-lg-6">
-				                    <div class="input-group">
-				                      <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-resize-horizontal"></span>
-				                        width
-				                      </span>
-				                      <input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange()"  onchange="if(this.form.sameProportion.checked){
-				                        if(isNaN(this.form.width.value)){return false;}
-				                        this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
-				                      }">
-				                    </div>
-				                  </div>
-				                  <div class="col-lg-6">
-				                    <div class="input-group">
-				                      <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-resize-vertical"></span>
-				                        height
-				                      </span>
-				                      <input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
-				                        if(isNaN(this.form.height.value)){return false;}
-				                        this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
-				                      }">
-				                    </div>
-				                  </div>
-				                </div>
-				              </li>
-				              <li class="list-group-item checkbox" >
-				                <label><input type="checkbox" checked name="sameProportion" value="1" >same proportion</label>
-				              </li>
-				              <li class="list-group-item" >
-				                <div style="margin-bottom:2px;">
-				                <select name="controlPoint" class="btn btn-default " >
-				                  <option value="0" selected>↖: Left Top</option>
-				                  <option value="1">↑: Center Top</option>
-				                  <option value="2">↗: Right Top</option>
-				                  <option value="3">←: Left Middle</option>
-				                  <option value="4">◎: Center Middle</option>
-				                  <option value="5">→: Right Middle</option>
-				                  <option value="6">↙: Left Bottom</option>
-				                  <option value="7">↓: Center Bottom</option>
-				                  <option value="8">↘: Right Bottom</option>
-				                </select>
-				                </div>
-				                  <div>
-				                      <div>
-				                      <button type="button" class="btn btn-default no-glyphicon active"  name="controlPointR" value="0" checked>↖</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="1" >↑</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="2" >↗</button>
-				                      </div>
-				                      <div>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="3" >←</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="4" >◎</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="5" >→</button>
-				                      </div>
-				                      <div>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="6" >↙</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="7" >↓</button>
-				                      <button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="8" >↘</button>
-				                      </div>
-				                  </div>
-				                <script>
+											<li class="list-group-item no-padding" id="wc-mdetail-file-view-image"></li>
+											<li class="list-group-item text-center">
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailHelpHelp" action="javascript:void(0)" class="wc-mdetail wc-mdetail-help-help">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Help</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">Hello!</li>
+											<li class="list-group-item" style="text-align:left">
+												<h3>Tested Browsers</h3>
+												<ul>
+													<li>Chrome :42.0.2311.135</li>
+													<li>FireFox : 33.0</li>
+													<li>IE : 11.0.9600.17728 (11.0.18)</li>
+												</ul>
+											</li>
+											<li class="list-group-item"  style="text-align:left">
+												<h3>Info</h3>
+												<ul>
+													<li>공대여자 : <a href="http://www.mins01.com/" target="_blank">Homepage</a></li>
+													<li>URL : <a href="http://www.mins01.com/WC2/WC2.html" target="_blank">http://www.mins01.com/WC2/WC2.html</a></li>
+													<li>github : <a href="https://github.com/mins01/WC2/" target="_blank">https://github.com/mins01/WC2/</a></li>
+													<li>readme : <a href="readme.txt" target="_blank">readme.txt</a></li>
+													<li>"공대여자는 이쁘다."</li>
+													<li>계속 수정중.</li>
+												</ul>
+											</li>
+											<li class="list-group-item text-danger">
+												<strong>webp</strong> is supported by only Chrome.<br>
+												<strong>jpg</strong> is not supported by old browser.<br>
+												<strong>jcbjson</strong> is multi-layer file. (Json)<br>
+												Recommend using the latest version browser.
+											</li>
+											<li class="list-group-item">
+												<div>
+													<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+												</div>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailImageRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-rename" onsubmit="wc2.cmdWcb('rename',this.renameName.value);wc2.hideMenuDetail();">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Image Rename</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">name</li>
+											<li class="list-group-item" style="text-align:left">
+												<div class="input-group">
+													<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
+													<input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
+												</div>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Rename</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerRename" action="javascript:void(0)" class="wc-mdetail wc-mdetail-layer-rename" onsubmit="wc2.cmdLayer('rename',this.renameName.value);wc2.hideMenuDetail();">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Layer Rename</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">name</li>
+											<li class="list-group-item" style="text-align:left">
+												<div class="input-group">
+													<span class="input-group-addon" id="formMenuDetailFileOpen-url-0">name</span>
+													<input type="text" class="form-control" name="renameName" maxlength="50" placeholder="name..." >
+												</div>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Rename</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailImageResize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-resize" onsubmit="wc2.cmdWcb('resize',this.width.value,this.height.value);wc2.hideMenuDetail();return false;">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Image Resize (Scale Image)</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">setting</li>
+											<li class="list-group-item" style="text-align:left">
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<span class="glyphicon glyphicon-resize-horizontal"></span>
+																width
+															</span>
+															<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange();"
+															onchange="if(this.form.sameProportion.checked){
+																if(isNaN(this.form.width.value)){return false;}
+																this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
+															}"
+															>
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<span class="glyphicon glyphicon-resize-vertical"></span>
+																height
+															</span>
+															<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
+																if(isNaN(this.form.height.value)){return false;}
+																this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
+															}">
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="list-group-item checkbox" >
+												<label><input type="checkbox" checked name="sameProportion" value="1" >same proportion</label>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailImageAdjustSize" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-adjustSize" onsubmit="wc2.cmdWcb('adjustSize',this.width.value,this.height.value,this.controlPoint.value);wc2.hideMenuDetail();return false;" onreset="formMenuDetailImageAdjustSizeButtons(this,0)">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Canvas Resize (Adjust Size)</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">setting</li>
+											<li class="list-group-item" style="text-align:left">
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<span class="glyphicon glyphicon-resize-horizontal"></span>
+																width
+															</span>
+															<input type="number" min="1" max="99999" step="any" name="width" placeholder="width..." class="form-control" onkeyup="this.onchange()"  onchange="if(this.form.sameProportion.checked){
+																if(isNaN(this.form.width.value)){return false;}
+																this.form.height.value = Math.round(this.form.height.defaultValue*(this.form.width.value/this.form.width.defaultValue));
+															}">
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<span class="glyphicon glyphicon-resize-vertical"></span>
+																height
+															</span>
+															<input type="number" min="1" max="99999" step="any" name="height" placeholder="height..." class="form-control" onkeyup="this.onchange()" onchange="if(this.form.sameProportion.checked){
+																if(isNaN(this.form.height.value)){return false;}
+																this.form.width.value = Math.round(this.form.width.defaultValue*(this.form.height.value/this.form.height.defaultValue));
+															}">
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="list-group-item checkbox" >
+												<label><input type="checkbox" checked name="sameProportion" value="1" >same proportion</label>
+											</li>
+											<li class="list-group-item" >
+												<div style="margin-bottom:2px;">
+												<select name="controlPoint" class="btn btn-default " >
+													<option value="0" selected>↖: Left Top</option>
+													<option value="1">↑: Center Top</option>
+													<option value="2">↗: Right Top</option>
+													<option value="3">←: Left Middle</option>
+													<option value="4">◎: Center Middle</option>
+													<option value="5">→: Right Middle</option>
+													<option value="6">↙: Left Bottom</option>
+													<option value="7">↓: Center Bottom</option>
+													<option value="8">↘: Right Bottom</option>
+												</select>
+												</div>
+													<div>
+															<div>
+															<button type="button" class="btn btn-default no-glyphicon active"  name="controlPointR" value="0" checked>↖</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="1" >↑</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="2" >↗</button>
+															</div>
+															<div>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="3" >←</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="4" >◎</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="5" >→</button>
+															</div>
+															<div>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="6" >↙</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="7" >↓</button>
+															<button type="button" class="btn btn-default no-glyphicon"  name="controlPointR" value="8" >↘</button>
+															</div>
+													</div>
+												<script>
 
-				                function formMenuDetailImageAdjustSizeButtons(f,n){
-				                  $(f).find("button[name='controlPointR']").each(
-				                    function(idx,el){
-				                      $(el).removeClass("active");
-				                    }
-				                  )
-				                  $(f).find("button[name='controlPointR'][value="+n+"]").each(
-				                    function(idx,el){
-				                    $(el).addClass("active");
-				                    }
-				                  )
-				                }
-				                $(document.formMenuDetailImageAdjustSize).on("click","button[name='controlPointR']",function(event){
-				                  var f = event.target.form;
-				                  f.controlPoint.value = event.target.value;
-				                  formMenuDetailImageAdjustSizeButtons(f,event.target.value);
-				                });
-				                $(document.formMenuDetailImageAdjustSize.controlPoint).bind("click",function(event){
-				                  var f = event.target.form;
-				                  formMenuDetailImageAdjustSizeButtons(f,event.target.value);
+												function formMenuDetailImageAdjustSizeButtons(f,n){
+													$(f).find("button[name='controlPointR']").each(
+														function(idx,el){
+															$(el).removeClass("active");
+														}
+													)
+													$(f).find("button[name='controlPointR'][value="+n+"]").each(
+														function(idx,el){
+														$(el).addClass("active");
+														}
+													)
+												}
+												$(document.formMenuDetailImageAdjustSize).on("click","button[name='controlPointR']",function(event){
+													var f = event.target.form;
+													f.controlPoint.value = event.target.value;
+													formMenuDetailImageAdjustSizeButtons(f,event.target.value);
+												});
+												$(document.formMenuDetailImageAdjustSize.controlPoint).bind("click",function(event){
+													var f = event.target.form;
+													formMenuDetailImageAdjustSizeButtons(f,event.target.value);
 
-				                });
-				                </script>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
-				              </li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
+												});
+												</script>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="reset"> Reset</button>
+											</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit"> Resize</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
 						<form name="formMenuDetailGuideLine" action="javascript:void(0)" class="wc-mdetail wc-mdetail-image-guideLine" oninput="wc2.cmdWcb('guideLine',this.width.value);" onsubmit="this.oninput();wc2.hideMenuDetail();return false;">
 							<div class="panel panel-default wc2-panel" >
 								<div  class="panel-heading">Guide Line</div>
@@ -1624,420 +1625,445 @@ if($isCLI){
 								</div>
 							</div>
 						</form>
-				    <form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Preferences</div>
-				        <div  class="panel-body">
-				            <ul class="list-group ">
-				              <li class="list-group-item list-group-item-success">setting</li>
-				              <li class="list-group-item">
-				                <div  class="form-inline">
-				                  <span>Use Preview Image At Layer Info? : </span>
-				                  <select class="form-control" name="usePreviewImageAtLayerInfo">
-				                    <option value="0" selected>Auto (by Width)</option>
-				                    <option value="1">Use</option>
-				                    <option value="2">Not Use (Fast)</option>
-				                  </select>
-				                </div>
-				                <div class="form-inline">
-				                  <span>select Input device : </span>
-				                  <select  class="form-control"  name="usePointerType">
-				                    <option value="ALL">ALL</option>
-				                    <option value="mouse">mouse</option>
-				                    <option value="pen">pen</option>
-				                    <option value="touch">touch</option>
-				                  </select>
-				                </div>
-				                <div>
-				                  (for PointerEvent chrome 55+)
-				                </div>
-				              </li>
-				              <li class="list-group-item list-group-item-success">change viewport content sacle for Mobile-Device</li>
-				              <li class="list-group-item" >
-				                <div  class="form-inline">
-				                  <select  class="form-control"  name="viewportContentScale">
-				                    <option value="1">default</option>
-				                    <option value="0.667">x1.5</option>
-				                    <option value="0.5">x2</option>
-				                    <option value="0.333">x3</option>
-				                    <option value="0.25">x4</option>
-				                    <option value="0.20">x5</option>
-				                    <option value="">Web 1:1</option>
-				                  </select>
-				                  <br>Tested by Mobile Chrome 41.0.2272.96
-				                </div>
-				                <button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
-				                <button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
-				              </li>
-				              <li class="list-group-item list-group-item-success">Clear saved setting</li>
-				              <li class="list-group-item" >
-				                <button class="btn btn-default  btn-sm  glyphicon glyphicon-remove" type="button" onclick="wc2.clearSavedSetting();"> Reset?</button>
-				              </li>
-				            </ul>
-				        </div>
-				      </div>
-				    </form>
+						<form name="formMenuDetailEditPreferences"  id="formMenuDetailEditPreferences" action="javascript:void(0)" class="wc-mdetail wc-mdetail-edit-preferences" onsubmit="wc2.preferencesByForm(this);return false;" onreset="">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Preferences</div>
+								<div  class="panel-body">
+										<ul class="list-group ">
+											<li class="list-group-item list-group-item-success">setting</li>
+											<li class="list-group-item">
+												<div  class="form-inline">
+													<span>Use Preview Image At Layer Info? : </span>
+													<select class="form-control" name="usePreviewImageAtLayerInfo">
+														<option value="0" selected>Auto (by Width)</option>
+														<option value="1">Use</option>
+														<option value="2">Not Use (Fast)</option>
+													</select>
+												</div>
+												<div class="form-inline">
+													<span>select Input device : </span>
+													<select  class="form-control"  name="usePointerType">
+														<option value="ALL">ALL</option>
+														<option value="mouse">mouse</option>
+														<option value="pen">pen</option>
+														<option value="touch">touch</option>
+													</select>
+												</div>
+												<div>
+													(for PointerEvent chrome 55+)
+												</div>
+											</li>
+											<li class="list-group-item list-group-item-success">change viewport content sacle for Mobile-Device</li>
+											<li class="list-group-item" >
+												<div  class="form-inline">
+													<select  class="form-control"  name="viewportContentScale">
+														<option value="1">default</option>
+														<option value="0.667">x1.5</option>
+														<option value="0.5">x2</option>
+														<option value="0.333">x3</option>
+														<option value="0.25">x4</option>
+														<option value="0.20">x5</option>
+														<option value="">Web 1:1</option>
+													</select>
+													<br>Tested by Mobile Chrome 41.0.2272.96
+												</div>
+												<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
+												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Cancel</button>
+											</li>
+											<li class="list-group-item list-group-item-success">Clear saved setting</li>
+											<li class="list-group-item" >
+												<button class="btn btn-default  btn-sm  glyphicon glyphicon-remove" type="button" onclick="wc2.clearSavedSetting();"> Reset?</button>
+											</li>
+										</ul>
+								</div>
+							</div>
+						</form>
 
 
-				    <form name="formMenuDetailLayerFilterPreview" action="javascript:void(0)"
-				      class="wc-mdetail wc-mdetail-layer-filter-preview" >
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Preview</div>
-				        <div  class="panel-body" id="filterCanvasBox">
-				          BOX
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterInvert" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="invert">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Invert</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+						<form name="formMenuDetailLayerFilterPreview" action="javascript:void(0)"
+							class="wc-mdetail wc-mdetail-layer-filter-preview" >
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Preview</div>
+								<div  class="panel-body" id="filterCanvasBox">
+									BOX
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterPixelate" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-pixelate" onsubmit="wc2.cmdFilter(this.cmd.value,this.pixelSize.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.pixelSize.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="pixelate">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Pixelate</div>
+								<div  class="panel-body" >									
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>PixelSize</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="pixelSize" value="0" min="1" max="100"   step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterColorize" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-colorize" onsubmit="wc2.cmdFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="colorize">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Colorize</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>R</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="R" value="0" min="-255" max="255"   step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>G</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="G" value="0" min="-255" max="255"   step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>B</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="B" value="0" min="-255" max="255"   step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterInvert" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-invert" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="invert">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Invert</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterGrayscale" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-grayscale" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
-				      <!-- <input type="hidden" name="cmd" value="grayscale"> -->
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Grayscale</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <select class="form-control" name="cmd">
-				                <option value="grayscale">grayscale</option>
-				                <option value="grayscaleAvg">grayscaleAvg</option>
-				                <option value="luminance">luminance</option>
-				              </select>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterColorize" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-colorize" onsubmit="wc2.cmdFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.R.value,this.G.value,this.B.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="colorize">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Colorize</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button"  onclick="wc2.cmdPreviewFilter('reset');" > Reset</button>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>R</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="R" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>G</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="G" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>B</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="B" value="0" min="-255" max="255"   step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterSharpen" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sharpen" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="sharpen">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">sharpen</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterGrayscale" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-grayscale" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
+							<!-- <input type="hidden" name="cmd" value="grayscale"> -->
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Grayscale</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<select class="form-control" name="cmd">
+												<option value="grayscale">grayscale</option>
+												<option value="grayscaleAvg">grayscaleAvg</option>
+												<option value="luminance">luminance</option>
+											</select>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterBrightnessContrast" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.brightness.value,this.contrast.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.brightness.value,this.contrast.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="brightness">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Brightness &amp; Contrast</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Brightness</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Contrast</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterSharpen" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sharpen" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="sharpen">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">sharpen</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="threshold">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">threshold</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Threshold</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="threshold" value="128" min="0" max="255" step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Low</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="thresholdLow" value="0" min="0" max="255" step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Hight</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="thresholdHigh" value="255" min="0" max="255" step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterBrightnessContrast" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-brightness" onsubmit="wc2.cmdFilter(this.cmd.value,this.brightness.value,this.contrast.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.brightness.value,this.contrast.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="brightness">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Brightness &amp; Contrast</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Brightness</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="brightness" value="0" min="-1" max="1"   step="0.01"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Contrast</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="contrast" value="1" min="-1" max="1"  step="0.01"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterGaussianBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-gaussianblur" onsubmit="wc2.cmdFilter(this.cmd.value,this.diameter.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.diameter.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="gaussianBlur">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">GaussianBlur</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Diameter</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="diameter" value="0" min="0" max="128" step="0.1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterThreshold" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-threshold" onsubmit="wc2.cmdFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.threshold.value,this.thresholdLow.value,this.thresholdHigh.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="threshold">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">threshold</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Threshold</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="threshold" value="128" min="0" max="255" step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Low</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="thresholdLow" value="0" min="0" max="255" step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Hight</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="thresholdHigh" value="255" min="0" max="255" step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterSobel" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sobel" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
-				      <!-- <input type="hidden" name="cmd" value="sobel"> -->
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Sobel &amp; Laplace</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <select class="form-control" name="cmd">
-				                <option value="sobel">sobel</option>
-				                <option value="laplace">laplace</option>
-				              </select>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterGaussianBlur" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-gaussianblur" onsubmit="wc2.cmdFilter(this.cmd.value,this.diameter.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.diameter.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="gaussianBlur">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">GaussianBlur</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Diameter</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="diameter" value="0" min="0" max="128" step="0.1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterAbove" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-above" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="above">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">Above</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterSobel" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-sobel" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
+							<!-- <input type="hidden" name="cmd" value="sobel"> -->
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Sobel &amp; Laplace</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<select class="form-control" name="cmd">
+												<option value="sobel">sobel</option>
+												<option value="laplace">laplace</option>
+											</select>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterSistortSine" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-distortsine" onsubmit="wc2.cmdFilter(this.cmd.value,this.amount.value,this.yamount.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.amount.value,this.yamount.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="distortSine">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">DistortSine</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>X-Amount</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="amount" value="0.5" min="-5" max="5" step="0.1" ></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>Y-Amount</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="yamount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanYamount').html(this.value);"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterAbove" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-above" onsubmit="wc2.cmdFilter(this.cmd.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="above">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">Above</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterApplyPalette" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-applyPalette" onsubmit="wc2.cmdFilter(this.cmd.value,this.palette.value,this.is_optimize.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.palette.value,this.is_optimize.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="applyPalette">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">ApplyPalette</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <select class="form-control" name="palette" id="wc-mdetail-layer-filter-applyPalette-palette">
-				                <option value="color_1bit">color_1bit</option>
-				              </select>
-				              <script>
-				              $(function(){
-				                var t = document.getElementById('wc-mdetail-layer-filter-applyPalette-palette');
-				                $(t).html("");
-				                for(var k in colorPalette.palettes){
-				                  $(t).append('<option value="'+k+'">'+k+' ('+colorPalette.palettes[k].length+' colors)</option>')
-				                }
-				              })
-				              </script>
-				            </li>
-				            <li class="list-group-item">
-				                <div class="form-inline">
-				                  <select class="form-control" name="is_optimize">
-				                    <option value="0">none</option>
-				                    <option value="1">colorLimitByPalette</option>
-				                    <option value="2">median cout</option>
-				                  </select>
-				                </div>
-				              </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterSistortSine" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-distortsine" onsubmit="wc2.cmdFilter(this.cmd.value,this.amount.value,this.yamount.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.amount.value,this.yamount.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="distortSine">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">DistortSine</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>X-Amount</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="amount" value="0.5" min="-5" max="5" step="0.1" ></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>Y-Amount</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="yamount" value="0.5" min="-5" max="5" step="0.1" onchange="$('#spanYamount').html(this.value);"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
-				    <form name="formMenuDetailLayerFilterApplyColorDepth" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-applyColorDepth" onsubmit="wc2.cmdFilter(this.cmd.value,this.depthR.value,this.depthG.value,this.depthB.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.depthR.value,this.depthG.value,this.depthB.value);"  oninput="this.onchange()" >
-				      <input type="hidden" name="cmd" value="applyColorDepth">
-				      <div class="panel panel-default wc2-panel" >
-				        <div  class="panel-heading">ApplyColorDepth</div>
-				        <div  class="panel-body" >
-				          <ul class="list-group ">
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>R depth</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthR" value="0" min="2" max="256" step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>G depth</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthG" value="0" min="2" max="256" step="1"></div></div>
-				              </div>
-				            </li>
-				            <li class="list-group-item">
-				              <div class="row">
-				                <div class="col-xs-3"><label>B depth</label></div>
-				                <div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthB" value="0" min="2" max="256" step="1"></div></div>
-				              </div>
-				            </li>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterApplyPalette" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-applyPalette" onsubmit="wc2.cmdFilter(this.cmd.value,this.palette.value,this.is_optimize.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.palette.value,this.is_optimize.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="applyPalette">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">ApplyPalette</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<select class="form-control" name="palette" id="wc-mdetail-layer-filter-applyPalette-palette">
+												<option value="color_1bit">color_1bit</option>
+											</select>
+											<script>
+											$(function(){
+												var t = document.getElementById('wc-mdetail-layer-filter-applyPalette-palette');
+												$(t).html("");
+												for(var k in colorPalette.palettes){
+													$(t).append('<option value="'+k+'">'+k+' ('+colorPalette.palettes[k].length+' colors)</option>')
+												}
+											})
+											</script>
+										</li>
+										<li class="list-group-item">
+												<div class="form-inline">
+													<select class="form-control" name="is_optimize">
+														<option value="0">none</option>
+														<option value="1">colorLimitByPalette</option>
+														<option value="2">median cout</option>
+													</select>
+												</div>
+											</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
-				              <button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
-				            </li>
-				            <li class="list-group-item">
-				              <button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
-				              <button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<form name="formMenuDetailLayerFilterApplyColorDepth" action="javascript:void(0)"  class="wc-mdetail wc-mdetail-layer-filter-applyColorDepth" onsubmit="wc2.cmdFilter(this.cmd.value,this.depthR.value,this.depthG.value,this.depthB.value);wc2.hideMenuDetail();return false;" onchange="wc2.cmdPreviewFilter(this.cmd.value,this.depthR.value,this.depthG.value,this.depthB.value);"  oninput="this.onchange()" >
+							<input type="hidden" name="cmd" value="applyColorDepth">
+							<div class="panel panel-default wc2-panel" >
+								<div  class="panel-heading">ApplyColorDepth</div>
+								<div  class="panel-body" >
+									<ul class="list-group ">
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>R depth</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthR" value="0" min="2" max="256" step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>G depth</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthG" value="0" min="2" max="256" step="1"></div></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+												<div class="col-xs-3"><label>B depth</label></div>
+												<div class="col-xs-9"><div class="showRangeValue"><input type="range" name="depthB" value="0" min="2" max="256" step="1"></div></div>
+											</div>
+										</li>
 
-				            </li>
-				          </ul>
-				        </div>
-				      </div>
-				    </form>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-flash" type="button" onclick="this.form.onchange()"> Preview</button>
+											<button class="btn btn-default glyphicon glyphicon-refresh" type="button" onclick="wc2.cmdPreviewFilter('reset');"> Reset</button>
+										</li>
+										<li class="list-group-item">
+											<button class="btn btn-default glyphicon glyphicon-ok-circle" type="submit" > OK</button>
+											<button class="btn btn-default glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
+
+										</li>
+									</ul>
+								</div>
+							</div>
+						</form>
 				</article>
 				<!-- //메뉴 상세 부분 -->
 
