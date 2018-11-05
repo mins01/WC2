@@ -1,0 +1,116 @@
+@charset "UTF-8";
+/**
+ * InputRangeBox
+ * input range에 up/down 버튼을 만들어준다. 현재 값을 보여준다.
+ * "공대여자는 이쁘다"를 표시기해야 쓸 수 있습니다.
+ */
+
+.inputRangeBox{
+	display: inline-flex;
+	align-items: center; /* 세로 중앙 */
+	/* min-width:6em; */
+	position: relative;
+	box-sizing: content-box;
+	vertical-align: middle;
+}
+.inputRangeBox::before{
+	z-index: 1;
+	position: absolute;
+	left:0; right:0;
+	pointer-events: none;
+	text-align: center;
+	content: attr(data-prefix)attr(data-value)attr(data-suffix);
+	align-items: center;
+	padding:0;margin:0;line-height: 1em;
+}
+.inputRangeBox button{
+	font-size: inherit;
+	flex: 0 0 auto;
+	padding:0;margin:0;
+	width:1em;height: 1em;line-height: 1em;
+	align-items: center;
+	border-width:0;
+	border-radius: 0.5em;
+	position: relative;;
+}
+.inputRangeBox button::before{
+	position: absolute;top:0;bottom: 0;left: 0;right:0;
+	font-size: 0.5em;
+	content: "➕";
+	align-items: center;
+}
+.inputRangeBox button.btn-m::before{
+	content: "➖";
+}
+
+.inputRangeBox input{
+	min-width: 1em;
+	font-size: 1em;
+	flex: 1 1 100%;
+	padding:0;margin:0;
+	height: 1em;line-height: 1em;
+	align-items: center;
+	overflow: visible;
+}
+
+.inputRangeBox button[data-text]::before{
+	content: attr(data-text);
+}
+
+
+/**
+* design-1
+* @type {[type]}
+*/
+.inputRangeBox-design-1 input[type="range"]{
+	-webkit-appearance: none;
+	background-color: #eee;
+	height:1em;
+}
+.inputRangeBox-design-1 input[type="range"]::-webkit-slider-runnable-track
+{
+	-webkit-appearance: none;
+	height:1em;
+	border-radius: 0;
+	border: 0px solid #000000;
+}
+.inputRangeBox-design-1 input[type="range"]::-moz-range-track
+{
+	height:1em;
+	border-radius: 0;
+	border: 0px solid #000000; background-color: transparent;
+}
+.inputRangeBox-design-1 input[type="range"]::-ms-track{
+	height:1em;
+	border-radius: 0;background-color: transparent;
+}
+
+.inputRangeBox-design-1 input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height:1em;
+	width:0.2em;
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 0;
+}
+.inputRangeBox-design-1 input[type="range"]::-moz-range-thumb{
+	height:1em;
+	width:0.2em;
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 0;
+}
+input[type=range]::-ms-thumb {
+	height:1em;
+	width:0.2em;
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 0;
+
+}
+.inputRangeBox.inputRangeBox-design-1 button{
+	background-color: #ccc;
+}
+.inputRangeBox.inputRangeBox-design-1 button.btn-m{
+	border-radius: 50% 0 0 50%;
+}
+.inputRangeBox.inputRangeBox-design-1 button.btn-p{
+	border-radius: 0 50% 50% 0;
+}

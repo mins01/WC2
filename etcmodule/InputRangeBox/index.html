@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko" >
+<head>
+	<title>InputRangeBox</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- jquery 관련 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>   -->
+	
+	
+	<!-- 부트스트랩 4 : IE8지원안됨! -->
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">  -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>  -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
+	<!-- vue.js -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	
+	<!-- meta og -->
+	
+	<meta property="og:title" content="inputRangeBox">
+	<meta property="og:description" content="inputRangeBox">
+	<meta name="og:image" content="http://www.mins01.com/img/logo.gif">
+	<meta property="og:image:width" content="190">
+	<meta property="og:image:height" content="70" />
+	<meta property="og:site_name" content="inputRangeBox" />
+	<meta property="og:type" content="website">
+	
+	<!-- //meta og -->
+	<link rel="stylesheet" href="InputRangeBox.css"> 
+	<script src="InputRangeBox.js"></script>
+	<script>
+	window.onload = InputRangeBox.onload;
+	</script>
+	
+</head>
+<body>
+	<div class="container">
+		<h1>InputRangeBox</h1>
+		<p>
+			input range에 up/down 버튼 추가, 현재 값 표시.
+		</p>
+		<hr />
+		<input type="button" value="버튼" />
+		<div class="inputRangeBox" data-value="" data-prefix="prefixprefix-" data-suffix="-suffixsuffix" data-toFixed="0">
+			<button class="btn-m"></button>
+			<input type="range" value="1" min="-1000" max="1000"  />
+			<button  class="btn-p"></button>
+		</div>
+		<input type="text" value="텍스트" />
+		<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px;font-size:8px;"  data-toFixed="1">
+			<input type="range" value="1" min="-1000" max="1000" step="0.1"  />
+		</div>
+		<hr />
+		<ul>
+			<li>ie11 : 정상 동작 안함.</li>
+			<li>chrome 버전 70.0.3538.77(공식 빌드) (64비트) : 동작 확인</li>
+			<li>firefox 62.0.3 (64비트) : 동작 확인</li>
+			
+		</ul>
+		
+
+		<hr />
+			<h3>일반 Range</h3>
+			<input type="range" value="1" min="0" max="100" step="1"  />
+			
+			<h3>스타일 조작</h3>
+			폰트크기 : 
+			<div class="inputRangeBox" data-suffix="px" >
+				<input type="range" value="12" min="0" max="300" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.fontSize=this.value+'px';document.querySelector('#inputRangeBox-fontSize-input').value=this.value"  />
+			</div>
+			너비 : 
+			<div class="inputRangeBox" data-suffix="px" >
+				<input type="range" value="100" min="30" max="900" step="1" oninput="document.querySelector('#inputRangeBox-fontSize').style.width=this.value+'px';"  />
+			</div>
+			<br />=><br />
+			대상
+			<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" id="inputRangeBox-fontSize">
+				<input type="range" value="12" min="0" max="300" step="1" id="inputRangeBox-fontSize-input" />
+			</div>
+			<h3>이벤트</h3>
+			<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" >
+				<input type="range" value="12" min="0" max="300" step="1" onchange="alert(this.value)" >
+				<button class="btn-m" onclick="alert('down : '+this.input.value)"></button>
+				<button class="btn-p"  onclick="alert('up : '+ this.input.value)"></button>
+			</div>			
+			
+			<h3>버튼</h3>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="x"></button>
+				<button class="btn-p" data-text="Y"></button>
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="🔻"></button>
+				<button class="btn-p" data-text="🔺"></button>
+			</div>
+			<div class="inputRangeBox" data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+				<button class="btn-m" data-text="DOWN"></button>
+				<button class="btn-p" data-text="UP"></button>
+			</div>
+			
+			<h3>디자인-1 적용:</h3>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%" style="line-height:inherit">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%" style="font-size:40px; width:600px;">
+				<input type="range" value="1" min="0" max="100" step="1"  />
+			</div>
+			<div class="inputRangeBox inputRangeBox-design-1 " data-suffix="%">
+				<input type="range" value="1" min="0" max="100" step="1" style="background-color:#abc"  />
+				<button class="btn-m"  style="background-color:blue;color:#fff;"></button>
+				<button class="btn-p"  style="background-color:red;color:#fff;"></button>
+			</div>
+			<h3>기타</h3>
+			소수점 자리 고정 <div class="inputRangeBox" data-value="" data-prefix="" data-suffix="px" style="width:300px; font-size:30px "  data-toFixed="2">
+				<input type="range" value="1" min="-1000" max="1000" step="0.01"  />
+			</div> / 
+			달력
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="y">
+				<input type="range" value="2018" min="1900" max="3000" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="m">
+				<input type="range" value="1" min="1" max="12" step="1"  />
+			</div>
+			<div class="inputRangeBox" data-value="" data-prefix="" data-suffix="d">
+				<input type="range" value="1" min="1" max="31" step="1"  />
+			</div>
+			/
+			접두사, 접미사 <div class="inputRangeBox" data-value="" data-prefix="d " data-suffix="day">
+				<input type="range" value="-100" min="-100" max="0" step="1"  />
+			</div>
+			
+		</div>
+	</body>
+</html>
