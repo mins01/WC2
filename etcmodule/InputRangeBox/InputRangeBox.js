@@ -73,7 +73,7 @@ var InputRangeBox={
 		}
 		Object.defineProperty(IRB.input, "value", descriptor);
     var oninput = function(evt){
-      console.log(evt.type)
+      // console.log(evt.type)
 			var toFixed = this.IRB.getAttribute('data-toFixed');
 			toFixed = (toFixed==null)?0:parseInt(toFixed);
 			this.IRB.setAttribute("data-value",parseFloat(this.value).toFixed(toFixed));
@@ -147,7 +147,7 @@ var InputRangeBox={
 		//--값 초기화
 		var toFixed = IRB.getAttribute('data-toFixed');
 		toFixed = (toFixed==null)?0:parseInt(toFixed);
-    console.log(IRB.input.name,parseFloat(IRB.input.value).toFixed(toFixed))
+    // console.log(IRB.input.name,parseFloat(IRB.input.value).toFixed(toFixed))
 		IRB.setAttribute("data-value",parseFloat(IRB.input.value).toFixed(toFixed));
 		//-- 완료 표시
 		IRB.rib_on = true;

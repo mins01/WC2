@@ -470,6 +470,13 @@ cursor:pointer;
 
 .no-padding{padding:0 !important;}
 
+/**
+ * inputRangeBox 의 기본 너비를 100%로 한다.
+ * @type {[type]}
+ */
+.inputRangeBox{
+	width: 100%;
+}
 
 /**
  * 가이드선
