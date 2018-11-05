@@ -84,11 +84,14 @@
 				<input type="range" value="12" min="0" max="300" step="1" id="inputRangeBox-fontSize-input" />
 			</div>
 			<h3>이벤트</h3>
-			<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" >
-				<input type="range" value="12" min="0" max="300" step="1" onchange="alert(this.value)" >
-				<button class="btn-m" onclick="alert('down : '+this.input.value)"></button>
-				<button class="btn-p"  onclick="alert('up : '+ this.input.value)"></button>
-			</div>			
+			<form onchange="console.log('form.onchange')"  oninput="console.log('form.oninput')">
+				<div class="inputRangeBox" data-suffix="px" style="font-size:12px;width:100px" >
+					<input type="range" value="12" min="0" max="300" step="1" onchange="alert(this.value)" >
+					<button class="btn-m" onclick="alert('down : '+this.input.value)"></button>
+					<button class="btn-p"  onclick="alert('up : '+ this.input.value)"></button>
+				</div>				
+			</form>
+			
 			
 			<h3>버튼</h3>
 			<div class="inputRangeBox" data-suffix="%">

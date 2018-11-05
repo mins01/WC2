@@ -39,9 +39,11 @@ var InputRangeBox={
 		
 		var btn_m = IRB.querySelector(".btn-m")?IRB.querySelector(".btn-m"):document.createElement('button');
 		btn_m.className = "btn-m";
+    btn_m.type="button";
 		
 		var btn_p = IRB.querySelector(".btn-p")?IRB.querySelector(".btn-p"):document.createElement('button');
 		btn_p.className = "btn-p";
+    btn_p.type="button";
 		// IRB.innerHTML = '';
 		IRB.appendChild(btn_m)
 		IRB.appendChild(IRB.input)
@@ -79,15 +81,15 @@ var InputRangeBox={
 		IRB.btn_m.actFn = function(el){
 			return function(){
 				el.stepDown();
-				var input_event = new CustomEvent('input',{detail: {}});
-				el.dispatchEvent(input_event);	
+				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
+				el.dispatchEvent(input_event);
 			}
 		}(IRB.input)
 		IRB.btn_p.actFn = function(el){
 			return function(){
 				el.stepUp();
-				var input_event = new CustomEvent('input',{detail: {}});
-				el.dispatchEvent(input_event);	
+				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
+				el.dispatchEvent(input_event);
 			}
 		}(IRB.input)
 		var evtFn = function(el){
@@ -101,16 +103,24 @@ var InputRangeBox={
 		var clearFn = function(el){
 			return function(evt){
 				if(el.tm){ clearInterval(el.tm) }
-				var input_event = new CustomEvent('input',{detail: {}});
+				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
 				this.dispatchEvent(input_event);
+        input_event = new CustomEvent('change',{bubbles: true, cancelable: true, detail: {}});
+				el.dispatchEvent(input_event);
 				return false
 			}
 		}(el)
 		IRB.btn_m.addEventListener('keypress',function(evt){
-			if(evt.keyCode==32)	this.actFn()
+			if(evt.keyCode==32){
+        this.actFn();
+        clearFn();
+      }	
 		});
 		IRB.btn_p.addEventListener('keypress',function(evt){
-			if(evt.keyCode==32) this.actFn();
+      if(evt.keyCode==32){
+        this.actFn();
+        clearFn();
+      }	
 		});
 		// IRB.btn_p.addEventListener('click',IRB.btn_p.actFn);
 		if(PointerEvent){
