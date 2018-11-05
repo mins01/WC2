@@ -8,7 +8,8 @@
 .inputRangeBox{
 	display: inline-flex;
 	align-items: center; /* 세로 중앙 */
-	/* min-width:6em; */
+	min-width:2em;
+	width:10em;
 	position: relative;
 	box-sizing: content-box;
 	vertical-align: middle;
@@ -16,12 +17,13 @@
 .inputRangeBox::before{
 	z-index: 1;
 	position: absolute;
-	left:0; right:0;
+	left:0; right:0;top:0;margin:0;
 	pointer-events: none;
 	text-align: center;
 	content: attr(data-prefix)attr(data-value)attr(data-suffix);
 	align-items: center;
 	padding:0;margin:0;line-height: 1em;
+	vertical-align: middle;
 }
 .inputRangeBox button{
 	font-size: inherit;
@@ -82,7 +84,10 @@
 }
 .inputRangeBox-design-1 input[type="range"]::-ms-track{
 	height:1em;
-	border-radius: 0;background-color: transparent;
+	border-radius: 0;
+	background: transparent;
+	border-color: transparent;
+	color: transparent;
 }
 
 .inputRangeBox-design-1 input[type="range"]::-webkit-slider-thumb {
@@ -91,20 +96,37 @@
 	width:0.2em;
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 0;
+	border-width: 0;
 }
 .inputRangeBox-design-1 input[type="range"]::-moz-range-thumb{
 	height:1em;
 	width:0.2em;
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 0;
+	border-width: 0;
 }
-input[type=range]::-ms-thumb {
+.inputRangeBox-design-1 input[type="range"]::-ms-thumb {
 	height:1em;
 	width:0.2em;
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 0;
+	border-width: 0;
 
 }
+.inputRangeBox-design-1 input[type="range"]:focus::-ms-fill-lower {
+  background: transparent;
+}
+.inputRangeBox-design-1 input[type="range"]:focus::-ms-fill-upper {
+  background: transparent;
+}
+.inputRangeBox-design-1 input[type="range"]::-ms-fill-lower {
+  background: transparent;
+}
+.inputRangeBox-design-1 input[type="range"]::-ms-fill-upper {
+  background: transparent;
+}
+
+
 .inputRangeBox.inputRangeBox-design-1 button{
 	background-color: #ccc;
 }

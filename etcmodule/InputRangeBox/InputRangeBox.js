@@ -72,22 +72,25 @@ var InputRangeBox={
 			Object.defineProperty(this, "value", descriptor);
 		}
 		Object.defineProperty(IRB.input, "value", descriptor);
-		IRB.input.addEventListener('input',function(){
+    var oninput = function(evt){
+      console.log(evt.type)
 			var toFixed = this.IRB.getAttribute('data-toFixed');
 			toFixed = (toFixed==null)?0:parseInt(toFixed);
 			this.IRB.setAttribute("data-value",parseFloat(this.value).toFixed(toFixed));
-		})
+		}
+		IRB.input.addEventListener('input',oninput)
+    IRB.input.addEventListener('change',oninput)
 		//-- 버튼 이벤트
 		IRB.btn_m.actFn = function(el){
 			return function(){
-				el.stepDown();
+				try{el.stepDown();}catch(e){console.log(e)}
 				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
 				el.dispatchEvent(input_event);
 			}
 		}(IRB.input)
 		IRB.btn_p.actFn = function(el){
 			return function(){
-				el.stepUp();
+				try{el.stepUp();}catch(e){console.log(e)}
 				var input_event = new CustomEvent('input',{bubbles: true, cancelable: true, detail: {}});
 				el.dispatchEvent(input_event);
 			}
