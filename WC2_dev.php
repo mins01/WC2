@@ -258,7 +258,7 @@ if($isCLI){
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help">Help</a></li>
 								<li><a href="http://mins01.com" target="_blank" class="glyphicon glyphicon-user">공대여자HOME</a></li>
-								<li><a href="./WC2.html" target="_blank" onclick="document.location.replace('?_t='+(new Date()).getTime());return false;" class="glyphicon glyphicon-refresh">Reload</a></li>
+								<li><a href="./WC2.html" target="_blank" onclick="document.location.reload(true);return false;" class="glyphicon glyphicon-refresh">Reload</a></li>
 							</ul>
 							</li>
 						 </ul>
