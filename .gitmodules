@@ -1,0 +1,3 @@
+[submodule "etcmodule/InputRangeBox"]
+	path = etcmodule/InputRangeBox
+	url = https://github.com/mins01/ui_InputRangeBox.git
