@@ -81,6 +81,7 @@ if($isCLI){
 		<![endif]-->
 
 		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css<?=$tsync?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css<?=$tsync?>" charset="utf-8" />
 		
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
@@ -2132,6 +2133,7 @@ if($isCLI){
 			</script>
 
 			<script src="./etcmodule/InputRangeBox/InputRangeBox.js<?=$tsync?>"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js<?=$tsync?>"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();
@@ -2178,7 +2180,7 @@ if($isCLI){
 				
 
 				wc2.init(); //초기화
-				wc2Helper.attachTdRangeValueBox();
+				// wc2Helper.attachTdRangeValueBox();
 				//wc2.showMenuDetail('file-save');
 				//wc2.showMenuDetail('file-new');
 				//wc2.showMenuDetail('help-help');
