@@ -809,6 +809,7 @@ var wc2Tool = function(){
 				if(this.ing ==1){
 					if(confirm("Not Confirm! Confirm OK?")){
 						var r = this.confirm(true);
+						this.sa.disable();
 						return r;
 					}else{
 						this.ing = 0;

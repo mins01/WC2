@@ -479,5 +479,6 @@ cursor:pointer;
 }
 
 /**
- * 가이드선
+ * selectArea 관련
  */
+.selectArea{z-index: 1 !important}
