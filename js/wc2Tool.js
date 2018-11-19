@@ -711,6 +711,119 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
+		//--- 이미지
+		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
+		,"image2":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"w0":-1,"h0":-1
+			,"dw":-1,"dh":-1,"sc":1 //확대관련
+			,"deg":0//회전관련(각도)
+			,"ing":0
+			,"f":null
+			,"sa":null
+			,"initSelectArea":function(){
+				var f = document.formPropImage;
+				if(!this.sa){
+					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
+
+					this.sa.addEventListener('change',function(evt){ // 커스텀 이벤트
+						var r = this.getSelectedAreaRect()
+						var f = document.formPropImage;
+						f.left.value = r.left;
+						f.top.value = r.top;
+						f.right.value = r.right;
+						f.bottom.value = r.bottom;
+					});
+					this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
+						return function(evt){
+							tool_image.confirm();
+						}
+					}(this));
+				}else{
+					this.sa.setTarget(this.wcb.activeWebCanvas,this.wcb.wcbFrame);
+				}
+				this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+				return this.sa;
+			}
+			,"init":function(wcb){
+				this.initSelectArea();
+				this.tf = document.formPropTransformProperty;
+				this.img  = document.getElementById('imageNode');
+				this.img.onload = function(toolImage){
+					return function(){
+						// toolImage._initXYWH();
+						// toolImage.predraw()
+						toolImage.sa.selectedArea.innerHTML = '';
+						toolImage.sa.selectedArea.appendChild(this.cloneNode(true));
+					}
+				}(this);
+				this.sa.selectedArea.innerHTML = '';
+				this.sa.selectedArea.appendChild(this.img.cloneNode(true));
+				this.sa.enable();
+				this.sa.hide();
+				if(this.ing ==0){
+					this.ing = 1;
+					// this._initXYWH();
+					// this.predraw();
+				}
+
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				this.sa.enable();
+				return true;
+			}
+			,"move":function(event){
+				return true;
+			}
+			,"up":function(event){
+				return true;
+			}
+			,"predraw":function(){
+				var f = document.formPropImage;
+				this.sa.drawFromCoordinate(parseFloat(f.left.value,10),parseFloat(f.top.value,10),parseFloat(f.right.value,10),parseFloat(f.bottom.value,10));
+				this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+			}
+			,"confirm":function(noQ){
+				var f = document.formPropImage;
+
+				if(noQ || confirm("OK?")){
+					// this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+					var r = this.sa.getSelectedAreaRect()
+					// this.wcb.activeWebCanvas.drawImage(this.img,0,0,this.wcb.activeWebCanvas.width,this.wcb.activeWebCanvas.height,r.left,r.top,r.width,r.height);
+					this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value})
+
+					this.wcb.activeWebCanvas.drawImage(this.img,r.left,r.top,r.width,r.height );
+					this.sa.hide();
+					wc2Tool.saveHistory();
+					this.ing = 0;
+				}
+				return true;
+
+			}
+			,"reset":function(type){
+				if(this.ing ==1){
+					if(confirm("Not Confirm! Confirm OK?")){
+						var r = this.confirm(true);
+						return r;
+					}else{
+						this.ing = 0;
+					}
+				}
+				this.sa.disable();
+				return true;
+			}
+			,"initPreview":function(){
+				if(this.ing ==1){
+					this.sa.hide();
+				}
+				return true;
+			}
+		} //-- end fn
 		//--- 집중선 - 방사형
 		,"concentratedLineRadial":{
 			"wcb":null

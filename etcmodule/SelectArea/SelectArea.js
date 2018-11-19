@@ -64,12 +64,16 @@ var SelectArea = (function(){
         var xy = _getXY(evt);
         data.x0 = xy[0];
         data.y0 = xy[1];
-        evt.preventDefault();evt.stopPropagation();
+        var r = true;
         if(cb_onpointerdown){
-          cb_onpointerdown(evt,xy[0],xy[1]);
+          r = cb_onpointerdown(evt,xy[0],xy[1]);
         }
-        document.addEventListener('pointermove',_onpointermove);
-        document.addEventListener('pointerup',_onpointerup);
+        if(r){ 
+          evt.preventDefault();evt.stopPropagation(); 
+          document.addEventListener('pointermove',_onpointermove);
+          document.addEventListener('pointerup',_onpointerup);
+        }
+        
         return false;
       }
     }(target,data,cb_onpointerdown)
@@ -81,20 +85,22 @@ var SelectArea = (function(){
         var gapY = xy[1]-data.y0;
         data.x0 = xy[0];
         data.y0 = xy[1];
+        var r = true;
         if(cb_onpointermove){
-          cb_onpointermove(evt,gapX,gapY);
+          r = cb_onpointermove(evt,gapX,gapY);
         }
-        evt.preventDefault();evt.stopPropagation();
+        if(!r){ evt.preventDefault();evt.stopPropagation(); }
         return false;
       }
     }(target,data,cb_onpointermove)
     var _onpointerup = function(target,data,cb_onpointerup){
       return function(evt){
+        var r = true;
         if(data.ing && cb_onpointerup){
-          cb_onpointerup(evt);
+          r = cb_onpointerup(evt);
         }
         data.ing = false;
-        evt.preventDefault();evt.stopPropagation();
+        if(!r){ evt.preventDefault();evt.stopPropagation(); }
         document.removeEventListener('pointermove',_onpointermove);
         document.removeEventListener('pointerup',_onpointerup);
         return false;
@@ -192,19 +198,24 @@ var SelectArea = (function(){
       sa.rangeTarget = rangeTarget;
       var _info = {x0:0,y0:0}
       sa.rangeTarget.removeToDraggable = toDraggable(sa.rangeTarget,function(evt,x,y){
+        if(!_p_var.enable){return false;}
         _p_var.autoRedraw = false;
         var p_bcr = sa.target.getBoundingClientRect();
         sa.show(x-p_bcr.x,y-p_bcr.y,x-p_bcr.x,y-p_bcr.y);
         _info.x0 = x;
         _info.y0 = y;
-        console.log(x-p_bcr.x,y-p_bcr.y,x-p_bcr.x,y-p_bcr.y)
+        return true;
       },function(thisC){return function(evt,gapX,gapY){
+        if(!_p_var.enable){return false;}
         thisC.drawFromCoordinateBy(0,0,gapX,gapY)
         thisC.dispatchEvent((new CustomEvent("change", {})));
+        return true;
       }}(sa),
       function(evt,x,y){
+        if(!_p_var.enable){return false;}
         _p_var.autoRedraw = true;
         sa.redraw();
+        return true;
       })
       
       
@@ -390,6 +401,7 @@ var SelectArea = (function(){
     var _toDraggable_onpointerdown = function(sa){
       return function(evt,x,y){
         _p_var.autoRedraw = false;
+        return true;
       }
     }(sa)
     /**

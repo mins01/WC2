@@ -288,7 +288,8 @@ if($isCLI){
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="circle" type="button" title="Circle">○</button>
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
-							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
+							<!-- <button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button> -->
+							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image2"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial">
 								<div class="icon-wc-tool-concentratedLineRadial  glyphicon no-glyphicon">
@@ -358,7 +359,7 @@ if($isCLI){
 							</form>
 
 
-							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -372,7 +373,7 @@ if($isCLI){
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
 											</tr>
 											<tr>
 												<th>in PC</th>
@@ -382,6 +383,23 @@ if($isCLI){
 												<th>URL</th>
 												<td><input type="text" name="inputImageFile" style="width:90%" placeHolder="URL/dataURL/clipboard" onpaste="wc2.onpasteFromClipboardForInput(event,function(){},function(dataURL,type,event){document.getElementById('imageNode').src=dataURL});" onchange="document.getElementById('imageNode').src=wc2.converURL(this.value)"></td>
 											</tr>
+											<tr>
+												<th>Left</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="left"  ></div></td>
+											</tr>
+											<tr>
+												<th>top</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="top"  ></div></td>
+											</tr>
+											<tr>
+												<th>right</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="right"  ></div></td>
+											</tr>
+											<tr>
+												<th>bottom</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="bottom"  ></div></td>
+											</tr>
+											
 										</table>
 									</div>
 								</div>
@@ -955,7 +973,7 @@ if($isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
@@ -2213,7 +2231,7 @@ if($isCLI){
 				//wc2.showMenuDetail('edit-preferences');
 				wc2.hideMenuDetail();
 				//wc2.showMenuDetail('image-resize');
-				//wc2.setTool("crop");
+				wc2.setTool("image2");
 				// wc2.showMenuDetail('file-open');
 
 			});
