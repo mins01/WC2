@@ -69,11 +69,12 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1541987040" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1542614400" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1542614400" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1541987040" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1541987040" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1542614400" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1542614400" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -276,7 +277,8 @@
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="circle" type="button" title="Circle">○</button>
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
-							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
+							<!-- <button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button> -->
+							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image2"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial">
 								<div class="icon-wc-tool-concentratedLineRadial  glyphicon no-glyphicon">
@@ -346,7 +348,7 @@
 							</form>
 
 
-							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -360,7 +362,7 @@
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
 											</tr>
 											<tr>
 												<th>in PC</th>
@@ -370,6 +372,23 @@
 												<th>URL</th>
 												<td><input type="text" name="inputImageFile" style="width:90%" placeHolder="URL/dataURL/clipboard" onpaste="wc2.onpasteFromClipboardForInput(event,function(){},function(dataURL,type,event){document.getElementById('imageNode').src=dataURL});" onchange="document.getElementById('imageNode').src=wc2.converURL(this.value)"></td>
 											</tr>
+											<tr>
+												<th>Left</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="left"  ></div></td>
+											</tr>
+											<tr>
+												<th>top</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="top"  ></div></td>
+											</tr>
+											<tr>
+												<th>right</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="right"  ></div></td>
+											</tr>
+											<tr>
+												<th>bottom</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="bottom"  ></div></td>
+											</tr>
+											
 										</table>
 									</div>
 								</div>
@@ -943,7 +962,7 @@
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
@@ -2101,26 +2120,27 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1541987040"></script>
-			<script src="js/colorPalette.palettes.js?_t=1541987040"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1541987040"></script>
+			<script src="js/colorPalette.js?_t=1542614400"></script>
+			<script src="js/colorPalette.palettes.js?_t=1542614400"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1542614400"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1541987040"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1541987040"></script>
-			<script src="js/wc2.js?_t=1541987040"></script>
-			<script src="js/wc2Tool.js?_t=1541987040"></script>
-			<script src="js/wc2Brush.js?_t=1541987040"></script>
+			<script src="js/class.WebCanvas.js?_t=1542614400"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1542614400"></script>
+			<script src="js/wc2.js?_t=1542614400"></script>
+			<script src="js/wc2Tool.js?_t=1542614400"></script>
+			<script src="js/wc2Brush.js?_t=1542614400"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1541987040"></script>
-			<script src="js/wc2Filter.js?_t=1541987040"></script>
-			<script src="js/wc2Helper.js?_t=1541987040"></script>
+			<script src="js/wc2PatternList.js?_t=1542614400"></script>
+			<script src="js/wc2Filter.js?_t=1542614400"></script>
+			<script src="js/wc2Helper.js?_t=1542614400"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1541987040"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1542614400"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1542614400"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();
@@ -2167,7 +2187,7 @@
 				
 
 				wc2.init(); //초기화
-				wc2Helper.attachTdRangeValueBox();
+				// wc2Helper.attachTdRangeValueBox();
 				//wc2.showMenuDetail('file-save');
 				//wc2.showMenuDetail('file-new');
 				//wc2.showMenuDetail('help-help');
@@ -2200,7 +2220,7 @@
 				//wc2.showMenuDetail('edit-preferences');
 				wc2.hideMenuDetail();
 				//wc2.showMenuDetail('image-resize');
-				//wc2.setTool("crop");
+				// wc2.setTool("image2");
 				// wc2.showMenuDetail('file-open');
 
 			});

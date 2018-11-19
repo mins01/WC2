@@ -2231,7 +2231,7 @@ if($isCLI){
 				//wc2.showMenuDetail('edit-preferences');
 				wc2.hideMenuDetail();
 				//wc2.showMenuDetail('image-resize');
-				wc2.setTool("image2");
+				// wc2.setTool("image2");
 				// wc2.showMenuDetail('file-open');
 
 			});
