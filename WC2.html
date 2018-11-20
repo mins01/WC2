@@ -69,12 +69,12 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1542690449" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1542690449" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1542695767" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1542695767" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1542690449" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1542690449" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1542695767" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1542695767" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -388,6 +388,11 @@
 												<th>bottom</th>
 												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="bottom"  ></div></td>
 											</tr>
+											<tr>
+												<td colspan="2">
+													<button type="button" onclick="wc2Tool.image2.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+												</td>
+											</tr>
 											
 										</table>
 									</div>
@@ -667,19 +672,19 @@
 											<col width="">
 											<tr>
 												<th>X</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="x0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" name="x0" value="0" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Y</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="y0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" name="y0" value="0" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Sacle</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"  data-prefix="x"><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Rotate</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></div></td>
 											</tr>
 										</table>
 									</div>
@@ -1164,7 +1169,7 @@
 									<option value="70">70%</option>
 									<option value="80">80%</option>
 									<option value="90">90%</option>
-									<option value="10" selected>100%</option>
+									<option value="100" selected>100%</option>
 									<option value="110">110%</option>
 									<option value="120">120%</option>
 									<option value="150">150%</option>
@@ -2120,27 +2125,27 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1542690449"></script>
-			<script src="js/colorPalette.palettes.js?_t=1542690449"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1542690449"></script>
+			<script src="js/colorPalette.js?_t=1542695767"></script>
+			<script src="js/colorPalette.palettes.js?_t=1542695767"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1542695767"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1542690449"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1542690449"></script>
-			<script src="js/wc2.js?_t=1542690449"></script>
-			<script src="js/wc2Tool.js?_t=1542690449"></script>
-			<script src="js/wc2Brush.js?_t=1542690449"></script>
+			<script src="js/class.WebCanvas.js?_t=1542695767"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1542695767"></script>
+			<script src="js/wc2.js?_t=1542695767"></script>
+			<script src="js/wc2Tool.js?_t=1542695767"></script>
+			<script src="js/wc2Brush.js?_t=1542695767"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1542690449"></script>
-			<script src="js/wc2Filter.js?_t=1542690449"></script>
-			<script src="js/wc2Helper.js?_t=1542690449"></script>
+			<script src="js/wc2PatternList.js?_t=1542695767"></script>
+			<script src="js/wc2Filter.js?_t=1542695767"></script>
+			<script src="js/wc2Helper.js?_t=1542695767"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1542690449"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1542690449"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1542695767"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1542695767"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();

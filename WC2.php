@@ -683,19 +683,19 @@ if($isCLI){
 											<col width="">
 											<tr>
 												<th>X</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="x0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" name="x0" value="0" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Y</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="y0" value="0" min="-99999" max="99999" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" name="y0" value="0" step="1" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Sacle</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"  data-prefix="x"><input type="range" name="sc" value="1" min="0.01" max="10" step="0.01" style="width:90%"></div></td>
 											</tr>
 											<tr>
 												<th>Rotate</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" style="width:90%"></div></td>
 											</tr>
 										</table>
 									</div>
