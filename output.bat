@@ -1,1 +1,1 @@
-php WC2_dev.php > WC2.html
+php WC2.php > WC2.html
