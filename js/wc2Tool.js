@@ -726,14 +726,15 @@ var wc2Tool = function(){
 				var f = document.formPropImage;
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
-
+					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()
 						var f = document.formPropImage;
-						f.left.value = r.left;
-						f.top.value = r.top;
-						f.right.value = r.right;
-						f.bottom.value = r.bottom;
+						var z = wcb.zoom;
+						f.left.value = r.left/z;
+						f.top.value = r.top/z;
+						f.right.value = r.right/z;
+						f.bottom.value = r.bottom/z;
 					});
 					this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
 						return function(evt){
@@ -785,19 +786,24 @@ var wc2Tool = function(){
 			}
 			,"predraw":function(){
 				var f = document.formPropImage;
-				this.sa.drawFromCoordinate(parseFloat(f.left.value,10),parseFloat(f.top.value,10),parseFloat(f.right.value,10),parseFloat(f.bottom.value,10));
+				var z = this.wcb.zoom;
+				this.sa.drawFromCoordinate(parseFloat(f.left.value,10)*z,parseFloat(f.top.value,10)*z,parseFloat(f.right.value,10)*z,parseFloat(f.bottom.value,10)*z);
 				this.sa.selectedArea.style.opacity = f.globalAlpha.value;
 			}
-			,"confirm":function(noQ){
+			,"draw":function(){
 				var f = document.formPropImage;
+				var r = this.sa.getSelectedAreaRect()
+				var z = this.wcb.zoom;
+				this.wcb.activeWebCanvas.saveContext2d();
+				this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
+				this.wcb.activeWebCanvas.drawImage(this.img,r.left/z,r.top/z,r.width/z,r.height/z );
+				this.wcb.activeWebCanvas.restoreContext2d();
+			}
+			,"confirm":function(noQ){
 
 				if(noQ || confirm("OK?")){
 					// this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-					var r = this.sa.getSelectedAreaRect()
-					// this.wcb.activeWebCanvas.drawImage(this.img,0,0,this.wcb.activeWebCanvas.width,this.wcb.activeWebCanvas.height,r.left,r.top,r.width,r.height);
-					this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value})
-
-					this.wcb.activeWebCanvas.drawImage(this.img,r.left,r.top,r.width,r.height );
+					this.draw();
 					this.sa.hide();
 					wc2Tool.saveHistory();
 					this.ing = 0;
