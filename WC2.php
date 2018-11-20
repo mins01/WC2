@@ -1175,7 +1175,7 @@ if($isCLI){
 									<option value="70">70%</option>
 									<option value="80">80%</option>
 									<option value="90">90%</option>
-									<option value="10" selected>100%</option>
+									<option value="100" selected>100%</option>
 									<option value="110">110%</option>
 									<option value="120">120%</option>
 									<option value="150">150%</option>
