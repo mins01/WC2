@@ -399,6 +399,11 @@ if($isCLI){
 												<th>bottom</th>
 												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="bottom"  ></div></td>
 											</tr>
+											<tr>
+												<td colspan="2">
+													<button type="button" onclick="wc2Tool.image2.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+												</td>
+											</tr>
 											
 										</table>
 									</div>

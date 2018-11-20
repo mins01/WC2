@@ -726,6 +726,7 @@ var wc2Tool = function(){
 				var f = document.formPropImage;
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
+					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()
@@ -789,6 +790,16 @@ var wc2Tool = function(){
 				var z = this.wcb.zoom;
 				this.sa.drawFromCoordinate(parseFloat(f.left.value,10)*z,parseFloat(f.top.value,10)*z,parseFloat(f.right.value,10)*z,parseFloat(f.bottom.value,10)*z);
 				this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+			}
+			,"fitCanvas":function(){
+				var w = this.wcb.activeWebCanvas
+				var r = w.getBoundingClientRect();
+				var f = document.formPropImage;
+				f.left.value=0;
+				f.top.value=0;
+				f.right.value=w.width;
+				f.bottom.value=w.height;
+				this.predraw();
 			}
 			,"draw":function(){
 				var f = document.formPropImage;
