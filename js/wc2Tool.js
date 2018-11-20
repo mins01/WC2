@@ -434,12 +434,6 @@ var wc2Tool = function(){
 			,"tf":null
 			,"init":function(wcb){
 				this.tf = document.formPropTransformProperty;
-				if(this.ing ==0){
-					//this.wcb = wcb;
-					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
-					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-					this._initXYWH();
-				}
 				this.predraw();
 				return true;
 			}
@@ -490,6 +484,12 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
+				if(this.ing ==0){
+					//this.wcb = wcb;
+					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+					this._initXYWH();
+				}
 				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x1 = t.x;
