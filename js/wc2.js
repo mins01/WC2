@@ -45,6 +45,7 @@ var wc2 = (function(){
 								"globalAlpha": 1, // 0~1
 								"globalCompositeOperation": "source-over", //source-atop,source-in,source-out,source-over (default),destination-atop,destination-in,destination-out,destination-over,lighter,copy,xor , vendorName-operationName(etc) //https://developer.mozilla.org/samples/canvas-tutorial/6_1_canvas_composite.html
 								"imageSmoothingEnabled": true, //이미지 리사이즈시 더 부드럽도록 보여준다.
+								"imageSmoothingQuality": "high", //이미지 퀼리티 설정 //"low" || "medium" || "high"
 								"lineCap": "round", // butt, round, square :  : use only "round"
 								"lineDashOffset": 0,
 								"lineJoin": "round", //bevel , round , miter :  : use only "round"
