@@ -728,7 +728,7 @@ var wc2Tool = function(){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
 					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
 					var wcb = this.wcb;
-					this.sa.addEventListener('change',function(evt){ // 커스텀 이벤트
+					this.sa.addEventListener('change',function(tool_image){ return function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()
 						var f = document.formPropImage;
 						var z = wcb.zoom;
@@ -736,7 +736,13 @@ var wc2Tool = function(){
 						f.top.value = r.top/z;
 						f.right.value = r.right/z;
 						f.bottom.value = r.bottom/z;
-					});
+						tool_image.predrawOnlyImage()
+						// console.log('SelectArea',evt.type);
+					}}(this));
+					this.sa.addEventListener('hide',function(tool_image){ return function(evt){ // 커스텀 이벤트
+						tool_image.predrawOnlyImage()
+						// console.log('SelectArea',evt.type);
+					}}(this));
 					this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
 						return function(evt){
 							tool_image.confirm();
@@ -752,22 +758,15 @@ var wc2Tool = function(){
 				this.initSelectArea();
 				this.tf = document.formPropTransformProperty;
 				this.img  = document.getElementById('imageNode');
-				this.img.onload = function(toolImage){
+				this.img.onload = function(tool_image){
 					return function(){
-						// toolImage._initXYWH();
-						// toolImage.predraw()
-						toolImage.sa.selectedArea.innerHTML = '';
-						toolImage.sa.selectedArea.appendChild(this.cloneNode(true));
+								tool_image.predrawOnlyImage()
 					}
 				}(this);
-				this.sa.selectedArea.innerHTML = '';
-				this.sa.selectedArea.appendChild(this.img.cloneNode(true));
 				this.sa.enable();
 				this.sa.hide();
 				if(this.ing ==0){
 					this.ing = 1;
-					// this._initXYWH();
-					// this.predraw();
 				}
 
 				return true;
@@ -788,12 +787,32 @@ var wc2Tool = function(){
 			,"predraw":function(){
 				var f = document.formPropImage;
 				var z = this.wcb.zoom;
+				var r = this.sa.getSelectedAreaRect()
 				this.sa.drawFromCoordinate(parseFloat(f.left.value,10)*z,parseFloat(f.top.value,10)*z,parseFloat(f.right.value,10)*z,parseFloat(f.bottom.value,10)*z);
-				this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+				// this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+				// this.predrawOnlyImage(); //onchange 에서 처리되니깐 할 필요 없음
+			}
+			,"predrawOnlyImage":function(){
+				var f = document.formPropImage;
+				var z = this.wcb.zoom;
+				var r = this.sa.getSelectedAreaRect()
+				var swc = this.wcb.shadowWebCanvas;
+				var img = this.img;
+				if(this.sa.isShow()){
+					setTimeout(function(){
+						swc.saveContext2d();
+						swc.clear();
+						swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
+						swc.drawImage(img,r.left/z,r.top/z,r.width/z,r.height/z );
+						swc.restoreContext2d();
+					},0)	
+				}else{
+					swc.clear();
+				}
+				// console.log(this.img,r.left/z,r.top/z,r.width/z,r.height/z )
 			}
 			,"fitCanvas":function(){
 				var w = this.wcb.activeWebCanvas
-				var r = w.getBoundingClientRect();
 				var f = document.formPropImage;
 				f.left.value=0;
 				f.top.value=0;
@@ -807,8 +826,10 @@ var wc2Tool = function(){
 				var z = this.wcb.zoom;
 				this.wcb.activeWebCanvas.saveContext2d();
 				this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
-				this.wcb.activeWebCanvas.drawImage(this.img,r.left/z,r.top/z,r.width/z,r.height/z );
+				// this.wcb.activeWebCanvas.drawImage(this.img,r.left/z,r.top/z,r.width/z,r.height/z );
+				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				this.wcb.activeWebCanvas.restoreContext2d();
+				this.wcb.shadowWebCanvas.clear();
 			}
 			,"confirm":function(noQ){
 
@@ -827,11 +848,14 @@ var wc2Tool = function(){
 					if(confirm("Not Confirm! Confirm OK?")){
 						var r = this.confirm(true);
 						this.sa.disable();
+						this.wcb.shadowWebCanvas.clear();
 						return r;
 					}else{
 						this.ing = 0;
+						
 					}
 				}
+				this.wcb.shadowWebCanvas.clear();
 				this.sa.disable();
 				return true;
 			}
