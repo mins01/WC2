@@ -22,9 +22,11 @@ https://github.com/phstc/jquery-dateFormat : MIT
 https://github.com/jquery/jquery-mousewheel : https://github.com/jquery/jquery-mousewheel/blob/master/LICENSE.txt
 https://github.com/ccampbell/mousetrap : Apache 2.0
 https://github.com/eligrey/FileSaver.js : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
-http://odyniec.net/projects/imgareaselect/ (https://github.com/odyniec/imgareaselect) : MIT and GPLv2
+//http://odyniec.net/projects/imgareaselect/ (https://github.com/odyniec/imgareaselect) : MIT and GPLv2// 2018-11-23 사용안함
 https://github.com/pieroxy/lz-string/ (http://pieroxy.net/blog/pages/lz-string/index.html) :  WTFPL
 https://github.com/kig/canvasfilters : MIT
 https://www.npmjs.com/package/rgbquant : MIT
 https://github.com/jnordberg/gif.js : MIT
 https://github.com/mins01/WG2/ : "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
+https://github.com/mins01/ui_SelectArea : MIT , "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
+https://github.com/mins01/ui_InputRangeBox : MIT , "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
