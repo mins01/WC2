@@ -1398,21 +1398,21 @@ var wc2Tool = function(){
 			}
 		}//-- end fn
 		//-- 잘라내기, 크롭, crop
-		,"crop2":{
+		,"crop":{
 			"wcb":null
 			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
 			,"left":-1,"top":-1
 			,"left1":-1,"top1":-1
 			,"f":null
 			,"initSelectArea":function(){
-				var f = document.formToolCrop2;
+				var f = this.f
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.node)
 					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(tool_image){ return function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()
-						var f = document.formToolCrop2;
+						// var f = document.formToolCrop2;
 						var z = wcb.zoom;
 						f.left.value = r.left/z;
 						f.top.value = r.top/z;
@@ -1438,7 +1438,7 @@ var wc2Tool = function(){
 			}
 			,"init":function(wcb){
 				// imageAreaSelect
-				this.f = document.formToolCrop2;
+				this.f = document.formToolCrop;
 				this.initSelectArea();
 				this.sa.enable();
 				this.sa.hide();
