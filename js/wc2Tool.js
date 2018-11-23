@@ -1491,6 +1491,92 @@ var wc2Tool = function(){
 				return true;
 			}
 		} //-- end fn
+		//-- 잘라내기, 크롭, crop
+		,"crop2":{
+			"wcb":null
+			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
+			,"left":-1,"top":-1
+			,"left1":-1,"top1":-1
+			,"f":null
+			,"initSelectArea":function(){
+				var f = document.formToolCrop2;
+				if(!this.sa){
+					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.node)
+					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
+					var wcb = this.wcb;
+					this.sa.addEventListener('change',function(tool_image){ return function(evt){ // 커스텀 이벤트
+						var r = this.getSelectedAreaRect()
+						var f = document.formToolCrop2;
+						var z = wcb.zoom;
+						f.left.value = r.left/z;
+						f.top.value = r.top/z;
+						f.right.value = r.right/z;
+						f.bottom.value = r.bottom/z;
+						// tool_image.predrawOnlyImage()
+						// console.log('SelectArea',evt.type);
+					}}(this));
+					this.sa.addEventListener('hide',function(tool_image){ return function(evt){ // 커스텀 이벤트
+						// tool_image.predrawOnlyImage()
+						// console.log('SelectArea',evt.type);
+					}}(this));
+					this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
+						return function(evt){
+							tool_image.confirm();
+						}
+					}(this));
+				}else{
+					this.sa.setTarget(this.wcb.activeWebCanvas,this.wcb.node);
+				}
+				// this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+				return this.sa;
+			}
+			,"init":function(wcb){
+				// imageAreaSelect
+				this.f = document.formToolCrop2;
+				this.initSelectArea();
+				this.sa.enable();
+				this.sa.hide();
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"mousewheel":function(event){
+				return true;
+			}
+			,"down":function(event){
+				return true;
+			}
+			,"move":function(event){
+				return true;
+			}
+			,"up":function(event){
+				return true;
+			}
+			,"predraw":function(){
+				var f = this.f
+				var z = this.wcb.zoom;
+				// var r = this.sa.getSelectedAreaRect()
+				this.sa.drawFromCoordinate(parseFloat(f.left.value,10)*z,parseFloat(f.top.value,10)*z,parseFloat(f.right.value,10)*z,parseFloat(f.bottom.value,10)*z);
+				return true;
+			}
+			,"confirm":function(){
+				this.reset(1);
+				var x = parseInt(this.f.left.value,10), y  = parseInt(this.f.top.value,10);
+				var width = parseInt(this.f.right.value,10)-x,height = parseInt(this.f.bottom.value,10)-y;
+				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)){
+					wc2.setError("tool.crop() : 잘못된 입력값.")
+				}else{
+					wc2.cmdWcb("crop",x,y,width,height);
+				}
+			}
+			,"reset":function(){
+				if(this.sa){
+					this.sa.disable();
+				}
+				return true;
+			}
+		} //-- end fn
 		//-- 패턴
 		,"pattern":{
 			"wcb":null

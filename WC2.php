@@ -283,6 +283,7 @@ if($isCLI){
 
 							<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
 							<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop"  type="button" title="Crop"></button>
+							<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop2"  type="button" title="Crop"></button>
 							<button class="btn btn-default glyphicon no-glyphicon " data-wc-tool="line" type="button" title="Line">⁄</button>
 							<button class="btn btn-default glyphicon no-glyphicon"  data-wc-tool="curve" type="button" title="Curve">∼</button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
@@ -998,6 +999,33 @@ if($isCLI){
 										</div>
 									</div>
 								</form>
+								<form name="formToolCrop2" action="javascript:void(0)" class="wc-tool wc-tool-crop2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange(event)">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Crop</div>
+										<div  class="panel-body">
+											<table class="" style="width:100%">
+												<col width="60">
+												<col width="">
+												<tr>
+													<th>Left</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="left"  ></div></td>
+												</tr>
+												<tr>
+													<th>top</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="top"  ></div></td>
+												</tr>
+												<tr>
+													<th>right</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="right"  ></div></td>
+												</tr>
+												<tr>
+													<th>bottom</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="bottom"  ></div></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</form>
 								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
@@ -1013,7 +1041,7 @@ if($isCLI){
 										</div>
 									</div>
 								</form>
-								<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
+								<form name="formConfirm" action="javascript:void(0)" class="wc-tool wc-tool-crop wc-tool-crop2" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Reset</div>
 										<div  class="panel-body">
