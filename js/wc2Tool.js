@@ -841,25 +841,24 @@ var wc2Tool = function(){
 					this.sa.hide();
 					wc2Tool.saveHistory();
 					this.ing = 0;
+					console.log("confirm")
 				}
 				return true;
 
 			}
 			,"reset":function(type){
+				var r = true;
 				if(this.ing ==1){
-					if(confirm("Not Confirm! Confirm OK?")){
-						var r = this.confirm(true);
-						this.sa.disable();
-						this.wcb.shadowWebCanvas.clear();
-						return r;
-					}else{
+					if(!this.sa.isShow()){
 						this.ing = 0;
-						
+					}else if(confirm("Not Confirm! Confirm OK?")){
+						r = this.confirm(true);
 					}
 				}
+				this.ing = 0;
 				this.wcb.shadowWebCanvas.clear();
 				this.sa.disable();
-				return true;
+				return r;
 			}
 			,"initPreview":function(){
 				if(this.ing ==1){
