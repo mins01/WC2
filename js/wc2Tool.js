@@ -1418,12 +1418,18 @@ var wc2Tool = function(){
 						f.top.value = r.top/z;
 						f.right.value = r.right/z;
 						f.bottom.value = r.bottom/z;
+						f.width.value = r.width/z;
+						f.height.value = r.height/z;
 						// tool_image.predrawOnlyImage()
 						// console.log('SelectArea',evt.type);
 					}}(this));
 					this.sa.addEventListener('hide',function(tool_image){ return function(evt){ // 커스텀 이벤트
-						// tool_image.predrawOnlyImage()
-						// console.log('SelectArea',evt.type);
+						f.left.value = 0;
+						f.top.value = 0;
+						f.right.value = 0;
+						f.bottom.value = 0;
+						f.width.value = 0;
+						f.height.value = 0;
 					}}(this));
 					this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
 						return function(evt){
@@ -1467,14 +1473,15 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"confirm":function(){
-				this.reset(1);
 				var x = parseInt(this.f.left.value,10), y  = parseInt(this.f.top.value,10);
-				var width = parseInt(this.f.right.value,10)-x,height = parseInt(this.f.bottom.value,10)-y;
-				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)){
+				var width = parseInt(this.f.width.value,10),height = parseInt(this.f.height.value,10);
+				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)||x<=0||y<=0||width<=0||height<=0){
 					wc2.setError("tool.crop() : 잘못된 입력값.")
 				}else{
 					wc2.cmdWcb("crop",x,y,width,height);
 				}
+				this.initSelectArea();
+				this.sa.enable();
 			}
 			,"reset":function(){
 				if(this.sa){

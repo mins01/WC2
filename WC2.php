@@ -994,6 +994,14 @@ if($isCLI){
 													<th>bottom</th>
 													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="bottom"  ></div></td>
 												</tr>
+												<tr>
+													<th>width</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="width" disabled  ></div></td>
+												</tr>
+												<tr>
+													<th>height</th>
+													<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="height" disabled  ></div></td>
+												</tr>
 											</table>
 										</div>
 									</div>
