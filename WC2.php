@@ -282,7 +282,6 @@ if($isCLI){
 							<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush3"  type="button" title="Brush Set3"><span class="small-text  tiny-text">B3</span></button>
 
 							<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
-							<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop"  type="button" title="Crop"></button>
 							<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop2"  type="button" title="Crop"></button>
 							<button class="btn btn-default glyphicon no-glyphicon " data-wc-tool="line" type="button" title="Line">⁄</button>
 							<button class="btn btn-default glyphicon no-glyphicon"  data-wc-tool="curve" type="button" title="Curve">∼</button>
@@ -969,33 +968,6 @@ if($isCLI){
 
 											</div>
 
-										</div>
-									</div>
-								</form>
-								<form name="formToolCrop" action="javascript:void(0)" class="wc-tool wc-tool-crop" onsubmit="return false">
-									<div class="panel panel-default">
-										<div  class="panel-heading">Crop</div>
-										<div  class="panel-body">
-											<table class="" style="width:100%">
-												<col width="60">
-												<col width="">
-												<tr>
-													<th>X</th>
-													<th><input type="text" class="form-control readonly" name="x" value="0" readonly></th>
-												</tr>
-												<tr>
-													<th>Y</th>
-													<th><input type="text" class="form-control readonly" name="y" value="0" readonly></th>
-												</tr>
-												<tr>
-													<th>Width</th>
-													<th><input type="text" class="form-control readonly" name="width" value="0" readonly></th>
-												</tr>
-												<tr>
-													<th>Height</th>
-													<th><input type="text" class="form-control readonly" name="height" value="0" readonly></th>
-												</tr>
-											</table>
 										</div>
 									</div>
 								</form>
