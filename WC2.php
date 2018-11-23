@@ -1398,6 +1398,9 @@ if($isCLI){
 											<li class="list-group-item list-group-item-info" id="wc-mdetail-file-view-info"></li>
 											<li class="list-group-item no-padding" id="wc-mdetail-file-view-image"></li>
 											<li class="list-group-item text-center">
+												<input type="text" class="form-control" name="dataURL" value="" id="wc-mdetail-file-view-dataURL" onfocus="this.select()" />
+											</li>
+											<li class="list-group-item text-center">
 												<button class="btn btn-default btn-sm  glyphicon glyphicon-remove-circle" type="button" onclick="wc2.hideMenuDetail();"> Close</button>
 											</li>
 										</ul>

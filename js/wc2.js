@@ -1103,6 +1103,7 @@ var wc2 = (function(){
 				$("#wc-mdetail-file-view-title").text(this.title)
 				$("#wc-mdetail-file-view-info").text(this.naturalWidth+" x "+this.naturalHeight+" (px)")
 				$("#wc-mdetail-file-view-image").html(this.parentNode)
+				$("#wc-mdetail-file-view-dataURL").val(this.src);
 				wc2.showMenuDetail("file-view");
 			})
 
