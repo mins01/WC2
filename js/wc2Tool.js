@@ -802,7 +802,9 @@ var wc2Tool = function(){
 					setTimeout(function(){
 						swc.saveContext2d();
 						swc.clear();
-						swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
+						// swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":false,"imageSmoothingQuality":'high'})
+						swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":(f.imageSmoothingEnabled.value=="1"),"imageSmoothingQuality":f.imageSmoothingQuality.value})
+						// console.log(swc.context2d.imageSmoothingQuality);
 						swc.drawImage(img,r.left/z,r.top/z,r.width/z,r.height/z );
 						swc.restoreContext2d();
 					},0)	
@@ -825,7 +827,7 @@ var wc2Tool = function(){
 				var r = this.sa.getSelectedAreaRect()
 				var z = this.wcb.zoom;
 				this.wcb.activeWebCanvas.saveContext2d();
-				this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
+				// this.wcb.activeWebCanvas.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":true,"imageSmoothingQuality":'high'})
 				// this.wcb.activeWebCanvas.drawImage(this.img,r.left/z,r.top/z,r.width/z,r.height/z );
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				this.wcb.activeWebCanvas.restoreContext2d();

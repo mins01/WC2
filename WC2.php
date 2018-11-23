@@ -359,7 +359,7 @@ if($isCLI){
 							</form>
 
 
-							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange()">
+							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -385,20 +385,40 @@ if($isCLI){
 											</tr>
 											<tr>
 												<th>Left</th>
-												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="left"  ></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="left"  ></div></td>
 											</tr>
 											<tr>
 												<th>top</th>
-												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="top"  ></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="top"  ></div></td>
 											</tr>
 											<tr>
 												<th>right</th>
-												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="right"  ></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="right"  ></div></td>
 											</tr>
 											<tr>
 												<th>bottom</th>
-												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" oninput="wc2Tool.image2.predraw();" name="bottom"  ></div></td>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="bottom"  ></div></td>
 											</tr>
+											<tr>
+												<th>smooth</th>
+												<td>
+													<select name="imageSmoothingEnabled" class="btn btn-default btn-sm" style="width:6em">
+														<option value="1">on</option>
+														<option value="0">off</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>smooth quality</th>
+												<td>
+													<select name="imageSmoothingQuality" class="btn btn-default btn-sm" style="width:6em">
+														<option value="high">high</option>
+														<option value="medium">medium</option>
+														<option value="low">low</option>														
+													</select>
+												</td>
+											</tr>
+											
 											<tr>
 												<td colspan="2">
 													<button type="button" onclick="wc2Tool.image2.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
