@@ -834,7 +834,6 @@ var wc2Tool = function(){
 				this.wcb.shadowWebCanvas.clear();
 			}
 			,"confirm":function(noQ){
-
 				if(noQ || confirm("OK?")){
 					// this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 					this.draw();
@@ -844,7 +843,6 @@ var wc2Tool = function(){
 					console.log("confirm")
 				}
 				return true;
-
 			}
 			,"reset":function(type){
 				var r = true;
@@ -1212,6 +1210,143 @@ var wc2Tool = function(){
 					this._initXYWH();
 					this.predraw();
 				}
+				return true;
+			}
+		} //-- end fn
+		//--- 텍스트
+		,"text2":{
+			"wcb":null
+			,"f":null
+			,"textNode":null
+			,"initSelectArea":function(){
+				var f = this.f
+				if(!this.sa){
+					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
+					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
+					this.sa.selectedArea.innerHTML='<textarea class="contenteditable-div" style="padding: 0;margin: 0;border-width: 0;background-color: transparent;white-space: nowrap;overflow: hidden;" contenteditable="true"></textarea>';		
+					this.sa.inputText = this.sa.selectedArea.querySelector('.contenteditable-div');
+					var wcb = this.wcb;
+					this.sa.addEventListener('change',function(tool){ return function(evt){ // 커스텀 이벤트
+						var r = this.getSelectedAreaRect()
+						// var f = document.formToolCrop2;
+						var z = wcb.zoom;
+						f.left.value = r.left/z;
+						f.top.value = r.top/z;
+						f.right.value = r.right/z;
+						f.bottom.value = r.bottom/z;
+						f.width.value = r.width/z;
+						f.height.value = r.height/z;
+						tool.predrawOnlyImage()
+						// console.log('SelectArea',evt.type);
+					}}(this));
+					this.sa.inputText.addEventListener('input',function(tool){ return function(evt){ // 커스텀 이벤트
+						tool.predrawOnlyImage()
+					}}(this));
+					this.sa.inputText.addEventListener('scroll',function(tool){ return function(evt){ // 커스텀 이벤트
+						tool.predrawOnlyImage()
+						return false;
+					}}(this));
+					
+					this.sa.addEventListener('show',function(tool){ return function(evt){ // 커스텀 이벤트
+						this.inputText.focus();
+					}}(this));
+					this.sa.addEventListener('hide',function(tool){ return function(evt){ // 커스텀 이벤트
+						f.left.value = 0;
+						f.top.value = 0;
+						f.right.value = 0;
+						f.bottom.value = 0;
+						f.width.value = 0;
+						f.height.value = 0;
+						tool.predrawOnlyImage()
+					}}(this));
+					// this.sa.selectedArea.addEventListener("dblclick",function(tool_image){
+					// 	return function(evt){
+					// 		tool_image.confirm();
+					// 	}
+					// }(this));
+				}else{
+					this.sa.setTarget(this.wcb.activeWebCanvas,this.wcb.wcbFrame);
+				}
+				// this.sa.selectedArea.style.opacity = f.globalAlpha.value;
+				return this.sa;
+			}
+			,"init":function(wcb){
+				// imageAreaSelect
+				this.f = document.formPropText2;
+				this.initSelectArea();
+				this.sa.enable();
+				this.sa.hide();
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				return true;
+			}
+			,"move":function(event){
+				return true;
+			}
+			,"up":function(event){
+				return true;
+			}
+			,"predrawOnlyImage":function(){
+				var f = this.f;
+				var txt = this.sa.inputText.value.trim();
+				var z = this.wcb.zoom;
+				var swc = this.wcb.shadowWebCanvas;
+				var inputText = this.sa.inputText;
+				inputText.style.font=this.wcb.shadowWebCanvas.context2d.font;
+				inputText.style.fontSize=this.wcb.shadowWebCanvas.context2d.fontSize*z+'px';
+				inputText.style.lineHeight=this.wcb.shadowWebCanvas.context2d.lineHeight+'em';
+				
+				inputText.scrollLeft = 0;
+				inputText.scrollTop = 0;
+				if(this.sa.isShow()){
+					swc.saveContext2d();
+					swc.clear();
+					swc.cmdContext2d("beginPath");
+					swc.cmdContext2d("rect",parseFloat(f.left.value),parseFloat(f.top.value),parseFloat(f.width.value),parseFloat(f.height.value));
+					swc.cmdContext2d("clip");
+					swc.text(txt,parseFloat(f.left.value),parseFloat(f.top.value));
+					swc.cmdContext2d("closePath");
+					swc.restoreContext2d();
+				}else{
+					swc.clear()
+				}
+				// console.log(txt);		
+			}
+			,"predraw":function(){
+				var f = this.f
+				var z = this.wcb.zoom;
+				var r = this.sa.getSelectedAreaRect()
+				this.sa.drawFromCoordinate(parseFloat(f.left.value,10)*z,parseFloat(f.top.value,10)*z,parseFloat(f.right.value,10)*z,parseFloat(f.bottom.value,10)*z);
+			}
+			,"draw":function(){
+				this.wcb.activeWebCanvas.saveContext2d();
+				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
+				this.wcb.activeWebCanvas.restoreContext2d();
+				this.wcb.shadowWebCanvas.clear();
+			}
+			,"confirm":function(noQ){
+				if(noQ || confirm("OK?")){
+					this.draw();
+					this.sa.hide();
+					this.sa.inputText.value="";
+					wc2Tool.saveHistory();
+					console.log("confirm")
+				}
+				return true;
+			}
+			,"reset":function(){
+				this.wcb.shadowWebCanvas.clear();
+				this.sa.hide();
+				this.sa.inputText.value="";
+				this.sa.disable();
+				return true;
+			}
+			,"initPreview":function(){
+				this.sa.hide();
 				return true;
 			}
 		} //-- end fn

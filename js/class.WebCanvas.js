@@ -615,12 +615,13 @@ function WebCanvas(width,height,colorset){
 			var fontSize = parseFloat((this.context2d.font.match(/\d+px/))[0]);
 			var lineHeight = this.context2d.lineHeight; //lineHeight는 이후 설정할 수 있도록 하자.
 			var texts = text.split(/\n/);
+			var gap = (fontSize*lineHeight - fontSize)/2; //처음 높이 맞추기
 			for(var i=0,m=texts.length;i<m;i++){
 				if(!this.context2d.disableFill){
-					this.cmdContext2d("fillText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+					this.cmdContext2d("fillText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i)+gap);
 				}
 				if(!this.context2d.disableStroke){
-					this.cmdContext2d("strokeText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i));
+					this.cmdContext2d("strokeText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i)+gap);
 				}
 			}
 			return true;

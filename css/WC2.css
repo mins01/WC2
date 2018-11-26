@@ -490,3 +490,9 @@ cursor:pointer;
 	image-rendering: crisp-edges;
 	-ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
 }
+
+.contenteditable-div{
+	color: transparent;
+	/* color:rgba(0,0,0,0.1); */
+	caret-color: #000;
+}
