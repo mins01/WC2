@@ -2,13 +2,13 @@
 <?
 // exit("APP cache 포기로 HTML에서 바로 수정한다.") // JS 캐시 등의 이유로 계속 쓴다. 모바일에서 새로고침 하기가 힘들다.
 $t = time();
-
-$isCLI = (php_sapi_name() == "cli");
-if($isCLI){
-	$tsync = '?_t='.$t;
-}else{
-	$tsync = '';
-}
+$tsync = '?_t='.$t; //항상 세로 고침 되도록.
+// $isCLI = (php_sapi_name() == "cli");
+// if($isCLI){
+// 	$tsync = '?_t='.$t;
+// }else{
+// 	$tsync = '';
+// }
 ?>
 <!--
 2015-04-23 : 제작시작
