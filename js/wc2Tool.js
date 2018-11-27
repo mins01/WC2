@@ -42,6 +42,7 @@ var wc2Tool = function(){
 			return this[toolName].init();
 		}
 		,"onDown":function(toolName,event){
+			if(this[toolName].skipEvent){return}//자체 이벤트 처리 스킵
 			var evt = event.originalEvent?event.originalEvent:event;
 			// $("#dev_text").text(":1"+evt.type+":"+evt.pointerType);
 			this.isDown=1;
@@ -49,12 +50,14 @@ var wc2Tool = function(){
 			return this[toolName].down(evt);
 		}
 		,"onMove":function(toolName,event){
+			if(this[toolName].skipEvent){return}//자체 이벤트 처리 스킵
 			var evt = event.originalEvent?event.originalEvent:event;
 			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
 			//에러는 init에서 이미 체크했다.
 			return this[toolName].move(evt);
 		}
 		,"onUp":function(toolName,event){
+			if(this[toolName].skipEvent){return}//자체 이벤트 처리 스킵
 			var evt = event.originalEvent?event.originalEvent:event;
 
 			if(this.isDown==0 && !this[toolName].ignoreIsDown){ return false;}
@@ -715,13 +718,9 @@ var wc2Tool = function(){
 		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
 		,"image2":{
 			"wcb":null
-			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
-			,"w0":-1,"h0":-1
-			,"dw":-1,"dh":-1,"sc":1 //확대관련
-			,"deg":0//회전관련(각도)
-			,"ing":0
 			,"f":null
 			,"sa":null
+			,"skipEvent":true //tool의 자체 이벤트 처리 사용 안함.
 			,"initSelectArea":function(){
 				var f = document.formPropImage;
 				if(!this.sa){
@@ -846,12 +845,8 @@ var wc2Tool = function(){
 			}
 			,"reset":function(type){
 				var r = true;
-				if(this.ing ==1){
-					if(!this.sa.isShow()){
-						this.ing = 0;
-					}else if(confirm("Not Confirm! Confirm OK?")){
-						r = this.confirm(true);
-					}
+				if(this.sa.isShow() && confirm("Not Confirm! Confirm OK?")){
+					r = this.confirm(true);
 				}
 				this.ing = 0;
 				this.wcb.shadowWebCanvas.clear();
@@ -1218,6 +1213,7 @@ var wc2Tool = function(){
 			"wcb":null
 			,"f":null
 			,"textNode":null
+			,"skipEvent":true //tool의 자체 이벤트 처리 사용 안함.
 			,"initSelectArea":function(){
 				var f = this.f
 				if(!this.sa){
@@ -1350,6 +1346,7 @@ var wc2Tool = function(){
 					swc.restoreContext2d();
 				}else{
 					swc.clear()
+					this.ing = 0;
 				}
 				// console.log(txt);		
 			}
@@ -1575,10 +1572,8 @@ var wc2Tool = function(){
 		//-- 잘라내기, 크롭, crop
 		,"crop":{
 			"wcb":null
-			,"x0":-1,"y0":-1,"x1":-1,"y1":-1
-			,"left":-1,"top":-1
-			,"left1":-1,"top1":-1
 			,"f":null
+			,"skipEvent":true //tool의 자체 이벤트 처리 사용 안함.
 			,"initSelectArea":function(){
 				var f = this.f
 				if(!this.sa){
@@ -1659,9 +1654,10 @@ var wc2Tool = function(){
 				this.sa.enable();
 			}
 			,"reset":function(){
-				if(this.sa){
-					this.sa.disable();
+				if(this.sa.isShow() && confirm("Not Confirm! Confirm OK?")){
+					r = this.confirm(true);
 				}
+				this.sa.disable();
 				return true;
 			}
 		} //-- end fn
