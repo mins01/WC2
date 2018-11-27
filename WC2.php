@@ -633,31 +633,15 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 													</optgroup>
 												</select></td>
 											</tr>
-											<!-- <tr>
-												<th colspan="2">
-													<div class="btn-group  btn-group-xs" onclick="wc2.cmdTool('predraw')">
-														<button class="btn btn-default glyphicon active" value="start" title="start : Align to the start edge of the text (left side in left-to-right text, right side in right-to-left text)." onclick="clickBtnTextAlign(this)">S</button>
-														<button class="btn btn-default glyphicon glyphicon-align-left" value="left"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-center" value="center"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-right" value="right"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon " value="end" title="end : Align to the end edge of the text (right side in left-to-right text, left side in right-to-left text)."  onclick="clickBtnTextAlign(this)">E</button>
+											<tr>
+												<td colspan="2">
+													<div class="btn-group">
+														<label class="btn btn-default btn-xs"><input type="radio" value="left" checked name="textAlign"> <span class="glyphicon glyphicon-align-left"></span></label>
+														<label class="btn btn-default btn-xs"><input type="radio" value="center" name="textAlign"> <span class="glyphicon glyphicon-align-center"></span></label>
+														<label class="btn btn-default btn-xs"><input type="radio" value="right" name="textAlign"> <span class="glyphicon glyphicon-align-right"></span></label>
 													</div>
-													<input type="hidden" name="textAlign">
-													<script>
-													function clickBtnTextAlign(btn){
-														btn.form.textAlign.value = btn.value;
-														$(btn.parentNode).find("button.btn").each(
-															function(idx,el){
-																$(this).removeClass("active");
-															}
-														);
-														$(btn).addClass("active");
-														if(btn.onchange) btn.onchange();
-														btn.blur();
-													}
-													</script>
-												</th>
-											</tr> -->
+												</td>
+											</tr>
 											
 											<!-- <tr>
 												<th>baseline</th>

@@ -315,8 +315,8 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			$('body').on("selectstart","*:not(input,textarea)", function(event){ return false; });
-			$('#contentArea').on("dragstart","*:not(input,textarea)", function(event){ return false; });
+			// $('body').on("selectstart","*:not(input,textarea,.contenteditable-div)", function(event){ return false; });
+			// $('#contentArea').on("dragstart","*:not(input,textarea,.contenteditable-div)", function(event){ return false; });
 			// 입룻랙 제거용
 			// $(document).on("touchstart ","input", stopEvent);
 

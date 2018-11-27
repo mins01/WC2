@@ -1223,7 +1223,9 @@ var wc2Tool = function(){
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
 					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
-					this.sa.selectedArea.innerHTML='<textarea class="contenteditable-div" style="padding: 0;margin: 0;border-width: 0;background-color: transparent;white-space: nowrap;overflow: hidden;" contenteditable="true"></textarea>';		
+					// this.sa.selectedArea.innerHTML='<textarea class="contenteditable-div" style="padding: 0;margin: 0;border-width: 0;background-color: transparent;white-space: nowrap;overflow: hidden;" contenteditable="true"></textarea>';		
+					this.sa.selectedArea.innerHTML='<div style="overflow: hidden;"><div class="contenteditable-div" style="width:auto;min-width:9999px;height:100%;display: inline-block;white-space: nowrap" contenteditable="true"></div></div>';		
+
 					this.sa.inputText = this.sa.selectedArea.querySelector('.contenteditable-div');
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(tool){ return function(evt){ // 커스텀 이벤트
@@ -1242,7 +1244,7 @@ var wc2Tool = function(){
 					this.sa.inputText.addEventListener('input',function(tool){ return function(evt){ // 커스텀 이벤트
 						tool.predrawOnlyImage()
 					}}(this));
-					this.sa.inputText.addEventListener('scroll',function(tool){ return function(evt){ // 커스텀 이벤트
+					this.sa.inputText.parentNode.addEventListener('scroll',function(tool){ return function(evt){ // 커스텀 이벤트
 						tool.predrawOnlyImage()
 						return false;
 					}}(this));
@@ -1292,23 +1294,58 @@ var wc2Tool = function(){
 			}
 			,"predrawOnlyImage":function(){
 				var f = this.f;
-				var txt = this.sa.inputText.value.trim();
+				// var txt = this.sa.inputText.value.trim();
+				var txt = this.sa.inputText.innerText.trim();
 				var z = this.wcb.zoom;
 				var swc = this.wcb.shadowWebCanvas;
 				var inputText = this.sa.inputText;
+				// inputText.scrollLeft = 0;
+				inputText.scrollTop = 0;
+				
 				inputText.style.font=this.wcb.shadowWebCanvas.context2d.font;
 				inputText.style.fontSize=this.wcb.shadowWebCanvas.context2d.fontSize*z+'px';
 				inputText.style.lineHeight=this.wcb.shadowWebCanvas.context2d.lineHeight+'em';
-				
-				inputText.scrollLeft = 0;
-				inputText.scrollTop = 0;
+				inputText.style.textAlign=this.wcb.shadowWebCanvas.context2d.textAlign;
+
 				if(this.sa.isShow()){
 					swc.saveContext2d();
 					swc.clear();
 					swc.cmdContext2d("beginPath");
 					swc.cmdContext2d("rect",parseFloat(f.left.value),parseFloat(f.top.value),parseFloat(f.width.value),parseFloat(f.height.value));
 					swc.cmdContext2d("clip");
-					swc.text(txt,parseFloat(f.left.value),parseFloat(f.top.value));
+					var x = 0,y=parseFloat(f.top.value);
+					var ta = this.wcb.shadowWebCanvas.context2d.textAlign;
+					if(ta=='start'){
+						ta=(document.dir=='rtl')?'right':'left';
+					}else if(ta=='end'){
+						ta=(document.dir=='rtl')?'left':'right';
+					}
+					inputText.parentNode.scrollTop = 0;
+
+					switch (ta) {
+						case 'start':
+						case 'left':
+						inputText.style.marginLeft = 0
+						inputText.parentNode.scrollLeft = 0;
+						x = parseFloat(f.left.value)
+						break;
+						case 'center':
+						inputText.style.marginLeft = -1*(inputText.offsetWidth-inputText.parentNode.offsetWidth)/2+'px';
+						x = (parseFloat(f.left.value)+parseFloat(f.right.value))/2;
+						inputText.parentNode.scrollLeft = 0;
+						// 
+						break;
+						case 'end':
+						case 'right':
+						inputText.style.marginLeft = -1*(inputText.offsetWidth-parseFloat(f.width.value))+'px';
+						inputText.parentNode.scrollLeft = inputText.scrollWidth;
+						x = parseFloat(f.right.value);
+						break;
+						
+						default:
+							
+					}
+					swc.text(txt,x,y);
 					swc.cmdContext2d("closePath");
 					swc.restoreContext2d();
 				}else{
@@ -1327,13 +1364,13 @@ var wc2Tool = function(){
 				this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
 				this.wcb.activeWebCanvas.restoreContext2d();
 				this.wcb.shadowWebCanvas.clear();
+				wc2Tool.saveHistory();
 			}
 			,"confirm":function(noQ){
 				if(noQ || confirm("OK?")){
 					this.draw();
 					this.sa.hide();
-					this.sa.inputText.value="";
-					wc2Tool.saveHistory();
+					this.sa.inputText.innerText ="";
 					console.log("confirm")
 				}
 				return true;
@@ -1344,7 +1381,7 @@ var wc2Tool = function(){
 				}
 				this.wcb.shadowWebCanvas.clear();
 				this.sa.hide();
-				this.sa.inputText.value="";
+				this.sa.inputText.innerText ="";
 				this.sa.disable();
 				return true;
 			}
