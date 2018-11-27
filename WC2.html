@@ -67,12 +67,12 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1543221518" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1543221518" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1543300996" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1543300996" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1543221518" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1543221518" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1543300996" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1543300996" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -622,31 +622,15 @@
 													</optgroup>
 												</select></td>
 											</tr>
-											<!-- <tr>
-												<th colspan="2">
-													<div class="btn-group  btn-group-xs" onclick="wc2.cmdTool('predraw')">
-														<button class="btn btn-default glyphicon active" value="start" title="start : Align to the start edge of the text (left side in left-to-right text, right side in right-to-left text)." onclick="clickBtnTextAlign(this)">S</button>
-														<button class="btn btn-default glyphicon glyphicon-align-left" value="left"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-center" value="center"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-right" value="right"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon " value="end" title="end : Align to the end edge of the text (right side in left-to-right text, left side in right-to-left text)."  onclick="clickBtnTextAlign(this)">E</button>
+											<tr>
+												<td colspan="2">
+													<div class="btn-group">
+														<label class="btn btn-default btn-xs"><input type="radio" value="left" checked name="textAlign"> <span class="glyphicon glyphicon-align-left"></span></label>
+														<label class="btn btn-default btn-xs"><input type="radio" value="center" name="textAlign"> <span class="glyphicon glyphicon-align-center"></span></label>
+														<label class="btn btn-default btn-xs"><input type="radio" value="right" name="textAlign"> <span class="glyphicon glyphicon-align-right"></span></label>
 													</div>
-													<input type="hidden" name="textAlign">
-													<script>
-													function clickBtnTextAlign(btn){
-														btn.form.textAlign.value = btn.value;
-														$(btn.parentNode).find("button.btn").each(
-															function(idx,el){
-																$(this).removeClass("active");
-															}
-														);
-														$(btn).addClass("active");
-														if(btn.onchange) btn.onchange();
-														btn.blur();
-													}
-													</script>
-												</th>
-											</tr> -->
+												</td>
+											</tr>
 											
 											<!-- <tr>
 												<th>baseline</th>
@@ -2288,27 +2272,27 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1543221518"></script>
-			<script src="js/colorPalette.palettes.js?_t=1543221518"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1543221518"></script>
+			<script src="js/colorPalette.js?_t=1543300996"></script>
+			<script src="js/colorPalette.palettes.js?_t=1543300996"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1543300996"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1543221518"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1543221518"></script>
-			<script src="js/wc2.js?_t=1543221518"></script>
-			<script src="js/wc2Tool.js?_t=1543221518"></script>
-			<script src="js/wc2Brush.js?_t=1543221518"></script>
+			<script src="js/class.WebCanvas.js?_t=1543300996"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1543300996"></script>
+			<script src="js/wc2.js?_t=1543300996"></script>
+			<script src="js/wc2Tool.js?_t=1543300996"></script>
+			<script src="js/wc2Brush.js?_t=1543300996"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1543221518"></script>
-			<script src="js/wc2Filter.js?_t=1543221518"></script>
-			<script src="js/wc2Helper.js?_t=1543221518"></script>
+			<script src="js/wc2PatternList.js?_t=1543300996"></script>
+			<script src="js/wc2Filter.js?_t=1543300996"></script>
+			<script src="js/wc2Helper.js?_t=1543300996"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1543221518"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1543221518"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1543300996"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1543300996"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();
