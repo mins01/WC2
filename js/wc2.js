@@ -315,8 +315,18 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			// $('body').on("selectstart","*:not(input,textarea,.contenteditable-div)", function(event){ return false; });
-			// $('#contentArea').on("dragstart","*:not(input,textarea,.contenteditable-div)", function(event){ return false; });
+			$('body').on("selectstart", function(event){ 
+				if($(event.target).is("input,textarea,[contenteditable]")){
+					return;
+				}
+				console.log(event);return false; 
+			});
+			$('#contentArea').on("dragstart", function(event){ 
+				if($(event.target).is("input,textarea,[contenteditable]")){
+					return;
+				}
+				return false; 
+			});
 			// 입룻랙 제거용
 			// $(document).on("touchstart ","input", stopEvent);
 
