@@ -1376,7 +1376,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"reset":function(){
-				if(confirm("Not Confirm! Confirm OK?")){
+				if(this.sa.isShow() && confirm("Not Confirm! Confirm OK?")){
 					r = this.confirm(true);
 				}
 				this.wcb.shadowWebCanvas.clear();
