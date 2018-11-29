@@ -725,7 +725,7 @@ var wc2Tool = function(){
 				var f = this.f
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
-					this.sa.className +=" wc2-selectArea-image selectArea-no-bg selectArea-no-info selectArea-pointer-xs"
+					this.sa.className +=" wc2-selectArea-image wc2-selectArea-no-bg selectArea-no-info selectArea-pointer-xs"
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(tool){ return function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()
@@ -1236,7 +1236,7 @@ var wc2Tool = function(){
 				var f = this.f
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
-					this.sa.className +=" wc2-selectArea-text selectArea-no-info selectArea-no-bg selectArea-pointer-xs"
+					this.sa.className +=" wc2-selectArea-text wc2-selectArea-no-bg selectArea-no-info selectArea-pointer-xs"
 					// this.sa.selectedArea.innerHTML='<textarea class="contenteditable-div" style="padding: 0;margin: 0;border-width: 0;background-color: transparent;white-space: nowrap;overflow: hidden;" contenteditable="true"></textarea>';		
 					this.sa.selectedArea.innerHTML='<div style="overflow: hidden;"><div class="contenteditable-div" style="width:auto;min-width:9999px;height:100%;display: inline-block;white-space: nowrap" contenteditable="true"></div></div>';		
 

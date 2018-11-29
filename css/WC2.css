@@ -492,19 +492,19 @@ cursor:pointer;
 }
 
 .contenteditable-div{
+	background-color: transparent;
+	text-decoration: none !important;
+	font-weight: normal  !important;
 	outline-width: 0;
 	color: transparent;
 	/* color:rgba(0,0,0,0.8); */
 	caret-color: #000;
 }
-.selectArea-box::before{
-	content: "";
-	position: absolute;
-	z-index: 10;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
-	border: 1px dotted rgba(0,0,0,0.5);
-	pointer-events: none;
+.contenteditable-div *{
+	text-decoration: inherit !important;
+	font-weight: inherit  !important;
+}
+
+.wc2-selectArea-no-bg .selectArea-bg{
+	border-color:transparent;
 }
