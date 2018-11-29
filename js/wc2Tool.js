@@ -437,6 +437,8 @@ var wc2Tool = function(){
 			,"tf":null
 			,"init":function(wcb){
 				this.tf = document.formPropTransformProperty;
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this._initXYWH();
 				this.predraw();
 				return true;
 			}
@@ -489,7 +491,6 @@ var wc2Tool = function(){
 			,"down":function(event){
 				if(this.ing ==0){
 					//this.wcb = wcb;
-					$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 					this._initXYWH();
 				}

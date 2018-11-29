@@ -317,13 +317,14 @@ var wc2 = (function(){
 			// 드래그 방지용
 			$('body').on("selectstart", function(event){ 
 				if($(event.target).is("input,textarea,[contenteditable]")){
-					return;
+					return; 
 				}
-				console.log(event);return false; 
+				return false; 
+				
 			});
 			$('#contentArea').on("dragstart", function(event){ 
 				if($(event.target).is("input,textarea,[contenteditable]")){
-					return;
+					return; 
 				}
 				return false; 
 			});
