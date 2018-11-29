@@ -497,7 +497,7 @@ cursor:pointer;
 	/* color:rgba(0,0,0,0.8); */
 	caret-color: #000;
 }
-.wc2-selectArea-text .selectArea-box::before{
+.selectArea-box::before{
 	content: "";
 	position: absolute;
 	z-index: 10;

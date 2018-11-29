@@ -371,10 +371,6 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												</th>
 											</tr>
 											<tr>
-												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
-											</tr>
-											<tr>
 												<th>in PC</th>
 												<td><input type="file" name="inputImageFile" style="width:90%" accept="image/*" onchange="wc2Helper.selectFileAndView(event,document.getElementById('imageNode'))"></td>
 											</tr>
@@ -397,6 +393,22 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<tr>
 												<th>bottom</th>
 												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="bottom"  ></div></td>
+											</tr>
+											<tr>
+												<th>width</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="width" disabled  ></div></td>
+											</tr>
+											<tr>
+												<th>height</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="height" disabled  ></div></td>
+											</tr>
+											<tr>
+												<th>rotate</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" ></div></td>
+											</tr>
+											<tr>
+												<th>alpha</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
 											</tr>
 											<tr>
 												<th>smooth</th>
