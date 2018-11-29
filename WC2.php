@@ -285,7 +285,6 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							<button class="btn btn-default glyphicon no-glyphicon"  data-wc-tool="curve" type="button" title="Curve">∼</button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="rect" type="button" title="Rect">□</button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="circle" type="button" title="Circle">○</button>
-							<!-- <button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button> -->
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text2" type="button" title="Text"></button>
 							<!-- <button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button> -->
 							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image2"  type="button" title="Image"></button>
@@ -711,125 +710,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</form>
-							<form name="formPropText" id="formPropText" action="javascript:void(0)" class="wc-tool wc-tool-text wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
-								<div class="panel panel-default">
-									<div  class="panel-heading">text</div>
-									<div  class="panel-body">
-										<table class="" style="width:100%">
-											<col width="60">
-											<col width="">
-											<tr>
-												<th colspan="2" >
-													<textarea name="textareaText" cols="10" rows="4" wrap="hard" id="textareaText" style="width:95%">안녕하세요.</textarea>
-												</th>
-											</tr>
-											<tr>
-												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" ></div></td>
-											</tr>
-											<tr>
-												<th>size</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
-											</tr>
-											<tr>
-												<th>font</th>
-												<td><select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" onchange="this.form.textareaText.style.fontFamily=this.value" >
-													<option value="default">시스템글꼴</option>
-													<optgroup label="한글">
-														<option value="'돋움',dotum,Helvetica,AppleGothic,sans-serif" selected="selected">'돋움',dotum,Helvetica,AppleGothic,sans-serif</option>
-														<option value="'바탕',batang,Georgia,Arial">'바탕',batang,Georgia,Arial</option>
-														<option value="'궁서',Gungsuh,Viner Hand ITC,Arial">'궁서',Gungsuh,Viner Hand ITC,Arial</option>
-													</optgroup>
-													<optgroup label="영어">
-														<option value="Helvetica,dotum,AppleGothic,sans-serif">Helvetica,dotum,AppleGothic,sans-serif</option>
-														<option value="Georgia,batang,Arial">Georgia,batang,Arial</option>
-														<option value="Viner Hand ITC,Gungsuh,Arial">Viner Hand ITC,Gungsuh,Arial</option>
-													</optgroup>
-													<optgroup label="기타">
-														<option value="Webdings">Webdings</option>
-														<option value="WingDings">WingDings</option>
-													</optgroup>
-												</select></td>
-											</tr>
-											<tr>
-												<th colspan="2">
-													<div class="btn-group  btn-group-xs" onclick="wc2.cmdTool('predraw')">
-														<button class="btn btn-default glyphicon active" value="start" title="start : Align to the start edge of the text (left side in left-to-right text, right side in right-to-left text)." onclick="clickBtnTextAlign(this)">S</button>
-														<button class="btn btn-default glyphicon glyphicon-align-left" value="left"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-center" value="center"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon glyphicon-align-right" value="right"  onclick="clickBtnTextAlign(this)"></button>
-														<button class="btn btn-default glyphicon " value="end" title="end : Align to the end edge of the text (right side in left-to-right text, left side in right-to-left text)."  onclick="clickBtnTextAlign(this)">E</button>
-													</div>
-													<input type="hidden" name="textAlign">
-													<script>
-													function clickBtnTextAlign(btn){
-														btn.form.textAlign.value = btn.value;
-														$(btn.parentNode).find("button.btn").each(
-															function(idx,el){
-																$(this).removeClass("active");
-															}
-														);
-														$(btn).addClass("active");
-														if(btn.onchange) btn.onchange();
-														btn.blur();
-													}
-													</script>
-												</th>
-											</tr>
-											<tr>
-												<th>baseline</th>
-												<td>
-													<select name="textBaseline" style="width:90%">
-														<option  value="top" selected="selected">top</option>
-														<option value="hanging">hanging</option>
-														<option value="middle">middle</option>
-														<option value="alphabetic">alphabetic</option>
-														<option value="ideographic">ideographic</option>
-														<option value="bottom">bottom</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<th>lineHeight</th>
-												<td>
-													<select name="lineHeight"  style="width:90%;">
-														<option value="0.5">50%</option>
-														<option value="0.7">70%</option>
-														<option value="1" selected>100%</option>
-														<option value="1.2">120%</option>
-														<option value="1.5">150%</option>
-														<option value="1.7">170%</option>
-														<option value="2">200%</option>
-														<option value="2.5">250%</option>
-														<option value="3">300%</option>
-														<option value="3.5">350%</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<th>line</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" ></div></td>
-											</tr>
-											<tr>
-												<th>use-line</th>
-												<td>
-													<label><input type="radio" value="0" checked name="disableStroke"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="disableStroke"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-												</td>
-											</tr>
-											<tr>
-												<th>use-fill</th>
-												<td>
-													<label><input type="radio" value="0" checked name="disableFill"> <span class="glyphicon glyphicon-ok-circle"></span></label>
-													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
-												</td>
-											</tr>
-
-										</table>
-									</div>
-								</div>
-							</form>
-							<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform wc-tool-text" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
+							<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Transform Property</div>
 									<div  class="panel-body">
@@ -1141,7 +1022,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text wc-tool-text2 wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text2 wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
