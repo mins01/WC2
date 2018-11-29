@@ -576,7 +576,7 @@ var wc2Tool = function(){
 		}
 		//--- 이미지
 		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
-		,"image2":{
+		,"image":{
 			"wcb":null
 			,"f":null
 			,"sa":null

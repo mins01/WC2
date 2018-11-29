@@ -287,7 +287,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="circle" type="button" title="Circle">○</button>
 							<button class="btn btn-default glyphicon glyphicon-font" data-wc-tool="text" type="button" title="Text"></button>
 							<!-- <button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button> -->
-							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image2"  type="button" title="Image"></button>
+							<button class="btn btn-default glyphicon glyphicon-picture" data-wc-tool="image"  type="button" title="Image"></button>
 							<button class="btn btn-default glyphicon glyphicon-th" data-wc-tool="pattern"  type="button" title="pattern"></button>
 							<button class="btn btn-default glyphicon no-glyphicon" data-wc-tool="concentratedLineRadial"  type="button" title="ConcentratedLineRadial">
 								<div class="icon-wc-tool-concentratedLineRadial  glyphicon no-glyphicon">
@@ -355,7 +355,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</form>
-							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image2 wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
+							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -405,7 +405,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2.cmdTool('predraw')" ></div></td>
 											</tr>
 											<tr>
 												<th>smooth</th>
@@ -429,7 +429,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											
 											<tr>
 												<td colspan="2">
-													<button type="button" onclick="wc2Tool.image2.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+													<button type="button" onclick="wc2Tool.image.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
 												</td>
 											</tr>
 											
@@ -1020,7 +1020,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
