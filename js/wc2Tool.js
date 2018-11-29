@@ -725,7 +725,7 @@ var wc2Tool = function(){
 				var f = this.f
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
-					this.sa.className +=" wc2-selectArea-image selectArea-no-info selectArea-pointer-xs"
+					this.sa.className +=" wc2-selectArea-image selectArea-no-bg selectArea-no-info selectArea-pointer-xs"
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(tool){ return function(evt){ // 커스텀 이벤트
 						var r = this.getSelectedAreaRect()

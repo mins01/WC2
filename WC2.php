@@ -358,7 +358,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							</form>
 
 
-							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
+							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
