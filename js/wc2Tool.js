@@ -732,7 +732,8 @@ var wc2Tool = function(){
 				return r;
 			}
 			,"initPreview":function(){
-				if(this.ing ==1){
+				this.f.deg.value=0;
+				if(this.sa.isShow()){
 					this.sa.hide();
 				}
 				return true;
@@ -1155,8 +1156,10 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"initPreview":function(){
-				this.sa.hide();
-				return true;
+				this.f.deg.value=0;
+				if(this.sa.isShow()){
+					this.sa.hide();
+				}
 			}
 		} //-- end fn
 		//--- 스포이드
