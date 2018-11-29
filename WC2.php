@@ -355,9 +355,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</form>
-
-
-							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
+							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image2 wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -710,7 +708,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</form>
-							<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
+							<form name="formPropTransformProperty" action="javascript:void(0)" class="wc-tool wc-tool-transform" onsubmit="return false" onchange="wc2.cmdTool('predraw')"  oninput="this.onchange()">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Transform Property</div>
 									<div  class="panel-body">
@@ -737,7 +735,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</form>
-							<form name="formMoveImageTip" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-transform" onsubmit="return false">
+							<form name="formMoveImageTip" action="javascript:void(0)" class="wc-tool wc-tool-transform" onsubmit="return false">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Tip</div>
 									<div  class="panel-body">
@@ -1022,7 +1020,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										</div>
 									</div>
 								</form>
-								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
+								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image2 wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
 										<div  class="panel-body">
