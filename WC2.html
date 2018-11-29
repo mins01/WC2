@@ -67,12 +67,12 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1543300996" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1543300996" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1543456011" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1543456011" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1543300996" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1543300996" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1543456011" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1543456011" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -347,7 +347,7 @@
 							</form>
 
 
-							<form name="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
+							<form name="formPropImage" id="formPropImage" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-image2 wc-save-setting" onsubmit="return false" onchange="wc2.cmdTool('predraw')" oninput="this.onchange();event.preventDefault();event.stopPropagation();return false;">
 								<div class="panel panel-default">
 									<div  class="panel-heading">Image</div>
 									<div  class="panel-body">
@@ -358,10 +358,6 @@
 												<th colspan="2" >
 													<div class="overflow-scrolly" style="width:100%; margin:5px auto; height:60px; background-color:#eee;padding:1px;"><img src="./img/bg.gif" class="bg-grid" id="imageNode" /></div>
 												</th>
-											</tr>
-											<tr>
-												<th>alpha</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
 											</tr>
 											<tr>
 												<th>in PC</th>
@@ -386,6 +382,22 @@
 											<tr>
 												<th>bottom</th>
 												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1" data-suffix="px"><input type="number" value="1" step="1" name="bottom"  ></div></td>
+											</tr>
+											<tr>
+												<th>width</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="width" disabled  ></div></td>
+											</tr>
+											<tr>
+												<th>height</th>
+												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="height" disabled  ></div></td>
+											</tr>
+											<tr>
+												<th>rotate</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" ></div></td>
+											</tr>
+											<tr>
+												<th>alpha</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha"  oninput="wc2Tool.image2.predraw();" ></div></td>
 											</tr>
 											<tr>
 												<th>smooth</th>
@@ -597,6 +609,10 @@
 											<tr>
 												<th>alpha</th>
 												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" value="1" step="0.01" name="globalAlpha" onchange="this.title=(this.value*100)+'%'" ></div></td>
+											</tr>
+											<tr>
+												<th>rotate</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" ></div></td>
 											</tr>
 											<tr>
 												<th>size</th>
@@ -2272,27 +2288,27 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1543300996"></script>
-			<script src="js/colorPalette.palettes.js?_t=1543300996"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1543300996"></script>
+			<script src="js/colorPalette.js?_t=1543456011"></script>
+			<script src="js/colorPalette.palettes.js?_t=1543456011"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1543456011"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1543300996"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1543300996"></script>
-			<script src="js/wc2.js?_t=1543300996"></script>
-			<script src="js/wc2Tool.js?_t=1543300996"></script>
-			<script src="js/wc2Brush.js?_t=1543300996"></script>
+			<script src="js/class.WebCanvas.js?_t=1543456011"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1543456011"></script>
+			<script src="js/wc2.js?_t=1543456011"></script>
+			<script src="js/wc2Tool.js?_t=1543456011"></script>
+			<script src="js/wc2Brush.js?_t=1543456011"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1543300996"></script>
-			<script src="js/wc2Filter.js?_t=1543300996"></script>
-			<script src="js/wc2Helper.js?_t=1543300996"></script>
+			<script src="js/wc2PatternList.js?_t=1543456011"></script>
+			<script src="js/wc2Filter.js?_t=1543456011"></script>
+			<script src="js/wc2Helper.js?_t=1543456011"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1543300996"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1543300996"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1543456011"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1543456011"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();
