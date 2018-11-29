@@ -1109,7 +1109,7 @@ var wc2Tool = function(){
 			}
 		} //-- end fn
 		//--- 텍스트
-		,"text2":{
+		,"text":{
 			"wcb":null
 			,"f":null
 			,"textNode":null
@@ -1170,7 +1170,7 @@ var wc2Tool = function(){
 			}
 			,"init":function(wcb){
 				// imageAreaSelect
-				this.f = document.formPropText2;
+				this.f = document.formPropText;
 				this.initSelectArea();
 				this.sa.enable();
 				this.sa.hide();
