@@ -497,3 +497,14 @@ cursor:pointer;
 	/* color:rgba(0,0,0,0.8); */
 	caret-color: #000;
 }
+.wc2-selectArea-text .selectArea-box::before{
+	content: "";
+	position: absolute;
+	z-index: 10;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	border: 1px dotted rgba(0,0,0,0.5);
+	pointer-events: none;
+}

@@ -1218,7 +1218,7 @@ var wc2Tool = function(){
 				var f = this.f
 				if(!this.sa){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
-					this.sa.className +=" selectArea-no-info selectArea-pointer-xs"
+					this.sa.className +=" wc2-selectArea-text selectArea-no-info selectArea-no-bg selectArea-pointer-xs"
 					// this.sa.selectedArea.innerHTML='<textarea class="contenteditable-div" style="padding: 0;margin: 0;border-width: 0;background-color: transparent;white-space: nowrap;overflow: hidden;" contenteditable="true"></textarea>';		
 					this.sa.selectedArea.innerHTML='<div style="overflow: hidden;"><div class="contenteditable-div" style="width:auto;min-width:9999px;height:100%;display: inline-block;white-space: nowrap" contenteditable="true"></div></div>';		
 
@@ -1291,7 +1291,7 @@ var wc2Tool = function(){
 			,"predrawOnlyImage":function(){
 				var f = this.f;
 				// var txt = this.sa.inputText.value.trim();
-				var txt = this.sa.inputText.innerText.trim();
+				var txt = this.sa.inputText.innerText;
 				var z = this.wcb.zoom;
 				var swc = this.wcb.shadowWebCanvas;
 				var inputText = this.sa.inputText;
@@ -1306,6 +1306,13 @@ var wc2Tool = function(){
 				if(this.sa.isShow()){
 					swc.saveContext2d();
 					swc.clear();
+					
+					// 회전
+					var deg = this.f.deg.value;
+					var rotateCenterX = (parseFloat(f.left.value)+parseFloat(f.right.value))/2
+					var rotateCenterY = (parseFloat(f.top.value)+parseFloat(f.bottom.value))/2
+					swc.setRotate(deg,rotateCenterX,rotateCenterY);
+					
 					swc.cmdContext2d("beginPath");
 					swc.cmdContext2d("rect",parseFloat(f.left.value),parseFloat(f.top.value),parseFloat(f.width.value),parseFloat(f.height.value));
 					swc.cmdContext2d("clip");
@@ -1317,7 +1324,9 @@ var wc2Tool = function(){
 						ta=(document.dir=='rtl')?'left':'right';
 					}
 					inputText.parentNode.scrollTop = 0;
-
+					
+					
+					this.sa.selectedArea.style.transform="rotate("+deg+"deg)"
 					switch (ta) {
 						case 'start':
 						case 'left':
@@ -1342,7 +1351,9 @@ var wc2Tool = function(){
 							
 					}
 					swc.text(txt,x,y);
+					
 					swc.cmdContext2d("closePath");
+					swc.resetRotate()// 회전 되돌림
 					swc.restoreContext2d();
 				}else{
 					swc.clear()
