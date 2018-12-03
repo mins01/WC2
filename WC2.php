@@ -17,13 +17,26 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 -->
 <html lang="ko" >   
 	<head>
-		<link rel="manifest" href="./manifest.json">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<!-- 뷰포트 -->
 		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+		
+		<link rel="manifest" href="./manifest.json">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="WC2-WebCanvas2">
+		<link rel="icon" href="img/apple-touch-icon.png">		
+		<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="192x192" href="img/512x512.png">
+		<link rel="apple-touch-icon" sizes="512x512" href="img/512x512.png">
+		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="apple-touch-startup-image" href="img/apple-touch-icon.png">
+		
+		
 		<title>WC2</title>
 		<!-- 풀스크린 페이지 런칭 -->
 		<meta name="apple-touch-fullscreen" content="yes">
@@ -32,16 +45,10 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<!-- 기타 -->
 		<meta name="google" content="notranslate">
 		<meta name="format-detection" content="telephone=no">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="apple-mobile-web-app-title" content="WC2-WebCanvas2">
-
-		<link rel="icon" href="img/apple-touch-icon.png">
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-		<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon.png">
-		<link rel="apple-touch-startup-image" href="img/apple-touch-icon.png">
+		
 
 		<meta name="description" content="WC2 , 웹 캔버스 2 , 웹 드로잉 ">
-		<meta property="fb:app_id" content="1089054314479874" />
+		<!-- <meta property="fb:app_id" content="1089054314479874" /> -->
 		<meta property="og:title" content="WC2-웹 캔버스 2">
 		<meta property="og:image" content="http://www.mins01.com/WC2/img/apple-touch-icon.png">
 		<meta property="og:image:width" content="129" />
