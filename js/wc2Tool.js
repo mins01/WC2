@@ -679,7 +679,7 @@ var wc2Tool = function(){
 						var rotateCenterY = (parseFloat(f.top.value)+parseFloat(f.bottom.value))/2
 						swc.setScale(scaleX,scaleY,rotateCenterX,rotateCenterY);
 						swc.setRotate(rotate,rotateCenterX,rotateCenterY);
-						this.sa.selectedArea.style.transform="scale("+scaleX+","+scaleY+") rotate("+rotate+"deg)"
+						tool.sa.selectedArea.style.transform="scale("+scaleX+","+scaleY+") rotate("+rotate+"deg)"
 						swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":(f.imageSmoothingEnabled.value=="1"),"imageSmoothingQuality":f.imageSmoothingQuality.value})
 						swc.drawImage(img,r.left/z,r.top/z,r.width/z,r.height/z );
 						swc.resetRotate()// 회전 되돌림
@@ -1060,6 +1060,7 @@ var wc2Tool = function(){
 				var z = this.wcb.zoom;
 				var swc = this.wcb.shadowWebCanvas;
 				var inputText = this.sa.inputText;
+				var tool = this;
 				// inputText.scrollLeft = 0;
 				inputText.scrollTop = 0;
 				
@@ -1080,7 +1081,7 @@ var wc2Tool = function(){
 					var rotateCenterY = (parseFloat(f.top.value)+parseFloat(f.bottom.value))/2
 					swc.setScale(scaleX,scaleY,rotateCenterX,rotateCenterY);
 					swc.setRotate(rotate,rotateCenterX,rotateCenterY);
-					this.sa.selectedArea.style.transform="scale("+scaleX+","+scaleY+") rotate("+rotate+"deg)"
+					tool.sa.selectedArea.style.transform="scale("+scaleX+","+scaleY+") rotate("+rotate+"deg)"
 
 
 					swc.cmdContext2d("beginPath");
