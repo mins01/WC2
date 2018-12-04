@@ -727,6 +727,11 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 													<label><input type="radio" value="1" name="disableFill"> <span class="glyphicon glyphicon-ban-circle"></span></label>
 												</td>
 											</tr>
+											<tr>
+												<td colspan="2">
+													<button type="button" onclick="wc2Tool.text.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+												</td>
+											</tr>
 										</table>
 									</div>
 								</div>
