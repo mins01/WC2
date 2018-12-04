@@ -445,6 +445,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<tr>
 												<td colspan="2">
 													<button type="button" onclick="wc2Tool.image.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+													<button type="button" onclick="wc2Tool.image.centerCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> center</button>
 												</td>
 											</tr>
 											
@@ -730,6 +731,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<tr>
 												<td colspan="2">
 													<button type="button" onclick="wc2Tool.text.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
+													<button type="button" onclick="wc2Tool.text.centerCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> center</button>
 												</td>
 											</tr>
 										</table>

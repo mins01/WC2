@@ -702,6 +702,15 @@ var wc2Tool = function(){
 				f.bottom.value=w.height;
 				this.predraw();
 			}
+			,"centerCanvas":function(){
+				var w = this.wcb.activeWebCanvas
+				var f = this.f;
+				f.left.value=(w.width-parseInt(f.width.value))/2;
+				f.top.value=(w.height-parseInt(f.height.value))/2;;
+				f.right.value=parseInt(f.width.value)+parseInt(f.left.value);
+				f.bottom.value=parseInt(f.height.value)+parseInt(f.top.value);
+				this.predraw();
+			}
 			,"draw":function(){
 				var f = document.formPropImage;
 				var r = this.sa.getSelectedAreaRect()
@@ -1179,6 +1188,15 @@ var wc2Tool = function(){
 				f.top.value=0;
 				f.right.value=w.width;
 				f.bottom.value=w.height;
+				this.predraw();
+			}
+			,"centerCanvas":function(){
+				var w = this.wcb.activeWebCanvas
+				var f = this.f;
+				f.left.value=(w.width-parseInt(f.width.value))/2;
+				f.top.value=(w.height-parseInt(f.height.value))/2;;
+				f.right.value=parseInt(f.width.value)+parseInt(f.left.value);
+				f.bottom.value=parseInt(f.height.value)+parseInt(f.top.value);
 				this.predraw();
 			}
 		} //-- end fn
