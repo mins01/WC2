@@ -672,18 +672,25 @@ var wc2Tool = function(){
 						swc.saveContext2d();
 						swc.clear();
 						// 회전
-						var deg = f.deg.value;
+						var scaleX = f.scaleX.value;
+						var scaleY = f.scaleY.value;
+						var rotate = f.rotate.value;
+						// var scaleX = (Math.abs(rotateX)-90)/(-90);
+						// var scaleY = (Math.abs(rotateY)-90)/(-90);
 						var rotateCenterX = (parseFloat(f.left.value)+parseFloat(f.right.value))/2
 						var rotateCenterY = (parseFloat(f.top.value)+parseFloat(f.bottom.value))/2
-						swc.setRotate(deg,rotateCenterX,rotateCenterY);
-						tool.sa.selectedArea.style.transform="rotate("+deg+"deg)"
+						console.log(scaleX,scaleY);
+						swc.setScale(scaleX,scaleY,rotateCenterX,rotateCenterY);
+						swc.setRotate(rotate,rotateCenterX,rotateCenterY);
+						tool.sa.selectedArea.style.transform="scale("+scaleX+","+scaleY+") rotate("+rotate+"deg)"
 						
 						// swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":false,"imageSmoothingQuality":'high'})
 						swc.configContext2d({"globalAlpha":f.globalAlpha.value,"imageSmoothingEnabled":(f.imageSmoothingEnabled.value=="1"),"imageSmoothingQuality":f.imageSmoothingQuality.value})
 						// console.log(swc.context2d.imageSmoothingQuality);
 						swc.drawImage(img,r.left/z,r.top/z,r.width/z,r.height/z );
 						swc.resetRotate()// 회전 되돌림
-
+						swc.resetScale();
+						
 						swc.restoreContext2d();
 					},0)	
 				}else{
@@ -733,7 +740,9 @@ var wc2Tool = function(){
 				return r;
 			}
 			,"initPreview":function(){
-				this.f.deg.value=0;
+				this.f.rotate.value=0;
+				this.f.scaleX.value=1;
+				this.f.scaleY.value=1;
 				if(this.sa.isShow()){
 					this.sa.hide();
 				}

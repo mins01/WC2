@@ -758,9 +758,16 @@ function WebCanvas(width,height,colorset){
 		}
 		*/
 		//--- 확대 설정
-		,"setScale":function(sx,sy){
+		,"setScale":function(sx,sy,centerX,centerY){
 			this.saveContext2d();
-			this.cmdContext2d("scale",sx,sy);
+			if(centerX && centerY){
+				this.cmdContext2d("translate",centerX,centerY);
+				this.cmdContext2d("scale",sx,sy);
+				this.cmdContext2d("translate",-1*centerX,-1*centerY);
+			}else{
+				this.cmdContext2d("scale",sx,sy);
+			}
+			
 			return;
 		}
 		,"resetScale":function(){

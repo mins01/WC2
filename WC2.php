@@ -407,8 +407,16 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												<td><div class="inputRangeBox inputNumberBox inputNumberBox-design-1 disabled" data-suffix="px"><input type="number" value="1" step="1" name="height" disabled  ></div></td>
 											</tr>
 											<tr>
+												<th>scaleX</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-prefix=""><input type="range" name="scaleX" value="1" min="-1" max="1" step="0.1" ></div></td>
+											</tr>
+											<tr>
+												<th>scaleY</th>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-prefix=""><input type="range" name="scaleY" value="1" min="-1" max="1" step="0.1" ></div></td>
+											</tr>
+											<tr>
 												<th>rotate</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="deg" value="0" min="-360" max="360" step="1" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1"  data-suffix="°"><input type="range" name="rotate" value="0" min="-180" max="180" step="1" ></div></td>
 											</tr>
 											<tr>
 												<th>alpha</th>
