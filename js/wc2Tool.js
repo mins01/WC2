@@ -1260,6 +1260,7 @@ var wc2Tool = function(){
 				this.top = parseFloat(this.wcb.wcbMove.style.top);
 				this.left1 = 0;
 				this.top1 = 0;
+				$("#formMove-size").text(this.wcb.width+" x "+this.wcb.height);
 				return true;
 			}
 			,"end":function(){
@@ -1303,6 +1304,7 @@ var wc2Tool = function(){
 				var h0 = this.top + this.top1
 				t.css("left",l0+"px").css("top",h0+"px");
 				//console.log((this.x1-this.x0),(this.y1-this.y0),this.left,this.top,l0,h0);
+				$("#formMove-size").text(this.wcb.width+" x "+this.wcb.height);
 				return true;
 			}
 			,"confirm":function(){

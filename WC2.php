@@ -1086,11 +1086,15 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										<div  class="panel-heading">Move</div>
 										<div  class="panel-body">
 											<table class="" style="width:100%">
-												<col width="50%">
-												<col width="50%">
+												<col width="60px">
+												<col>
+												<tr>
+													<th>size</th><td><span id="formMove-size">0 x 0</span></td>
+												</tr>
 												<tr>
 													<th colspan="2"><button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" onclick="wc2.cmdTool('confirm')"  type="button"> center</button></th>
 												</tr>
+
 											</table>
 										</div>
 									</div>
