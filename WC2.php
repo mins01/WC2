@@ -652,23 +652,41 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>font</th>
-												<td><select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
-													<option value="default">시스템글꼴</option>
-													<optgroup label="한글">
-														<option value="'돋움',dotum,Helvetica,AppleGothic,sans-serif" selected="selected">'돋움',dotum,Helvetica,AppleGothic,sans-serif</option>
-														<option value="'바탕',batang,Georgia,Arial">'바탕',batang,Georgia,Arial</option>
-														<option value="'궁서',Gungsuh,Viner Hand ITC,Arial">'궁서',Gungsuh,Viner Hand ITC,Arial</option>
-													</optgroup>
-													<optgroup label="영어">
-														<option value="Helvetica,dotum,AppleGothic,sans-serif">Helvetica,dotum,AppleGothic,sans-serif</option>
-														<option value="Georgia,batang,Arial">Georgia,batang,Arial</option>
-														<option value="Viner Hand ITC,Gungsuh,Arial">Viner Hand ITC,Gungsuh,Arial</option>
-													</optgroup>
-													<optgroup label="기타">
-														<option value="Webdings">Webdings</option>
-														<option value="WingDings">WingDings</option>
-													</optgroup>
-												</select></td>
+												<td>
+													<select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
+														<option value="default">system</option>
+														<optgroup label="serif">
+															<option value='batang, Georgia, serif'>batang, Georgia, serif</option>
+															<option value='gungsuh, Georgia, serif'>gungsuh, Georgia, serif</option>
+															<option value='Georgia, serif'>Georgia, serif</option>
+															<option value='"Palatino Linotype", "Book Antiqua", Palatino, serif'>"Palatino Linotype", "Book Antiqua", Palatino, serif</option>
+															<option value='"Times New Roman", Times, serif'>"Times New Roman", Times, serif</option>
+														</optgroup>
+														<optgroup label="sans-serif">
+															<option value='dotum, Arial, Helvetica, AppleGothic, sans-serif'>dotum, Arial, Helvetica, AppleGothic, sans-serif</option>
+															<option value='"Malgun Gothic", Arial, Helvetica, AppleGothic, sans-serif'>"Malgun Gothic", Arial, Helvetica, AppleGothic, sans-serif</option>
+															<option value='Arial, Helvetica, AppleGothic, sans-serif'>Arial, Helvetica, AppleGothic, sans-serif</option>
+															<option value='"Arial Black", Gadget, AppleGothic, sans-serif'>"Arial Black", Gadget, AppleGothic, sans-serif</option>
+															<option value='"Comic Sans MS", cursive, AppleGothic, sans-serif'>"Comic Sans MS", cursive, AppleGothic, sans-serif</option>
+															<option value='Impact, Charcoal, AppleGothic, sans-serif'>Impact, Charcoal, AppleGothic, sans-serif</option>
+															<option value='"Lucida Sans Unicode", "Lucida Grande", AppleGothic, sans-serif'>"Lucida Sans Unicode", "Lucida Grande", AppleGothic, sans-serif</option>
+															<option value='Tahoma, Geneva, AppleGothic, sans-serif'>Tahoma, Geneva, AppleGothic, sans-serif</option>
+															<option value='"Trebuchet MS", Helvetica, AppleGothic, sans-serif'>"Trebuchet MS", Helvetica, AppleGothic, sans-serif</option>
+															<option value='Verdana, Geneva, AppleGothic, sans-serif'>dotum, Verdana, Geneva, AppleGothic, sans-serif</option>
+														</optgroup>
+														<optgroup label="monospace">
+															<option value='batangche, "Courier New", Courier, monospace'>batangche, "Courier New", Courier, monospace</option>
+															<option value='gungsuhche, "Courier New", Courier, monospace'>gungsuhche, "Courier New", Courier, monospace</option>
+															<option value='dotumche, "Courier New", Courier, monospace'>dotumche, "Courier New", Courier, monospace</option>
+															<option value='"Courier New", Courier, monospace'>batangche, "Courier New", Courier, monospace</option>
+															<option value='"Lucida Console", Monaco, monospace'>batangche, "Lucida Console", Monaco, monospace</option>
+														</optgroup>
+														<optgroup label="etc">
+															<option value="Webdings">Webdings</option>
+															<option value="WingDings">WingDings</option>
+														</optgroup>
+													</select>
+												</td>
 											</tr>
 											<tr>
 												<td colspan="2">
