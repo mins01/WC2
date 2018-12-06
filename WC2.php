@@ -664,6 +664,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 														</optgroup>
 														<optgroup label="sans-serif">
 															<option value='dotum, Arial, Helvetica, AppleGothic, sans-serif'>dotum, Arial, Helvetica, AppleGothic, sans-serif</option>
+															<option value='gulim, Arial, Helvetica, AppleGothic, sans-serif'>gulim, Arial, Helvetica, AppleGothic, sans-serif</option>
 															<option value='"Malgun Gothic", Arial, Helvetica, AppleGothic, sans-serif'>"Malgun Gothic", Arial, Helvetica, AppleGothic, sans-serif</option>
 															<option value='Arial, Helvetica, AppleGothic, sans-serif'>Arial, Helvetica, AppleGothic, sans-serif</option>
 															<option value='"Arial Black", Gadget, AppleGothic, sans-serif'>"Arial Black", Gadget, AppleGothic, sans-serif</option>
@@ -678,8 +679,9 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 															<option value='batangche, "Courier New", Courier, monospace'>batangche, "Courier New", Courier, monospace</option>
 															<option value='gungsuhche, "Courier New", Courier, monospace'>gungsuhche, "Courier New", Courier, monospace</option>
 															<option value='dotumche, "Courier New", Courier, monospace'>dotumche, "Courier New", Courier, monospace</option>
-															<option value='"Courier New", Courier, monospace'>batangche, "Courier New", Courier, monospace</option>
-															<option value='"Lucida Console", Monaco, monospace'>batangche, "Lucida Console", Monaco, monospace</option>
+															<option value='gulimche, "Courier New", Courier, monospace'>gulimche, "Courier New", Courier, monospace</option>
+															<option value='"Courier New", Courier, monospace'>"Courier New", Courier, monospace</option>
+															<option value='"Lucida Console", Monaco, monospace'>"Lucida Console", Monaco, monospace</option>
 														</optgroup>
 														<optgroup label="etc">
 															<option value="Webdings">Webdings</option>
