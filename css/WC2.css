@@ -498,7 +498,8 @@ cursor:pointer;
 	color: transparent;
 	/* color:rgba(0,0,0,0.8); */
 	caret-color: #000;
-	overflow: hidden;;
+	/* overflow: hidden;; */
+	cursor: text;
 }
 .contenteditable-div *{
 	text-decoration: inherit !important;
