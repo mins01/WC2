@@ -618,10 +618,10 @@ function WebCanvas(width,height,colorset){
 			var gap = (fontSize*lineHeight - fontSize)/2; //처음 높이 맞추기
 			for(var i=0,m=texts.length;i<m;i++){
 				if(!this.context2d.disableFill){
-					this.cmdContext2d("fillText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i)+gap);
+					this.cmdContext2d("fillText",texts[i], x0, y0+(fontSize*lineHeight*i)+gap);
 				}
 				if(!this.context2d.disableStroke){
-					this.cmdContext2d("strokeText",texts[i].trim(), x0, y0+(fontSize*lineHeight*i)+gap);
+					this.cmdContext2d("strokeText",texts[i], x0, y0+(fontSize*lineHeight*i)+gap);
 				}
 			}
 			return true;
