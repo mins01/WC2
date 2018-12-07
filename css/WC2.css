@@ -503,6 +503,10 @@ cursor:pointer;
 	text-decoration: inherit !important;
 	font-weight: inherit  !important;
 }
+.contenteditable-div[contenteditable][placeholder]:empty::before{
+	content: attr(placeholder);
+	color:rgba(0,0,0,0.2)
+}
 
 .wc2-selectArea-no-bg .selectArea-bg{
 	border-color:transparent;

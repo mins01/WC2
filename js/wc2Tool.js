@@ -995,7 +995,7 @@ var wc2Tool = function(){
 					this.sa = SelectArea(this.wcb.activeWebCanvas,this.wcb.wcbFrame)
 					this.sa.className +=" wc2-selectArea-text wc2-selectArea-no-bg selectArea-no-info selectArea-pointer-xs"
 					this.sa.outOfRange = true;
-					this.sa.selectedArea.innerHTML='<div style="overflow: hidden;"><div class="contenteditable-div" style="width:auto;min-width:9999px;height:100%;display: inline-block;white-space: nowrap" contenteditable="true"></div></div>';
+					this.sa.selectedArea.innerHTML='<div style="overflow: hidden;"><div class="contenteditable-div" style="width:auto;min-width:9999px;height:100%;display: inline-block;white-space: nowrap" contenteditable="true" placeholder="input text"></div></div>';
 					this.sa.inputText = this.sa.selectedArea.querySelector('.contenteditable-div');
 					var wcb = this.wcb;
 					this.sa.addEventListener('change',function(tool){ return function(evt){ // 커스텀 이벤트
