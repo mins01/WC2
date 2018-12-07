@@ -74,12 +74,12 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1544086568" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1544086568" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1544147586" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1544147586" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1544086568" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1544086568" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1544147586" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1544147586" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -640,9 +640,9 @@
 												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2" data-suffix="px"><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
 											</tr>
 											<tr>
-												<th>font</th>
+												<th>fontFamily</th>
 												<td>
-													<select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
+													<select style="width:90%;font-family: dotum, Arial, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
 														<option value="default">system</option>
 														<optgroup label="serif">
 															<option value='batang, Georgia, serif'>batang, Georgia, serif</option>
@@ -676,6 +676,45 @@
 															<option value="Webdings">Webdings</option>
 															<option value="WingDings">WingDings</option>
 														</optgroup>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontStyle</th>
+												<td>
+													<select name="fontStyle" >
+														<option value="">normal</option>
+														<option value="italic">italic</option>
+														<option value="oblique">oblique</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontVariant</th>
+												<td>
+													<select name="fontVariant" >
+														<option value="">normal</option>
+														<option value="small-caps">small-caps</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontWeight</th>
+												<td>
+													<select name="fontWeight" >
+														<option value="">normal</option>
+														<option value="bold">bold</option>
+														<option value="bolder">bolder</option>
+														<option value="lighter">lighter</option>
+														<option value="100">100</option>
+														<option value="200">200</option>
+														<option value="300">300</option>
+														<option value="400">400</option>
+														<option value="500">500</option>
+														<option value="600">600</option>
+														<option value="700">700</option>
+														<option value="800">800</option>
+														<option value="900">900</option>
 													</select>
 												</td>
 											</tr>
@@ -2221,27 +2260,27 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1544086568"></script>
-			<script src="js/colorPalette.palettes.js?_t=1544086568"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1544086568"></script>
+			<script src="js/colorPalette.js?_t=1544147586"></script>
+			<script src="js/colorPalette.palettes.js?_t=1544147586"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1544147586"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1544086568"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1544086568"></script>
-			<script src="js/wc2.js?_t=1544086568"></script>
-			<script src="js/wc2Tool.js?_t=1544086568"></script>
-			<script src="js/wc2Brush.js?_t=1544086568"></script>
+			<script src="js/class.WebCanvas.js?_t=1544147586"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1544147586"></script>
+			<script src="js/wc2.js?_t=1544147586"></script>
+			<script src="js/wc2Tool.js?_t=1544147586"></script>
+			<script src="js/wc2Brush.js?_t=1544147586"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1544086568"></script>
-			<script src="js/wc2Filter.js?_t=1544086568"></script>
-			<script src="js/wc2Helper.js?_t=1544086568"></script>
+			<script src="js/wc2PatternList.js?_t=1544147586"></script>
+			<script src="js/wc2Filter.js?_t=1544147586"></script>
+			<script src="js/wc2Helper.js?_t=1544147586"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1544086568"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1544086568"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1544147586"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1544147586"></script>
 			<script>
 			$(function(){
 				InputRangeBox.onload();
