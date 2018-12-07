@@ -492,12 +492,13 @@ cursor:pointer;
 
 .contenteditable-div{
 	background-color: transparent;
-	text-decoration: none !important;
-	font-weight: normal  !important;
+	text-decoration: none;
+	font-weight: normal;
 	outline-width: 0;
 	color: transparent;
 	/* color:rgba(0,0,0,0.8); */
 	caret-color: #000;
+	overflow: hidden;;
 }
 .contenteditable-div *{
 	text-decoration: inherit !important;

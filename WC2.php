@@ -651,9 +651,9 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2" data-suffix="px"><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
 											</tr>
 											<tr>
-												<th>font</th>
+												<th>fontFamily</th>
 												<td>
-													<select style="width:90%;font-family: 돋움, dotum, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
+													<select style="width:90%;font-family: dotum, Arial, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
 														<option value="default">system</option>
 														<optgroup label="serif">
 															<option value='batang, Georgia, serif'>batang, Georgia, serif</option>
@@ -687,6 +687,45 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 															<option value="Webdings">Webdings</option>
 															<option value="WingDings">WingDings</option>
 														</optgroup>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontStyle</th>
+												<td>
+													<select name="fontStyle" >
+														<option value="">normal</option>
+														<option value="italic">italic</option>
+														<option value="oblique">oblique</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontVariant</th>
+												<td>
+													<select name="fontVariant" >
+														<option value="">normal</option>
+														<option value="small-caps">small-caps</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th>fontWeight</th>
+												<td>
+													<select name="fontWeight" >
+														<option value="">normal</option>
+														<option value="bold">bold</option>
+														<option value="bolder">bolder</option>
+														<option value="lighter">lighter</option>
+														<option value="100">100</option>
+														<option value="200">200</option>
+														<option value="300">300</option>
+														<option value="400">400</option>
+														<option value="500">500</option>
+														<option value="600">600</option>
+														<option value="700">700</option>
+														<option value="800">800</option>
+														<option value="900">900</option>
 													</select>
 												</td>
 											</tr>
