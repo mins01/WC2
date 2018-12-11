@@ -2291,6 +2291,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 			</script>
 
 			<script src="./etcmodule/InputRangeBox/InputRangeBox.js<?=$tsync?>"></script>
+			<script src="./etcmodule/toDraggable/toDraggable.js<?=$tsync?>"></script>
 			<script src="./etcmodule/SelectArea/SelectArea.js<?=$tsync?>"></script>
 			<script>
 			$(function(){

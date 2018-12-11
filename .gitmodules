@@ -4,3 +4,6 @@
 [submodule "etcmodule/SelectArea"]
 	path = etcmodule/SelectArea
 	url = https://github.com/mins01/ui_SelectArea.git
+[submodule "etcmodule/toDraggable"]
+	path = etcmodule/toDraggable
+	url = https://github.com/mins01/ui_toDraggable.git
