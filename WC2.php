@@ -87,6 +87,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 
 		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css<?=$tsync?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPallet/ColorPallet.css<?=$tsync?>" charset="utf-8" />
 		
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
@@ -2293,9 +2294,10 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 			<script src="./etcmodule/InputRangeBox/InputRangeBox.js<?=$tsync?>"></script>
 			<script src="./etcmodule/toDraggable/toDraggable.js<?=$tsync?>"></script>
 			<script src="./etcmodule/SelectArea/SelectArea.js<?=$tsync?>"></script>
+			<script src="./etcmodule/ColorPallet/ColorPallet.js<?=$tsync?>"></script>
 			<script>
 			$(function(){
-				InputRangeBox.onload();
+				InputRangeBox.autoInit();
 			})
 			</script>
 
