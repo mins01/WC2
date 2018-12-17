@@ -10,3 +10,6 @@
 [submodule "etcmodule/ColorPallet"]
 	path = etcmodule/ColorPallet
 	url = https://github.com/mins01/ui_ColorPallet.git
+[submodule "etcmodule/ColorPalette"]
+	path = etcmodule/ColorPalette
+	url = https://github.com/mins01/ui_ColorPalette.git
