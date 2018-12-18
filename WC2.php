@@ -87,7 +87,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 
 		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css<?=$tsync?>" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPallet/ColorPallet.css<?=$tsync?>" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPalette/ColorPalette.css<?=$tsync?>" charset="utf-8" />
 		
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
@@ -130,8 +130,8 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 						<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 
 						<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
-						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" onclick="setTimeout(function(){$(wc2.fillStyle).spectrum('toggle');},0 )" >🎨</button>
-						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" onclick="setTimeout(function(){$(wc2.strokeStyle).spectrum('toggle');},0 )" >🎨</button>
+						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
+						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
 
 
 						<!--
@@ -1175,10 +1175,15 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 													<th>Fill</th>
 												</tr>
 												<tr>
-													<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
+													<th>
+														<input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
+														<button type="button" class="btn btn-sm btn_modal_stroke_color bg-strokeStyle" data-toggle="modal" data-target="#modal_stroke_color">🎨</button>
 													</th>
 													<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.exchangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
-													<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
+													<th>
+														<input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)">
+														<button type="button" class="btn btn-sm btn_modal_fill_color bg-fillStyle" data-toggle="modal" data-target="#modal_fill_color">🎨</button>
+													</th>
 												</tr>
 											</table>
 										</div>
@@ -2233,6 +2238,35 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 				</article>
 				<!-- //메뉴 상세 부분 -->
 
+				<!-- 라인 색 -->
+				<div id="modal_stroke_color" class="modal wc2-modal-color" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">STROK COLOR</h4>
+							</div>
+							<div class="modal-body">
+								<p>One fine body&hellip;</p>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				
+				<!-- 채우기 색 -->
+				<div id="modal_fill_color" class="modal  wc2-modal-color" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">FILL COLOR</h4>
+							</div>
+							<div class="modal-body">
+								<p>One fine body&hellip;</p>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 
 
 			</div> <!-- <div id="container"> -->
@@ -2294,7 +2328,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 			<script src="./etcmodule/InputRangeBox/InputRangeBox.js<?=$tsync?>"></script>
 			<script src="./etcmodule/toDraggable/toDraggable.js<?=$tsync?>"></script>
 			<script src="./etcmodule/SelectArea/SelectArea.js<?=$tsync?>"></script>
-			<script src="./etcmodule/ColorPallet/ColorPallet.js<?=$tsync?>"></script>
+			<script src="./etcmodule/ColorPalette/ColorPalette.js<?=$tsync?>"></script>
 			<script>
 			$(function(){
 				InputRangeBox.autoInit();

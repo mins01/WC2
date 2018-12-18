@@ -78,7 +78,8 @@ var wc2 = (function(){
 			this.initVar();
 			this.initUI();
 			this.initEvent();
-			this.initColorPalette();
+			// this.initColorPalette(); //deprecated
+			this.initModalColorPalette(); 
 			//this.addWebCanvasWindow(300,300);
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
@@ -1125,6 +1126,52 @@ var wc2 = (function(){
 
 			a.href = img.src = url;
 		}
+		,"initModalColorPalette":function(){
+			this.strokeStyle = document.getElementById('strokeStyle');
+			this.fillStyle = document.getElementById('fillStyle');
+			var bookmark = ["#000000","#ffffff","#c00000","#ff0000","#ffc000","#ffff00","#92d050","#00b050","#00b0f0","#0070c0","#002060","#7030a0"]
+			
+			//-- stroke
+			var $msc = $("#modal_stroke_color");
+			var cp_msc = ColorPalette({defColor:this.strokeStyle.value,bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"modal_stroke_color"});
+			this.cp_msc = cp_msc;
+			$(".btn_modal_stroke_color").css("backgroundColor",this.strokeStyle.value);
+			InputRangeBox.autoInit(cp_msc);
+			$msc.find(".modal-body").html("").append(cp_msc);
+			$msc.get(0).cp_msc = cp_msc;
+			cp_msc.addEventListener("confirm",function(evt){
+				$msc.modal('hide');
+				$('#strokeStyle').val(this.toStringRGB())
+				wc2.syncColor();
+				wc2.cmdTool('predraw');
+				
+			})
+			cp_msc.addEventListener("cancel",function(evt){
+				$msc.modal('hide');
+			})
+			cp_msc.set(this.strokeStyle.value)
+			//-- fill 
+			var $mfc = $("#modal_fill_color");
+			var cp_mfc = ColorPalette({defColor:this.fillStyle.value,bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"modal_fill_color"});
+			this.cp_mfc = cp_mfc;
+			$(".btn_modal_fill_color").css("backgroundColor",this.fillStyle.value);
+			InputRangeBox.autoInit(cp_mfc);
+			$mfc.find(".modal-body").html("").append(cp_mfc);
+			$mfc.get(0).cp_mfc = cp_mfc;
+			cp_mfc.addEventListener("confirm",function(evt){
+				$mfc.modal('hide');
+				$('#fillStyle').val(this.toStringRGB())
+				wc2.syncColor();
+				wc2.cmdTool('predraw');
+			})
+			cp_mfc.addEventListener("cancel",function(evt){
+				$mfc.modal('hide');
+			})
+			cp_mfc.set(this.fillStyle.value)
+			
+			
+			
+		}
 		//--- 색상관련
 		,"initColorPalette":function(){
 			this.strokeStyle = document.getElementById('strokeStyle');
@@ -1178,14 +1225,19 @@ var wc2 = (function(){
 			var c1 = this.fillStyle.value;
 			this.setStrokeColor(c1);
 			this.setFillColor(c0);
+			this.syncColor()
 			return true;
 		}
 		,"setStrokeColor":function(val){
-			$( this.strokeStyle).val(val).spectrum("set", val);
+			this.strokeStyle.value = val;
+			this.cp_msc.set(this.strokeStyle.value)
+			// $( this.strokeStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setFillColor":function(val){
-			$( this.fillStyle).val(val).spectrum("set", val);
+			this.fillStyle.value = val;
+			this.cp_mfc.set(this.fillStyle.value)
+			// $( this.fillStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setSpuitColorTo":function(ta){
@@ -1500,11 +1552,14 @@ var wc2 = (function(){
 			this.syncPropPanel();
 			this.cmdTool('predraw')
 
-			$(this.strokeStyle).spectrum("set",this.strokeStyle.value);
-			$(this.fillStyle).spectrum("set",this.fillStyle.value);
+			// $(this.strokeStyle).spectrum("set",this.strokeStyle.value);
+			// $(this.fillStyle).spectrum("set",this.fillStyle.value);
 			
 			$('.bg-strokeStyle').css("backgroundColor",this.strokeStyle.value);
 			$('.bg-fillStyle').css("backgroundColor",this.fillStyle.value);
+			this.cp_msc.set(this.strokeStyle.value)
+			this.cp_mfc.set(this.fillStyle.value)
+			// this.cp_msc.set(this.strokeStyle.value);
 
 			this.saveSetting(document.getElementById("formToolColor"),"change");
 		}
