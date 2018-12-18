@@ -74,9 +74,6 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<!-- jquery-ui -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-		<!-- spectrum.css on jquery -->
-		<link rel="stylesheet" href="jquery/spectrum.css">
-		<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.1/spectrum.min.css"> -->
 
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -2277,10 +2274,6 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 			<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 			<!-- jquery-ui -->
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-			<!-- spectrum on jquery https://bgrins.github.io/spectrum/ -->
-			<script src="jquery/spectrum.js"></script>
-			<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script> -->
 
 			<!-- https://github.com/phstc/jquery-dateFormat -->
 			<script src="jquery/jquery-dateFormat.min.js"></script>

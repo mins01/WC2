@@ -17,7 +17,7 @@ bootstrap : MIT
 jquery : MIT
 jquery-ui : MIT
 https://github.com/behigh/bootstrap_dropdowns_enhancement : MIT
-https://bgrins.github.io/spectrum/ : https://github.com/bgrins/spectrum/blob/master/LICENSE : MIT License
+// https://bgrins.github.io/spectrum/ : https://github.com/bgrins/spectrum/blob/master/LICENSE : MIT License // 2018-12-18 사용안함
 https://github.com/phstc/jquery-dateFormat : MIT
 https://github.com/jquery/jquery-mousewheel : https://github.com/jquery/jquery-mousewheel/blob/master/LICENSE.txt
 https://github.com/ccampbell/mousetrap : Apache 2.0
@@ -30,3 +30,4 @@ https://github.com/jnordberg/gif.js : MIT
 https://github.com/mins01/WG2/ : "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
 https://github.com/mins01/ui_SelectArea : MIT , "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
 https://github.com/mins01/ui_InputRangeBox : MIT , "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.
+https://github.com/mins01/ui_ColorPalette : MIT , "공대여자는 이쁘다."를 나타내야만 사용할 수 있습니다.

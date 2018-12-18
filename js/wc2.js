@@ -4,7 +4,7 @@
 * wc2.js
 * mins01.com
 * 2015-04-25 : create file
-* require : jquery,jquery-ui,bootstrap,spectrum(color picker on jquery), class.Webcanvas.js , class.WebCanvasBundle.js
+* require : jquery,jquery-ui,bootstrap,class.Webcanvas.js , class.WebCanvasBundle.js
 * HTML에서 이곳의 함수를 호출해서 사용하도록 한다.
 */
 /*
@@ -1172,54 +1172,6 @@ var wc2 = (function(){
 			
 			
 		}
-		//--- 색상관련
-		,"initColorPalette":function(){
-			this.strokeStyle = document.getElementById('strokeStyle');
-			$(this.strokeStyle).spectrum({
-					//color: "rgb(0,0,0)",
-					color:this.strokeStyle.value,
-					//showAlpha: true,
-					showInput: true,
-					className: "strokeStyle",
-					showInitial: true,
-					showPalette: true,
-					showSelectionPalette: true,
-					containerClassName: 'colorPalette',
-					maxSelectionSize: 40,
-					preferredFormat: "rgb",
-					localStorageKey: "wc2.strokeStyle",
-					change: function(color) {
-						this.value = color.toRgbString();
-						wc2.cmdTool('predraw')
-					}
-			});
-			this.fillStyle = document.getElementById('fillStyle');
-			$(this.fillStyle).spectrum({
-					//color: "rgb(255,255,255)",
-					color:this.fillStyle.value,
-					//showAlpha: true,
-					showInput: true,
-					className: "fillStyle",
-					showInitial: true,
-					showPalette: true,
-					showSelectionPalette: true,
-					containerClassName: 'colorPalette',
-					maxSelectionSize: 40,
-					preferredFormat: "rgb",
-					localStorageKey: "wc2.fillStyle",
-					change: function(color) {
-						this.value = color.toRgbString();
-						wc2.cmdTool('predraw')
-					}
-			});
-			//-- 파레트 더블 클릭으로 색상 선택되도록
-			$(".colorPalette").on("dblclick",".sp-sat", function (e) {
-				e.stopPropagation();
-				e.preventDefault();
-				$(this).parents(".sp-container").find(".sp-choose").trigger("click")
-			});
-			return true;
-		}
 		,"exchangeColor":function(){
 			var c0 = this.strokeStyle.value;
 			var c1 = this.fillStyle.value;
@@ -1231,13 +1183,11 @@ var wc2 = (function(){
 		,"setStrokeColor":function(val){
 			this.strokeStyle.value = val;
 			this.cp_msc.set(this.strokeStyle.value)
-			// $( this.strokeStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setFillColor":function(val){
 			this.fillStyle.value = val;
 			this.cp_mfc.set(this.fillStyle.value)
-			// $( this.fillStyle).val(val).spectrum("set", val);
 			return true;
 		}
 		,"setSpuitColorTo":function(ta){
@@ -1551,16 +1501,10 @@ var wc2 = (function(){
 			//this.syncBrush();
 			this.syncPropPanel();
 			this.cmdTool('predraw')
-
-			// $(this.strokeStyle).spectrum("set",this.strokeStyle.value);
-			// $(this.fillStyle).spectrum("set",this.fillStyle.value);
-			
 			$('.bg-strokeStyle').css("backgroundColor",this.strokeStyle.value);
 			$('.bg-fillStyle').css("backgroundColor",this.fillStyle.value);
 			this.cp_msc.set(this.strokeStyle.value)
 			this.cp_mfc.set(this.fillStyle.value)
-			// this.cp_msc.set(this.strokeStyle.value);
-
 			this.saveSetting(document.getElementById("formToolColor"),"change");
 		}
 		//지우개용 브러쉬 정보 싱크 그리기
