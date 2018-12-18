@@ -2236,7 +2236,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 				<!-- //메뉴 상세 부분 -->
 
 				<!-- 라인 색 -->
-				<div id="modal_stroke_color" class="modal wc2-modal-color" tabindex="-1" role="dialog">
+				<div id="modal_stroke_color" class="modal colorPalette-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -2251,7 +2251,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 				</div><!-- /.modal -->
 				
 				<!-- 채우기 색 -->
-				<div id="modal_fill_color" class="modal  wc2-modal-color" tabindex="-1" role="dialog">
+				<div id="modal_fill_color" class="modal  colorPalette-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">

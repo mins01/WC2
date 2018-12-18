@@ -513,33 +513,3 @@ cursor:pointer;
 .wc2-selectArea-no-bg .selectArea-bg{
 	border-color:transparent;
 }
-
-
-/* 모달 색 선택 */
-/* 부트스트랩 연동 호환용 */
-.wc2-modal-color{
-
-}
-.wc2-modal-color .modal-dialog {
-	margin: 0 auto;
-	padding: 0.5em;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.wc2-modal-color .modal-content{
-	max-height: 100%;
-}
-@media (max-height: 700px) {
-	.wc2-modal-color .modal-content{
-		height: 100%;
-	}
-}
-.wc2-modal-color .modal-body{
-	height: calc(100% - 70px);
-	padding: 5px;
-}
-.wc2-modal-color .modal-body .colorPalette{
-	max-height: 100%;
-}
