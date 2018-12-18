@@ -63,9 +63,6 @@
 		<!-- jquery-ui -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-		<!-- spectrum.css on jquery -->
-		<link rel="stylesheet" href="jquery/spectrum.css">
-		<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.1/spectrum.min.css"> -->
 
 		<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 		<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -74,12 +71,13 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1544494182" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1544494182" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1545103409" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1545103409" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPalette/ColorPalette.css?_t=1545103409" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1544494182" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1544494182" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1545103409" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1545103409" charset="utf-8" />
 	</head>
 	<body spellcheck="false">
 
@@ -118,8 +116,8 @@
 						<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 
 						<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
-						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" onclick="setTimeout(function(){$(wc2.fillStyle).spectrum('toggle');},0 )" >🎨</button>
-						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" onclick="setTimeout(function(){$(wc2.strokeStyle).spectrum('toggle');},0 )" >🎨</button>
+						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
+						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
 
 
 						<!--
@@ -1163,10 +1161,15 @@
 													<th>Fill</th>
 												</tr>
 												<tr>
-													<th><input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
+													<th>
+														<input type="hidden" name="strokeStyle" id="strokeStyle" value="rgb(0,0,0)">
+														<button type="button" class="btn btn-sm btn_modal_stroke_color bg-strokeStyle" data-toggle="modal" data-target="#modal_stroke_color">🎨</button>
 													</th>
 													<th><button class="btn btn-default btn-xs glyphicon glyphicon-resize-horizontal" type="button" onclick="wc2.exchangeColor();wc2.syncBrush();wc2.cmdTool('predraw')" title="exchange color"></button></th>
-													<th><input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)"></th>
+													<th>
+														<input type="hidden" name="fillStyle" id="fillStyle" value="rgb(255,255,255)">
+														<button type="button" class="btn btn-sm btn_modal_fill_color bg-fillStyle" data-toggle="modal" data-target="#modal_fill_color">🎨</button>
+													</th>
 												</tr>
 											</table>
 										</div>
@@ -2221,6 +2224,35 @@
 				</article>
 				<!-- //메뉴 상세 부분 -->
 
+				<!-- 라인 색 -->
+				<div id="modal_stroke_color" class="modal colorPalette-modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">STROK COLOR</h4>
+							</div>
+							<div class="modal-body">
+								<p>One fine body&hellip;</p>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				
+				<!-- 채우기 색 -->
+				<div id="modal_fill_color" class="modal  colorPalette-modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">FILL COLOR</h4>
+							</div>
+							<div class="modal-body">
+								<p>One fine body&hellip;</p>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 
 
 			</div> <!-- <div id="container"> -->
@@ -2231,10 +2263,6 @@
 			<script src="./bootstrap/js/dropdowns-enhancement.js"></script>
 			<!-- jquery-ui -->
 			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-			<!-- spectrum on jquery https://bgrins.github.io/spectrum/ -->
-			<script src="jquery/spectrum.js"></script>
-			<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.6.2/spectrum.min.js"></script> -->
 
 			<!-- https://github.com/phstc/jquery-dateFormat -->
 			<script src="jquery/jquery-dateFormat.min.js"></script>
@@ -2260,31 +2288,32 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1544494182"></script>
-			<script src="js/colorPalette.palettes.js?_t=1544494182"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1544494182"></script>
+			<script src="js/colorPalette.js?_t=1545103409"></script>
+			<script src="js/colorPalette.palettes.js?_t=1545103409"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1545103409"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1544494182"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1544494182"></script>
-			<script src="js/wc2.js?_t=1544494182"></script>
-			<script src="js/wc2Tool.js?_t=1544494182"></script>
-			<script src="js/wc2Brush.js?_t=1544494182"></script>
+			<script src="js/class.WebCanvas.js?_t=1545103409"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1545103409"></script>
+			<script src="js/wc2.js?_t=1545103409"></script>
+			<script src="js/wc2Tool.js?_t=1545103409"></script>
+			<script src="js/wc2Brush.js?_t=1545103409"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1544494182"></script>
-			<script src="js/wc2Filter.js?_t=1544494182"></script>
-			<script src="js/wc2Helper.js?_t=1544494182"></script>
+			<script src="js/wc2PatternList.js?_t=1545103409"></script>
+			<script src="js/wc2Filter.js?_t=1545103409"></script>
+			<script src="js/wc2Helper.js?_t=1545103409"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1544494182"></script>
-			<script src="./etcmodule/toDraggable/toDraggable.js?_t=1544494182"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1544494182"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1545103409"></script>
+			<script src="./etcmodule/toDraggable/toDraggable.js?_t=1545103409"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1545103409"></script>
+			<script src="./etcmodule/ColorPalette/ColorPalette.js?_t=1545103409"></script>
 			<script>
 			$(function(){
-				InputRangeBox.onload();
+				InputRangeBox.autoInit();
 			})
 			</script>
 
