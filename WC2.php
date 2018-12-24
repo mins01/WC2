@@ -652,7 +652,6 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												<th>fontFamily</th>
 												<td>
 													<select style="width:90%;font-family: dotum, Arial, Helvetica, AppleGothic, sans-serif;" name="fontFamily" >
-														<option value="default">system</option>
 														<optgroup label="serif">
 															<option value='batang, Georgia, serif'>batang, Georgia, serif</option>
 															<option value='gungsuh, Georgia, serif'>gungsuh, Georgia, serif</option>
