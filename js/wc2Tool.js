@@ -1465,7 +1465,7 @@ var wc2Tool = function(){
 			,"confirm":function(){
 				var x = parseInt(this.f.left.value,10), y  = parseInt(this.f.top.value,10);
 				var width = parseInt(this.f.width.value,10),height = parseInt(this.f.height.value,10);
-				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)||x<=0||y<=0||width<=0||height<=0){
+				if(isNaN(x) ||isNaN(y)  ||isNaN(width)  ||isNaN(height)||x<0||y<0||width<0||height<0){
 					wc2.setError("tool.crop() : 잘못된 입력값.")
 				}else{
 					wc2.cmdWcb("crop",x,y,width,height);
