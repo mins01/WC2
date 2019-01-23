@@ -473,7 +473,7 @@ cursor:pointer;
  * inputRangeBox 의 기본 너비를 100%로 한다.
  * @type {[type]}
  */
-.inputRangeBox{
+.inputRangeBox , .inputNumberBox{
 	width: 100%;
 	font-size:1.2em;
 }

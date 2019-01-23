@@ -324,7 +324,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<col>
 											<tr>
 												<th>line</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="100" value="5" size="3" name="lineWidth" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="500" value="5" size="3" name="lineWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>alpha</th>
@@ -465,7 +465,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>lineWidth</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="100" value="3" step="1" name="lineWidth"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="500" value="3" step="1" name="lineWidth"  ></div></td>
 											</tr>
 											<tr>
 												<th>X</th>
@@ -481,7 +481,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>lineLength</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="100" value="1" step="1" name="lineLength"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="1000" value="1" step="1" name="lineLength"  ></div></td>
 											</tr>
 										</table>
 									</div>
@@ -533,7 +533,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>lineWidth</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="100" value="3" step="1" name="lineWidth"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="500" value="3" step="1" name="lineWidth"  ></div></td>
 											</tr>
 											<tr>
 												<th>X</th>
@@ -553,7 +553,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>gapY</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="100" value="10" step="1" name="gapY"  ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="1000" value="10" step="1" name="gapY"  ></div></td>
 											</tr>
 											<tr>
 												<th>deg</th>
@@ -646,7 +646,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>size</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2" data-suffix="px"><input type="range" name="fontSize" style="width:90%" min="1" max="100" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2" data-suffix="px"><input type="range" name="fontSize" style="width:90%" min="1" max="500" value="12" title="12px" onchange="this.title=this.value+'px'"></div></td>
 											</tr>
 											<tr>
 												<th>fontFamily</th>
@@ -768,7 +768,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>line</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="100" value="1" size="3" name="lineWidth" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="500" value="1" size="3" name="lineWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>use-line</th>
@@ -871,7 +871,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr>
 											<tr>
 												<th>Size</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="100" value="5" size="5" name="brushWidth" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="500" value="5" size="5" name="brushWidth" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>
@@ -943,7 +943,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<col width="">
 											<tr>
 												<th>Size</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="100" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="500" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
 											</tr>
 											<tr>
 												<th>R0</th>
@@ -1053,7 +1053,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												</tr>
 												<tr>
 													<th>Size</th>
-													<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="100" size="5" name="width" maxlength="5" value="10" ></div></td>
+													<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="1" max="500" size="5" name="width" maxlength="5" value="10" ></div></td>
 												</tr>
 												<tr>
 													<th>alpha</th>
@@ -1866,7 +1866,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										<li class="list-group-item">
 											<div class="row">
 												<div class="col-xs-3"><label>PixelSize</label></div>
-												<div class="col-xs-9"><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="pixelSize" value="0" min="1" max="100"   step="1"></div></div>
+												<div class="col-xs-9"><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" name="pixelSize" value="0" min="1" max="500"   step="1"></div></div>
 											</div>
 										</li>
 										<li class="list-group-item">
