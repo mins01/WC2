@@ -35,6 +35,18 @@ wc2Brush.prototype = function(){
 			if(this.disablePressureAlpha) return 1;
 			return Math.min(this.minimumPressureAlpha+pressure,1)
 		}
+		,"loadUrl":function(svgUrl,width,height,colorStyle,globalAlpha){
+			var image = new Image();
+			var thisC = this;
+			image.onload = function(e){
+				thisC.image(this,width,height,colorStyle,globalAlpha);
+			}
+			image.onerror = function(e){
+				console.log(e)
+			}
+			image.src = svgUrl;
+			return;
+		}
 		,"image":function(image,width,height,colorStyle,globalAlpha){
 			this.brushWC.clearResize(width,height);
 			this.brushWC.configContext2d({"globalAlpha":globalAlpha})
