@@ -35,7 +35,7 @@ wc2Brush.prototype = function(){
 			if(this.disablePressureAlpha) return 1;
 			return Math.min(this.minimumPressureAlpha+pressure,1)
 		}
-		,"loadUrl":function(svgUrl,width,height,colorStyle,globalAlpha){
+		,"loadUrl":function(url,width,height,colorStyle,globalAlpha){
 			var image = new Image();
 			var thisC = this;
 			image.onload = function(e){
@@ -44,7 +44,7 @@ wc2Brush.prototype = function(){
 			image.onerror = function(e){
 				console.log(e)
 			}
-			image.src = svgUrl;
+			image.src = url;
 			return;
 		}
 		,"image":function(image,width,height,colorStyle,globalAlpha){
