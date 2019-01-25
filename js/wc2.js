@@ -1533,7 +1533,7 @@ var wc2 = (function(){
 			var fc = fc||document.formToolColor;
 			var width = parseFloat(f.brushWidth.value);
 			var r = width/2;
-			var r0p = parseFloat(f.r0p.value);
+			// var r0p = parseFloat(f.r0p.value);
 			this.brushSpacing  = parseFloat(f.brushSpacing.value);
 			var globalAlpha = parseFloat(f.brushGlobalAlpha.value);
 			var strokeStyle = fc.strokeStyle.value;
@@ -1549,8 +1549,9 @@ var wc2 = (function(){
 			this.brush4Brush.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
 			this.brush4Brush.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
 
-			//this.brush4Brush.image(f.brush,width,width,strokeStyle,globalAlpha)
-			this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1);
+			var brushImage = f.querySelector('input.brushImage:checked + img.brushImage');
+			this.brush4Brush.image(brushImage,width,width,strokeStyle,globalAlpha)
+			// this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
 			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);
 			this.brush4Brush.previewBrush()
 

@@ -945,9 +945,25 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 												<th>Size</th>
 												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="500" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
 											</tr>
-											<tr>
+											<!-- <tr>
 												<th>R0</th>
 												<td><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range" min="0" max="1" step="0.01" name="r0p" value="0" ></div></td>
+											</tr> -->
+											<tr>
+												<td colspan="2">
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" checked /><img class="brushImage" src="brush/circle01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/circle02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/rect01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/rect02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_dotc.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_dotr.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_backslash.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_slash.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article03.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/bristles01.png" /></label>
+												</td>
 											</tr>
 											<tr>
 												<th>Alpha</th>
