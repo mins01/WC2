@@ -951,18 +951,18 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</tr> -->
 											<tr>
 												<td colspan="2">
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" checked /><img class="brushImage" src="brush/circle01.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/circle02.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/rect01.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/rect02.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_dotc.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_dotr.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_backslash.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/etc_slash.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article01.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article02.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/article03.png" /></label>
-													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" /><img class="brushImage" src="brush/bristles01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="circle01" checked /><img class="brushImage" src="brush/circle01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="circle02" /><img class="brushImage" src="brush/circle02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="rect01" /><img class="brushImage" src="brush/rect01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="rect02" /><img class="brushImage" src="brush/rect02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="etc_dotc" /><img class="brushImage" src="brush/etc_dotc.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="etc_dotr" /><img class="brushImage" src="brush/etc_dotr.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="etc_backslash" /><img class="brushImage" src="brush/etc_backslash.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="etc_slash" /><img class="brushImage" src="brush/etc_slash.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="article01" /><img class="brushImage" src="brush/article01.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="article02" /><img class="brushImage" src="brush/article02.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="article03" /><img class="brushImage" src="brush/article03.png" /></label>
+													<label class="brushImage"><input type="radio"  class="brushImage" name="brushImage" value="bristles01" /><img class="brushImage" src="brush/bristles01.png" /></label>
 												</td>
 											</tr>
 											<tr>
