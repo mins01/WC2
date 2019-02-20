@@ -1514,18 +1514,26 @@ var wc2 = (function(){
 			var width = parseFloat(f.brushWidth.value);
 			var globalAlpha = parseFloat(f.brushGlobalAlpha.value);
 			var r = width/2;
-			var r0p = parseFloat(f.r0p.value);
+			// var r0p = parseFloat(f.r0p.value);
 			var colorStyle = "rgb(255,255,255)";
 			//this.brush4Eraser.colorStyle = strokeStyle;
-			this.brush4Eraser.spacing  = parseFloat(f.brushSpacing.value);
-			this.brush4Eraser.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
-			this.brush4Eraser.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
+			var strokeStyle = "rgb(255,255,255)";
+			var fillStyle = "rgb(255,255,255)";
+			
+			var brush = this.brush4Eraser;
+			brush.colorStyle = strokeStyle;
+			brush.spacing  = parseFloat(f.brushSpacing.value);
+			brush.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
+			brush.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
 
-			this.brush4Eraser.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
-			this.brush4Eraser.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
+			brush.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
+			brush.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
 
-			this.brush4Eraser.circle(r,colorStyle,globalAlpha,r0p,1);
-			this.brush4Eraser.previewBrush()
+			var brushImage = f.querySelector('input.brushImage:checked + img.brushImage');
+			brush.image(brushImage,width,width,strokeStyle,globalAlpha)
+			// brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
+			//brush.circle(r,strokeStyle,1,r0p,1);
+			brush.previewBrush()
 		}
 		//브러쉬 정보 싱크 그리기
 		,"syncBrush":function(f,fc){
@@ -1541,19 +1549,20 @@ var wc2 = (function(){
 			//var color0 = strokeStyle.replace('rgb','rgba').replace(')',',1)');
 			//var color1 = strokeStyle.replace('rgb','rgba').replace(')',',0)');
 			//console.log(strokeStyle);
-			this.brush4Brush.colorStyle = strokeStyle;
-			this.brush4Brush.spacing  = parseFloat(f.brushSpacing.value);
-			this.brush4Brush.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
-			this.brush4Brush.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
+			var brush = this.brush4Brush;
+			brush.colorStyle = strokeStyle;
+			brush.spacing  = parseFloat(f.brushSpacing.value);
+			brush.disablePressureDiameter  = $(f).find("input[name='brushDisablePressureDiameter']:checked").val()=="1"?true:false;
+			brush.minimumPressureDiameter  = parseFloat(f.brushMinimumPressureDiameter.value);
 
-			this.brush4Brush.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
-			this.brush4Brush.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
+			brush.disablePressureAlpha  = $(f).find("input[name='brushDisablePressureAlpha']:checked").val()=="1"?true:false;
+			brush.minimumPressureAlpha  = parseFloat(f.brushMinimumPressureAlpha.value);
 
 			var brushImage = f.querySelector('input.brushImage:checked + img.brushImage');
-			this.brush4Brush.image(brushImage,width,width,strokeStyle,globalAlpha)
-			// this.brush4Brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
-			//this.brush4Brush.circle(r,strokeStyle,1,r0p,1);
-			this.brush4Brush.previewBrush()
+			brush.image(brushImage,width,width,strokeStyle,globalAlpha)
+			// brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
+			//brush.circle(r,strokeStyle,1,r0p,1);
+			brush.previewBrush()
 
 
 			//this.brushIMG.src = this.brush4Brush.toDataURL();
