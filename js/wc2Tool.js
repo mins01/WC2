@@ -437,39 +437,40 @@ var wc2Tool = function(){
 			,"tf":null
 			,"init":function(wcb){
 				this.tf = document.formPropTransformProperty;
-				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this.ing = 1;
 				this._initXYWH();
 				this.predraw();
+				console.log("init",this.wcb)
 				return true;
 			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
+				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
+				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
+
 				this.dw = this.wcb.width; //기준 너비
 				this.dh =  this.wcb.height; //기준 높이
 				this.w0 = this.dw;
 				this.h0 = this.dh;
-				//this.x0 = (this.wcb.width-this.w0)/2;
 				this.tf.x0.value = (this.wcb.width-this.w0)/2;
-				//this.y0 = (this.wcb.height-this.h0)/2;
 				this.tf.y0.value = (this.wcb.height-this.h0)/2;
-				//this.sc = 1;
 				this.tf.sc.value = 1;
-				//this.deg = 0;
 				this.tf.deg.value = 0;
-
+				// console.log("_initXYWH")
 			}
 			,"end":function(){
 				return true;
+			}
+			,"isChanged":function(){
+				var x0 = parseFloat(this.tf.x0.value)
+				var y0 = parseFloat(this.tf.y0.value)
+				var sc = parseFloat(this.tf.sc.value)
+				var deg = parseFloat(this.tf.deg.value)
+				return (x0!=0 || y0!=0 || sc!=1 || deg!=0 );
 			}
 			,"_scale":function(deltaY){
 				var sc = parseFloat(this.tf.sc.value) + (deltaY/50);
 				sc = Math.min(100,Math.max(0.01,sc)).toFixed(2); //0.1 ~ 10 배까지 가능하도록
 				this.tf.sc.value = sc;
-				// var w = this.dw * sc;
-				// var h = this.dh * sc;
-				// this.x0 += (this.w0-w)/2;
-				// this.y0 += (this.h0-h)/2;
-				// this.w0  = w;
-				// this.h0  = h;
 			}
 			,"_rotate":function(deltaY){
 				var deg = parseFloat(this.tf.deg.value) -1*deltaY; //아래로 휠을 돌리면 시계반향으로 돌아가게 -1을 곱함
@@ -489,17 +490,11 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"down":function(event){
-				if(this.ing ==0){
-					//this.wcb = wcb;
-					this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
-					this._initXYWH();
-				}
-				this.ing = 1;
 				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
-				console.log("init")
+				// console.log("down")
 				return true;
 			}
 			,"move":function(event){
@@ -509,14 +504,13 @@ var wc2Tool = function(){
 				this.x1 = t.x;
 				this.y1 = t.y;
 				this.predraw();
-				//console.log("move");
+				// console.log("move");
 				return true;
 			}
 			,"up":function(event){
 				this.predraw();
-				//this.wcb.activeWebCanvas.merge(this.wcb.shadowWebCanvas);
-				//console.log("up");
 				this.end();
+				// console.log("up")
 				return true;
 			}
 			,"predraw":function(){
@@ -541,6 +535,7 @@ var wc2Tool = function(){
 					this.wcb.shadowWebCanvas.resetRotate()
 					this.wcb.shadowWebCanvas.resetScale();
 				}
+				// console.log("predraw")
 			}
 			,"confirm":function(noQ){
 				if(this.ing == 1){
@@ -549,22 +544,23 @@ var wc2Tool = function(){
 						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
-					return this.reset();
+					return this.reset() && this.init();
 				}
 				return true;
 
 			}
 			,"reset":function(){
 				//console.log("reset");
-				if(this.ing ==1 && confirm("Not Confirm! Confirm OK?")){
+				if(this.ing==1 && this.isChanged() && confirm("Not Confirm! Confirm OK?")){
 					return this.confirm(true);
 				}
 				if(this.wcb){
 					this.ing = 0;
 					this.wcb.shadowWebCanvas.clear();
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
-
 				}
+				console.log("reset",this.wcb)
+				
 				return true;
 			}
 			,"initPreview":function(){

@@ -490,6 +490,7 @@ var wc2 = (function(){
 					if(this.activeWcb[cmd]){
 						sync = this.activeWcb[cmd]();
 					}
+					this.cmdTool("init");
 				break;
 				case "save":
 					this.saveWcb(arg1,arg2,arg3);
@@ -762,6 +763,7 @@ var wc2 = (function(){
 			this.activeWcb = wcb;
 			wc2Tool.init(this.tool);
 			this.cmdTool("reset");
+			this.cmdTool("init");
 			return this.activeWcb;
 		}
 		,"closeWcb":function(wcb){
@@ -1018,6 +1020,7 @@ var wc2 = (function(){
 			var sync = true;
 			var history = true;
 			var r = null;
+			this.cmdTool("reset");
 			switch(cmd){
 				case "clear":history = this.activeWcb.activeWebCanvas.clear();break;
 				case "new":
@@ -1052,7 +1055,7 @@ var wc2 = (function(){
 			if(history){
 				this.saveHistory("Layer."+cmd+":"+this.activeWcb.activeWebCanvas.label);
 			}
-			this.cmdTool("reset");
+			this.cmdTool("init");
 			if(sync){
 				this._syncWcbInfo();
 			}
@@ -1062,9 +1065,9 @@ var wc2 = (function(){
 			
 			var curr_index = this.activeWcb.getIndexAcviceWebCanvas();
 			if(curr_index != index){
-				wc2Tool.reset(this.tool);
+				// wc2Tool.reset(this.tool);
 				this.activeWcb.setActiveWebCanvasByIndex(index);
-				wc2Tool.init(this.tool)
+				// wc2Tool.init(this.tool)
 				return true;
 			}
 			return false;
@@ -1080,7 +1083,9 @@ var wc2 = (function(){
 			switch(cmd){
 				case "confirm":wc2Tool.confirm(this.tool);wc2._syncWcbInfo();break;
 				case "initPreview":wc2Tool.initPreview(this.tool);break;
-				case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
+				// case "reset":wc2Tool.reset(this.tool);wc2Tool.init(this.tool);break;
+				case "reset":wc2Tool.reset(this.tool);break;
+				case "init":wc2Tool.init(this.tool);break;
 				case "predraw":wc2.syncContext2dCfg();wc2Tool.predraw(this.tool,this.activeWcb);break;
 			}
 
@@ -1691,6 +1696,8 @@ var wc2 = (function(){
 				this.saveHistory("Layer."+cmd);
 			}
 			this.cmdTool("reset");
+			this.cmdTool("init");
+
 			if(sync){
 				this._syncWcbInfo();
 			}
