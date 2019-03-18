@@ -437,13 +437,19 @@ var wc2Tool = function(){
 			,"tf":null
 			,"init":function(wcb){
 				this.tf = document.formPropTransformProperty;
-				this.ing = 1;
-				this._initXYWH();
-				this.predraw();
+				this.initPreview();
 				console.log("init",this.wcb)
 				return true;
 			}
+			,"initPreview":function(){
+				// if(this.ing ==1){
+					this._initXYWH();
+					this._predraw();
+				// }
+				return true;
+			}
 			,"_initXYWH":function(){ //계산이 두번 같은 걸 하기에...
+				this.ing = 0;
 				$(this.wcb.activeWebCanvas).addClass("WC-hidden");
 				this.wcb.shadowWebCanvas.copyImageData(this.wcb.activeWebCanvas);
 
@@ -514,6 +520,10 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"predraw":function(){
+				this.ing = 1;
+				this._predraw();
+			}
+			,"_predraw":function(){
 				var x0 = parseFloat(this.tf.x0.value)
 				var y0 = parseFloat(this.tf.y0.value)
 				var sc = parseFloat(this.tf.sc.value)
@@ -544,15 +554,15 @@ var wc2Tool = function(){
 						wc2Tool.saveHistory();
 					}
 					this.ing = 0;
-					return this.reset() && this.init();
+					return this.init();
 				}
 				return true;
 
 			}
 			,"reset":function(){
 				//console.log("reset");
-				if(this.ing==1 && this.isChanged() && confirm("Not Confirm! Confirm OK?")){
-					return this.confirm(true);
+				if(this.ing==1 && confirm("Not Confirm! Confirm OK?")){
+					this.confirm(true);
 				}
 				if(this.wcb){
 					this.ing = 0;
@@ -563,13 +573,7 @@ var wc2Tool = function(){
 				
 				return true;
 			}
-			,"initPreview":function(){
-				// if(this.ing ==1){
-					this._initXYWH();
-					this.predraw();
-				// }
-				return true;
-			}
+
 		}
 		//--- 이미지
 		//-- 사용 후 로컬(file://)에서는 에러날 수 있다. (Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.)
