@@ -50,9 +50,9 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<meta name="description" content="WC2 , 웹 캔버스 2 , 웹 드로잉 ">
 		<!-- <meta property="fb:app_id" content="1089054314479874" /> -->
 		<meta property="og:title" content="WC2-웹 캔버스 2">
-		<meta property="og:image" content="http://www.mins01.com/WC2/img/apple-touch-icon.png">
-		<meta property="og:image:width" content="129" />
-		<meta property="og:image:height" content="129" />
+		<meta property="og:image" content="WC2.png">
+		<meta property="og:image:width" content="364" />
+		<meta property="og:image:height" content="642" />
 		<meta property="og:site_name" content="WC2-웹 캔버스 2">
 		<meta property="og:type" content="website">
 
