@@ -32,14 +32,23 @@ var wc2Helper = function(){
 						alert("이미지가 아닌 파일이 포함되어있습니다. 다시 선택해주시기 바랍니다.");
 						ta.value="";
 						return false;
+					}					
+					if(typeof URL.revokeObjectURL && typeof URL.createObjectURL){
+						// Blob URL 을 사용하도록 변경
+						URL.revokeObjectURL(img.src);
+						var src = URL.createObjectURL(file);
+						img.src = src;	
+					}else{
+						// dataURL 로 처리.
+						(function(file,img){
+							var fileReader = new FileReader();
+							fileReader.onload = function (event) {
+								img.src = event.target.result;
+							};
+							fileReader.readAsDataURL(file);
+						})(ta.files[i],img)	
 					}
-					(function(file,img){
-						var fileReader = new FileReader();
-						fileReader.onload = function (event) {
-							img.src = event.target.result;
-						};
-						fileReader.readAsDataURL(file);
-					})(ta.files[i],img)
+					
 				}
 			}
 		},
