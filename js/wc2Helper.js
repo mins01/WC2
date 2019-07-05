@@ -35,8 +35,11 @@ var wc2Helper = function(){
 					}					
 					if(typeof URL.revokeObjectURL && typeof URL.createObjectURL){
 						// Blob URL 을 사용하도록 변경
-						URL.revokeObjectURL(img.src);
+						// URL.revokeObjectURL(img.src);
 						var src = URL.createObjectURL(file);
+						img.onload = function() {
+			        window.URL.revokeObjectURL(this.src);
+			      }
 						img.src = src;	
 					}else{
 						// dataURL 로 처리.
