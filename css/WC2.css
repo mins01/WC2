@@ -178,19 +178,26 @@ display:none;
 @media (min-width: 768px) {
 	#toolPanel{display:block;visibility: visible;}
 	#propPanel{display:block;visibility: visible;}
+	
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+	#toolPanel{width:46px; min-width:26px; display: none}
+}
+@media (max-width: 500px) {
 	/* 툴 버튼을 작은 버튼으로 변경 */
 	#toolPanel{width:30px; min-width:26px; display: none}
 	#toolPanel .btn{
-			padding: 1px 5px;
-		  font-size: 12px;
-		  line-height: 1.5;
-		  border-radius: 3px;}
-		  #toolPanel button.no-glyphicon{
-	width:24px;
+		padding: 1px 5px;
+		font-size: 12px;
+		line-height: 1.5;
+		border-radius: 3px;
+	}
+	#toolPanel button.no-glyphicon{
+		width:24px;
 	}
 }
+
+
 
 
 a.wc-viewImage{text-align:center;padding:5px;overflow: auto;display: block;}
