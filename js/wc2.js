@@ -95,13 +95,39 @@ var wc2 = (function(){
 		}
 		,"initVar":function(){
 			//-- viewport 확대비율
+			// deprecated
 			var _viewportContentScale = 1;
+			// deprecated
 			Object.defineProperty(this, 'viewportContentScale', {
 				get:function(){ return _viewportContentScale; },
 				set:function(wc2){
 						return function(newValue){
 							_viewportContentScale = newValue;
-							wc2.changeViewport(_viewportContentScale);
+							// wc2.changeViewport(_viewportContentScale);
+					}
+				}(this),
+				enumerable: true,
+				configurable: false
+			});
+			
+			var _viewportWidth = 'device-width';
+			Object.defineProperty(this, 'viewportWidth', {
+				get:function(){ return _viewportWidth; },
+				set:function(wc2){
+						return function(newValue){
+							_viewportWidth = newValue;
+							let v = parseFloat(_viewportWidth);
+							if(isNaN(v)){
+								wc2.setViewport(_viewportWidth,null,null);	
+							}else{
+								if(v<=1){
+									wc2.setViewport('device-width',v,v);
+								}else{
+									wc2.setViewport(_viewportWidth,null,null);	
+								}
+								
+							}
+							
 					}
 				}(this),
 				enumerable: true,
@@ -1584,7 +1610,7 @@ var wc2 = (function(){
 			$("#imagePattern").prop("src",img.src);
 			return true;
 		}
-
+		//@deprecated
 		,"changeViewport":function(scale){
 			if(scale==""){
 				var content="";
@@ -1599,6 +1625,24 @@ var wc2 = (function(){
 			var head = document.getElementsByTagName('head');
 			head[0].appendChild(vp1);
 			return true;
+		}
+		,"setViewport":function(w,i_s,m_s){
+			// <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			var meta = document.createElement('meta');
+			meta.name = 'viewport';
+			meta.id = 'viewport'
+			var contents = [];
+			if(w != null) contents.push("width="+w);
+			if(i_s != null) contents.push("initial-scale="+i_s);
+			if(m_s != null) contents.push("maximum-scale="+m_s);
+			contents.push("user-scalable=no");
+			var content = contents.join(', ');
+			meta.setAttribute('content',content);
+			var head = document.querySelector('head')
+			// 이전 메타 삭제
+			var meta_old = document.querySelector('meta[name="viewport"]')
+			meta_old.remove();
+			head.append(meta);
 		}
 		,"closeOnclickNavbar":function(event){
 			var ta = event.target;

@@ -1855,7 +1855,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											</li>
 											<li class="list-group-item list-group-item-success">change viewport content sacle for Mobile-Device</li>
 											<li class="list-group-item" >
-												<div  class="form-inline">
+												<!-- <div  class="form-inline">
 													<select  class="form-control"  name="viewportContentScale">
 														<option value="1">default</option>
 														<option value="0.667">x1.5</option>
@@ -1866,6 +1866,29 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 														<option value="">Web 1:1</option>
 													</select>
 													<br>Tested by Mobile Chrome 41.0.2272.96
+												</div> -->
+												<div  class="form-inline">
+													<select  class="form-control"  name="viewportWidth">
+														<option value="device-width">default</option>
+														<option value="0.667">x1.5</option>
+														<option value="0.5">x2</option>
+														<option value="0.333">x3</option>
+														<option value="0.25">x4</option>
+														<option value="0.20">x5</option>														
+														<option value="320">320px</option>
+														<option value="340">340px</option>
+														<option value="360">360px</option>
+														<option value="400">400px</option>
+														<option value="500">500px</option>
+														<option value="600">600px</option>
+														<option value="700">700px</option>
+														<option value="800">800px</option>
+														<option value="900">900px</option>
+														<option value="1000">1000px</option>
+														<option value="1100">1100px</option>
+														<option value="1200">1200px</option>														
+													</select>
+													<br>Tested by Mobile 버전 76.0.3809.132
 												</div>
 												<button class="btn btn-default  btn-sm  glyphicon glyphicon-refresh" type="button" onclick="this.form.reset();this.form.onsubmit()"> Default</button>
 												<button class="btn btn-default btn-sm  glyphicon glyphicon-ok-circle" type="submit" onclick="wc2.hideMenuDetail();"> Confirm</button>
