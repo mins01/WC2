@@ -410,6 +410,9 @@ cursor:pointer;
 	.wc-prop-layer-info[data-wc-hide="0"]  .eye::before{
 		display:inline;
 	}
+	#quick-menu-1{
+		display: none;
+	}
 
 }
 
