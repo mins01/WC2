@@ -136,7 +136,7 @@ button.no-glyphicon{font-size:14px;width:40px; font-weight:bold;}
 
 #toolPanel{width:92px;min-width:42px;min-height:100px; position:fixed;top:55px;left:1px;}
 #toolPanel > .panel{box-shadow: 0px 1px 3px rgba(0,0,0,0.9);}
-#propPanel{width:200px;min-width:42px;min-height:100px; position:fixed;top:55px;right:2px; bottom: 5px; overflow-y: auto;}
+#propPanel{width:50%; min-width: 240px; max-width:300px;min-height:100px; position:fixed;top:55px;right:2px; bottom: 5px; overflow-y: auto;}
 #propPanel > .panel{box-shadow: 0px 1px 3px rgba(0,0,0,0.9);}
 #propPanel>.panel-body{}
 
@@ -174,12 +174,13 @@ display:none;
 #propHistoryList li{font-size: 12px;  padding: 2px 2px 2px 1em;}
 
 
-
-@media (min-width: 768px) {
+#toolPanel{display:none}
+#propPanel{display:none}
+/* @media (min-width: 768px) {
 	#toolPanel{display:block;visibility: visible;}
 	#propPanel{display:block;visibility: visible;}
 	
-}
+} */
 @media (max-width: 768px) {
 	#toolPanel{width:46px; min-width:26px; display: none}
 }
@@ -224,8 +225,8 @@ a.wc-viewImage img.wc-viewImage{ box-shadow: 0px 0px 5px rgba(0,0,0,0.5);}
 }
 @media (min-width: 768px) {
 	#contentArea{
-		left: 95px;
-		right: 207px;
+		/* left: 95px;
+		right: 207px; */
 	}
 }
 

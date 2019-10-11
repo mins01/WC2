@@ -68,7 +68,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<link rel="stylesheet" href="./vendor/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 		<!-- Optional theme -->
 		<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
-		<link rel="stylesheet" href="./vendor/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+		<!-- <link rel="stylesheet" href="./vendor/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> -->
 		<!-- 드롭다운 메뉴 확장용 CSS https://github.com/behigh/bootstrap_dropdowns_enhancement/blob/master/dist/css/dropdowns-enhancement.css -->
 		<link rel="stylesheet" href="./bootstrap/css/dropdowns-enhancement.css">
 		<!-- jquery-ui -->
@@ -90,6 +90,22 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./css/WC2.css<?=$tsync?>" charset="utf-8" />
+		
+		<script>
+		$(function(){
+			$("[data-toggle='show'][data-target]").on('click',function(){
+				var $dataTarget = $($(this).attr('data-target'));
+				$dataTarget.each(function(){
+					if($(this).hasClass('show')){
+						$(this).removeClass('show')
+					}else{
+						$(this).addClass('show')
+					}
+				})
+			})
+		});
+		</script>
+		
 	</head>
 	<body spellcheck="false">
 
@@ -103,33 +119,16 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
 							</button>
-
-						<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
-						<script>
-						$(function(){
-							$("[data-toggle='show'][data-target]").on('click',function(){
-								var $dataTarget = $($(this).attr('data-target'));
-								$dataTarget.each(function(){
-									if($(this).hasClass('show')){
-										$(this).removeClass('show')
-									}else{
-										$(this).addClass('show')
-									}
-								})
-							})
-						});
-						</script>
-
-						<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
-
-						<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
-						<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
-						<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
+							<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
+							<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
+							<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+							<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 
 
 						<!--
@@ -237,7 +236,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</ul>
 								</li>
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Automation <span class="caret"></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Auto <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li class="dropdown-submenu">
 											<a href="#" tabindex="-1" data-toggle="dropdown"><span  class="glyphicon glyphicon-fullscreen"></span>Resize</a>
@@ -257,16 +256,26 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</ul>
 								</li>
 							</ul>
-							<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help">Help</a></li>
-								<li><a href="http://mins01.com" target="_blank" class="glyphicon glyphicon-user">공대여자HOME</a></li>
-								<li><a href="./WC2.html" target="_blank" onclick="document.location.reload(true);return false;" class="glyphicon glyphicon-refresh">Reload</a></li>
-							</ul>
-							</li>
-						 </ul>
+							<div class=" navbar-right">
+								<form class="navbar-form navbar-left" role="search" id="quick-menu-1" style="padding-right:0px;">
+								 <button type="button" class="btn btn-default" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
+								 <button type="button" class="btn btn-default" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
+								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
+								 <button type="button" class="btn btn-default bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+								 <button type="button" class="btn btn-default " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
+								</form>	
+								<ul class="nav navbar-nav navbar-left">
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#" class="glyphicon glyphicon-question-sign"  data-wc-menu="help-help">Help</a></li>
+											<li><a href="http://mins01.com" target="_blank" class="glyphicon glyphicon-user">공대여자HOME</a></li>
+											<li><a href="./WC2.html" target="_blank" onclick="document.location.reload(true);return false;" class="glyphicon glyphicon-refresh">Reload</a></li>
+										</ul>
+									</li>
+							 	</ul>
+							</div>
+							
 						</div><!-- /.navbar-collapse -->
 						</div><!-- /.container-fluid -->
 					</nav>
@@ -960,7 +969,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 											<col width="">
 											<tr>
 												<th>Size</th>
-												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="500" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
+												<td><div class="inputRangeBox inputRangeBox-design-1" data-suffix="px"><input type="range" min="1" max="100" size="5" step="1" name="brushWidth" maxlength="5" value="3" ></div></td>
 											</tr>
 											<!-- <tr>
 												<th>R0</th>
