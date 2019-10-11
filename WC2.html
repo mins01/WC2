@@ -72,13 +72,13 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1570781341" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1570781341" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPalette/ColorPalette.css?_t=1570781341" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css?_t=1570781677" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css?_t=1570781677" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPalette/ColorPalette.css?_t=1570781677" charset="utf-8" />
 		
 		
-		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1570781341" charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1570781341" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css?_t=1570781677" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="./css/WC2.css?_t=1570781677" charset="utf-8" />
 		
 		<script>
 		$(function(){
@@ -113,11 +113,12 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
+							<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 							<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
+							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 							<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 							<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
-							<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
+							
 
 
 						<!--
@@ -247,10 +248,12 @@
 							</ul>
 							<div class=" navbar-right">
 								<form class="navbar-form navbar-left" role="search" id="quick-menu-1" style="padding-right:0px;">
+									<button type="button" class="btn btn-default bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+ 								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 								 <button type="button" class="btn btn-default" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 								 <button type="button" class="btn btn-default" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
-								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
-								 <button type="button" class="btn btn-default bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+								 
+								 
 								 <button type="button" class="btn btn-default " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 								</form>	
 								<ul class="nav navbar-nav navbar-left">
@@ -2352,29 +2355,29 @@
 
 
 			<script src="node_modules/rgbquant/src/rgbquant.js"></script>
-			<script src="js/colorPalette.js?_t=1570781341"></script>
-			<script src="js/colorPalette.palettes.js?_t=1570781341"></script>
-			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1570781341"></script>
+			<script src="js/colorPalette.js?_t=1570781677"></script>
+			<script src="js/colorPalette.palettes.js?_t=1570781677"></script>
+			<script src="js/js-canvas-ConcentratedLine/ConcentratedLine.js?_t=1570781677"></script>
 
 
 			<!-- WC2 -->
-			<script src="js/class.WebCanvas.js?_t=1570781341"></script>
-			<script src="js/class.WebCanvasBundle.js?_t=1570781341"></script>
-			<script src="js/wc2.js?_t=1570781341"></script>
-			<script src="js/wc2Tool.js?_t=1570781341"></script>
-			<script src="js/wc2Brush.js?_t=1570781341"></script>
+			<script src="js/class.WebCanvas.js?_t=1570781677"></script>
+			<script src="js/class.WebCanvasBundle.js?_t=1570781677"></script>
+			<script src="js/wc2.js?_t=1570781677"></script>
+			<script src="js/wc2Tool.js?_t=1570781677"></script>
+			<script src="js/wc2Brush.js?_t=1570781677"></script>
 			<!-- <script src="js/wc2BrushList.js"></script> -->
-			<script src="js/wc2PatternList.js?_t=1570781341"></script>
-			<script src="js/wc2Filter.js?_t=1570781341"></script>
-			<script src="js/wc2Helper.js?_t=1570781341"></script>
+			<script src="js/wc2PatternList.js?_t=1570781677"></script>
+			<script src="js/wc2Filter.js?_t=1570781677"></script>
+			<script src="js/wc2Helper.js?_t=1570781677"></script>
 			<script>
 					wc2Helper.convertGif_workerScript = './etcmodule/gif/gif.worker.js';
 			</script>
 
-			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1570781341"></script>
-			<script src="./etcmodule/toDraggable/toDraggable.js?_t=1570781341"></script>
-			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1570781341"></script>
-			<script src="./etcmodule/ColorPalette/ColorPalette.js?_t=1570781341"></script>
+			<script src="./etcmodule/InputRangeBox/InputRangeBox.js?_t=1570781677"></script>
+			<script src="./etcmodule/toDraggable/toDraggable.js?_t=1570781677"></script>
+			<script src="./etcmodule/SelectArea/SelectArea.js?_t=1570781677"></script>
+			<script src="./etcmodule/ColorPalette/ColorPalette.js?_t=1570781677"></script>
 			<script>
 			$(function(){
 				InputRangeBox.autoInit();

@@ -124,11 +124,12 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
+							<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 							<button type="button" class="navbar-toggle" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
+							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 							<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 							<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
-							<button type="button" class="navbar-toggle " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
+							
 
 
 						<!--
@@ -258,10 +259,12 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							</ul>
 							<div class=" navbar-right">
 								<form class="navbar-form navbar-left" role="search" id="quick-menu-1" style="padding-right:0px;">
+									<button type="button" class="btn btn-default bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+ 								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 								 <button type="button" class="btn btn-default" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 								 <button type="button" class="btn btn-default" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
-								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
-								 <button type="button" class="btn btn-default bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
+								 
+								 
 								 <button type="button" class="btn btn-default " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
 								</form>	
 								<ul class="nav navbar-nav navbar-left">
