@@ -436,9 +436,19 @@ function WebCanvas(width,height,colorset){
 			}
 		}
 		,"fillColor":function(xf,yf,colorset){
-			var imageData = this.context2d.getImageData(0,0,this.context2d.canvas.width,this.context2d.canvas.height);
-			var w = imageData.width;
-			var h = imageData.height;
+			var w = this.context2d.canvas.width;
+			var h = this.context2d.canvas.height;
+			if(xf < 0 || xf > w || yf < 0 ||yf > h){
+				console.error("잘못된 x,y");
+				return false;
+			}
+			if(isNaN(colorset[0])||isNaN(colorset[1])||isNaN(colorset[2])||isNaN(colorset[3]) || colorset[3] > 1){
+				console.error("잘못된 colorset");
+				return false;
+			}
+			// console.log(colorset);
+			// return;
+			var imageData = this.context2d.getImageData(0,0,w,h);
 			var point ={x:xf,y:yf}
 			//https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
 			var x0 = w;
@@ -456,7 +466,8 @@ function WebCanvas(width,height,colorset){
 				imageData.data[p0+2],
 				imageData.data[p0+3],
 			];
-			console.log(colorData_sh);
+			// console.log("fillColor",p0,point,colorData_sh,colorData);
+			// return
 			//-- 이미 같은 색으로 칠해져있다면 무시
 			if(
 				colorData[0]==colorData_sh[0]

@@ -570,7 +570,7 @@ var wc2Tool = function(){
 					$(this.wcb.activeWebCanvas).removeClass("WC-hidden");
 				}
 				console.log("reset",this.wcb)
-				
+
 				return true;
 			}
 
@@ -685,9 +685,9 @@ var wc2Tool = function(){
 						swc.drawImage(img,r.left/z,r.top/z,r.width/z,r.height/z );
 						swc.resetRotate()// 회전 되돌림
 						swc.resetScale();
-						
+
 						swc.restoreContext2d();
-					},0)	
+					},0)
 				}else{
 					swc.clear();
 				}
@@ -1023,7 +1023,7 @@ var wc2Tool = function(){
 					this.sa.inputText.parentNode.addEventListener('keydown',function(tool){ return function(evt){ // 커스텀 이벤트
 						this.scrollTop=0;
 					}}(this));
-					
+
 					this.sa.addEventListener('show',function(tool){ return function(evt){ // 커스텀 이벤트
 						this.inputText.focus();
 					}}(this));
@@ -1077,7 +1077,7 @@ var wc2Tool = function(){
 				var tool = this;
 				// inputText.scrollLeft = 0;
 				inputText.scrollTop = 0;
-				
+
 				inputText.style.font=this.wcb.shadowWebCanvas.context2d.font;
 				inputText.style.fontSize=this.wcb.shadowWebCanvas.context2d.fontSize*z+'px';
 				inputText.style.lineHeight=this.wcb.shadowWebCanvas.context2d.lineHeight+'em';
@@ -1086,7 +1086,7 @@ var wc2Tool = function(){
 				if(this.sa.isShow()){
 					swc.saveContext2d();
 					swc.clear();
-					
+
 					// 회전
 					var scaleX = f.scaleX.value;
 					var scaleY = f.scaleY.value;
@@ -1109,8 +1109,8 @@ var wc2Tool = function(){
 						ta=(document.dir=='rtl')?'left':'right';
 					}
 					inputText.parentNode.scrollTop = 0;
-					
-					
+
+
 					switch (ta) {
 						case 'start':
 						case 'left':
@@ -1122,7 +1122,7 @@ var wc2Tool = function(){
 						inputText.style.marginLeft = -1*(inputText.offsetWidth-inputText.parentNode.offsetWidth)/2+'px';
 						x = (parseFloat(f.left.value)+parseFloat(f.right.value))/2;
 						inputText.parentNode.scrollLeft = 0;
-						// 
+						//
 						break;
 						case 'end':
 						case 'right':
@@ -1130,12 +1130,12 @@ var wc2Tool = function(){
 						inputText.parentNode.scrollLeft = inputText.scrollWidth;
 						x = parseFloat(f.right.value);
 						break;
-						
+
 						default:
-							
+
 					}
 					swc.text(txt,x,y);
-					
+
 					swc.cmdContext2d("closePath");
 					swc.resetRotate()// 회전 되돌림
 					swc.resetScale();
@@ -1144,7 +1144,7 @@ var wc2Tool = function(){
 					swc.clear()
 					this.ing = 0;
 				}
-				// console.log(txt);		
+				// console.log(txt);
 			}
 			,"predraw":function(){
 				var f = this.f
@@ -1205,7 +1205,7 @@ var wc2Tool = function(){
 				this.predraw();
 			}
 		} //-- end fn
-		//--- 스포이드
+		//--- 스포이드, spuit
 		,"spuit":{
 			"wcb":null
 			,"x0":-1,"y0":-1
@@ -1596,6 +1596,61 @@ var wc2Tool = function(){
 				return wc2Tool.brush.dotsInLine.apply(this,arguments);
 			}
 		}//-- end fn
+		//--- 스포이드, spuit
+		,"fill":{
+			"wcb":null
+			,"ctx":null
+			,"tf":null
+			,"x0":-1,"y0":-1
+			,"colorStyle":"rgba(0,0,0,1)"
+			,"ignoreIsDown":1 //isDown 체크하지 않는다.
+			,"init":function(){
+				this.ctx = this.wcb.activeWebCanvas.context2d;
+				this.tf = document.formToolFill;
+				return true;
+			}
+			,"end":function(){
+				return true;
+			}
+			,"down":function(event){
+				if(!this.wcb){return false;}
+				this.move(event);
+				// $("#divSelectedColorSpuit").css("backgroundColor",this.colorStyle);
+				// $("#divSelectedColorSpuit").text(this.colorStyle)
+				return true;
+			}
+			,"move":function(event){
+				if(!this.wcb){return false;}
+				var t= wc2.getOffsetXY(event,this.wcb.node,this.wcb.zoom);
+				this.x0 = Math.floor(t.x);
+				this.y0 = Math.floor(t.y);
+				// this.predraw();
+				return true;
+
+			}
+			,"up":function(event){
+				if(!this.wcb){return false;}
+				this.draw();
+				wc2Tool.saveHistory();
+				return true;
+			}
+			,"predraw":function(){
+
+				return true;
+			}
+			,"draw":function(){
+				var strokeStyle = document.formToolColor.strokeStyle.value;
+				var colorset = wc2Helper.string2Colorset(strokeStyle)
+				colorset.push(parseInt(this.tf.alpha.value,10));
+				// console.log("up",this.x0,this.y0,colorset,this.ctx.strokeStyle,strokeStyle);
+				this.wcb.fillColor(this.x0,this.y0,colorset)
+				return true;
+			}
+			,"reset":function(){
+
+				return true;
+			}
+		} //-- end fn
 	}
 	r.brush2 = r.brush;
 	r.brush3 = r.brush;

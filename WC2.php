@@ -15,7 +15,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 임의사용 금지.
 
 -->
-<html lang="ko" >   
+<html lang="ko" >
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,20 +23,20 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		
+
 		<link rel="manifest" href="./manifest.json">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="apple-mobile-web-app-title" content="WC2-WebCanvas2">
-		<link rel="icon" href="img/apple-touch-icon.png">		
+		<link rel="icon" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="192x192" href="img/512x512.png">
 		<link rel="apple-touch-icon" sizes="512x512" href="img/512x512.png">
 		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 		<link rel="apple-touch-startup-image" href="img/apple-touch-icon.png">
-		
-		
+
+
 		<title>WC2</title>
 		<!-- 풀스크린 페이지 런칭 -->
 		<meta name="apple-touch-fullscreen" content="yes">
@@ -45,7 +45,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<!-- 기타 -->
 		<meta name="google" content="notranslate">
 		<meta name="format-detection" content="telephone=no">
-		
+
 
 		<meta name="description" content="WC2 , 웹 캔버스 2 , 웹 드로잉 ">
 		<!-- <meta property="fb:app_id" content="1089054314479874" /> -->
@@ -86,11 +86,11 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 		<link rel="stylesheet" type="text/css" href="./etcmodule/InputRangeBox/InputRangeBox.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./etcmodule/SelectArea/SelectArea.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./etcmodule/ColorPalette/ColorPalette.css<?=$tsync?>" charset="utf-8" />
-		
-		
+
+
 		<link rel="stylesheet" type="text/css" href="./css/WebCanvasBundle.css<?=$tsync?>" charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="./css/WC2.css<?=$tsync?>" charset="utf-8" />
-		
+
 		<script>
 		$(function(){
 			$("[data-toggle='show'][data-target]").on('click',function(){
@@ -105,7 +105,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 			})
 		});
 		</script>
-		
+
 	</head>
 	<body spellcheck="false">
 
@@ -129,7 +129,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							<button type="button" class="navbar-toggle" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 							<button type="button" class="navbar-toggle bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 							<button type="button" class="navbar-toggle bg-strokeStyle" title="strokeStyle" data-toggle="modal" data-target="#modal_stroke_color" >🎨</button>
-							
+
 
 
 						<!--
@@ -263,10 +263,10 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
  								 <button type="button" class="btn btn-default bg-fillStyle" title="fillStyle" data-toggle="modal" data-target="#modal_fill_color" >🎨</button>
 								 <button type="button" class="btn btn-default" title="Tool" data-toggle="show" data-target="#toolPanel" aria-expanded="true">✏️</button>
 								 <button type="button" class="btn btn-default" title="Setting"	data-toggle="show" data-target="#propPanel">🔧</button>
-								 
-								 
+
+
 								 <button type="button" class="btn btn-default " title="FullScreen" onclick="wc2.toggleFullScreen();" ><span class="glyphicon glyphicon-fullscreen"></span></button>
-								</form>	
+								</form>
 								<ul class="nav navbar-nav navbar-left">
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
@@ -278,7 +278,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</li>
 							 	</ul>
 							</div>
-							
+
 						</div><!-- /.navbar-collapse -->
 						</div><!-- /.container-fluid -->
 					</nav>
@@ -296,6 +296,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush"  type="button" title="Brush Set1"><span class="small-text tiny-text">B</span></button>
 							<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush2"  type="button" title="Brush Set2"><span class="small-text  tiny-text">B2</span></button>
 							<button class="btn btn-default glyphicon glyphicon-pencil" data-wc-tool="brush3"  type="button" title="Brush Set3"><span class="small-text  tiny-text">B3</span></button>
+							<button class="btn btn-default glyphicon glyphicon glyphicon-text-background" data-wc-tool="fill"  type="button" title="Fill"></button>
 
 							<button class="btn btn-default glyphicon glyphicon-fullscreen" data-wc-tool="transform"  type="button" title="Transform"></button>
 							<button class="btn btn-default glyphicon glyphicon-scissors " data-wc-tool="crop"  type="button" title="Crop"></button>
@@ -448,18 +449,18 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 													<select name="imageSmoothingQuality" class="btn btn-default btn-sm" style="width:6em">
 														<option value="high">high</option>
 														<option value="medium">medium</option>
-														<option value="low">low</option>														
+														<option value="low">low</option>
 													</select>
 												</td>
 											</tr>
-											
+
 											<tr>
 												<td colspan="2">
 													<button type="button" onclick="wc2Tool.image.fitCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> fit Canvas</button>
 													<button type="button" onclick="wc2Tool.image.centerCanvas()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fullscreen"></span> center</button>
 												</td>
 											</tr>
-											
+
 										</table>
 									</div>
 								</div>
@@ -748,7 +749,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 													</div>
 												</td>
 											</tr>
-											
+
 											<!-- <tr>
 												<th>baseline</th>
 												<td>
@@ -1151,6 +1152,19 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 										</div>
 									</div>
 								</form>
+								<form name="formToolFill" action="javascript:void(0)" class="wc-tool wc-tool-fill" onsubmit="return false">
+									<div class="panel panel-default">
+										<div  class="panel-heading">Fill</div>
+										<table class="" style="width:100%">
+											<col width="60">
+											<col width="">
+											<tr>
+												<th>Alpha</th>
+												<td ><div class="inputRangeBox inputRangeBox-design-1" data-toFixed="2"><input type="range"  min="0" max="1" value="1" step="0.01" name="alpha"  ></div></td>
+											</tr>
+										</table>
+									</div>
+								</form>
 								<form name="formConfirmInitPreview" action="javascript:void(0)" class="wc-tool wc-tool-image wc-tool-text wc-tool-transform wc-tool-concentratedLineRadial wc-tool-concentratedLineLinear" onsubmit="return false">
 									<div class="panel panel-default">
 										<div  class="panel-heading">Confirm/Init</div>
@@ -1310,6 +1324,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									</div>
 								</div>
 							</div>
+
 						</div>
 				</aside>
 
@@ -1373,9 +1388,9 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 									<option value="500">500%</option>
 								</select>
 						</div>
-						
-						
-						
+
+
+
 					</div>
 				</article>
 				<!-- //이 속의 내용은 안보여준다.-->
@@ -1886,7 +1901,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 														<option value="0.5">x2</option>
 														<option value="0.333">x3</option>
 														<option value="0.25">x4</option>
-														<option value="0.20">x5</option>														
+														<option value="0.20">x5</option>
 														<option value="320">320px</option>
 														<option value="340">340px</option>
 														<option value="360">360px</option>
@@ -1898,7 +1913,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 														<option value="900">900px</option>
 														<option value="1000">1000px</option>
 														<option value="1100">1100px</option>
-														<option value="1200">1200px</option>														
+														<option value="1200">1200px</option>
 													</select>
 													<br>Tested by Mobile 버전 76.0.3809.132
 												</div>
@@ -1929,7 +1944,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 							<input type="hidden" name="cmd" value="pixelate">
 							<div class="panel panel-default wc2-panel" >
 								<div  class="panel-heading">Pixelate</div>
-								<div  class="panel-body" >									
+								<div  class="panel-body" >
 									<ul class="list-group ">
 										<li class="list-group-item">
 											<div class="row">
@@ -2316,7 +2331,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-				
+
 				<!-- 채우기 색 -->
 				<div id="modal_fill_color" class="modal  colorPalette-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
@@ -2415,7 +2430,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 				//wc2.setTool("crop");
 			});
 			*/
-		
+
 			$(function() {
 
 				try{
@@ -2432,7 +2447,7 @@ $tsync = '?_t='.$t; //항상 세로 고침 되도록.
 				}catch(e){
 					console.warn("applicationCache is not supported.")
 				}
-				
+
 
 				wc2.init(); //초기화
 				// wc2Helper.attachTdRangeValueBox();

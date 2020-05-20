@@ -160,7 +160,7 @@ function WebCanvasBundle(width,height,colorset){
 			if(wcbdo.selectedLayerIndex != undefined){
 				this.setActiveWebCanvasByIndex(wcbdo.selectedLayerIndex);
 			}
-			
+
 			return this;
 		}
 		,"setLabel":function(label){
@@ -597,6 +597,10 @@ function WebCanvasBundle(width,height,colorset){
 			var r = this.execWebCanvases("clear",{})
 			this.webCanvases[0].clear(1); //마지막 레이어만 색을 칠함
 			 return r;
+		}
+		,"fillColor":function(){
+			if(!this.activeWebCanvas){return false;}
+			return this.activeWebCanvas.fillColor.apply(this.activeWebCanvas,arguments)
 		}
 		,"flip":function(){
 			return this.execAllWebCanvases("flip",arguments)
