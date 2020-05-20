@@ -435,6 +435,70 @@ function WebCanvas(width,height,colorset){
 				return false;
 			}
 		}
+		,"fillColor":function(xf,yf,colorset){
+			var imageData = this.context2d.getImageData(0,0,this.context2d.canvas.width,this.context2d.canvas.height);
+			var w = imageData.width;
+			var h = imageData.height;
+			var point ={x:xf,y:yf}
+			//https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
+			var x0 = w;
+			var y0 = h;
+			var p0 = (point.y*w+point.x)*4
+			var colorData = [
+				colorset[0],
+				colorset[1],
+				colorset[2],
+				colorset[3]*255,
+			];
+			var colorData_sh = [
+				imageData.data[p0],
+				imageData.data[p0+1],
+				imageData.data[p0+2],
+				imageData.data[p0+3],
+			];
+			console.log(colorData_sh);
+			//-- 이미 같은 색으로 칠해져있다면 무시
+			if(
+				colorData[0]==colorData_sh[0]
+				&& colorData[1]==colorData_sh[1]
+				&& colorData[2]==colorData_sh[2]
+				&& colorData[3]==colorData_sh[3]
+			){
+				return;
+			}
+			var x1 = -1, y1 = -1;
+			// var r1 = -1, g1 = -1, b1 = -1, a1 = -1;
+			var p1 = -1;
+			var stack = Array();
+			var currPt = null;
+			stack.push(point); // Push the seed
+			while(stack.length > 0) {
+				currPt = stack.pop();
+				p1 = (currPt.y*w+currPt.x)*4
+				// r1 = imageData.data[p1];
+				// g1 = imageData.data[p1+1];
+				// b1 = imageData.data[p1+2];
+				// a1 = imageData.data[p1+3];
+				if(
+					imageData.data[p1] != colorData_sh[0]
+					|| imageData.data[p1+1] != colorData_sh[1]
+					|| imageData.data[p1+2] != colorData_sh[2]
+					|| imageData.data[p1+3] != colorData_sh[3]
+				) { continue; }
+				// Check if the point is not filled
+				imageData.data[p1] = colorData[0];
+				imageData.data[p1+1] = colorData[1];
+				imageData.data[p1+2] = colorData[2];
+				imageData.data[p1+3] = colorData[3];
+
+				// console.log("x1,y1",x1,y1);
+				if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
+				if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
+				if(currPt.x > 0) stack.push({x:currPt.x - 1, y:currPt.y}); // Fill the west neighbour
+				if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
+			}
+			this.context2d.putImageData(imageData,0,0);
+		}
 		,"setZoom":function(){
 		}
 		,"setOpacity":function(opacity){
@@ -767,7 +831,7 @@ function WebCanvas(width,height,colorset){
 			}else{
 				this.cmdContext2d("scale",sx,sy);
 			}
-			
+
 			return;
 		}
 		,"resetScale":function(){

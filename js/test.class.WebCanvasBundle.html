@@ -7,9 +7,9 @@
 	<script src="class.WebCanvas.js"></script>
 	<script src="class.WebCanvasBundle.js"></script>
 	<script src="../../../js/_M/_M.js"></script>
-	
-	
-	
+
+
+
 	<link rel="stylesheet" type="text/css" href="../css/WebCanvasBundle.css" charset="utf-8" />
 	<script>
 	var wcb0 = null;
@@ -21,7 +21,7 @@
 		wcb0 = new WebCanvasBundle(200,200,colorset0);
 		document.getElementById('div').appendChild(wcb0.node);
 //--- 맨 위 웹캔버스를 동작중인 웹캔버스로 선택
-		
+
 
 		//return;
 		layerNumbering();
@@ -44,11 +44,11 @@
 		if(wc2.colorset2String(colorset1) != wc2.colorset2String(colorsetR)){
 			console.error("var r = wcb0.moveUpWebCanvasByIndex(0);");
 		}
-		
-		actWC = wcb0.setActiveWebCanvasByIndex(-1); 
+
+		actWC = wcb0.setActiveWebCanvasByIndex(-1);
 		//--- 그리기 설정
 		var context2dCfg = {"lineWidth":4,"strokeStyle":wc2.colorset2String([255,255,255,1]),"fillStyle":wc2.colorset2String([0,0,0,1])};
-		actWC.configContext2d(context2dCfg);	
+		actWC.configContext2d(context2dCfg);
 		//--- 선그리기
 		var r = actWC.line(10,10,50,50);
 		var colorset4 = actWC.pickupColor(10,10);
@@ -63,7 +63,7 @@
 		if(wc2.colorset2String(colorset5) != context2dCfg.strokeStyle){
 			console.error(" actWC.curve(50,50,50,100,100,100,100,50); 동작 에러");
 			console.error(wc2.colorset2String(colorset4)+" != "+context2dCfg.strokeStyle);
-		}		
+		}
 
 		//--- 사각형
 		var r = actWC.rect(10,10,40,40);
@@ -72,7 +72,7 @@
 			console.error("  actWC.rect(10,10,40,40);	 동작 에러");
 			console.error(wc2.colorset2String(colorset6)+" != "+context2dCfg.fillStyle);
 		}
-		
+
 		//--- 원
 		var r = actWC.circle(70,30,20);
 		var colorset7 = actWC.pickupColor(70,30);
@@ -80,9 +80,9 @@
 			console.error("  	var r = actWC.circle(70,30,20);");
 			console.error(wc2.colorset2String(colorset7)+" != "+context2dCfg.fillStyle);
 		}
-		
+
 		//--- 타원
-		wcb0.configContext2d(context2dCfg);	
+		wcb0.configContext2d(context2dCfg);
 		var r = actWC.circle(100,100,20,20,120,40);
 		var colorsetR = actWC.pickupColor(120,70);
 		if(wc2.colorset2String(colorsetR) != context2dCfg.fillStyle){
@@ -90,7 +90,7 @@
 			console.error(wc2.colorset2String(colorsetR)+" != "+context2dCfg.fillStyle);
 		}
 		//--- 크롭
-		wcb0.configContext2d(context2dCfg);	
+		wcb0.configContext2d(context2dCfg);
 		var r = wcb0.crop(10,10,100,100);
 		if(actWC.width == 100 && actWC.height != 100){
 			console.error(" var r = wcb0.crop(10,10,100,100);");
@@ -102,7 +102,7 @@
 		}
 
 		//--- 이동
-		wcb0.configContext2d(context2dCfg);	
+		wcb0.configContext2d(context2dCfg);
 		var r = actWC.move(10,10);
 		var colorset7 = wcb0.pickupColor(0,0);
 		if(wc2.colorset2String(colorset7) != wc2.colorset2String([0xaa,0xbb,0xcc,1])){
@@ -111,37 +111,36 @@
 		}
 		//--- 이미지 복제
 		wcb0.resize(100,100);
-		
-		
+
+
 		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([0xaa,0xbb,0xcc,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
-		actWC.configContext2d(context2dCfg);	
+		actWC.configContext2d(context2dCfg);
 		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([255,255,255,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
-		wcb0.webCanvases[0].configContext2d(context2dCfg);	
+		wcb0.webCanvases[0].configContext2d(context2dCfg);
 		wcb0.clear();
 
 		actWC.rect(0,10,100,20)
 		actWC.rect(40,10,20,100)
-		
+
 		var r = wcb0.toDataURL();
 		if(r === false){
 			console.error(wcb0.error)
 		}
 		img0 = new Image();
 		img0.src = r;
-		document.getElementById('div_image').appendChild(img0);		
+		document.getElementById('div_image').appendChild(img0);
 		wcb0.toDataURL('image/jpeg');
 		if(r === false){
 			console.error(wcb0.error)
 		}
 		var img = new Image();
-		img.src = r;
-		document.getElementById('div_image').appendChild(img);		
-		var r = wcb0.toDataURL('image/gif');
-		if(r === false){
+		document.getElementById('div_image').appendChild(img);
+		var r2 = wcb0.toDataURL('image/gif');
+		if(r2 === false){
 			console.error(wcb0.error+"일부러 에러냄")
 		}
 
@@ -151,7 +150,7 @@
 		var context2dCfg = {"lineWidth":1,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([255,255,255,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
-		actWC.configContext2d(context2dCfg);	
+		actWC.configContext2d(context2dCfg);
 		actWC.text("테스트AaBbC#韓",0,0);
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",0,20);
 
@@ -167,11 +166,16 @@
 		actWC.text("동해물과 백두산이 마르고 닳도록\n하느님이 보우하사 우리나라만세",150,100);
 		//return false;
 		//--- 이미지 넣기
-		actWC.drawImage(img,0,0);
-		actWC.drawImage(img,200,0,200,200);
-		actWC.drawImage(img,0,200,200,200,20,20,50,50);
-		
-		
+
+		img0.onload = function(){
+			actWC.drawImage(img0,0,0);
+			actWC.drawImage(img0,200,0,200,200);
+			actWC.drawImage(img0,0,200,200,200,20,20,50,50);
+			img.onload = null;
+		}
+		img0.src = r;
+
+
 		//return false;
 		/* //버튼으로 테스트하라. 소스로는 체크하기 너무 힘들다.
 		//--- 로테이션 테스트
@@ -197,8 +201,8 @@
 		if(actWC.width != 300){
 			console.error(" wcb0.rotate90To(90);	 동작 에러");
 		}
-		
-		
+
+
 		wcb0.clear();
 		wcb0.resize(200,300);
 		actWC.text("테스트3",100,100);
@@ -215,7 +219,7 @@
 			console.error(" wcb0.rotate90To(270);	 동작 에러");
 		}
 		*/
-		
+
 	}
 	function layerNumbering(){
 		for(var i=0,m=wcb0.webCanvases.length;i<m;i++){
@@ -231,13 +235,13 @@
 	}
 	function setPatternStyle(img,type){
 		var context2dCfg = {"patternImage":img,"patternType":type};
-		wcb0.configContext2d(context2dCfg);	
+		wcb0.configContext2d(context2dCfg);
 	}
 	function lines(){
 		var context2dCfg = {"lineWidth":2,"strokeStyle":wc2.colorset2String([0,0,0,1]),"fillStyle":wc2.colorset2String([0xaa,0xbb,0xcc,1])
 		,"font":"20px sans-serif"
 		,"textBaseline":"top"};
-		actWC.configContext2d(context2dCfg);	
+		actWC.configContext2d(context2dCfg);
 		actWC.lines([
 			[0,0],[100,100],[200,0],[300,100]
 		])
@@ -255,7 +259,7 @@
 		actWC.cmdContext2d("drawImage",img0,50,50);
 		actWC.restoreContext2d();
 	}
-	
+
 	</script>
 </head>
 <body>
@@ -269,7 +273,7 @@
 			<form action="#">
 				<input type="button" value="addWebCanvas()"  onclick="layerNumbering()">
 				<input type="button" value="addWebCanvas([0x33,0x66,0x99,1])"  onclick="wcb0.addWebCanvas([0x33,0x66,0x99,1]);layerNumbering()">
-				
+
 				<input type="button" value="clear()"  onclick="wcb0.clear();">
 				<input type="button" value="resize(200,200)"  onclick="wcb0.resize(200,200);">
 				<input type="button" value="resize(100,200)"  onclick="wcb0.resize(100,200);">
@@ -310,14 +314,19 @@
 					<option value="copy">copy</option>
 					<option value="xor">xor</option>
 				</select>
-			
+
 				<input type="button" value="fn_globalCompositeOperation(type);"  onclick="fn_globalCompositeOperation(this.form.globalCompositeOperation.value)">
+				<hr>
+				채우기실험1: <input type="button" value="actWC.fillColor(0,0,[0xcc,0xbb,0xaa,1])"  onclick="actWC.fillColor(0,0,[0xcc,0xbb,0xaa,1])"><br>
+				채우기실험2: <input type="button" value="actWC.fillColor(100,100,[0xcc,0x00,0xaa,1])"  onclick="actWC.fillColor(100,100,[0xcc,0x00,0xaa,1])"><br>
+				채우기실험1은 색데이터 [255,255,255,255]로 찾고, 채우기실험2는 색데이터 [0,0,0,0]로 찾기 때문에 둘이 안 겹친다.
+
+
 			</form>
 		</div>
-		
+
 	</fieldset>
 </fieldset>
 <div style="float:left;border:4px solid red;" id="div_image"></div>
 </body>
 </html>
-	
