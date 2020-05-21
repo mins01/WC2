@@ -327,7 +327,6 @@ var wc2Helper = function(){
 	 * @return {Boolean}           true:success , false:fail
 	 */
 	,'floodFillOnImageData':function(imageData,xf,yf,colorset){
-		// var imageData = this.context2d.getImageData(0,0,w,h);
 		var w = imageData.width;
 		var h = imageData.height;
 		if(xf < 0 || xf > w || yf < 0 ||yf > h){
@@ -338,13 +337,10 @@ var wc2Helper = function(){
 			console.error("wrong colorset");
 			return false;
 		}
-
 		let data32 = new Uint32Array(imageData.data.buffer);
-
 		let point ={x:xf,y:yf}
 		let x0 = w;
 		let y0 = h;
-		// var p0 = (point.y*w+point.x)*4
 		let colorData = [ colorset[0], colorset[1], colorset[2], colorset[3]*255 ];
 		let uint8bytes = Uint8Array.from(colorData);
 		let data32RGBA_rp = new Uint32Array(uint8bytes.buffer)[0];
@@ -354,15 +350,12 @@ var wc2Helper = function(){
 				console.log("skip: start color is data32RGBA_rp==data32RGBA_sh");
 				return false;
 		}
-		let x1 = -1, y1 = -1;
-		// let r1 = -1, g1 = -1, b1 = -1, a1 = -1;
 		let p1 = -1;
-		let stack = Array();
+		let stack = [];
 		let currPt = null;
 		let t32 = null;
 		let data32RGBA_cr = null;
-		let data8 = new Uint8Array();
-		stack.push(point); // Push the seed
+		stack.push(point);
 		while(stack.length > 0) {
 			currPt = stack.pop();
 			p1 = (currPt.y*w+currPt.x);
@@ -378,6 +371,5 @@ var wc2Helper = function(){
 		// imageData.data.set(data32.buffer);
 		return true;
 	}
-
 }
 }();
