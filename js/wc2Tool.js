@@ -340,7 +340,7 @@ var wc2Tool = function(){
 			,"end":function(){
 				//console.log("end");
 				this.wcb.shadowWebCanvas.clear();
-			wc2Tool.saveHistory();
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -1610,6 +1610,7 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"end":function(){
+				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -1631,6 +1632,7 @@ var wc2Tool = function(){
 			,"up":function(event){
 				if(!this.wcb){return false;}
 				this.draw();
+				this.end();
 				return true;
 			}
 			,"predraw":function(){
@@ -1643,7 +1645,7 @@ var wc2Tool = function(){
 				colorset.push(parseInt(this.tf.alpha.value,10));
 				// console.log("up",this.x0,this.y0,colorset,this.ctx.strokeStyle,strokeStyle);
 				this.wcb.fillColor(this.x0,this.y0,colorset)
-				wc2Tool.saveHistory();
+
 				return true;
 			}
 			,"reset":function(){

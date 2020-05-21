@@ -156,7 +156,7 @@ function WebCanvas(width,height,colorset){
 		,"setMtime":function(mtime){
 			return this.mtime = (mtime==undefined)?(new Date()).getTime():mtime;
 		}
-		,"modified":function(){
+		,"modified":function(){ // 이걸 꼭 해줘야 히스토리에 추가된다.
 			this.setMtime();
 		}
 		,"isModified":function(mtime){
@@ -449,7 +449,6 @@ function WebCanvas(width,height,colorset){
 			// console.log(colorset);
 			// return;
 			var imageData = this.context2d.getImageData(0,0,w,h);
-			var imageData2 = this.context2d.getImageData(0,0,w,h);
 			var point ={x:xf,y:yf}
 			//https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
 			var x0 = w;
@@ -492,10 +491,10 @@ function WebCanvas(width,height,colorset){
 				) {
 					continue;
 				}
-				imageData2.data[p1] = colorData[0];
-				imageData2.data[p1+1] = colorData[1];
-				imageData2.data[p1+2] = colorData[2];
-				imageData2.data[p1+3] = colorData[3];
+				imageData.data[p1] = colorData[0];
+				imageData.data[p1+1] = colorData[1];
+				imageData.data[p1+2] = colorData[2];
+				imageData.data[p1+3] = colorData[3];
 
 				// console.log("x1,y1",x1,y1);
 				if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
@@ -504,6 +503,7 @@ function WebCanvas(width,height,colorset){
 				if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
 			}
 			this.context2d.putImageData(imageData,0,0);
+			this.modified();
 		}
 		,"setZoom":function(){
 		}

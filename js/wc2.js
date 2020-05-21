@@ -79,7 +79,7 @@ var wc2 = (function(){
 			this.initUI();
 			this.initEvent();
 			// this.initColorPalette(); //deprecated
-			this.initModalColorPalette(); 
+			this.initModalColorPalette();
 			//this.addWebCanvasWindow(300,300);
 			//this.addWcb(300,300);
 			//this.cmdWcb("new",300,300);
@@ -109,7 +109,7 @@ var wc2 = (function(){
 				enumerable: true,
 				configurable: false
 			});
-			
+
 			var _viewportWidth = 'device-width';
 			Object.defineProperty(this, 'viewportWidth', {
 				get:function(){ return _viewportWidth; },
@@ -118,16 +118,16 @@ var wc2 = (function(){
 							_viewportWidth = newValue;
 							let v = parseFloat(_viewportWidth);
 							if(isNaN(v)){
-								wc2.setViewport(_viewportWidth,null,null);	
+								wc2.setViewport(_viewportWidth,null,null);
 							}else{
 								if(v<=1){
 									wc2.setViewport('device-width',v,v);
 								}else{
-									wc2.setViewport(_viewportWidth,null,null);	
+									wc2.setViewport(_viewportWidth,null,null);
 								}
-								
+
 							}
-							
+
 					}
 				}(this),
 				enumerable: true,
@@ -342,18 +342,18 @@ var wc2 = (function(){
 			});
 
 			// 드래그 방지용
-			$('body').on("selectstart", function(event){ 
+			$('body').on("selectstart", function(event){
 				if($(event.target).is("input,textarea,[contenteditable]")){
-					return; 
+					return;
 				}
-				return false; 
-				
+				return false;
+
 			});
-			$('#contentArea').on("dragstart", function(event){ 
+			$('#contentArea').on("dragstart", function(event){
 				if($(event.target).is("input,textarea,[contenteditable]")){
-					return; 
+					return;
 				}
-				return false; 
+				return false;
 			});
 			// 입룻랙 제거용
 			// $(document).on("touchstart ","input", stopEvent);
@@ -603,21 +603,21 @@ var wc2 = (function(){
 			if(cb){
 				cb(blob)
 			}else{
-				return blob;	
+				return blob;
 			}
-			
+
 		}
 		,"saveWcb":function(filename,type,quality){
 			var cb = function(filename){
 				return function(blob){
-					return wc2Helper.saveAs( blob,filename);	
+					return wc2Helper.saveAs( blob,filename);
 				}
 			}(filename);
 			var blob = this.blobWcb(type,quality,cb);
-			// return 
+			// return
 		}
 		,"uploadWcb":function(filename,type,quality){
-			
+
 			var cb = function(filename,type,quality,thisC){
 				return function(blob){
 					var formdata = new FormData();
@@ -974,7 +974,7 @@ var wc2 = (function(){
 				}
 				$(propLayerList).find('.eye').css('width',width+'px');
 				$(propLayerList).find('.eye').css('height',height+'px');
-				
+
 				var lis = $("#propLayerList .wc-prop-layer-info");
 				lis.hide(); //우선 모두 숨긴다.
 				var tmpli_i = 0;
@@ -1032,7 +1032,7 @@ var wc2 = (function(){
 			if(this.activeWcb && this.activeWcb.activeWebCanvas){
 				document.formPropLayer.layerOpacity.value = this.activeWcb.activeWebCanvas.opacity;
 				document.formPropLayer.layerMixBlendMode.value = this.activeWcb.activeWebCanvas.mixBlendMode;
-				
+
 				document.formPropLayer.layerNotHide.checked = !this.activeWcb.activeWebCanvas.hide;
 
 			}
@@ -1088,7 +1088,7 @@ var wc2 = (function(){
 		}
 		,"_selectLayer":function(index){
 			if(!this.activeWcb){ this.setError( "wc2._selectLayer() 활성화된 윈도우가 없습니다."); return; }
-			
+
 			var curr_index = this.activeWcb.getIndexAcviceWebCanvas();
 			if(curr_index != index){
 				// wc2Tool.reset(this.tool);
@@ -1161,7 +1161,7 @@ var wc2 = (function(){
 			this.strokeStyle = document.getElementById('strokeStyle');
 			this.fillStyle = document.getElementById('fillStyle');
 			var bookmark = ["#000000","#ffffff","#c00000","#ff0000","#ffc000","#ffff00","#92d050","#00b050","#00b0f0","#0070c0","#002060","#7030a0"]
-			
+
 			//-- stroke
 			var $msc = $("#modal_stroke_color");
 			var cp_msc = ColorPalette({defColor:this.strokeStyle.value,bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"modal_stroke_color"});
@@ -1175,13 +1175,13 @@ var wc2 = (function(){
 				$('#strokeStyle').val(this.toStringRGB())
 				wc2.syncColor();
 				wc2.cmdTool('predraw');
-				
+
 			})
 			cp_msc.addEventListener("cancel",function(evt){
 				$msc.modal('hide');
 			})
 			cp_msc.set(this.strokeStyle.value)
-			//-- fill 
+			//-- fill
 			var $mfc = $("#modal_fill_color");
 			var cp_mfc = ColorPalette({defColor:this.fillStyle.value,bookmark:bookmark,maxHistory:40,localStorageHistoryKey:"modal_fill_color"});
 			this.cp_mfc = cp_mfc;
@@ -1199,9 +1199,9 @@ var wc2 = (function(){
 				$mfc.modal('hide');
 			})
 			cp_mfc.set(this.fillStyle.value)
-			
-			
-			
+
+
+
 		}
 		,"exchangeColor":function(){
 			var c0 = this.strokeStyle.value;
@@ -1444,7 +1444,7 @@ var wc2 = (function(){
 			}
 
 			var saveFileQuality = form.saveFileQuality.value
-			
+
 			if(saveFileType=='gif'){
 				console.log("preview GIF");
 				var c = wc2.activeWcb.mergeAll();
@@ -1452,14 +1452,14 @@ var wc2 = (function(){
 					return function(blob){
 						var size = blob.size;
 						wc2Helper.blobToDataURL(blob,function(dataUrl){
-							cb(dataUrl,saveFileType,size)	
+							cb(dataUrl,saveFileType,size)
 						})
-						
+
 					};
 				}(cb,saveFileType))
-				
+
 			}else{
-				var dataurl = wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);	
+				var dataurl = wc2.activeWcb.toDataURL(saveFileType,saveFileQuality);
 				var t = dataurl.replace(/^data:.*;base64,/,'');
 				var size = window.atob(t).length;
 				if(!cb){
@@ -1467,7 +1467,7 @@ var wc2 = (function(){
 				}
 				cb(dataurl,saveFileType,size);
 			}
-			
+
 			return ;
 		}
 		,"btnFileSavePreview":function(){
@@ -1482,11 +1482,11 @@ var wc2 = (function(){
 				$("#formMenuDetailFileSave-preview").prop("src",dataurl)
 				// var size = new Intl.NumberFormat().format(window.atob(t).length);
 				if(type!='wcbjson' && type!='wcblzs' ){
-					$("#formMenuDetailFileSave-preview-size").text(size+' Byte');		
+					$("#formMenuDetailFileSave-preview-size").text(size+' Byte');
 				}else{
-					$("#formMenuDetailFileSave-preview-size").text('- Byte');		
+					$("#formMenuDetailFileSave-preview-size").text('- Byte');
 				}
-				
+
 			}
 			this._btnFileSavePreview(cb);
 		}
@@ -1550,7 +1550,7 @@ var wc2 = (function(){
 			//this.brush4Eraser.colorStyle = strokeStyle;
 			var strokeStyle = "rgb(255,255,255)";
 			var fillStyle = "rgb(255,255,255)";
-			
+
 			var brush = this.brush4Eraser;
 			brush.colorStyle = strokeStyle;
 			brush.spacing  = parseFloat(f.brushSpacing.value);
@@ -1562,7 +1562,7 @@ var wc2 = (function(){
 
 			var brushImage = f.querySelector('input.brushImage:checked + img.brushImage');
 			brush.image(brushImage,width,width,strokeStyle,globalAlpha)
-			// brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
+			// brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//brush.circle(r,strokeStyle,1,r0p,1);
 			brush.previewBrush()
 		}
@@ -1591,7 +1591,7 @@ var wc2 = (function(){
 
 			var brushImage = f.querySelector('input.brushImage:checked + img.brushImage');
 			brush.image(brushImage,width,width,strokeStyle,globalAlpha)
-			// brush.circle(r,strokeStyle,globalAlpha,r0p,1); 
+			// brush.circle(r,strokeStyle,globalAlpha,r0p,1);
 			//brush.circle(r,strokeStyle,1,r0p,1);
 			brush.previewBrush()
 

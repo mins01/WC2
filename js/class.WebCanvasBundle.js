@@ -230,6 +230,7 @@ function WebCanvasBundle(width,height,colorset){
 				this.historyLog.splice(0,1);
 				this.historyIdx--;
 			}
+			console.log("saveHistory",action);
 			return this.historyLog.length;
 		}
 		,"resetHistory":function(){
@@ -264,11 +265,11 @@ function WebCanvasBundle(width,height,colorset){
 			for(var i=0,m=this.webCanvases.length;i<m;i++){
 				if(this.webCanvases[i].isModified(oldMtime)){
 					data.push(this.webCanvases[i].getDataForHistory());
-					//console.log("PUSH : "+this.webCanvases[i].label);
+					console.log("PUSH : "+this.webCanvases[i].label);
 				}else{
 					data.push(this.webCanvases[i].getDataForHistory(true));
 					data.skip++;
-					//console.log("SKIP : "+this.webCanvases[i].label);
+					console.log("SKIP : "+this.webCanvases[i].label);
 				}
 			}
 			return data;
