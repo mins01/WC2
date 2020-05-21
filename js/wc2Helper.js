@@ -32,7 +32,7 @@ var wc2Helper = function(){
 						alert("이미지가 아닌 파일이 포함되어있습니다. 다시 선택해주시기 바랍니다.");
 						ta.value="";
 						return false;
-					}					
+					}
 					if(typeof URL.revokeObjectURL && typeof URL.createObjectURL){
 						// Blob URL 을 사용하도록 변경
 						// URL.revokeObjectURL(img.src);
@@ -40,7 +40,7 @@ var wc2Helper = function(){
 						img.onload = function() {
 			        window.URL.revokeObjectURL(this.src);
 			      }
-						img.src = src;	
+						img.src = src;
 					}else{
 						// dataURL 로 처리.
 						(function(file,img){
@@ -49,9 +49,9 @@ var wc2Helper = function(){
 								img.src = event.target.result;
 							};
 							fileReader.readAsDataURL(file);
-						})(ta.files[i],img)	
+						})(ta.files[i],img)
 					}
-					
+
 				}
 			}
 		},
@@ -67,7 +67,7 @@ var wc2Helper = function(){
 			if(ta.files.length > 0){ //파일 업로드가 있을 경우만
 				for(var i=0,m=ta.files.length;i<m;i++){ //다중 셀렉트 가능. (하지만 img가 1개이므로 멀티 동작은 무시)
 					var file = ta.files[i];
-					
+
 					(function(file,callback,readType){
 						var fileReader = new FileReader();
 						fileReader.onload = function (event) {
@@ -143,6 +143,10 @@ var wc2Helper = function(){
 				}
 			}else if(string.toLowerCase().indexOf('rgb')==0){
 				var colorset = string.replace(/[^\d,]/g,'').split(',');
+				colorset[0] = parseInt(colorset[0],10);
+				colorset[1] = parseInt(colorset[1],10);
+				colorset[2] = parseInt(colorset[2],10);
+				if(colorset[3] != undefined) colorset[3] = parseInt(colorset[3],10);
 			}
 			return colorset;
 		},
@@ -168,12 +172,12 @@ var wc2Helper = function(){
 		*/
 		"attachTdRangeValueBox":function(){
 			// $(".div-range>input[type='range']").parent().addClass('showRangeValue');
-			
-			
+
+
 			$(".showRangeValue>input").each(function(idx,el){
 				$(el.parentNode).attr("data-val",el.value);
 				el._value = el.value;
-				
+
 				var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 				var inputSetter = descriptor.set;
 				descriptor.set = function(val) {
@@ -183,7 +187,7 @@ var wc2Helper = function(){
 					Object.defineProperty(this, "value", descriptor);
 				}
 				Object.defineProperty(el, "value", descriptor);
-				
+
 				//-- 추가 버튼 붙이기
 				el.tm = null;
 				var div = document.createElement('div');
@@ -249,13 +253,13 @@ var wc2Helper = function(){
 				}(el))
 				// $(btn).text('-')
 				$(el.parentNode).append(div);
-				
-				
+
+
 			})
 			$(document).on("input change",".showRangeValue>input",function(evt){
 				$(this.parentNode).attr("data-val",this.value);
 			})
-			
+
 		},
 		"convertGif_workerScript":'../etcmodule/gif/gif.worker.js',
 		/**
@@ -301,6 +305,6 @@ var wc2Helper = function(){
 		a.onload = function(e) {callback(e.target.result);}
 		a.readAsDataURL(blob);
 	}
-	
+
 }
 }();
