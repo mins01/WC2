@@ -306,5 +306,18 @@ var wc2Helper = function(){
 		a.readAsDataURL(blob);
 	}
 
+	,'isMatchedColor':function(colorData1,colorData2,threshold){
+		if(threshold===0){
+			return colorData1[0] === colorData2[0]
+			&& colorData1[1] === colorData2[1]
+			&& colorData1[2] === colorData2[2]
+			&& colorData1[3] === colorData2[3]
+		}
+		return Math.abs(colorData1[0]-colorData2[0])
+			+Math.abs(colorData1[1]-colorData2[1])
+			+Math.abs(colorData1[2]-colorData2[2])
+			+Math.abs(colorData1[3]-colorData2[3]) <= threshold*4
+	}
+
 }
 }();

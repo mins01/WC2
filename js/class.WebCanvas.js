@@ -449,6 +449,7 @@ function WebCanvas(width,height,colorset){
 			// console.log(colorset);
 			// return;
 			var imageData = this.context2d.getImageData(0,0,w,h);
+			var imageData2 = this.context2d.getImageData(0,0,w,h);
 			var point ={x:xf,y:yf}
 			//https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
 			var x0 = w;
@@ -470,11 +471,9 @@ function WebCanvas(width,height,colorset){
 			// return
 			//-- 이미 같은 색으로 칠해져있다면 무시
 			if(
-				colorData[0]==colorData_sh[0]
-				&& colorData[1]==colorData_sh[1]
-				&& colorData[2]==colorData_sh[2]
-				&& colorData[3]==colorData_sh[3]
+				wc2Helper.isMatchedColor(colorData,colorData_sh,0)
 			){
+				console.log("이미 칠해진 부분");
 				return;
 			}
 			var x1 = -1, y1 = -1;
@@ -482,25 +481,21 @@ function WebCanvas(width,height,colorset){
 			var p1 = -1;
 			var stack = Array();
 			var currPt = null;
+			var colorData_t = null;
 			stack.push(point); // Push the seed
 			while(stack.length > 0) {
 				currPt = stack.pop();
 				p1 = (currPt.y*w+currPt.x)*4
-				// r1 = imageData.data[p1];
-				// g1 = imageData.data[p1+1];
-				// b1 = imageData.data[p1+2];
-				// a1 = imageData.data[p1+3];
+				colorData_t = imageData.data.slice(p1,p1+4);
 				if(
-					imageData.data[p1] != colorData_sh[0]
-					|| imageData.data[p1+1] != colorData_sh[1]
-					|| imageData.data[p1+2] != colorData_sh[2]
-					|| imageData.data[p1+3] != colorData_sh[3]
-				) { continue; }
-				// Check if the point is not filled
-				imageData.data[p1] = colorData[0];
-				imageData.data[p1+1] = colorData[1];
-				imageData.data[p1+2] = colorData[2];
-				imageData.data[p1+3] = colorData[3];
+					!wc2Helper.isMatchedColor(colorData_t,colorData_sh,0)
+				) {
+					continue;
+				}
+				imageData2.data[p1] = colorData[0];
+				imageData2.data[p1+1] = colorData[1];
+				imageData2.data[p1+2] = colorData[2];
+				imageData2.data[p1+3] = colorData[3];
 
 				// console.log("x1,y1",x1,y1);
 				if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
