@@ -318,6 +318,60 @@ var wc2Helper = function(){
 			+Math.abs(colorData1[2]-colorData2[2])
 			+Math.abs(colorData1[3]-colorData2[3]) <= threshold*4
 	}
+	,'floodFillOnImageData':function(imageData,xf,yf,colorset){
+		// var imageData = this.context2d.getImageData(0,0,w,h);
+		var w = imageData.width;
+		var h = imageData.height;
+		if(xf < 0 || xf > w || yf < 0 ||yf > h){
+			console.error("잘못된 x,y");
+			return false;
+		}
+		if(isNaN(colorset[0])||isNaN(colorset[1])||isNaN(colorset[2])||isNaN(colorset[3]) || colorset[3] > 1){
+			console.error("잘못된 colorset");
+			return false;
+		}
+
+		var data32 = new Uint32Array(imageData.data.buffer);
+
+		var point ={x:xf,y:yf}
+		//https://stackoverflow.com/questions/23371608/fill-a-hollow-shape-with-color
+		var x0 = w;
+		var y0 = h;
+		var p0 = (point.y*w+point.x)*4
+		var colorData = [ colorset[0], colorset[1], colorset[2], colorset[3]*255 ];
+		let uint8bytes = Uint8Array.from(colorData);
+
+		var data32RGBA_rp = new Uint32Array(uint8bytes.buffer)[0];
+		var data32RGBA_sh = data32[(point.y*w+point.x)];
+		//-- 이미 같은 색으로 칠해져있다면 무시
+		if(data32RGBA_rp==data32RGBA_sh){
+				console.log("이미 칠해진 부분");
+				return false;
+		}
+		var x1 = -1, y1 = -1;
+		// var r1 = -1, g1 = -1, b1 = -1, a1 = -1;
+		var p1 = -1;
+		var stack = Array();
+		var currPt = null;
+		var t32 = null;
+		var data32RGBA_cr = null;
+		var data8 = new Uint8Array();
+		stack.push(point); // Push the seed
+		while(stack.length > 0) {
+			currPt = stack.pop();
+			p1 = (currPt.y*w+currPt.x);
+			if(data32[p1] !== data32RGBA_sh){
+				continue;
+			}
+			data32[p1] = data32RGBA_rp
+			if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
+			if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
+			if(currPt.x > 0) stack.push({x:currPt.x - 1, y:currPt.y}); // Fill the west neighbour
+			if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
+		}
+		imageData.data.set(data32.buffer);
+		return true;
+	}
 
 }
 }();

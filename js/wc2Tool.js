@@ -1610,7 +1610,6 @@ var wc2Tool = function(){
 				return true;
 			}
 			,"end":function(){
-				wc2Tool.saveHistory();
 				return true;
 			}
 			,"down":function(event){
@@ -1631,7 +1630,9 @@ var wc2Tool = function(){
 			}
 			,"up":function(event){
 				if(!this.wcb){return false;}
-				this.draw();
+				if(this.draw()){
+					wc2Tool.saveHistory();
+				}
 				this.end();
 				return true;
 			}
@@ -1644,9 +1645,9 @@ var wc2Tool = function(){
 				var colorset = wc2Helper.string2Colorset(strokeStyle)
 				colorset.push(parseInt(this.tf.alpha.value,10));
 				// console.log("up",this.x0,this.y0,colorset,this.ctx.strokeStyle,strokeStyle);
-				this.wcb.fillColor(this.x0,this.y0,colorset)
+				var r = this.wcb.fillColor(this.x0,this.y0,colorset)
 
-				return true;
+				return r;
 			}
 			,"reset":function(){
 
