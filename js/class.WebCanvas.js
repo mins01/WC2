@@ -437,7 +437,7 @@ function WebCanvas(width,height,colorset){
 			}
 		}
 		,"fillColor":function(xf,yf,colorset){
-			console.time('pickupColor');
+			console.time('fillColor');
 			var w = this.context2d.canvas.width;
 			var h = this.context2d.canvas.height;
 
@@ -449,7 +449,7 @@ function WebCanvas(width,height,colorset){
 				this.context2d.putImageData(imageData,0,0);
 				this.modified();
 			}
-			console.timeEnd('pickupColor');
+			console.timeEnd('fillColor');
 			return r;
 		}
 		,"setZoom":function(){
