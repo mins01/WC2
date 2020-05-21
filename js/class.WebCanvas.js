@@ -421,6 +421,7 @@ function WebCanvas(width,height,colorset){
 		}
 		*/
 		,"pickupColor":function(x,y){
+			console.time('pickupColor');
 			x = Math.round(x);
 			y = Math.round(y);
 			if(x < 0 || x > this.width || y < 0 ||y > this.height){
@@ -436,6 +437,7 @@ function WebCanvas(width,height,colorset){
 			}
 		}
 		,"fillColor":function(xf,yf,colorset){
+			console.time('pickupColor');
 			var w = this.context2d.canvas.width;
 			var h = this.context2d.canvas.height;
 			if(xf < 0 || xf > w || yf < 0 ||yf > h){
@@ -478,32 +480,41 @@ function WebCanvas(width,height,colorset){
 			var x1 = -1, y1 = -1;
 			// var r1 = -1, g1 = -1, b1 = -1, a1 = -1;
 			var p1 = -1;
+			// var p2 = -1;
 			var stack = Array();
 			var currPt = null;
 			var colorData_t = null;
+			var t32 = null;
 			stack.push(point); // Push the seed
+			stack2.push((point.y*w+point.x)); // Push the seed
+			var data32 = new Uint32Array(imageData.data.buffer);
 			while(stack.length > 0) {
 				currPt = stack.pop();
-				p1 = (currPt.y*w+currPt.x)*4
-				colorData_t = imageData.data.slice(p1,p1+4);
+				// p1 = (currPt.y*w+currPt.x)*4//
+				p1 = (currPt.y*w+currPt.x);
+				// colorData_t = imageData.data.slice(p1,p1+4); //pickupColor: 1453.77294921875ms
+				// colorData_t2 = [imageData.data[p1],imageData.data[p1+1],imageData.data[p1+2],imageData.data[p1+3]]; //pickupColor: 810.384033203125ms
+				// colorData_t2 = data32[p2];
+				t32 = data32[p1];	colorData_t = [(t32 & 0xff000000) >> 24,(t32 & 0x00ff0000) >> 16,	(t32 & 0x0000ff00) >> 8,	(t32 & 0x000000ff)];
 				if(
 					!wc2Helper.isMatchedColor(colorData_t,colorData_sh,0)
 				) {
 					continue;
 				}
-				imageData.data[p1] = colorData[0];
-				imageData.data[p1+1] = colorData[1];
-				imageData.data[p1+2] = colorData[2];
-				imageData.data[p1+3] = colorData[3];
-
+				// imageData.data[p1] = colorData[0];imageData.data[p1+1] = colorData[1];imageData.data[p1+2] = colorData[2];imageData.data[p1+3] = colorData[3];
+				data32[p1]= (colorData[0]<<24)|(colorData[1]<<16)|(colorData[2]<<8)|(colorData[3])
 				// console.log("x1,y1",x1,y1);
 				if(currPt.x < w-1) stack.push({x:currPt.x + 1, y:currPt.y}); // Fill the east neighbour
 				if(currPt.y < h-1) stack.push({x:currPt.x, y:currPt.y + 1}); // Fill the south neighbour
 				if(currPt.x > 0) stack.push({x:currPt.x - 1, y:currPt.y}); // Fill the west neighbour
 				if(currPt.y > 0) stack.push({x:currPt.x, y:currPt.y - 1}); // Fill the north neighbour
+
+
 			}
+			imageData.data.set(data32.buffer);
 			this.context2d.putImageData(imageData,0,0);
 			this.modified();
+			console.timeEnd('pickupColor');
 		}
 		,"setZoom":function(){
 		}
